@@ -11,8 +11,8 @@ namespace wServer.realm
 
         public Command(string name, int permLevel = 0)
         {
-            this.CommandName = name;
-            this.PermissionLevel = permLevel;
+            CommandName = name;
+            PermissionLevel = permLevel;
         }
 
         public string CommandName { get; private set; }
@@ -40,7 +40,7 @@ namespace wServer.realm
         {
             if (!HasPermission(player))
             {
-                player.SendError("No permission!");
+                player.SendInfo("You are not an Admin");
                 return false;
             }
 
