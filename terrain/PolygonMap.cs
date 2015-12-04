@@ -1,22 +1,21 @@
-﻿using System;
+﻿using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
+using NetTopologySuite.GeometriesGraph;
+using NetTopologySuite.Operation.Overlay;
+using NetTopologySuite.Triangulate;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using GeoAPI.Geometries;
-using NetTopologySuite.Triangulate;
-using NetTopologySuite.Geometries;
-using NetTopologySuite.Operation.Overlay;
-using NetTopologySuite.GeometriesGraph;
-using Mono.Game;
 
 namespace terrain
 {
-    struct MapEdge
+    internal struct MapEdge
     {
         public MapNode From { get; set; }
         public MapNode To { get; set; }
     }
-    class MapNode
+
+    internal class MapNode
     {
         public double X { get; set; }
         public double Y { get; set; }
@@ -26,7 +25,8 @@ namespace terrain
         public int? RiverValue { get; set; }
         public double? DistanceToCoast { get; set; }
     }
-    class MapPolygon
+
+    internal class MapPolygon
     {
         public int Id { get; set; }
         public MapPolygon[] Neighbour { get; set; }
@@ -40,9 +40,10 @@ namespace terrain
         public Polygon Polygon { get; set; }
     }
 
-    class PolygonMap
+    internal class PolygonMap
     {
-        int seed;
+        private int seed;
+
         public PolygonMap(int seed)
         {
             this.seed = seed;
@@ -52,10 +53,10 @@ namespace terrain
         public MapPolygon[] Polygons { get; private set; }
         public IEnumerable<MapNode> Oceans { get { return oceans; } }
 
-        HashSet<MapNode> waters = new HashSet<MapNode>();
-        HashSet<MapNode> oceans = new HashSet<MapNode>();
+        private HashSet<MapNode> waters = new HashSet<MapNode>();
+        private HashSet<MapNode> oceans = new HashSet<MapNode>();
 
-        static IGeometryCollection ClipGeometryCollection(IGeometryCollection geom, Envelope clipEnv)
+        private static IGeometryCollection ClipGeometryCollection(IGeometryCollection geom, Envelope clipEnv)
         {
             var clipPoly = geom.Factory.ToGeometry(clipEnv);
             var clipped = new List<IGeometry>();
@@ -80,7 +81,8 @@ namespace terrain
             }
             return geom.Factory.CreateGeometryCollection(GeometryFactory.ToGeometryArray(clipped));
         }
-        void DetermineLandmass()    // Perlin
+
+        private void DetermineLandmass()    // Perlin
         {
             waters.Clear();
             var noise = new Noise(seed);
@@ -104,6 +106,7 @@ namespace terrain
                 }
             }
         }
+
         //void DetermineLandmass()    // Sine
         //{
         //    var rand = new Random(seed);
@@ -112,24 +115,14 @@ namespace terrain
         //    double dipAngle = rand.NextDouble() * 2 * Math.PI;
         //    double dipWidth = rand.NextDouble() / 2 + 0.2;
 
-        //    waters.Clear();
-        //    foreach (var i in Polygons)
-        //    {
-        //        int total = 0;
-        //        int water = 0;
-        //        foreach (var j in i.Nodes)
-        //        {
-        //            var x = j.X;
-        //            var y = j.Y;
-        //            var angle = Math.Atan2(y, x);
-        //            var length = 0.5 * (Math.Max(Math.Abs(x), Math.Abs(y)) + Math.Sqrt(x * x + y * y));
+        // waters.Clear(); foreach (var i in Polygons) { int total = 0; int water = 0; foreach (var
+        // j in i.Nodes) { var x = j.X; var y = j.Y; var angle = Math.Atan2(y, x); var length = 0.5
+        // * (Math.Max(Math.Abs(x), Math.Abs(y)) + Math.Sqrt(x * x + y * y));
 
-        //            var r1 = 0.5 + 0.40 * Math.Sin(startAngle + bumps * angle + Math.Cos((bumps + 3) * angle));
-        //            var r2 = 0.7 - 0.20 * Math.Sin(startAngle + bumps * angle - Math.Sin((bumps + 2) * angle));
-        //            if (Math.Abs(angle - dipAngle) < dipWidth ||
-        //                Math.Abs(angle - dipAngle + 2 * Math.PI) < dipWidth ||
-        //                Math.Abs(angle - dipAngle - 2 * Math.PI) < dipWidth)
-        //                r1 = r2 = 0.2;
+        // var r1 = 0.5 + 0.40 * Math.Sin(startAngle + bumps * angle + Math.Cos((bumps + 3) *
+        // angle)); var r2 = 0.7 - 0.20 * Math.Sin(startAngle + bumps * angle - Math.Sin((bumps + 2)
+        // * angle)); if (Math.Abs(angle - dipAngle) < dipWidth || Math.Abs(angle - dipAngle + 2 *
+        // Math.PI) < dipWidth || Math.Abs(angle - dipAngle - 2 * Math.PI) < dipWidth) r1 = r2 = 0.2;
 
         //            if (!(length < r1 || (length > r1 * 0.5 && length < r2)))
         //            {
@@ -142,7 +135,7 @@ namespace terrain
         //    }
         //}
 
-        void FindOceans()
+        private void FindOceans()
         {
             oceans.Clear();
             foreach (var i in waters)
@@ -198,7 +191,8 @@ namespace terrain
                 }
             }
         }
-        void FindLakesAndCoasts()
+
+        private void FindLakesAndCoasts()
         {
             HashSet<MapPolygon> lake = new HashSet<MapPolygon>(Polygons.Where(_ => _.IsWater));
             HashSet<MapPolygon> coast = new HashSet<MapPolygon>();
@@ -233,7 +227,8 @@ namespace terrain
                 foreach (var j in i.Neighbour.Where(n => n.IsWater))
                     j.IsCoast = true;
         }
-        void ComputeDistances()
+
+        private void ComputeDistances()
         {
             Queue<MapNode> queue = new Queue<MapNode>();
             HashSet<MapNode> visited = new HashSet<MapNode>();
@@ -261,7 +256,8 @@ namespace terrain
                 }
             } while (queue.Count > 0);
         }
-        void RedistributeElevation(IEnumerable<MapNode> nodes)
+
+        private void RedistributeElevation(IEnumerable<MapNode> nodes)
         {
             List<double> sorted = new List<double>(nodes.Select(_ => _.DistanceToCoast.Value).Distinct());
             sorted.Sort();

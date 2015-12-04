@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.networking.cliPackets;
-using wServer.realm;
-using common;
-using wServer.networking.svrPackets;
-using wServer.realm.entities;
+﻿using wServer.networking.cliPackets;
 
 namespace wServer.networking.handlers
 {
-    class GotoAckPacketHandler : PacketHandlerBase<GotoAckPacket>
+    internal class GotoAckPacketHandler : PacketHandlerBase<GotoAckPacket>
     {
         public override PacketID ID { get { return PacketID.GotoAck; } }
 

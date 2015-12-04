@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing.Imaging;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using GeoAPI.Geometries;
 
 namespace terrain
 {
-    unsafe class Rasterizer<T>
+    internal unsafe class Rasterizer<T>
     {
-        int w;
-        int h;
+        private int w;
+        private int h;
 
         public T[,] Buffer { get; private set; }
+
         public Rasterizer(int w, int h)
         {
             this.w = w;
@@ -27,6 +21,7 @@ namespace terrain
             get { return Buffer[x, y]; }
             set { Buffer[x, y] = value; }
         }
+
         public int Height { get { return this.h; } }
         public int Width { get { return this.w; } }
 
@@ -34,11 +29,13 @@ namespace terrain
         {
             Buffer[(int)x, (int)y] = val;
         }
+
         public void Transform(double x, double y, Func<T, T> transform)
         {
             var v = Buffer[(int)x, (int)y];
             Buffer[(int)x, (int)y] = transform(v);
         }
+
         public void PlotSqr(double x, double y, T val, int w)
         {
             switch (w)
@@ -60,6 +57,7 @@ namespace terrain
                     break;
             }
         }
+
         public void TransformSqr(double x, double y, Func<T, T> transform, int w)
         {
             switch (w)
@@ -111,7 +109,6 @@ namespace terrain
             if (yMin < 0) yMin = 0;
             if (yMax >= h) yMax = h - 1;
 
-
             // Scan line from min to max
             for (int y = yMin; y <= yMax; y++)
             {
@@ -119,8 +116,7 @@ namespace terrain
                 double vxi = points[0];
                 double vyi = points[1];
 
-                // Find all intersections
-                // Based on http://alienryderflex.com/polygon_fill/
+                // Find all intersections Based on http://alienryderflex.com/polygon_fill/
                 int intersectionCount = 0;
                 for (int i = 2; i < pn; i += 2)
                 {
@@ -139,8 +135,8 @@ namespace terrain
                     vyi = vyj;
                 }
 
-                // Sort the intersections from left to right using Insertion sort 
-                // It's faster than Array.Sort for this small data set
+                // Sort the intersections from left to right using Insertion sort It's faster than
+                // Array.Sort for this small data set
                 double t;
                 int j;
                 for (int i = 1; i < intersectionCount; i++)
@@ -179,6 +175,7 @@ namespace terrain
         {
             DrawLineBresenham(x1, y1, x2, y2, t => val, width);
         }
+
         public void DrawLineBresenham(double x1, double y1, double x2, double y2, Func<T, T> transform, int width)
         {
             // Use refs for faster access (really important!) speeds up a lot!
@@ -300,7 +297,7 @@ namespace terrain
 
         private const float StepFactor = 2f;
 
-        void DrawCurveSegment(
+        private void DrawCurveSegment(
             double x1, double y1, double x2, double y2,
             double x3, double y3, double x4, double y4,
             double tension, T val, int width)
@@ -308,7 +305,7 @@ namespace terrain
             DrawCurveSegment(x1, y1, x2, y2, x3, y3, x4, y4, tension, t => val, width);
         }
 
-        void DrawCurveSegment(
+        private void DrawCurveSegment(
             double x1, double y1, double x2, double y2,
             double x3, double y3, double x4, double y4,
             double tension, Func<T, T> transform, int width)
@@ -365,15 +362,16 @@ namespace terrain
             }
         }
 
-
         public void DrawCurve(double[] points, double tension, T val, int width)
         {
             DrawCurve(points, tension, t => val, width);
         }
+
         public void DrawClosedCurve(double[] points, double tension, T val, int width)
         {
             DrawClosedCurve(points, tension, t => val, width);
         }
+
         public void DrawCurve(double[] points, double tension, Func<T, T> transform, int width)
         {
             int pn = points.Length;
@@ -391,6 +389,7 @@ namespace terrain
             // Last segment
             DrawCurveSegment(points[i - 2], points[i - 1], points[i], points[i + 1], points[i + 2], points[i + 3], points[i + 2], points[i + 3], tension, transform, width);
         }
+
         public void DrawClosedCurve(double[] points, double tension, Func<T, T> transform, int width)
         {
             int pn = points.Length;

@@ -1,21 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace wServer.realm.setpieces
 {
-    class LichyTemple : ISetPiece
+    internal class LichyTemple : ISetPiece
     {
         public int Size { get { return 26; } }
 
-        static readonly string Floor = "Blue Floor";
-        static readonly string WallA = "Blue Wall";
-        static readonly string WallB = "Destructible Blue Wall";
-        static readonly string PillarA = "Blue Pillar";
-        static readonly string PillarB = "Broken Blue Pillar";
+        private static readonly string Floor = "Blue Floor";
+        private static readonly string WallA = "Blue Wall";
+        private static readonly string WallB = "Destructible Blue Wall";
+        private static readonly string PillarA = "Blue Pillar";
+        private static readonly string PillarB = "Broken Blue Pillar";
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public void RenderSetPiece(World world, IntPoint pos)
         {
             int[,] t = new int[25, 26];
@@ -37,7 +35,8 @@ namespace wServer.realm.setpieces
                     if ((x == 0 && y == 0) ||
                         (x == 0 && y == 4) ||
                         (x == 4 && y == 0) ||
-                        (x == 4 && y == 4)) continue;
+                        (x == 4 && y == 4))
+                        continue;
                     t[x, y + 21] = t[x + 20, y + 21] = 2;
                 }
 

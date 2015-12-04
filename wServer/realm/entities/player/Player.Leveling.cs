@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using wServer.networking.svrPackets;
-using System.Xml;
 using System.Xml.Linq;
 using wServer.logic;
+using wServer.networking.svrPackets;
 
 namespace wServer.realm.entities
 {
     public partial class Player
     {
-        static int GetExpGoal(int level)
+        private static int GetExpGoal(int level)
         {
             return 50 + (level - 1) * 100;
         }
-        static int GetLevelExp(int level)
+
+        private static int GetLevelExp(int level)
         {
             if (level == 1) return 0;
             return 50 * (level - 1) + (level - 2) * (level - 1) * 50;
         }
-        static int GetFameGoal(int fame)
+
+        private static int GetFameGoal(int fame)
         {
             if (fame >= 2000) return 0;
             else if (fame >= 800) return 2000;
@@ -45,7 +45,7 @@ namespace wServer.realm.entities
             return ret;
         }
 
-        static readonly Dictionary<string, Tuple<int, int, int>> QuestDat =
+        private static readonly Dictionary<string, Tuple<int, int, int>> QuestDat =
             new Dictionary<string, Tuple<int, int, int>>()  //Priority, Min, Max
         {
             { "Scorpion Queen",             Tuple.Create(1, 1, 6) },
@@ -106,7 +106,7 @@ namespace wServer.realm.entities
             { "Oryx the Mad God 2",         Tuple.Create(15,1, 20) },
         };
 
-        Entity FindQuest()
+        private Entity FindQuest()
         {
             Entity ret = null;
             double bestScore = 0;
@@ -132,9 +132,10 @@ namespace wServer.realm.entities
             return ret;
         }
 
-        Entity questEntity;
+        private Entity questEntity;
         public Entity Quest { get { return questEntity; } }
-        void HandleQuest(RealmTime time)
+
+        private void HandleQuest(RealmTime time)
         {
             if (time.tickCount % 500 == 0 || questEntity == null || questEntity.Owner == null)
             {
@@ -153,7 +154,7 @@ namespace wServer.realm.entities
             }
         }
 
-        void CalculateFame()
+        private void CalculateFame()
         {
             int newFame = 0;
             if (Experience < 200 * 1000) newFame = Experience / 1000;
@@ -182,7 +183,7 @@ namespace wServer.realm.entities
             }
         }
 
-        bool CheckLevelUp()
+        private bool CheckLevelUp()
         {
             if (Experience - GetLevelExp(Level) >= ExperienceGoal && Level < 20)
             {

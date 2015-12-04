@@ -1,10 +1,9 @@
-﻿using System;
+﻿using common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using wServer.realm.entities;
 using wServer.realm;
-using common;
+using wServer.realm.entities;
 
 namespace wServer.logic.loot
 {
@@ -15,19 +14,23 @@ namespace wServer.logic.loot
             this.Item = item;
             this.Probabilty = probabilty;
         }
+
         public readonly Item Item;
         public readonly double Probabilty;
     }
 
     public class Loot : List<ILootDef>
     {
-        public Loot() { }
+        public Loot()
+        {
+        }
+
         public Loot(params ILootDef[] lootDefs)   //For independent loots(e.g. chests)
         {
             AddRange(lootDefs);
         }
 
-        static Random rand = new Random();
+        private static Random rand = new Random();
 
         public IEnumerable<Item> GetLoots(RealmManager manager, int min, int max)   //For independent loots(e.g. chests)
         {
@@ -85,7 +88,7 @@ namespace wServer.logic.loot
             AddBagsToWorld(enemy, sharedLoots, loots);
         }
 
-        void AddBagsToWorld(Enemy enemy, IList<Item> shared, IDictionary<Player, IList<Item>> soulbound)
+        private void AddBagsToWorld(Enemy enemy, IList<Item> shared, IDictionary<Player, IList<Item>> soulbound)
         {
             List<Player> pub = new List<Player>();  //only people not getting soulbound
             foreach (var i in soulbound)
@@ -99,7 +102,7 @@ namespace wServer.logic.loot
                 ShowBags(enemy, shared, pub.ToArray());
         }
 
-        void ShowBags(Enemy enemy, IEnumerable<Item> loots, params Player[] owners)
+        private void ShowBags(Enemy enemy, IEnumerable<Item> loots, params Player[] owners)
         {
             var ownerIds = owners.Select(x => x.AccountId).ToArray();
             int bagType = 0;

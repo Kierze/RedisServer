@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace wServer.realm
 {
@@ -11,7 +9,7 @@ namespace wServer.realm
          *  0  - 7  X coordinate of chunk
          *  8  - 15 Y coordinate of chunk
          *  16 - 23 Collision Map Type
-         * 
+         *
          */
         public ICollidable<T> Parent;
         public int Data;
@@ -63,9 +61,9 @@ namespace wServer.realm
     //TODO: thread-safe?
     public class CollisionMap<T> where T : ICollidable<T>
     {
-        byte type;
-        CollisionNode<T>[,] chunks;
-        int w, h, cW, cH;
+        private byte type;
+        private CollisionNode<T>[,] chunks;
+        private int w, h, cW, cH;
         public const int CHUNK_SIZE = 16;
 
         public CollisionMap(byte type, int w, int h)
@@ -78,7 +76,7 @@ namespace wServer.realm
             this.h = h;
         }
 
-        int GetData(int chunkX, int chunkY)
+        private int GetData(int chunkX, int chunkY)
         {
             return (chunkX) | (chunkY << 8) | (type << 16);
         }
@@ -184,7 +182,8 @@ namespace wServer.realm
             }
         }
 
-        const int ACTIVE_RADIUS = 3;
+        private const int ACTIVE_RADIUS = 3;
+
         public IEnumerable<T> GetActiveChunks(CollisionMap<T> from)
         {
             if (from.w != this.w || from.h != this.h)

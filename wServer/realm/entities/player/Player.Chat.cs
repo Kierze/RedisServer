@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.networking.cliPackets;
-using wServer.networking.svrPackets;
-using wServer.realm.setpieces;
-using wServer.realm.commands;
+﻿using wServer.networking.svrPackets;
 
 namespace wServer.realm.entities
 {
@@ -21,6 +14,7 @@ namespace wServer.realm.entities
                 Text = text
             });
         }
+
         public void SendError(string text)
         {
             client.SendPacket(new TextPacket()
@@ -31,6 +25,7 @@ namespace wServer.realm.entities
                 Text = text
             });
         }
+
         public void SendClientText(string text)
         {
             client.SendPacket(new TextPacket()
@@ -41,6 +36,7 @@ namespace wServer.realm.entities
                 Text = text
             });
         }
+
         public void SendHelp(string text)
         {
             client.SendPacket(new TextPacket()
@@ -51,6 +47,7 @@ namespace wServer.realm.entities
                 Text = text
             });
         }
+
         public void SendEnemy(string name, string text)
         {
             client.SendPacket(new TextPacket()
@@ -61,6 +58,7 @@ namespace wServer.realm.entities
                 Text = text
             });
         }
+
         public void SendText(string sender, string text)
         {
             client.SendPacket(new TextPacket()

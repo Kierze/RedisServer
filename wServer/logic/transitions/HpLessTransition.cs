@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using wServer.realm;
 using wServer.realm.entities;
 
 namespace wServer.logic.transitions
 {
-    class HpLessTransition : Transition
+    internal class HpLessTransition : Transition
     {
         //State storage: none
 
-        double threshold;
+        private double threshold;
 
         public HpLessTransition(double threshold, string targetState)
             : base(targetState)

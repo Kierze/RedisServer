@@ -1,59 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net.Sockets;
-using System.IO;
-using System.Collections.Concurrent;
-using System.Threading;
-using System.Net;
-using wServer.realm;
-using common;
+﻿using common;
 using log4net;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
 
 namespace wServer.networking
 {
     //hackish code
-    class NetworkHandler
+    internal class NetworkHandler
     {
-        static ILog log = LogManager.GetLogger(typeof(NetworkHandler));
+        private static ILog log = LogManager.GetLogger(typeof(NetworkHandler));
 
-        enum ReceiveState
+        private enum ReceiveState
         {
             Awaiting,
             ReceivingHdr,
             ReceivingBody,
             Processing
         }
-        class ReceiveToken
+
+        private class ReceiveToken
         {
             public int Length;
             public PacketID ID;
             public byte[] PacketBody;
         }
-        enum SendState
+
+        private enum SendState
         {
             Awaiting,
             Ready,
             Sending
         }
-        class SendToken
+
+        private class SendToken
         {
             public Packet Packet;
         }
 
         public const int BUFFER_SIZE = 0x10000;
 
-        SocketAsyncEventArgs receive;
-        ReceiveState receiveState = ReceiveState.Awaiting;
-        byte[] receiveBuff;
+        private SocketAsyncEventArgs receive;
+        private ReceiveState receiveState = ReceiveState.Awaiting;
+        private byte[] receiveBuff;
 
-        SocketAsyncEventArgs send;
-        SendState sendState = SendState.Awaiting;
-        byte[] sendBuff;
+        private SocketAsyncEventArgs send;
+        private SendState sendState = SendState.Awaiting;
+        private byte[] sendBuff;
 
-        Socket skt;
-        Client parent;
+        private Socket skt;
+        private Client parent;
+
         public NetworkHandler(Client parent, Socket skt)
         {
             this.parent = parent;
@@ -81,7 +80,7 @@ namespace wServer.networking
                 ReceiveCompleted(this, receive);
         }
 
-        void ProcessPolicyFile()    //WUT.
+        private void ProcessPolicyFile()    //WUT.
         {
             var s = new NetworkStream(skt);
             NWriter wtr = new NWriter(s);
@@ -96,7 +95,7 @@ namespace wServer.networking
         //It is said that ReceiveAsync/SendAsync never returns false unless error
         //So...let's just treat it as always true
 
-        void ReceiveCompleted(object sender, SocketAsyncEventArgs e)
+        private void ReceiveCompleted(object sender, SocketAsyncEventArgs e)
         {
             try
             {
@@ -165,7 +164,7 @@ namespace wServer.networking
             }
         }
 
-        void SendCompleted(object sender, SocketAsyncEventArgs e)
+        private void SendCompleted(object sender, SocketAsyncEventArgs e)
         {
             try
             {
@@ -205,13 +204,13 @@ namespace wServer.networking
             }
         }
 
-
-        void OnError(Exception ex)
+        private void OnError(Exception ex)
         {
             log.Error("Socket error.", ex);
             parent.Disconnect();
         }
-        bool OnPacketReceived(PacketID id, byte[] pkt)
+
+        private bool OnPacketReceived(PacketID id, byte[] pkt)
         {
             if (parent.IsReady())
             {
@@ -221,8 +220,10 @@ namespace wServer.networking
             else
                 return false;
         }
-        ConcurrentQueue<Packet> pendingPackets = new ConcurrentQueue<Packet>();
-        bool CanSendPacket(SocketAsyncEventArgs e, bool ignoreSending)
+
+        private ConcurrentQueue<Packet> pendingPackets = new ConcurrentQueue<Packet>();
+
+        private bool CanSendPacket(SocketAsyncEventArgs e, bool ignoreSending)
         {
             lock (sendLock)
             {
@@ -244,7 +245,8 @@ namespace wServer.networking
             }
         }
 
-        object sendLock = new object();
+        private object sendLock = new object();
+
         public void SendPacket(Packet pkt)
         {
             if (!skt.Connected) return;
@@ -259,6 +261,7 @@ namespace wServer.networking
                     SendCompleted(this, send);
             }
         }
+
         public void SendPackets(IEnumerable<Packet> pkts)
         {
             if (!skt.Connected) return;

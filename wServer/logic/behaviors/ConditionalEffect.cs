@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using common;
 using wServer.realm;
-using common;
 
 namespace wServer.logic.behaviors
 {
-    class ConditionalEffect : Behavior
+    internal class ConditionalEffect : Behavior
     {
         //State storage: none
 
-        ConditionEffectIndex effect;
-        bool perm;
+        private ConditionEffectIndex effect;
+        private bool perm;
+
         public ConditionalEffect(ConditionEffectIndex effect, bool perm = false)
         {
             this.effect = effect;

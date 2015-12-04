@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using common;
-using wServer.networking.svrPackets;
+﻿using common;
 using System.Xml.Linq;
+using wServer.networking.svrPackets;
 
 namespace wServer.realm.entities
 {
@@ -15,7 +10,6 @@ namespace wServer.realm.entities
             : base(manager, objType, GetHP(node), true, false, true)
         {
         }
-
 
         public override bool HitByProjectile(Projectile projectile, RealmTime time)
         {

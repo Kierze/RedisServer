@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Xml.Serialization;
-using System.Xml;
+using System.Linq;
 
 namespace common
 {
@@ -81,30 +78,30 @@ namespace common
             var dat = new Tuple<byte, int>[]
             {
                 new Tuple<byte, int>(0, Shots),
-	            new Tuple<byte, int>(1, ShotsThatDamage),
-	            new Tuple<byte, int>(2, SpecialAbilityUses),
-	            new Tuple<byte, int>(3, TilesUncovered),
-	            new Tuple<byte, int>(4, Teleports),
-	            new Tuple<byte, int>(5, PotionsDrunk),
-	            new Tuple<byte, int>(6, MonsterKills),
-	            new Tuple<byte, int>(7, MonsterAssists),
-	            new Tuple<byte, int>(8, GodKills),
-	            new Tuple<byte, int>(9, GodAssists),
-	            new Tuple<byte, int>(10, CubeKills),
-	            new Tuple<byte, int>(11, OryxKills),
-	            new Tuple<byte, int>(12, QuestsCompleted),
-	            new Tuple<byte, int>(13, PirateCavesCompleted),
-	            new Tuple<byte, int>(14, UndeadLairsCompleted),
-	            new Tuple<byte, int>(15, AbyssOfDemonsCompleted),
-	            new Tuple<byte, int>(16, SnakePitsCompleted),
-	            new Tuple<byte, int>(17, SpiderDensCompleted),
-	            new Tuple<byte, int>(18, SpriteWorldsCompleted),
-	            new Tuple<byte, int>(19, LevelUpAssists),
-	            new Tuple<byte, int>(20, MinutesActive),
-	            new Tuple<byte, int>(21, TombsCompleted),
-	            new Tuple<byte, int>(22, TrenchesCompleted),
-	            new Tuple<byte, int>(23, JunglesCompleted),
-	            new Tuple<byte, int>(24, ManorsCompleted),
+                new Tuple<byte, int>(1, ShotsThatDamage),
+                new Tuple<byte, int>(2, SpecialAbilityUses),
+                new Tuple<byte, int>(3, TilesUncovered),
+                new Tuple<byte, int>(4, Teleports),
+                new Tuple<byte, int>(5, PotionsDrunk),
+                new Tuple<byte, int>(6, MonsterKills),
+                new Tuple<byte, int>(7, MonsterAssists),
+                new Tuple<byte, int>(8, GodKills),
+                new Tuple<byte, int>(9, GodAssists),
+                new Tuple<byte, int>(10, CubeKills),
+                new Tuple<byte, int>(11, OryxKills),
+                new Tuple<byte, int>(12, QuestsCompleted),
+                new Tuple<byte, int>(13, PirateCavesCompleted),
+                new Tuple<byte, int>(14, UndeadLairsCompleted),
+                new Tuple<byte, int>(15, AbyssOfDemonsCompleted),
+                new Tuple<byte, int>(16, SnakePitsCompleted),
+                new Tuple<byte, int>(17, SpiderDensCompleted),
+                new Tuple<byte, int>(18, SpriteWorldsCompleted),
+                new Tuple<byte, int>(19, LevelUpAssists),
+                new Tuple<byte, int>(20, MinutesActive),
+                new Tuple<byte, int>(21, TombsCompleted),
+                new Tuple<byte, int>(22, TrenchesCompleted),
+                new Tuple<byte, int>(23, JunglesCompleted),
+                new Tuple<byte, int>(24, ManorsCompleted),
             };
 
             MemoryStream ret = new MemoryStream();
@@ -119,7 +116,7 @@ namespace common
             return ret.ToArray();
         }
 
-        static Tuple<string, string, Func<FameStats, DbChar, int, bool>, Func<double, double>>[] bonusDat = new[] {
+        private static Tuple<string, string, Func<FameStats, DbChar, int, bool>, Func<double, double>>[] bonusDat = new[] {
             Tuple.Create("Ancestor", "First death of any of your characters",
                 new Func<FameStats, DbChar, int, bool>(
                     (fStats, character, baseFame) =>
@@ -207,7 +204,7 @@ namespace common
                 character.Level == 20 && (double)fStats.ShotsThatDamage / fStats.Shots > 0.75),
                 new Func<double, double>(f => f * 0.1)
             ),
-            
+
             Tuple.Create("Explorer", "More than 1 million tiles uncovered",
                 new Func<FameStats, DbChar, int, bool>(
                     (fStats, character, baseFame) =>
@@ -220,7 +217,7 @@ namespace common
                 fStats.TilesUncovered > 4000000),
                 new Func<double, double>(f => f * 0.05)
             ),
-            
+
             Tuple.Create("Team Player", "More than 100 party member level ups",
                 new Func<FameStats, DbChar, int, bool>(
                     (fStats, character, baseFame) =>
@@ -233,7 +230,7 @@ namespace common
                 fStats.LevelUpAssists > 1000),
                 new Func<double, double>(f => f * 0.1)
             ),
-            
+
             Tuple.Create("Doer of Deeds", "More than 1000 quests completed",
                 new Func<FameStats, DbChar, int, bool>(
                     (fStats, character, baseFame) =>

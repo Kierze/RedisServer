@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace wServer.realm.setpieces
 {
-    class Grove : ISetPiece
+    internal class Grove : ISetPiece
     {
         public int Size
         {
             get { return 25; }
         }
 
-        static readonly string Floor = "Light Grass";
-        static readonly string Tree = "Cherry Tree";
+        private static readonly string Floor = "Light Grass";
+        private static readonly string Tree = "Cherry Tree";
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public void RenderSetPiece(World world, IntPoint pos)
         {
             int radius = rand.Next(Size - 5, Size + 1) / 2;

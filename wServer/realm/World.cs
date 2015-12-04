@@ -1,20 +1,19 @@
-﻿using System;
+﻿using common;
+using log4net;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using wServer.realm.entities;
-using System.Collections.Concurrent;
 using wServer.networking;
+using wServer.realm.entities;
 using wServer.realm.terrain;
-using log4net;
-using common;
 
 namespace wServer.realm
 {
     public abstract class World
     {
-        static ILog log = LogManager.GetLogger(typeof(World));
+        private static ILog log = LogManager.GetLogger(typeof(World));
 
         public const int TUT_ID = -1;
         public const int NEXUS_ID = -2;
@@ -38,9 +37,14 @@ namespace wServer.realm
         }
 
         public bool IsLimbo { get; protected set; }
-        public virtual World GetInstance(Client client) { return null; }
 
-        RealmManager manager;
+        public virtual World GetInstance(Client client)
+        {
+            return null;
+        }
+
+        private RealmManager manager;
+
         public RealmManager Manager
         {
             get { return manager; }
@@ -51,6 +55,7 @@ namespace wServer.realm
                     Init();
             }
         }
+
         public int Id { get; internal set; }
         public string Name { get; protected set; }
 
@@ -63,6 +68,7 @@ namespace wServer.realm
 
         public CollisionMap<Entity> EnemiesCollision { get; private set; }
         public CollisionMap<Entity> PlayersCollision { get; private set; }
+
         public bool IsPassable(int x, int y)
         {
             var tile = Map[x, y];
@@ -84,6 +90,7 @@ namespace wServer.realm
         public Wmap Map { get; private set; }
 
         private int entityInc = 0;
+
         public int GetNextEntityId()
         {
             return Interlocked.Increment(ref entityInc);
@@ -104,7 +111,9 @@ namespace wServer.realm
             return true;
         }
 
-        protected virtual void Init() { }
+        protected virtual void Init()
+        {
+        }
 
         protected void FromWorldMap(System.IO.Stream dat)
         {
@@ -164,6 +173,7 @@ namespace wServer.realm
             }
             return entity.Id;
         }
+
         public virtual void LeaveWorld(Entity entity)
         {
             if (entity is Player)
@@ -196,6 +206,7 @@ namespace wServer.realm
             }
             entity.Owner = null;
         }
+
         public Entity GetEntity(int id)
         {
             Player ret1;
@@ -206,6 +217,7 @@ namespace wServer.realm
             if (StaticObjects.TryGetValue(id, out ret3)) return ret3;
             return null;
         }
+
         public Player GetUniqueNamedPlayer(string name)
         {
             foreach (var i in Players)
@@ -222,6 +234,7 @@ namespace wServer.realm
                 if (i.Value != exclude)
                     i.Value.Client.SendPacket(pkt);
         }
+
         public void BroadcastPackets(IEnumerable<Packet> pkts, Player exclude)
         {
             foreach (var i in Players)

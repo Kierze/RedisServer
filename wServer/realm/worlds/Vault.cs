@@ -1,19 +1,18 @@
-﻿using System;
+﻿using common;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.IO;
-using common;
-using wServer.realm.entities;
-using System.Collections.Concurrent;
 using wServer.networking;
+using wServer.realm.entities;
 using wServer.realm.terrain;
 
 namespace wServer.realm.worlds
 {
     public class Vault : World
     {
-        Client client;
+        private Client client;
+
         public Vault(bool isLimbo, Client client = null)
         {
             Id = VAULT_ID;
@@ -33,9 +32,10 @@ namespace wServer.realm.worlds
             }
         }
 
-        DbVault dbVault;
-        ConcurrentDictionary<Tuple<Container, int>, int> vaultChests = new ConcurrentDictionary<Tuple<Container, int>, int>();
-        void InitVault()
+        private DbVault dbVault;
+        private ConcurrentDictionary<Tuple<Container, int>, int> vaultChests = new ConcurrentDictionary<Tuple<Container, int>, int>();
+
+        private void InitVault()
         {
             List<IntPoint> vaultChestPosition = new List<IntPoint>();
             IntPoint spawn = new IntPoint(0, 0);
@@ -108,7 +108,6 @@ namespace wServer.realm.worlds
                     vaultChests[i.Key] = i.Key.Item1.UpdateCount;
                 }
             }
-
         }
     }
 }

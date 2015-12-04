@@ -1,31 +1,30 @@
-﻿using System;
+﻿using common;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using System.IO;
 using wServer.realm;
-using System.Net;
-using common;
 
 namespace wServer
 {
-    class ClientProcessor
+    internal class ClientProcessor
     {
-        Socket skt;
-        Thread cliWkr;
-        Thread svrWkr;
+        private Socket skt;
+        private Thread cliWkr;
+        private Thread svrWkr;
         public RC4 ReceiveKey { get; private set; }
         public RC4 SendKey { get; private set; }
 
-        struct Packet
+        private struct Packet
         {
             public byte id;
             public byte[] content;
         }
-        List<Packet> cliPkts = new List<Packet>();
-        List<Packet> svrPkts = new List<Packet>();
+
+        private List<Packet> cliPkts = new List<Packet>();
+        private List<Packet> svrPkts = new List<Packet>();
 
         public ClientProcessor(Socket skt)
         {
@@ -34,7 +33,8 @@ namespace wServer
             SendKey = new RC4(new byte[] { 0x72, 0xc5, 0x58, 0x3c, 0xaf, 0xb6, 0x81, 0x89, 0x95, 0xcb, 0xd7, 0x4b, 0x80 });
         }
 
-        TcpClient dest;
+        private TcpClient dest;
+
         public void BeginProcess()
         {
             dest = new TcpClient();
@@ -46,7 +46,7 @@ namespace wServer
             svrWkr.Start();
         }
 
-        void ProcessCli()
+        private void ProcessCli()
         {
             try
             {
@@ -100,7 +100,6 @@ namespace wServer
                     content = ReceiveKey.Crypt(content);
                     ReceiveKey.LoadState(state);
 
-
                     wtr.Write(len);
                     wtr.Write((byte)id);
                     wtr.Write(content);
@@ -117,8 +116,9 @@ namespace wServer
                 File.WriteAllBytes("cli_pkt/" + i + "_" + cliPkts[i].id, cliPkts[i].content);
         }
 
-        static XmlData dat = new XmlData();
-        void ProcessSvr()
+        private static XmlData dat = new XmlData();
+
+        private void ProcessSvr()
         {
             try
             {

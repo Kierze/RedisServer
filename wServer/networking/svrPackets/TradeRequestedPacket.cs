@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.svrPackets
 {
@@ -11,7 +7,11 @@ namespace wServer.networking.svrPackets
         public string Name { get; set; }
 
         public override PacketID ID { get { return PacketID.TradeRequested; } }
-        public override Packet CreateInstance() { return new TradeRequestedPacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new TradeRequestedPacket();
+        }
 
         protected override void Read(NReader rdr)
         {

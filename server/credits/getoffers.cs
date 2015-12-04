@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
+﻿using System.Net;
 
 namespace server.credits
 {
-    class getoffers : RequestHandler
+    internal class getoffers : RequestHandler
     {
         public override void HandleRequest(HttpListenerContext context)
         {

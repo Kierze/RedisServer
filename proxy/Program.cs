@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net.Sockets;
 using System.Net;
+using System.Net.Sockets;
 using System.Threading;
 
 namespace wServer
 {
-    class Program
+    internal class Program
     {
-        static Socket svrSkt;
+        private static Socket svrSkt;
         public static List<ClientProcessor> processors = new List<ClientProcessor>();
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             svrSkt = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             svrSkt.Bind(new IPEndPoint(IPAddress.Any, 2050));
@@ -30,7 +28,7 @@ namespace wServer
             Thread.CurrentThread.Join();
         }
 
-        static void ServePolicyFile(IAsyncResult ar)
+        private static void ServePolicyFile(IAsyncResult ar)
         {
             TcpClient cli = (ar.AsyncState as TcpListener).EndAcceptTcpClient(ar);
             (ar.AsyncState as TcpListener).BeginAcceptTcpClient(ServePolicyFile, ar.AsyncState);
@@ -52,7 +50,7 @@ namespace wServer
             catch { }
         }
 
-        static void Listen(IAsyncResult ar)
+        private static void Listen(IAsyncResult ar)
         {
             try
             {

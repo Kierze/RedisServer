@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using common;
 using wServer.networking.svrPackets;
-using wServer.logic;
-using common;
 
 namespace wServer.realm.entities
 {
-    class Trap : StaticObject
+    internal class Trap : StaticObject
     {
-        const int LIFETIME = 10;
+        private const int LIFETIME = 10;
 
-        Player player;
-        float radius;
-        int dmg;
-        ConditionEffectIndex effect;
-        int duration;
+        private Player player;
+        private float radius;
+        private int dmg;
+        private ConditionEffectIndex effect;
+        private int duration;
+
         public Trap(Player player, float radius, int dmg, ConditionEffectIndex eff, float effDuration)
             : base(player.Manager, 0x0711, LIFETIME * 1000, true, true, false)
         {
@@ -27,8 +23,9 @@ namespace wServer.realm.entities
             this.duration = (int)(effDuration * 1000);
         }
 
-        int t = 0;
-        int p = 0;
+        private int t = 0;
+        private int p = 0;
+
         public override void Tick(RealmTime time)
         {
             if (t / 500 == p)
@@ -57,7 +54,7 @@ namespace wServer.realm.entities
             base.Tick(time);
         }
 
-        void Explode(RealmTime time)
+        private void Explode(RealmTime time)
         {
             Owner.BroadcastPacket(new ShowEffectPacket()
             {

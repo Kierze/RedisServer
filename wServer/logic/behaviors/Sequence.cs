@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using wServer.realm;
 
 namespace wServer.logic.behaviors
 {
     //replacement for simple sequential state transition
-    class Sequence : Behavior
+    internal class Sequence : Behavior
     {
         //State storage: index
 
-        CycleBehavior[] children;
+        private CycleBehavior[] children;
+
         public Sequence(params CycleBehavior[] children)
         {
             this.children = children;

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm.worlds;
+﻿using System.Collections.Generic;
 using wServer.networking.svrPackets;
+using wServer.realm.worlds;
 
 namespace wServer.realm.entities
 {
     public class SellableObject : StaticObject
     {
-        const int BUY_NO_GOLD = 3;
-        const int BUY_NO_FAME = 6;
+        private const int BUY_NO_GOLD = 3;
+        private const int BUY_NO_FAME = 6;
 
         public SellableObject(RealmManager manager, ushort objType)
             : base(manager, objType, null, true, false, false)
@@ -34,6 +31,7 @@ namespace wServer.realm.entities
             stats[StatsType.SellableRankRequirement] = RankReq;
             base.ExportStats(stats);
         }
+
         protected override void ImportStats(StatsType stats, object val)
         {
             if (stats == StatsType.SellablePrice) Price = (int)val;
@@ -51,7 +49,7 @@ namespace wServer.realm.entities
             {
                 if (acc.Fame < Price) return false;
                 Manager.Database.UpdateFame(acc, -Price);
-                player.CurrentFame = acc.Fame; 
+                player.CurrentFame = acc.Fame;
                 player.UpdateCount++;
                 return true;
             }

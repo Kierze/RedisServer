@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Serialization;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace common
@@ -39,6 +35,7 @@ namespace common
         Armored = 1 << 25,
         ArmorBroken = 1 << 26,
     }
+
     public enum ConditionEffectIndex
     {
         Dead = 0,
@@ -70,12 +67,17 @@ namespace common
         ArmorBroken = 26,
         Hexed = 27
     }
+
     public class ConditionEffect
     {
         public ConditionEffectIndex Effect { get; set; }
         public int DurationMS { get; set; }
         public float Range { get; set; }
-        public ConditionEffect() { }
+
+        public ConditionEffect()
+        {
+        }
+
         public ConditionEffect(XElement elem)
         {
             Effect = (ConditionEffectIndex)Enum.Parse(typeof(ConditionEffectIndex), elem.Value.Replace(" ", ""));
@@ -191,6 +193,7 @@ namespace common
         ClearConditionEffectAura,
         ClearConditionEffectSelf
     }
+
     public class ActivateEffect
     {
         public ActivateEffects Effect { get; private set; }
@@ -260,6 +263,7 @@ namespace common
                 LockedName = elem.Attribute("lockedName").Value;
         }
     }
+
     public class PortalDesc
     {
         public ushort ObjectType { get; private set; }
@@ -284,6 +288,7 @@ namespace common
             TimeoutTime = 30;
         }
     }
+
     public class Item
     {
         public ushort ObjectType { get; private set; }
@@ -400,6 +405,7 @@ namespace common
             Max = Utils.FromString(elem.Element("Max").Value);
         }
     }
+
     public class ObjectDesc
     {
         public ushort ObjectType { get; private set; }
@@ -423,7 +429,6 @@ namespace common
         public int MaxSize { get; private set; }
         public int SizeStep { get; private set; }
         public ProjectileDesc[] Projectiles { get; private set; }
-
 
         public int MaxHP { get; private set; }
         public int Defense { get; private set; }

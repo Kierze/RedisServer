@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace wServer.realm.setpieces
 {
-    class Tower : ISetPiece
+    internal class Tower : ISetPiece
     {
-        static int[,] quarter;
+        private static int[,] quarter;
+
         static Tower()
         {
             string s =
@@ -36,10 +34,11 @@ namespace wServer.realm.setpieces
 
         public int Size { get { return 27; } }
 
-        static readonly string Floor = "Rock";
-        static readonly string Wall = "Grey Wall";
+        private static readonly string Floor = "Rock";
+        private static readonly string Wall = "Grey Wall";
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public void RenderSetPiece(World world, IntPoint pos)
         {
             int[,] t = new int[27, 27];
@@ -70,7 +69,6 @@ namespace wServer.realm.setpieces
                     t[x, y] = 2;
             t[12, 0] = t[13, 0] = t[14, 0] = 2;
 
-
             int r = rand.Next(0, 4);                //Rotation
             for (int i = 0; i < r; i++)
                 t = SetPieces.rotateCW(t);
@@ -96,7 +94,6 @@ namespace wServer.realm.setpieces
                         tile.ObjType = 0;
                         world.Map[x + pos.X, y + pos.Y] = tile;
                     }
-
                     else if (t[x, y] == 3)
                     {
                         Entity cyclops = Entity.Resolve(world.Manager, 0x0928);

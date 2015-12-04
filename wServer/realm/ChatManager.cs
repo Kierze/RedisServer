@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using common;
 using log4net;
-using wServer.realm.entities;
+using System.Linq;
 using wServer.networking.svrPackets;
-using Newtonsoft.Json;
-using common;
+using wServer.realm.entities;
 
 namespace wServer.realm
 {
     public class ChatManager
     {
-        const char TELL = 't';
-        const char GUILD = 'g';
-        const char ANNOUNCE = 'a';
+        private const char TELL = 't';
+        private const char GUILD = 'g';
+        private const char ANNOUNCE = 'a';
 
-        struct Message
+        private struct Message
         {
             public char Type;
             public string Inst;
@@ -29,9 +25,10 @@ namespace wServer.realm
             public string Text;
         }
 
-        static ILog log = LogManager.GetLogger(typeof(ChatManager));
+        private static ILog log = LogManager.GetLogger(typeof(ChatManager));
 
-        RealmManager manager;
+        private RealmManager manager;
+
         public ChatManager(RealmManager manager)
         {
             this.manager = manager;
@@ -96,7 +93,7 @@ namespace wServer.realm
             return true;
         }
 
-        void HandleChat(object sender, InterServerEventArgs<Message> e)
+        private void HandleChat(object sender, InterServerEventArgs<Message> e)
         {
             switch (e.Content.Type)
             {
@@ -114,7 +111,8 @@ namespace wServer.realm
                                 e.Content.Inst == manager.InstanceId ? e.Content.ObjId : -1,
                                 e.Content.Stars, from, to, e.Content.Text);
                         }
-                    } break;
+                    }
+                    break;
                 case GUILD:
                     {
                         string from = manager.Database.ResolveIgn(e.Content.From);
@@ -127,7 +125,8 @@ namespace wServer.realm
                                 e.Content.Inst == manager.InstanceId ? e.Content.ObjId : -1,
                                 e.Content.Stars, from, e.Content.Text);
                         }
-                    } break;
+                    }
+                    break;
                 case ANNOUNCE:
                     {
                         foreach (var i in manager.Clients.Values
@@ -136,7 +135,8 @@ namespace wServer.realm
                         {
                             i.AnnouncementReceived(e.Content.Text);
                         }
-                    } break;
+                    }
+                    break;
             }
         }
     }

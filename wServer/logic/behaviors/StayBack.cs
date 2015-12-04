@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using common;
 using Mono.Game;
+using wServer.realm;
 using wServer.realm.entities;
 
 namespace wServer.logic.behaviors
 {
-    class StayBack : CycleBehavior
+    internal class StayBack : CycleBehavior
     {
         //State storage: cooldown timer
 
-        float speed;
-        float distance;
+        private float speed;
+        private float distance;
+
         public StayBack(double speed, double distance = 8)
         {
             this.speed = (float)speed;

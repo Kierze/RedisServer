@@ -1,29 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
-using System.Collections.Concurrent;
+﻿using common;
 using log4net;
+using System;
+using System.Collections.Concurrent;
 using System.Timers;
 
 namespace server
 {
-    class ISManager : InterServerChannel, IDisposable
+    internal class ISManager : InterServerChannel, IDisposable
     {
-        ILog log = LogManager.GetLogger(typeof(ISManager));
+        private ILog log = LogManager.GetLogger(typeof(ISManager));
 
         public const string NETWORK = "network";
         public const string CHAT = "chat";
         public const string CONTROL = "control";   //maybe later...
 
-        enum NetworkCode
+        private enum NetworkCode
         {
             JOIN,
             PING,
             QUIT
         }
-        struct NetworkMsg
+
+        private struct NetworkMsg
         {
             public NetworkCode Code;
             public string Type;
@@ -44,15 +42,17 @@ namespace server
             });
         }
 
-        ConcurrentDictionary<string, int> availableInstance = new ConcurrentDictionary<string, int>();
+        private ConcurrentDictionary<string, int> availableInstance = new ConcurrentDictionary<string, int>();
 
-        Timer tmr = new Timer(2000);
+        private Timer tmr = new Timer(2000);
+
         public void Run()
         {
             tmr.Elapsed += (sender, e) => Tick();
             tmr.Start();
         }
-        void Tick()
+
+        private void Tick()
         {
             Publish(NETWORK, new NetworkMsg() { Code = NetworkCode.PING });
 
@@ -74,7 +74,7 @@ namespace server
             Publish(NETWORK, new NetworkMsg() { Code = NetworkCode.QUIT });
         }
 
-        void HandleNetwork(object sender, InterServerEventArgs<NetworkMsg> e)
+        private void HandleNetwork(object sender, InterServerEventArgs<NetworkMsg> e)
         {
             switch (e.Content.Code)
             {
@@ -107,11 +107,11 @@ namespace server
 
         //Chat
 
-        const char TELL = 't';
-        const char GUILD = 'g';
-        const char ANNOUNCE = 'a';
+        private const char TELL = 't';
+        private const char GUILD = 'g';
+        private const char ANNOUNCE = 'a';
 
-        struct Message
+        private struct Message
         {
             public char Type;
             public string Inst;
@@ -124,7 +124,7 @@ namespace server
             public string Text;
         }
 
-        void HandleChat(object sender, InterServerEventArgs<Message> e)
+        private void HandleChat(object sender, InterServerEventArgs<Message> e)
         {
             switch (e.Content.Type)
             {
@@ -133,16 +133,19 @@ namespace server
                         string from = Database.ResolveIgn(e.Content.From);
                         string to = Database.ResolveIgn(e.Content.To);
                         log.InfoFormat("<{0} -> {1}> {2}", from, to, e.Content.Text);
-                    } break;
+                    }
+                    break;
                 case GUILD:
                     {
                         string from = Database.ResolveIgn(e.Content.From);
                         log.InfoFormat("<{0} -> Guild> {1}", from, e.Content.Text);
-                    } break;
+                    }
+                    break;
                 case ANNOUNCE:
                     {
                         log.InfoFormat("<Announcement> {0}", e.Content.Text);
-                    } break;
+                    }
+                    break;
             }
         }
     }

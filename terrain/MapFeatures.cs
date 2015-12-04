@@ -1,23 +1,22 @@
-﻿using System;
+﻿using GeoAPI.Geometries;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Drawing;
-using GeoAPI.Geometries;
 
 namespace terrain
 {
-    class MapFeatures
+    internal class MapFeatures
     {
-        PolygonMap map;
-        Random rand;
+        private PolygonMap map;
+        private Random rand;
+
         public MapFeatures(PolygonMap map, int seed)
         {
             this.map = map;
             rand = new Random(seed);
         }
 
-        static MapEdge SelectDownhill(MapNode node)
+        private static MapEdge SelectDownhill(MapNode node)
         {
             var dist = node.DistanceToCoast;
             MapEdge ret = node.Edges.First();

@@ -1,25 +1,16 @@
-﻿using System;
+﻿using NetTopologySuite.GeometriesGraph;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NetTopologySuite.Triangulate;
-using GeoAPI.Geometries;
-using NetTopologySuite.Geometries;
 using System.Drawing;
-using NetTopologySuite.GeometriesGraph;
-using NetTopologySuite.Operation.Overlay;
-using NetTopologySuite.Algorithm;
-using NetTopologySuite.Simplify;
-using NetTopologySuite.Operation.Polygonize;
-using NetTopologySuite.Operation.Union;
+using System.Linq;
 
 namespace terrain
 {
-    class Terrain
+    internal class Terrain
     {
         public const int Size = 2048;
 
-        static void Show(IEnumerable<MapPolygon> polys, IEnumerable<MapNode> plot)
+        private static void Show(IEnumerable<MapPolygon> polys, IEnumerable<MapNode> plot)
         {
             Bitmap map = new Bitmap(Size, Size);
             using (Graphics g = Graphics.FromImage(map))
@@ -44,7 +35,7 @@ namespace terrain
             Test.Show(map);
         }
 
-        static int MinDistToMapEdge(PlanarGraph graph, Node n, int limit)
+        private static int MinDistToMapEdge(PlanarGraph graph, Node n, int limit)
         {
             if (n.Coordinate.X == 0 || n.Coordinate.X == Size ||
                 n.Coordinate.Y == 0 || n.Coordinate.Y == Size)
@@ -75,12 +66,11 @@ namespace terrain
                     if (!visited.Contains(node))
                         stack.Push(new Tuple<int, Node>(state.Item1 + 1, node));
                 }
-
             } while (stack.Count > 0);
             return ret;
         }
 
-        static Bitmap RenderColorBmp(TerrainTile[,] tiles)
+        private static Bitmap RenderColorBmp(TerrainTile[,] tiles)
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);
@@ -93,7 +83,8 @@ namespace terrain
             buff.Unlock();
             return bmp;
         }
-        static Bitmap RenderTerrainBmp(TerrainTile[,] tiles)
+
+        private static Bitmap RenderTerrainBmp(TerrainTile[,] tiles)
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);
@@ -108,7 +99,8 @@ namespace terrain
             buff.Unlock();
             return bmp;
         }
-        static Bitmap RenderMoistBmp(TerrainTile[,] tiles)
+
+        private static Bitmap RenderMoistBmp(TerrainTile[,] tiles)
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);
@@ -125,7 +117,8 @@ namespace terrain
             buff.Unlock();
             return bmp;
         }
-        static Bitmap RenderEvalBmp(TerrainTile[,] tiles)
+
+        private static Bitmap RenderEvalBmp(TerrainTile[,] tiles)
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);
@@ -142,7 +135,8 @@ namespace terrain
             buff.Unlock();
             return bmp;
         }
-        static Bitmap RenderNoiseBmp(int w, int h)
+
+        private static Bitmap RenderNoiseBmp(int w, int h)
         {
             Bitmap bmp = new Bitmap(w, h);
             BitmapBuffer buff = new BitmapBuffer(bmp);
@@ -186,7 +180,7 @@ namespace terrain
             }
         }
 
-        static TerrainTile[,] CreateTerrain(int seed, PolygonMap map)
+        private static TerrainTile[,] CreateTerrain(int seed, PolygonMap map)
         {
             Rasterizer<TerrainTile> rasterizer = new Rasterizer<TerrainTile>(Size, Size);
             //Set all to ocean
@@ -224,7 +218,7 @@ namespace terrain
             var roads = fea.GenerateRoads();
             foreach (var i in roads)
             {
-                rasterizer.DrawClosedCurve(i.SelectMany(_ => new[] { 
+                rasterizer.DrawClosedCurve(i.SelectMany(_ => new[] {
                     (_.X + 1) / 2 * Size, (_.Y + 1) / 2 * Size }).ToArray(),
                     1, t =>
                     {

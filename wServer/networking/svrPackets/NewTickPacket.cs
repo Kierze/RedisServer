@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using common;
 
 namespace wServer.networking.svrPackets
 {
@@ -14,7 +9,11 @@ namespace wServer.networking.svrPackets
         public ObjectStats[] UpdateStatuses { get; set; }
 
         public override PacketID ID { get { return PacketID.New_Tick; } }
-        public override Packet CreateInstance() { return new NewTickPacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new NewTickPacket();
+        }
 
         protected override void Read(NReader rdr)
         {

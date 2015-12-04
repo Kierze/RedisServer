@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "server", "server\server.csproj", "{205FBF65-3677-4A3F-A0F2-3D0C4C647184}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wServer", "wServer\wServer.csproj", "{D791B2A2-F79D-4872-B6FF-EF5B4FE52ADA}"
@@ -10,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "common", "common\common.csproj", "{D5D0743E-5120-4D35-8EBE-9B063C7A73CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "terrain", "terrain\terrain.csproj", "{C400FDD3-6250-4F9B-9516-B3463D6761F5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySql.Data", "MySql.Data\MySql.Data.csproj", "{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F7B9A0E3-6485-4B1D-BA56-9EFCA9604F76}"
 	ProjectSection(SolutionItems) = preProject
@@ -80,16 +80,6 @@ Global
 		{C400FDD3-6250-4F9B-9516-B3463D6761F5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C400FDD3-6250-4F9B-9516-B3463D6761F5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C400FDD3-6250-4F9B-9516-B3463D6761F5}.Release|x86.ActiveCfg = Release|Any CPU
-		{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

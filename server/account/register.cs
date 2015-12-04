@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
-using common;
+﻿using common;
+using System;
 using System.Collections.Specialized;
-using System.IO;
-using System.Web;
-using System.Text.RegularExpressions;
 using System.Globalization;
+using System.IO;
+using System.Net;
+using System.Text.RegularExpressions;
+using System.Web;
 
 namespace server.account
 {
-    class register : RequestHandler
+    internal class register : RequestHandler
     {
         public bool IsValidEmail(string strIn)
         {
@@ -37,12 +34,12 @@ namespace server.account
                 return match.Groups[1].Value + domainName;
             };
 
-            // Use IdnMapping class to convert Unicode domain names. 
+            // Use IdnMapping class to convert Unicode domain names.
             strIn = Regex.Replace(strIn, @"(@)(.+)$", DomainMapper);
             if (invalid)
                 return false;
 
-            // Return true if strIn is in valid e-mail format. 
+            // Return true if strIn is in valid e-mail format.
             return Regex.IsMatch(strIn,
                       @"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
                       @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))$",

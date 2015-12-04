@@ -1,26 +1,23 @@
-﻿using System;
+﻿using common;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
-using System.Xml;
-using common;
-using System.Xml.Serialization;
-using System.IO;
-using MySql.Data.MySqlClient;
-using System.Web;
 using System.Collections.Specialized;
+using System.IO;
+using System.Net;
+using System.Web;
 
 namespace server.@char
 {
-    class list : RequestHandler
+    internal class list : RequestHandler
     {
-        Lazy<List<ServerItem>> svrList;
+        private Lazy<List<ServerItem>> svrList;
+
         public list()
         {
             svrList = new Lazy<List<ServerItem>>(GetServerList, true);
         }
-        List<ServerItem> GetServerList()
+
+        private List<ServerItem> GetServerList()
         {
             var ret = new List<ServerItem>();
             int num = Program.Settings.GetValue<int>("svrNum");
@@ -45,7 +42,7 @@ namespace server.@char
 
             DbAccount acc;
             var status = Database.Verify(query["guid"], query["password"], out acc);
-            if (status == LoginStatus.OK||status== LoginStatus.AccountNotExists)
+            if (status == LoginStatus.OK || status == LoginStatus.AccountNotExists)
             {
                 if (status == LoginStatus.AccountNotExists)
                     acc = Database.CreateGuestAccount(query["guid"]);

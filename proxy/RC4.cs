@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Security.Cryptography;
 
 namespace wServer
 {
-    class RC4
+    internal class RC4
     {
         private byte[] m_State = new byte[256];
 
@@ -28,11 +23,12 @@ namespace wServer
             }
         }
 
-        struct s
+        private struct s
         {
             public int x; public int y;
             public byte[] state;
         }
+
         public object SaveState()
         {
             return new s()
@@ -42,6 +38,7 @@ namespace wServer
                 state = (byte[])State.Clone()
             };
         }
+
         public void LoadState(object o)
         {
             s s = (s)o;
@@ -96,7 +93,6 @@ namespace wServer
 
             for (int i = 0; i < buf.Length; i++)
             {
-
                 this.X = (this.X + 1) & 0xff;
                 this.Y = ((this.m_State[this.X] & 0xff) + this.Y) & 0xff;
 

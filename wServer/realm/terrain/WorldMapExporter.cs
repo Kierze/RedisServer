@@ -1,18 +1,17 @@
-﻿using System;
+﻿using Ionic.Zlib;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using Ionic.Zlib;
 
 namespace terrain
 {
-    class WorldMapExporter
+    internal class WorldMapExporter
     {
         public static void Export(TerrainTile[,] tiles, string path)
         {
             File.WriteAllBytes(path, Export(tiles));
         }
+
         public static byte[] Export(TerrainTile[,] tiles)
         {
             List<TerrainTile> dict = new List<TerrainTile>();

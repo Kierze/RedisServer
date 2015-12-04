@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using common;
+using System;
 using System.Linq;
-using System.Text;
 using wServer.logic.loot;
-using common;
 using wServer.realm.entities;
 
 namespace wServer.realm.setpieces
 {
-    class ArchMage : ISetPiece
+    internal class ArchMage : ISetPiece
     {
         public int Size { get { return 11; } }
 
+        private static readonly string Lava = "Lava Blend";
+        private static readonly string Floor = "Firey Floor";
 
-        static readonly string Lava = "Lava Blend";
-        static readonly string Floor = "Firey Floor";
-
-        static readonly Loot chest = new Loot(
+        private static readonly Loot chest = new Loot(
                 new TierLoot(9, ItemType.Weapon, 0.3),
                 new TierLoot(10, ItemType.Weapon, 0.2),
                 new TierLoot(11, ItemType.Weapon, 0.1),
@@ -31,11 +28,12 @@ namespace wServer.realm.setpieces
 
                 new TierLoot(3, ItemType.Ring, 0.25),
                 new TierLoot(4, ItemType.Ring, 0.15),
-                
+
                 new TierLoot(2, ItemType.Potion, 0.5)
             );
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public void RenderSetPiece(World world, IntPoint pos)
         {
             int[,] t = new int[11, 11];
@@ -72,7 +70,6 @@ namespace wServer.realm.setpieces
                         tile.ObjType = 0;
                         world.Map[x + pos.X, y + pos.Y] = tile;
                     }
-
                     else if (t[x, y] == 2)
                     {
                         var tile = world.Map[x + pos.X, y + pos.Y].Clone();
@@ -80,7 +77,6 @@ namespace wServer.realm.setpieces
                         tile.ObjType = 0;
                         world.Map[x + pos.X, y + pos.Y] = tile;
                     }
-
                     else if (t[x, y] == 7)
                     {
                         var tile = world.Map[x + pos.X, y + pos.Y].Clone();

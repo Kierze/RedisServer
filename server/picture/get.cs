@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.IO;
+using System.Net;
+using System.Text;
 using System.Web;
 
 namespace server.picture
 {
-    class get : RequestHandler
+    internal class get : RequestHandler
     {
-        byte[] buff = new byte[0x10000];
+        private byte[] buff = new byte[0x10000];
+
         public override void HandleRequest(HttpListenerContext context)
         {
             NameValueCollection query;

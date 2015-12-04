@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
+﻿using common;
 using Ionic.Zlib;
-using common;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace terrain
 {
-    class JsonMapExporter
+    internal class JsonMapExporter
     {
-        struct TileComparer : IEqualityComparer<TerrainTile>
+        private struct TileComparer : IEqualityComparer<TerrainTile>
         {
             public bool Equals(TerrainTile x, TerrainTile y)
             {
@@ -24,18 +21,19 @@ namespace terrain
             }
         }
 
-
         private struct obj
         {
             public string name;
             public string id;
         }
+
         private struct loc
         {
             public string ground;
             public obj[] objs;
             public obj[] regions;
         }
+
         private struct json_dat
         {
             public byte[] data;
@@ -87,6 +85,5 @@ namespace terrain
             };
             return JsonConvert.SerializeObject(ret);
         }
-
     }
 }

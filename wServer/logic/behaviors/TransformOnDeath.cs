@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using wServer.realm;
-using common;
 
 namespace wServer.logic.behaviors
 {
-    class TransformOnDeath : Behavior
+    internal class TransformOnDeath : Behavior
     {
-        ushort target;
-        int min;
-        int max;
-        float probability;
+        private ushort target;
+        private int min;
+        private int max;
+        private float probability;
+
         public TransformOnDeath(string target, int min = 1, int max = 1, double probability = 1)
         {
             this.target = BehaviorDb.InitGameData.IdToObjectType[target];
@@ -39,6 +36,7 @@ namespace wServer.logic.behaviors
                 }
             };
         }
+
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         { }
     }

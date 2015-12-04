@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.cliPackets
 {
@@ -11,7 +7,11 @@ namespace wServer.networking.cliPackets
         public ushort ObjectType { get; set; }
 
         public override PacketID ID { get { return PacketID.Create; } }
-        public override Packet CreateInstance() { return new CreatePacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new CreatePacket();
+        }
 
         protected override void Read(NReader rdr)
         {

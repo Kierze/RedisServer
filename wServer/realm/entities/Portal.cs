@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
+﻿using System.Collections.Generic;
 
 namespace wServer.realm.entities
 {
@@ -23,6 +19,7 @@ namespace wServer.realm.entities
                 val = (int)val != 0;
             base.ImportStats(stats, val);
         }
+
         protected override void ExportStats(IDictionary<StatsType, object> stats)
         {
             stats[StatsType.PortalUsable] = Usable ? 1 : 0;

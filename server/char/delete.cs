@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
-using common;
+﻿using common;
 using System.Collections.Specialized;
 using System.IO;
+using System.Net;
 using System.Web;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
-using System.Xml;
 
 namespace server.@char
 {
-    class delete : RequestHandler
+    internal class delete : RequestHandler
     {
         public override void HandleRequest(HttpListenerContext context)
         {

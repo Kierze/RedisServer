@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using common;
+using System;
 using wServer.networking.cliPackets;
-using wServer.realm;
-using common;
 using wServer.networking.svrPackets;
+using wServer.realm;
 using wServer.realm.entities;
 
 namespace wServer.networking.handlers
 {
-    class InvDropPacketHandler : PacketHandlerBase<InvDropPacket>
+    internal class InvDropPacketHandler : PacketHandlerBase<InvDropPacket>
     {
         public override PacketID ID { get { return PacketID.InvDrop; } }
 
@@ -23,9 +20,9 @@ namespace wServer.networking.handlers
             });
         }
 
+        private static Random invRand = new Random();
 
-        static Random invRand = new Random();
-        void Handle(Player player, int slot)
+        private void Handle(Player player, int slot)
         {
             const ushort NORM_BAG = 0x0500;
             const ushort SOUL_BAG = 0x0503;

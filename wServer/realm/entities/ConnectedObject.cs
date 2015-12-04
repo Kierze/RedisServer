@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using common;
-using wServer.networking.svrPackets;
 
 namespace wServer.realm.entities
 {
@@ -17,10 +12,12 @@ namespace wServer.realm.entities
         T = 4,
         Cross = 5
     }
+
     public class ConnectionInfo
     {
         public static readonly Dictionary<uint, ConnectionInfo> Infos = new Dictionary<uint, ConnectionInfo>();
         public static readonly Dictionary<Tuple<ConnectionType, int>, ConnectionInfo> Infos2 = new Dictionary<Tuple<ConnectionType, int>, ConnectionInfo>();
+
         static ConnectionInfo()
         {
             Build(0x02020202, ConnectionType.Dot);          //1111
@@ -31,7 +28,7 @@ namespace wServer.realm.entities
             Build(0x01010101, ConnectionType.Cross);        //0000
         }
 
-        static void Build(uint bits, ConnectionType type)
+        private static void Build(uint bits, ConnectionType type)
         {
             for (int i = 0; i < 4; i++)
                 if (!Infos.ContainsKey(bits))
@@ -40,7 +37,6 @@ namespace wServer.realm.entities
                     bits = (bits >> 8) | (bits << 24);
                 }
         }
-
 
         public ConnectionType Type { get; private set; }
         public int Rotation { get; private set; }
@@ -53,6 +49,7 @@ namespace wServer.realm.entities
             Rotation = rotation;
         }
     }
+
     public class ConnectionComputer
     {
         public static ConnectionInfo Compute(Func<int, int, bool> offset)
@@ -62,10 +59,8 @@ namespace wServer.realm.entities
                 for (int x = -1; x <= 1; x++)
                     z[x + 1, y + 1] = offset(x, y);
 
-
             if (z[1, 0] && z[1, 2] && z[0, 1] && z[2, 1])
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.Cross, 0)];
-
             else if (z[0, 1] && z[1, 1] && z[2, 1] && z[1, 0])
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.T, 0)];
             else if (z[1, 0] && z[1, 1] && z[1, 2] && z[2, 1])
@@ -74,12 +69,10 @@ namespace wServer.realm.entities
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.T, 180)];
             else if (z[1, 0] && z[1, 1] && z[1, 2] && z[0, 1])
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.T, 270)];
-
             else if (z[0, 1] && z[1, 1] && z[2, 1])
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.Line, 0)];
             else if (z[1, 0] && z[1, 1] && z[1, 2])
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.Line, 90)];
-
             else if (z[1, 0] && z[2, 1])
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.L, 0)];
             else if (z[2, 1] && z[1, 2])
@@ -88,7 +81,6 @@ namespace wServer.realm.entities
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.L, 180)];
             else if (z[0, 1] && z[1, 0])
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.L, 270)];
-                
             else if (z[1, 0])
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.ShortLine, 0)];
             else if (z[2, 1])
@@ -97,10 +89,10 @@ namespace wServer.realm.entities
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.ShortLine, 180)];
             else if (z[0, 1])
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.ShortLine, 270)];
-
             else
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.Dot, 0)];
         }
+
         public static string GetConnString(Func<int, int, bool> offset)
         {
             return "conn:" + Compute(offset).Bits;
@@ -110,12 +102,14 @@ namespace wServer.realm.entities
     public class ConnectedObject : StaticObject
     {
         public ConnectionInfo Connection { get; set; }
+
         protected override void ImportStats(StatsType stats, object val)
         {
             if (stats == StatsType.ObjectConnection)
                 Connection = ConnectionInfo.Infos[(uint)(int)val];
             base.ImportStats(stats, val);
         }
+
         protected override void ExportStats(IDictionary<StatsType, object> stats)
         {
             stats[StatsType.ObjectConnection] = (int)Connection.Bits;
@@ -126,7 +120,6 @@ namespace wServer.realm.entities
             : base(manager, objType, null, true, false, true)
         {
         }
-
 
         public override bool HitByProjectile(Projectile projectile, RealmTime time)
         {

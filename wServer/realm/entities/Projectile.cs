@@ -1,9 +1,6 @@
-﻿using System;
+﻿using common;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using common;
 
 namespace wServer.realm.entities
 {
@@ -86,8 +83,9 @@ namespace wServer.realm.entities
             return new Position() { X = (float)x, Y = (float)y };
         }
 
-        HashSet<Entity> hitted = new HashSet<Entity>();
-        CollisionMap<Entity> collisionMap;
+        private HashSet<Entity> hitted = new HashSet<Entity>();
+        private CollisionMap<Entity> collisionMap;
+
         public override void Tick(RealmTime time)
         {
             if (collisionMap == null)
@@ -109,7 +107,8 @@ namespace wServer.realm.entities
 
             base.Tick(time);
         }
-        bool TickCore(long elapsedTicks, RealmTime time)
+
+        private bool TickCore(long elapsedTicks, RealmTime time)
         {
             Position pos = GetPosition(elapsedTicks);
             Move(pos.X, pos.Y);

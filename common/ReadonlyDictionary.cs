@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace common
 {
@@ -20,8 +18,6 @@ namespace common
         {
             _dictionary = dictionary;
         }
-
-        #region IDictionary<TKey,TValue> Members
 
         void IDictionary<TKey, TValue>.Add(TKey key, TValue value)
         {
@@ -73,10 +69,6 @@ namespace common
             }
         }
 
-        #endregion
-
-        #region ICollection<KeyValuePair<TKey,TValue>> Members
-
         void ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue> item)
         {
             throw ReadOnlyException();
@@ -112,25 +104,15 @@ namespace common
             throw ReadOnlyException();
         }
 
-        #endregion
-
-        #region IEnumerable<KeyValuePair<TKey,TValue>> Members
-
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
             return _dictionary.GetEnumerator();
         }
 
-        #endregion
-
-        #region IEnumerable Members
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
-
-        #endregion
 
         private static Exception ReadOnlyException()
         {

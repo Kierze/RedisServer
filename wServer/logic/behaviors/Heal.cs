@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using common;
 using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
-using wServer.realm.entities;
 using wServer.networking.svrPackets;
+using wServer.realm;
+using wServer.realm.entities;
 
 namespace wServer.logic.behaviors
 {
-    class Heal : Behavior
+    internal class Heal : Behavior
     {
         //State storage: cooldown timer
 
-        double range;
-        string group;
-        Cooldown coolDown;
+        private double range;
+        private string group;
+        private Cooldown coolDown;
 
         public Heal(double range, string group, Cooldown coolDown = new Cooldown())
         {

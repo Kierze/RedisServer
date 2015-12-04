@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using common;
+using System;
 using System.Linq;
-using System.Text;
-using wServer.realm.entities;
 using wServer.logic.loot;
-using common;
+using wServer.realm.entities;
 
 namespace wServer.realm.setpieces
 {
-    class LavaFissure : ISetPiece
+    internal class LavaFissure : ISetPiece
     {
         public int Size
         {
             get { return 40; }
         }
 
-        static readonly string Lava = "Lava Blend";
-        static readonly string Floor = "Partial Red Floor";
+        private static readonly string Lava = "Lava Blend";
+        private static readonly string Floor = "Partial Red Floor";
 
-        static readonly Loot chest = new Loot(
+        private static readonly Loot chest = new Loot(
                 new TierLoot(7, ItemType.Weapon, 0.3),
                 new TierLoot(8, ItemType.Weapon, 0.2),
                 new TierLoot(9, ItemType.Weapon, 0.1),
@@ -37,7 +35,8 @@ namespace wServer.realm.setpieces
                 new TierLoot(1, ItemType.Potion, 0.5)
             );
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public void RenderSetPiece(World world, IntPoint pos)
         {
             int[,] p = new int[Size, Size];
@@ -87,8 +86,6 @@ namespace wServer.realm.setpieces
                         world.Map[x + pos.X, y + pos.Y] = tile;
                     }
                 }
-
-
 
             Entity demon = Entity.Resolve(world.Manager, "Red Demon");
             demon.Move(pos.X + 20.5f, pos.Y + 20.5f);

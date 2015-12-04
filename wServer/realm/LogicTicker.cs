@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics;
+﻿using log4net;
+using System;
 using System.Collections.Concurrent;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading;
-using log4net;
 
 namespace wServer.realm
 {
     public class LogicTicker
     {
-        static ILog log = LogManager.GetLogger(typeof(LogicTicker));
+        private static ILog log = LogManager.GetLogger(typeof(LogicTicker));
 
         public int TPS;
         public int MsPT;
 
         public RealmManager Manager { get; private set; }
+
         public LogicTicker(RealmManager manager)
         {
             this.Manager = manager;
@@ -32,14 +31,16 @@ namespace wServer.realm
         {
             AddPendingAction(callback, PendingPriority.Normal);
         }
+
         public void AddPendingAction(Action<RealmTime> callback, PendingPriority priority)
         {
             pendings[(int)priority].Enqueue(callback);
         }
-        readonly ConcurrentQueue<Action<RealmTime>>[] pendings;
 
+        private readonly ConcurrentQueue<Action<RealmTime>>[] pendings;
 
         public static RealmTime CurrentTime;
+
         public void TickLoop()
         {
             log.Info("Logic loop started.");
@@ -87,12 +88,11 @@ namespace wServer.realm
 
                 Thread.Sleep(MsPT);
                 dt += Math.Max(0, watch.ElapsedMilliseconds - b - MsPT);
-
             } while (true);
             log.Info("Logic loop stopped.");
         }
 
-        void TickWorlds1(RealmTime t)    //Continous simulation
+        private void TickWorlds1(RealmTime t)    //Continous simulation
         {
             CurrentTime = t;
             foreach (var i in Manager.Worlds.Values.Distinct())
@@ -101,7 +101,7 @@ namespace wServer.realm
             //    svrMonitor.Mon.Tick(t);
         }
 
-        void TickWorlds2(RealmTime t)    //Discrete simulation
+        private void TickWorlds2(RealmTime t)    //Discrete simulation
         {
             long counter = t.thisTickTimes;
             long c = t.tickCount - t.thisTickCounts;

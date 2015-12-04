@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using common;
+using System;
 using System.Linq;
-using System.Text;
-using wServer.realm.entities;
 using wServer.logic.loot;
-using common;
+using wServer.realm.entities;
 
 namespace wServer.realm.setpieces
 {
-    class Pyre : ISetPiece
+    internal class Pyre : ISetPiece
     {
         public int Size
         {
             get { return 30; }
         }
 
-        static readonly string Floor = "Scorch Blend";
+        private static readonly string Floor = "Scorch Blend";
 
-        static readonly Loot chest = new Loot(
+        private static readonly Loot chest = new Loot(
                 new TierLoot(5, ItemType.Weapon, 0.3),
                 new TierLoot(6, ItemType.Weapon, 0.2),
                 new TierLoot(7, ItemType.Weapon, 0.1),
@@ -35,7 +33,8 @@ namespace wServer.realm.setpieces
                 new TierLoot(1, ItemType.Potion, 0.5)
             );
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public void RenderSetPiece(World world, IntPoint pos)
         {
             var dat = world.Manager.GameData;

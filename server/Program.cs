@@ -1,30 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
-using System.Threading;
-using System.IO;
-using common;
+﻿using common;
 using log4net;
 using log4net.Config;
+using System;
 using System.Globalization;
-using System.Collections.Concurrent;
+using System.IO;
+using System.Net;
+using System.Threading;
 
 namespace server
 {
-    class Program
+    internal class Program
     {
-        static HttpListener listener;
+        private static HttpListener listener;
 
         internal static SimpleSettings Settings;
         internal static XmlData GameData;
         internal static Database Database;
         internal static string InstanceId;
 
-        static ILog log = LogManager.GetLogger("Server");
+        private static ILog log = LogManager.GetLogger("Server");
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             XmlConfigurator.ConfigureAndWatch(new FileInfo("log4net.config"));
 
@@ -62,7 +58,7 @@ namespace server
             }
         }
 
-        static void ListenerCallback(IAsyncResult ar)
+        private static void ListenerCallback(IAsyncResult ar)
         {
             if (!listener.IsListening) return;
             var context = listener.EndGetContext(ar);
@@ -70,7 +66,7 @@ namespace server
             ProcessRequest(context);
         }
 
-        static void ProcessRequest(HttpListenerContext context)
+        private static void ProcessRequest(HttpListenerContext context)
         {
             try
             {

@@ -1,22 +1,21 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using wServer.realm.worlds;
 using wServer.realm.entities;
 using wServer.realm.terrain;
-using log4net;
+using wServer.realm.worlds;
 
 namespace wServer.realm
 {
     public class RealmPortalMonitor
     {
-        static ILog log = LogManager.GetLogger(typeof(RealmPortalMonitor));
+        private static ILog log = LogManager.GetLogger(typeof(RealmPortalMonitor));
 
-        Nexus nexus;
-        RealmManager manager;
-        object worldLock = new object();
-        Dictionary<World, Portal> portals = new Dictionary<World, Portal>();
+        private Nexus nexus;
+        private RealmManager manager;
+        private object worldLock = new object();
+        private Dictionary<World, Portal> portals = new Dictionary<World, Portal>();
 
         public RealmPortalMonitor(RealmManager manager)
         {
@@ -32,8 +31,9 @@ namespace wServer.realm
             log.Info("Portal Monitor initialized.");
         }
 
-        Random rand = new Random();
-        Position GetRandPosition()
+        private Random rand = new Random();
+
+        private Position GetRandPosition()
         {
             int x, y;
             do
@@ -63,6 +63,7 @@ namespace wServer.realm
                 log.InfoFormat("World {0}({1}) added.", world.Id, world.Name);
             }
         }
+
         public void WorldRemoved(World world)
         {
             lock (worldLock)
@@ -73,6 +74,7 @@ namespace wServer.realm
                 log.InfoFormat("World {0}({1}) removed.", world.Id, world.Name);
             }
         }
+
         public void WorldClosed(World world)
         {
             lock (worldLock)
@@ -83,6 +85,7 @@ namespace wServer.realm
                 log.InfoFormat("World {0}({1}) closed.", world.Id, world.Name);
             }
         }
+
         public void WorldOpened(World world)
         {
             lock (worldLock)

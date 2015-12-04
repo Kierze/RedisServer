@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.cliPackets
 {
@@ -14,7 +10,11 @@ namespace wServer.networking.cliPackets
         public ObjectSlot Obj2 { get; set; }
 
         public override PacketID ID { get { return PacketID.InvSwap; } }
-        public override Packet CreateInstance() { return new InvSwapPacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new InvSwapPacket();
+        }
 
         protected override void Read(NReader rdr)
         {
@@ -23,6 +23,7 @@ namespace wServer.networking.cliPackets
             Obj1 = ObjectSlot.Read(rdr);
             Obj2 = ObjectSlot.Read(rdr);
         }
+
         protected override void Write(NWriter wtr)
         {
             wtr.Write(Time);

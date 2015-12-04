@@ -1,32 +1,28 @@
-﻿using System;
+﻿using common;
+using log4net;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm.worlds;
 using wServer.realm.entities;
-using wServer.logic;
-using wServer.networking.svrPackets;
 using wServer.realm.setpieces;
 using wServer.realm.terrain;
-using log4net;
-using common;
+using wServer.realm.worlds;
 
 namespace wServer.realm
 {
     //The mad god who look after the realm
-    class Oryx
+    internal class Oryx
     {
-        static ILog log = LogManager.GetLogger(typeof(Oryx));
+        private static ILog log = LogManager.GetLogger(typeof(Oryx));
 
-        GameWorld world;
+        private GameWorld world;
+
         public Oryx(GameWorld world)
         {
             this.world = world;
             Init();
         }
 
-        #region "Spawn data"
-        static readonly Dictionary<WmapTerrain, Tuple<int, Tuple<string, double>[]>>
+        private static readonly Dictionary<WmapTerrain, Tuple<int, Tuple<string, double>[]>>
             spawn = new Dictionary<WmapTerrain, Tuple<int, Tuple<string, double>[]>>()
         {
             { WmapTerrain.ShoreSand, Tuple.Create(
@@ -154,17 +150,15 @@ namespace wServer.realm
                 })
             },
         };
-        #endregion
-
 
         public static double GetUniform(Random rand)
         {
             // 0 <= u < 2^32
             uint u = (uint)(rand.NextDouble() * uint.MaxValue);
-            // The magic number below is 1/(2^32 + 2).
-            // The result is strictly between 0 and 1.
+            // The magic number below is 1/(2^32 + 2). The result is strictly between 0 and 1.
             return (u + 1.0) * 2.328306435454494e-10;
         }
+
         public static double GetNormal(Random rand)
         {
             // Use Box-Muller algorithm
@@ -174,13 +168,15 @@ namespace wServer.realm
             double theta = 2.0 * Math.PI * u2;
             return r * Math.Sin(theta);
         }
+
         public static double GetNormal(Random rand, double mean, double standardDeviation)
         {
             return mean + standardDeviation * GetNormal(rand);
         }
 
-        Random rand = new Random();
-        ushort GetRandomObjType(Tuple<string, double>[] dat)
+        private Random rand = new Random();
+
+        private ushort GetRandomObjType(Tuple<string, double>[] dat)
         {
             double p = rand.NextDouble();
             double n = 0;
@@ -196,7 +192,8 @@ namespace wServer.realm
             }
             return objType;
         }
-        int Spawn(ObjectDesc desc, WmapTerrain terrain, int w, int h)
+
+        private int Spawn(ObjectDesc desc, WmapTerrain terrain, int w, int h)
         {
             Entity entity;
             int ret = 0;
@@ -245,8 +242,9 @@ namespace wServer.realm
             return ret;
         }
 
-        int[] enemyMaxCounts = new int[12];
-        int[] enemyCounts = new int[12];
+        private int[] enemyMaxCounts = new int[12];
+        private int[] enemyCounts = new int[12];
+
         public void Init()
         {
             log.InfoFormat("Oryx is controlling world {0}({1})...", world.Id, world.Name);
@@ -281,8 +279,9 @@ namespace wServer.realm
             log.Info("Oryx is done.");
         }
 
-        long prevTick = 0;
-        int x = 0;          //tick of 10 seconds
+        private long prevTick = 0;
+        private int x = 0;          //tick of 10 seconds
+
         public void Tick(RealmTime time)
         {
             if (time.tickTimes - prevTick > 10 * 1000)
@@ -296,7 +295,7 @@ namespace wServer.realm
             }
         }
 
-        void EnsurePopulation()
+        private void EnsurePopulation()
         {
             log.Info("Oryx is controlling population...");
             RecalculateEnemyCount();
@@ -345,7 +344,7 @@ namespace wServer.realm
                 if (state[i] != 2) continue;
                 int x = diff[i];
                 WmapTerrain t = (WmapTerrain)(i + 1);
-                for (int j = 0; j < x; )
+                for (int j = 0; j < x;)
                 {
                     ushort objType = GetRandomObjType(spawn[t].Item2);
                     if (objType == 0) continue;
@@ -359,7 +358,7 @@ namespace wServer.realm
             log.Info("Oryx is back to sleep.");
         }
 
-        void RecalculateEnemyCount()
+        private void RecalculateEnemyCount()
         {
             for (int i = 0; i < enemyCounts.Length; i++)
                 enemyCounts[i] = 0;
@@ -370,7 +369,7 @@ namespace wServer.realm
             }
         }
 
-        struct TauntData
+        private struct TauntData
         {
             public string[] spawn;
             public string[] numberOfEnemies;
@@ -378,9 +377,8 @@ namespace wServer.realm
             public string[] killed;
         }
 
-        #region "Taunt data"
         //https://forums.wildshadow.com/node/119997
-        static readonly Tuple<string, TauntData>[] criticalEnemies = new Tuple<string, TauntData>[]
+        private static readonly Tuple<string, TauntData>[] criticalEnemies = new Tuple<string, TauntData>[]
         {
             Tuple.Create("Lich", new TauntData()
             {
@@ -455,7 +453,7 @@ namespace wServer.realm
                     "My final Red Demon is unassailable!"
                 }
             }),
-            
+
             Tuple.Create("Skull Shrine", new TauntData()
             {
                 spawn = new string[] {
@@ -596,14 +594,13 @@ namespace wServer.realm
                 }
             }),
         };
-        #endregion
 
-        void BroadcastMsg(string message)
+        private void BroadcastMsg(string message)
         {
             world.Manager.Chat.Oryx(world, message);
         }
 
-        void HandleAnnouncements()
+        private void HandleAnnouncements()
         {
             var taunt = criticalEnemies[rand.Next(0, criticalEnemies.Length)];
             int count = 0;
@@ -639,7 +636,7 @@ namespace wServer.realm
             player.SendInfo("Type \"/help\" for more help");
         }
 
-        void SpawnEvent(string name, ISetPiece setpiece)
+        private void SpawnEvent(string name, ISetPiece setpiece)
         {
             IntPoint pt = new IntPoint();
             do
@@ -657,7 +654,7 @@ namespace wServer.realm
             log.InfoFormat("Oryx spawned {0} at ({1}, {2}).", name, pt.X, pt.Y);
         }
 
-        List<Tuple<string, ISetPiece>> events = new List<Tuple<string, ISetPiece>>()
+        private List<Tuple<string, ISetPiece>> events = new List<Tuple<string, ISetPiece>>()
         {
             Tuple.Create("Skull Shrine", (ISetPiece) new SkullShrine()),
             Tuple.Create("Pentaract", (ISetPiece) new Pentaract()),
@@ -667,6 +664,7 @@ namespace wServer.realm
             //"Ghost Ship",
             Tuple.Create("Cube God", (ISetPiece) new CubeGod()),
         };
+
         public void OnEnemyKilled(Enemy enemy, Player killer)
         {
             if (enemy.ObjectDesc != null && enemy.ObjectDesc.Quest)

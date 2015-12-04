@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.networking.cliPackets;
 using wServer.networking.svrPackets;
-using System.Collections.Concurrent;
 
 namespace wServer.realm.entities
 {
@@ -108,6 +104,7 @@ namespace wServer.realm.entities
             });
             ResetTrade();
         }
+
         public void ResetTrade()
         {
             tradeTarget.tradeTarget = null;
@@ -119,18 +116,20 @@ namespace wServer.realm.entities
             this.tradeAccepted = false;
             this.Inventory.InventoryChanged -= MonitorInventory;
         }
+
         public void MonitorTrade()
         {
             Inventory.InventoryChanged += MonitorInventory;
         }
-        void MonitorInventory(object sender, InventoryChangedEventArgs e)
+
+        private void MonitorInventory(object sender, InventoryChangedEventArgs e)
         {
             Player parent = (sender as Inventory).Parent as Player;
             if (parent == null) return;
             parent.CancelTrade();
         }
 
-        void CheckTradeTimeout(RealmTime time)
+        private void CheckTradeTimeout(RealmTime time)
         {
             List<Tuple<Player, int>> newState = new List<Tuple<Player, int>>();
             foreach (var i in potentialTrader)

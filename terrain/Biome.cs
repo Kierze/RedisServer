@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace terrain
 {
-    class Biome
+    internal class Biome
     {
-        Random rand;
-        PolygonMap map;
+        private Random rand;
+        private PolygonMap map;
+
         public Biome(int seed, PolygonMap map)
         {
             rand = new Random(seed);
             this.map = map;
         }
 
+        private double[] elevationThreshold;
+        private double[] moistureThreshold;
+        private HashSet<MapPolygon> beaches;
 
-        double[] elevationThreshold;
-        double[] moistureThreshold;
-        HashSet<MapPolygon> beaches;
         public void ComputeBiomes(TerrainTile[,] buff)
         {
             var nodeMoist = ComputeMoisture();
@@ -59,7 +59,7 @@ namespace terrain
             ComputeSpawnTerrains(buff);
         }
 
-        Dictionary<MapNode, double> ComputeMoisture()
+        private Dictionary<MapNode, double> ComputeMoisture()
         {
             Dictionary<MapNode, double> moisture = new Dictionary<MapNode, double>();
             int totalCount = map.Polygons
@@ -99,7 +99,8 @@ namespace terrain
             } while (q.Count > 0);
             return moisture;
         }
-        Dictionary<MapPolygon, double> RedistributeMoisture(Dictionary<MapNode, double> nodes)
+
+        private Dictionary<MapPolygon, double> RedistributeMoisture(Dictionary<MapNode, double> nodes)
         {
             List<double> sorted = new List<double>(nodes.Values.Distinct());
             sorted.Sort();
@@ -124,7 +125,7 @@ namespace terrain
             return ret;
         }
 
-        ushort GetBiomeGround(string biome)
+        private ushort GetBiomeGround(string biome)
         {
             switch (biome)
             {
@@ -160,11 +161,13 @@ namespace terrain
             }
             return 0;
         }
-        TerrainType GetBiomeTerrain(TerrainTile tile)
+
+        private TerrainType GetBiomeTerrain(TerrainTile tile)
         {
             if (tile.PolygonId == -1 ||
                 tile.TileId == TileTypes.Road ||
-                tile.TileId == TileTypes.Water) return TerrainType.None;
+                tile.TileId == TileTypes.Water)
+                return TerrainType.None;
             MapPolygon poly = map.Polygons[tile.PolygonId];
 
             if (!poly.IsWater && beaches.Contains(poly))
@@ -212,7 +215,7 @@ namespace terrain
             return TerrainType.None;
         }
 
-        string GetBiome(TerrainTile tile)
+        private string GetBiome(TerrainTile tile)
         {
             if (tile.PolygonId == -1) return "unknown";
             if (tile.TileId == TileTypes.Road) return "road";
@@ -268,7 +271,8 @@ namespace terrain
             }
             return "unknown";
         }
-        void AddNoiseAndBiome(TerrainTile[,] buff, Dictionary<MapPolygon, double> moist)
+
+        private void AddNoiseAndBiome(TerrainTile[,] buff, Dictionary<MapPolygon, double> moist)
         {
             int w = buff.GetLength(0);
             int h = buff.GetLength(1);
@@ -304,7 +308,8 @@ namespace terrain
                     buff[x, y] = tile;
                 }
         }
-        void Randomize(TerrainTile[,] buff)
+
+        private void Randomize(TerrainTile[,] buff)
         {
             int w = buff.GetLength(0);
             int h = buff.GetLength(1);
@@ -358,7 +363,8 @@ namespace terrain
                     buff[x, y] = tile;
                 }
         }
-        void ComputeSpawnTerrains(TerrainTile[,] buff)
+
+        private void ComputeSpawnTerrains(TerrainTile[,] buff)
         {
             int w = buff.GetLength(0);
             int h = buff.GetLength(1);
@@ -372,11 +378,10 @@ namespace terrain
                 }
         }
 
-
         //https://code.google.com/p/imagelibrary/source/browse/trunk/Filters/GaussianBlurFilter.cs
         //Blur the elevation
 
-        static void BlurElevation(TerrainTile[,] tiles, double radius)
+        private static void BlurElevation(TerrainTile[,] tiles, double radius)
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);
@@ -387,7 +392,7 @@ namespace terrain
 
             double[] kernel = CreateKernel(gaussWidth, blurDiam);
 
-            // Calculate the sum of the Gaussian kernel      
+            // Calculate the sum of the Gaussian kernel
             double gaussSum = 0;
             for (int n = 0; n < gaussWidth; n++)
             {
@@ -401,48 +406,47 @@ namespace terrain
             }
             //premul = kernel[k] / gaussSum;
 
-
-            // Create an X & Y pass buffer  
+            // Create an X & Y pass buffer
             float[,] gaussPassX = new float[w, h];
 
-            // Do Horizontal Pass  
+            // Do Horizontal Pass
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
                 {
-                    // Iterate through kernel  
+                    // Iterate through kernel
                     for (int k = 0; k < gaussWidth; k++)
                     {
-                        // Get pixel-shift (pixel dist between dest and source)  
+                        // Get pixel-shift (pixel dist between dest and source)
                         shift = k - blurDiam;
 
-                        // Basic edge clamp  
+                        // Basic edge clamp
                         source = x + shift;
                         if (source <= 0 || source >= w) { source = x; }
 
-                        // Combine source and destination pixels with Gaussian Weight  
+                        // Combine source and destination pixels with Gaussian Weight
                         gaussPassX[x, y] = (float)(gaussPassX[x, y] + tiles[source, y].Elevation * kernel[k]);
                     }
                 }
             }
 
-            // Do Vertical Pass  
+            // Do Vertical Pass
             for (int x = 0; x < w; x++)
             {
                 for (int y = 0; y < h; y++)
                 {
                     tiles[x, y].Elevation = 0;
-                    // Iterate through kernel  
+                    // Iterate through kernel
                     for (int k = 0; k < gaussWidth; k++)
                     {
-                        // Get pixel-shift (pixel dist between dest and source)   
+                        // Get pixel-shift (pixel dist between dest and source)
                         shift = k - blurDiam;
 
-                        // Basic edge clamp  
+                        // Basic edge clamp
                         source = y + shift;
                         if (source <= 0 || source >= h) { source = y; }
 
-                        // Combine source and destination pixels with Gaussian Weight  
+                        // Combine source and destination pixels with Gaussian Weight
                         tiles[x, y].Elevation = (float)(tiles[x, y].Elevation + (gaussPassX[x, source]) * kernel[k]);
                     }
                 }
@@ -451,22 +455,21 @@ namespace terrain
 
         private static double[] CreateKernel(int gaussianWidth, int blurDiam)
         {
-
             double[] kernel = new double[gaussianWidth];
 
-            // Set the maximum value of the Gaussian curve  
+            // Set the maximum value of the Gaussian curve
             const double sd = 255;
 
-            // Set the width of the Gaussian curve  
+            // Set the width of the Gaussian curve
             double range = gaussianWidth;
 
-            // Set the average value of the Gaussian curve   
+            // Set the average value of the Gaussian curve
             double mean = (range / sd);
 
-            // Set first half of Gaussian curve in kernel  
+            // Set first half of Gaussian curve in kernel
             for (int pos = 0, len = blurDiam + 1; pos < len; pos++)
             {
-                // Distribute Gaussian curve across kernel[array]   
+                // Distribute Gaussian curve across kernel[array]
                 kernel[gaussianWidth - 1 - pos] = kernel[pos] = Math.Sqrt(Math.Sin((((pos + 1) * (Math.PI / 2)) - mean) / range)) * sd;
             }
 

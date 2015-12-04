@@ -1,18 +1,17 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.Reflection;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using System.IO;
-using System.Reflection;
-using log4net;
 
 namespace common
 {
     public class XmlData : IDisposable
     {
-        static string AssemblyDirectory
+        private static string AssemblyDirectory
         {
             get
             {
@@ -23,7 +22,7 @@ namespace common
             }
         }
 
-        static ILog log = LogManager.GetLogger(typeof(XmlData));
+        private static ILog log = LogManager.GetLogger(typeof(XmlData));
 
         public XmlData(string path = "data")
         {
@@ -72,11 +71,12 @@ namespace common
             log.InfoFormat("{0} Additions", addition.Elements().Count());
         }
 
-        class AutoAssign : SimpleSettings
+        private class AutoAssign : SimpleSettings
         {
-            XmlData dat;
-            ushort nextSignedId;
-            ushort nextFullId;
+            private XmlData dat;
+            private ushort nextSignedId;
+            private ushort nextFullId;
+
             internal AutoAssign(XmlData dat)
                 : base("autoId")
             {
@@ -110,7 +110,8 @@ namespace common
             }
         }
 
-        AutoAssign assign;
+        private AutoAssign assign;
+
         public void AddObjects(XElement root)
         {
             foreach (var elem in root.XPathSelectElements("//Object"))
@@ -148,7 +149,7 @@ namespace common
                         catch
                         {
                             Console.WriteLine("Error for portal: " + type + " id: " + id);
-                            /*3392,1792,1795,1796,1805,1806,1810,1825 -- no location, assume nexus?* 
+                            /*3392,1792,1795,1796,1805,1806,1810,1825 -- no location, assume nexus?*
         *  Tomb Portal of Cowardice,  Dungeon Portal,  Portal of Cowardice,  Realm Portal,  Glowing Portal of Cowardice,  Glowing Realm Portal,  Nexus Portal,  Locked Wine Cellar Portal*/
                         }
                         break;
@@ -168,6 +169,7 @@ namespace common
                 }
             }
         }
+
         public void AddGrounds(XElement root)
         {
             foreach (var elem in root.XPathSelectElements("//Ground"))
@@ -198,26 +200,25 @@ namespace common
                 }
             }
         }
-        void ProcessXml(XElement root)
+
+        private void ProcessXml(XElement root)
         {
             AddObjects(root);
             AddGrounds(root);
         }
 
+        private Dictionary<ushort, XElement> type2elem_obj;
+        private Dictionary<ushort, string> type2id_obj;
+        private Dictionary<string, ushort> id2type_obj;
 
-        Dictionary<ushort, XElement> type2elem_obj;
-        Dictionary<ushort, string> type2id_obj;
-        Dictionary<string, ushort> id2type_obj;
+        private Dictionary<ushort, XElement> type2elem_tile;
+        private Dictionary<ushort, string> type2id_tile;
+        private Dictionary<string, ushort> id2type_tile;
 
-        Dictionary<ushort, XElement> type2elem_tile;
-        Dictionary<ushort, string> type2id_tile;
-        Dictionary<string, ushort> id2type_tile;
-
-        Dictionary<ushort, TileDesc> tiles;
-        Dictionary<ushort, Item> items;
-        Dictionary<ushort, ObjectDesc> objDescs;
-        Dictionary<ushort, PortalDesc> portals;
-
+        private Dictionary<ushort, TileDesc> tiles;
+        private Dictionary<ushort, Item> items;
+        private Dictionary<ushort, ObjectDesc> objDescs;
+        private Dictionary<ushort, PortalDesc> portals;
 
         public IDictionary<ushort, XElement> ObjectTypeToElement { get; private set; }
 
@@ -234,12 +235,12 @@ namespace common
         public IDictionary<ushort, ObjectDesc> ObjectDescs { get; private set; }
         public IDictionary<ushort, PortalDesc> Portals { get; private set; }
 
-        int updateCount = 0;
-        int prevUpdateCount = -1;
-        XElement addition;
-        string[] addXml;
+        private int updateCount = 0;
+        private int prevUpdateCount = -1;
+        private XElement addition;
+        private string[] addXml;
 
-        void UpdateXml()
+        private void UpdateXml()
         {
             if (prevUpdateCount != updateCount)
             {

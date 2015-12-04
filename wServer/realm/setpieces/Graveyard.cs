@@ -1,23 +1,22 @@
-﻿using System;
+﻿using common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using wServer.logic.loot;
-using common;
 using wServer.realm.entities;
 
 namespace wServer.realm.setpieces
 {
-    class Graveyard : ISetPiece
+    internal class Graveyard : ISetPiece
     {
         public int Size { get { return 34; } }
 
-        static readonly string Floor = "Grass";
-        static readonly string WallA = "Grey Wall";
-        static readonly string WallB = "Destructible Grey Wall";
-        static readonly string Cross = "Cross";
+        private static readonly string Floor = "Grass";
+        private static readonly string WallA = "Grey Wall";
+        private static readonly string WallB = "Destructible Grey Wall";
+        private static readonly string Cross = "Cross";
 
-        static readonly Loot chest = new Loot(
+        private static readonly Loot chest = new Loot(
                 new TierLoot(4, ItemType.Weapon, 0.3),
                 new TierLoot(5, ItemType.Weapon, 0.2),
                 new TierLoot(6, ItemType.Weapon, 0.1),
@@ -36,7 +35,8 @@ namespace wServer.realm.setpieces
                 new TierLoot(1, ItemType.Potion, 0.5)
             );
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public void RenderSetPiece(World world, IntPoint pos)
         {
             int[,] t = new int[23, 35];
@@ -71,11 +71,10 @@ namespace wServer.realm.setpieces
                         t[x, y]++;
                 }
 
-
             //Boss & Chest
             var pt = pts[rand.Next(0, pts.Count)];
             t[pt.X, pt.Y] = 5;
-            t[pt.X+1, pt.Y] = 6;
+            t[pt.X + 1, pt.Y] = 6;
 
             int r = rand.Next(0, 4);
             for (int i = 0; i < r; i++)     //Rotation

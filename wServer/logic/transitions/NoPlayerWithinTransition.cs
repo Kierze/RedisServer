@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
-using wServer.realm.entities;
+﻿using wServer.realm;
 
 namespace wServer.logic.transitions
 {
-    class NoPlayerWithinTransition : Transition
+    internal class NoPlayerWithinTransition : Transition
     {
         //State storage: none
 
-        double dist;
+        private double dist;
 
         public NoPlayerWithinTransition(double dist, string targetState)
             : base(targetState)

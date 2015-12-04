@@ -1,19 +1,17 @@
-﻿using System;
+﻿using common;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.networking.svrPackets;
 using wServer.logic;
+using wServer.networking.svrPackets;
 using wServer.realm.terrain;
-using common;
 
 namespace wServer.realm.entities
 {
     public class Enemy : Character
     {
-        bool stat;
+        private bool stat;
 
-        DamageCounter counter;
+        private DamageCounter counter;
+
         public Enemy(RealmManager manager, ushort objType)
             : base(manager, objType, new wRandom())
         {
@@ -26,11 +24,13 @@ namespace wServer.realm.entities
         public WmapTerrain Terrain { get; set; }
 
         public int AltTextureIndex { get; set; }
+
         protected override void ExportStats(IDictionary<StatsType, object> stats)
         {
             stats[StatsType.AltTextureIndex] = AltTextureIndex;
             base.ExportStats(stats);
         }
+
         protected override void ImportStats(StatsType stats, object val)
         {
             if (stats == StatsType.AltTextureIndex)
@@ -38,7 +38,7 @@ namespace wServer.realm.entities
             base.ImportStats(stats, val);
         }
 
-        Position? pos;
+        private Position? pos;
         public Position SpawnPoint { get { return pos ?? new Position() { X = X, Y = Y }; } }
 
         public override void Init(World owner)
@@ -100,6 +100,7 @@ namespace wServer.realm.entities
             }
             return 0;
         }
+
         public override bool HitByProjectile(Projectile projectile, RealmTime time)
         {
             if (stat) return false;
@@ -138,7 +139,8 @@ namespace wServer.realm.entities
             return false;
         }
 
-        float bleeding = 0;
+        private float bleeding = 0;
+
         public override void Tick(RealmTime time)
         {
             if (pos == null)

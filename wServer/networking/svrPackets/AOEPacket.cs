@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.svrPackets
 {
@@ -16,7 +12,11 @@ namespace wServer.networking.svrPackets
         public ushort OriginType { get; set; }
 
         public override PacketID ID { get { return PacketID.AOE; } }
-        public override Packet CreateInstance() { return new AOEPacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new AOEPacket();
+        }
 
         protected override void Read(NReader rdr)
         {
@@ -27,6 +27,7 @@ namespace wServer.networking.svrPackets
             EffectDuration = rdr.ReadSingle();
             OriginType = rdr.ReadUInt16();
         }
+
         protected override void Write(NWriter wtr)
         {
             Position.Write(wtr);

@@ -1,18 +1,16 @@
-﻿using System;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Collections.Concurrent;
 
 namespace wServer.realm
 {
     public class SpatialStorage
     {
-        ConcurrentDictionary<int, ConcurrentDictionary<int, Entity>> store = new ConcurrentDictionary<int, ConcurrentDictionary<int, Entity>>();
+        private ConcurrentDictionary<int, ConcurrentDictionary<int, Entity>> store = new ConcurrentDictionary<int, ConcurrentDictionary<int, Entity>>();
 
-        const int SCALE_FACTOR = 16;
+        private const int SCALE_FACTOR = 16;
 
-        int HashPosition(double x, double y)
+        private int HashPosition(double x, double y)
         {
             int ix = (int)x / SCALE_FACTOR;
             int iy = (int)y / SCALE_FACTOR;

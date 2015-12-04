@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace terrain
 {
-    class Decoration
+    internal class Decoration
     {
-        static readonly Dictionary<string, Tuple<double, string>[]> decors = new Dictionary<string, Tuple<double, string>[]>()
+        private static readonly Dictionary<string, Tuple<double, string>[]> decors = new Dictionary<string, Tuple<double, string>[]>()
         {
             { "coast", new []
                 {
@@ -38,7 +36,7 @@ namespace terrain
                     new Tuple<double, string>(0.01, "Tree Leafless"),
                     new Tuple<double, string>(0.01, "Bush"),
                     new Tuple<double, string>(0.01, "Shrub"),
-                    
+
                     new Tuple<double, string>(0.005, "Rock Brown"),           //0.005
 
                     new Tuple<double, string>(0.005, "Light Green Bush 1"),     //0.04
@@ -104,7 +102,7 @@ namespace terrain
                     new Tuple<double, string>(0.04, "Bush"),
                     new Tuple<double, string>(0.04, "Shrub"),
                     new Tuple<double, string>(0.005, "Tree Leafless"),
-                    
+
                     new Tuple<double, string>(0.005, "Green Bush 1"),     //0.04
                     new Tuple<double, string>(0.005, "Green Bush 2"),
                     new Tuple<double, string>(0.005, "Green Bush 3"),
@@ -113,7 +111,7 @@ namespace terrain
                     new Tuple<double, string>(0.005, "Green Bush 6"),
                     new Tuple<double, string>(0.005, "Green Bush 7"),
                     new Tuple<double, string>(0.005, "Green Bush 8"),
-                    
+
                     new Tuple<double, string>(0.002, "White Flowers"),              //0.01
                     new Tuple<double, string>(0.002, "Pink Flowers"),
                     new Tuple<double, string>(0.002, "Large Mushroom"),
@@ -130,7 +128,7 @@ namespace terrain
                     new Tuple<double, string>(0.05, "Bush"),
                     new Tuple<double, string>(0.05, "Shrub"),
                     new Tuple<double, string>(0.005, "Tree Leafless"),
-                    
+
                     new Tuple<double, string>(0.00625, "Green Bush 1"),     //0.05
                     new Tuple<double, string>(0.00625, "Green Bush 2"),
                     new Tuple<double, string>(0.00625, "Green Bush 3"),
@@ -139,7 +137,7 @@ namespace terrain
                     new Tuple<double, string>(0.00625, "Green Bush 6"),
                     new Tuple<double, string>(0.00625, "Green Bush 7"),
                     new Tuple<double, string>(0.00625, "Green Bush 8"),
-                    
+
                     new Tuple<double, string>(0.002, "White Flowers"),              //0.01
                     new Tuple<double, string>(0.002, "Pink Flowers"),
                     new Tuple<double, string>(0.002, "Large Mushroom"),
@@ -153,7 +151,7 @@ namespace terrain
                 {
                     new Tuple<double, string>(0.005, "Tree A"),           //0.01
                     new Tuple<double, string>(0.005, "Tree B"),
-                    
+
                     new Tuple<double, string>(0.01, "Green Bush 1"),     //0.08
                     new Tuple<double, string>(0.01, "Green Bush 2"),
                     new Tuple<double, string>(0.01, "Green Bush 3"),
@@ -162,7 +160,7 @@ namespace terrain
                     new Tuple<double, string>(0.01, "Green Bush 6"),
                     new Tuple<double, string>(0.01, "Green Bush 7"),
                     new Tuple<double, string>(0.01, "Green Bush 8"),
-                    
+
                     new Tuple<double, string>(0.01, "White Flowers"),              //0.05
                     new Tuple<double, string>(0.01, "Pink Flowers"),
                     new Tuple<double, string>(0.01, "Large Mushroom"),
@@ -187,7 +185,7 @@ namespace terrain
                     new Tuple<double, string>(0.005, "Light Green Bush 6"),
                     new Tuple<double, string>(0.005, "Light Green Bush 7"),
                     new Tuple<double, string>(0.005, "Light Green Bush 8"),
-                    
+
                     new Tuple<double, string>(0.005, "Green Bush 1"),     //0.04
                     new Tuple<double, string>(0.005, "Green Bush 2"),
                     new Tuple<double, string>(0.005, "Green Bush 3"),
@@ -196,13 +194,13 @@ namespace terrain
                     new Tuple<double, string>(0.005, "Green Bush 6"),
                     new Tuple<double, string>(0.005, "Green Bush 7"),
                     new Tuple<double, string>(0.005, "Green Bush 8"),
-                    
+
                     new Tuple<double, string>(0.01, "White Flowers"),              //0.05
                     new Tuple<double, string>(0.01, "Pink Flowers"),
                     new Tuple<double, string>(0.01, "Large Mushroom"),
                     new Tuple<double, string>(0.01, "Small Mushroom"),
                     new Tuple<double, string>(0.01, "Rock Brown"),
-                    
+
                     new Tuple<double, string>(0.01, "Fir Tree 1"),              //0.05
                     new Tuple<double, string>(0.01, "Fir Tree 2"),
                     new Tuple<double, string>(0.01, "Fir Tree 3"),
@@ -236,7 +234,7 @@ namespace terrain
             return null;
         }
 
-        static readonly Dictionary<string, Tuple<int, int, int>> decorSizes = new Dictionary<string, Tuple<int, int, int>>()
+        private static readonly Dictionary<string, Tuple<int, int, int>> decorSizes = new Dictionary<string, Tuple<int, int, int>>()
         {
             { "Tree A", new Tuple<int, int, int>(130, 160, 5) },
             { "Tree B", new Tuple<int, int, int>(130, 160, 5) },

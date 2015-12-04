@@ -1,17 +1,16 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using wServer.realm.terrain;
-using log4net;
 
 namespace wServer.realm.setpieces
 {
-    class SetPieces
+    internal class SetPieces
     {
-        static ILog log = LogManager.GetLogger(typeof(SetPieces));
+        private static ILog log = LogManager.GetLogger(typeof(SetPieces));
 
-        struct Rect
+        private struct Rect
         {
             public int x;
             public int y;
@@ -27,12 +26,12 @@ namespace wServer.realm.setpieces
             }
         }
 
-        static Tuple<ISetPiece, int, int, WmapTerrain[]> SetPiece(ISetPiece piece, int min, int max, params WmapTerrain[] terrains)
+        private static Tuple<ISetPiece, int, int, WmapTerrain[]> SetPiece(ISetPiece piece, int min, int max, params WmapTerrain[] terrains)
         {
             return Tuple.Create(piece, min, max, terrains);
         }
 
-        static readonly List<Tuple<ISetPiece, int, int, WmapTerrain[]>> setPieces = new List<Tuple<ISetPiece, int, int, WmapTerrain[]>>()
+        private static readonly List<Tuple<ISetPiece, int, int, WmapTerrain[]>> setPieces = new List<Tuple<ISetPiece, int, int, WmapTerrain[]>>()
         {
             SetPiece(new Building(), 80, 100, WmapTerrain.LowForest, WmapTerrain.LowPlains, WmapTerrain.MidForest),
             SetPiece(new Graveyard(), 5, 10, WmapTerrain.LowSand, WmapTerrain.LowPlains),
@@ -72,6 +71,7 @@ namespace wServer.realm.setpieces
                     ret[x, N - y - 1] = mat[x, y];
             return ret;
         }
+
         public static int[,] reflectHori(int[,] mat)
         {
             int M = mat.GetLength(0);
@@ -83,7 +83,7 @@ namespace wServer.realm.setpieces
             return ret;
         }
 
-        static int DistSqr(IntPoint a, IntPoint b)
+        private static int DistSqr(IntPoint a, IntPoint b)
         {
             return (a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y);
         }

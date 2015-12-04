@@ -1,33 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
-using wServer.realm.entities;
+﻿using common;
+using System;
 using wServer.networking.svrPackets;
+using wServer.realm;
+using wServer.realm.entities;
 
 namespace wServer.logic.behaviors
 {
-    class Shoot : CycleBehavior
+    internal class Shoot : CycleBehavior
     {
         //State storage: cooldown timer
 
-        double radius;
-        int count;
-        double shootAngle;
-        double? fixedAngle;
-        double angleOffset;
-        double? defaultAngle;
-        double predictive;
-        int projectileIndex;
-        int coolDownOffset;
-        Cooldown coolDown;
+        private double radius;
+        private int count;
+        private double shootAngle;
+        private double? fixedAngle;
+        private double angleOffset;
+        private double? defaultAngle;
+        private double predictive;
+        private int projectileIndex;
+        private int coolDownOffset;
+        private Cooldown coolDown;
 
         public Shoot(double radius, int count = 1, double? shootAngle = null,
             int projectileIndex = 0, double? fixedAngle = null,
             double angleOffset = 0, double? defaultAngle = null,
-            double predictive = 0, int coolDownOffset = 0, 
+            double predictive = 0, int coolDownOffset = 0,
             Cooldown coolDown = new Cooldown())
         {
             this.radius = radius;
@@ -47,7 +44,7 @@ namespace wServer.logic.behaviors
             state = coolDownOffset;
         }
 
-        static double Predict(Entity host, Entity target, ProjectileDesc desc)
+        private static double Predict(Entity host, Entity target, ProjectileDesc desc)
         {
             Position? history = target.TryGetHistory(100);
             if (history == null)
@@ -55,7 +52,6 @@ namespace wServer.logic.behaviors
 
             var originalAngle = Math.Atan2(history.Value.Y - host.Y, history.Value.X - host.X);
             var newAngle = Math.Atan2(target.Y - host.Y, target.X - host.X);
-
 
             var bulletSpeed = desc.Speed / 100f;
             var dist = target.Dist(host);

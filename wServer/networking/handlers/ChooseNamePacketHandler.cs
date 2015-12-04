@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using common;
 using System.Linq;
-using System.Text;
 using wServer.networking.cliPackets;
-using wServer.realm;
-using common;
 using wServer.networking.svrPackets;
 using wServer.realm.entities;
 
 namespace wServer.networking.handlers
 {
-    class ChooseNamePacketHandler : PacketHandlerBase<ChooseNamePacket>
+    internal class ChooseNamePacketHandler : PacketHandlerBase<ChooseNamePacket>
     {
         public override PacketID ID { get { return PacketID.ChooseName; } }
 
@@ -69,7 +65,7 @@ namespace wServer.networking.handlers
             }
         }
 
-        void Handle(Player player)
+        private void Handle(Player player)
         {
             player.Credits = player.Client.Account.Credits;
             player.Name = player.Client.Account.Name;

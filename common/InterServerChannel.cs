@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BookSleeve;
+﻿using BookSleeve;
 using Newtonsoft.Json;
+using System;
+using System.Text;
 
 namespace common
 {
@@ -14,6 +12,7 @@ namespace common
             InstanceId = instId;
             Content = val;
         }
+
         public string InstanceId { get; private set; }
         public T Content { get; private set; }
     }
@@ -23,7 +22,8 @@ namespace common
         public string InstanceId { get; private set; }
         public Database Database { get; private set; }
 
-        RedisSubscriberConnection conn;
+        private RedisSubscriberConnection conn;
+
         public InterServerChannel(Database db, string instId)
         {
             Database = db;
@@ -31,7 +31,7 @@ namespace common
             InstanceId = instId;
         }
 
-        struct Message<T> where T : struct
+        private struct Message<T> where T : struct
         {
             public string InstId;
             public string TargetInst;

@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
-using wServer.realm.entities;
-using wServer.networking.svrPackets;
+﻿using wServer.realm;
 
 namespace wServer.logic.behaviors
 {
-    class Decay : Behavior
+    internal class Decay : Behavior
     {
         //State storage: timer
 
-        int time;
+        private int time;
 
         public Decay(int time = 10000)
         {

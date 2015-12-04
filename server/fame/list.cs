@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
-using System.Xml;
-using common;
-using System.Xml.Serialization;
-using System.IO;
-using MySql.Data.MySqlClient;
-using System.Web;
+﻿using common;
 using System.Collections.Specialized;
+using System.IO;
+using System.Net;
+using System.Web;
 
 namespace server.fame
 {
-    class list : RequestHandler
+    internal class list : RequestHandler
     {
         public override void HandleRequest(HttpListenerContext context)
         {

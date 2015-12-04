@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using common;
 using wServer.networking.cliPackets;
-using wServer.realm;
-using common;
 using wServer.networking.svrPackets;
+using wServer.realm;
 using wServer.realm.entities;
 
 namespace wServer.networking.handlers
 {
-    class InvSwapPacketHandler : PacketHandlerBase<InvSwapPacket>
+    internal class InvSwapPacketHandler : PacketHandlerBase<InvSwapPacket>
     {
         public override PacketID ID { get { return PacketID.InvSwap; } }
 
@@ -27,7 +23,7 @@ namespace wServer.networking.handlers
             });
         }
 
-        void Handle(Player player,
+        private void Handle(Player player,
                     Entity a, Entity b,
                     int slotA, int slotB)
         {

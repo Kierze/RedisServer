@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.cliPackets
 {
@@ -14,7 +10,11 @@ namespace wServer.networking.cliPackets
         public TimedPosition[] Records { get; set; }
 
         public override PacketID ID { get { return PacketID.Move; } }
-        public override Packet CreateInstance() { return new MovePacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new MovePacket();
+        }
 
         protected override void Read(NReader rdr)
         {
@@ -25,6 +25,7 @@ namespace wServer.networking.cliPackets
             for (var i = 0; i < Records.Length; i++)
                 Records[i] = TimedPosition.Read(rdr);
         }
+
         protected override void Write(NWriter wtr)
         {
             wtr.Write(TickId);

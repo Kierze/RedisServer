@@ -1,367 +1,312 @@
-
 <Objects>
 	<Object type="0x0d40" id="Tomb Portal of Cowardice">
 		<DisplayId>Portal of Cowardice</DisplayId>
 		<Class>Portal</Class>
-		<IntergamePortal/>
+		<IntergamePortal />
 		<Texture><File>lofiEnvironment</File><Index>0x7c</Index></Texture>
-		<SpawnPoint/>
-		
+		<SpawnPoint />
 	</Object>
 
-	
-
 	<Object type="0x0d10" id="Red Swarm Minions">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8rMid2</File><Index>10</Index></AnimatedTexture>
 		<HitSound>monster/scorpions_hit</HitSound>
 		<DeathSound>monster/scorpions_death</DeathSound>
-		
+
 		<Size>40</Size>
 		<MaxHitPoints>200</MaxHitPoints>
 		<Defense>0</Defense>
 		<XpMult>0.0</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Fire Missile</ObjectId>
 			<Damage>20</Damage>
 			<Speed>60</Speed>
-			<LifetimeMS>400</LifetimeMS>	
-			<ArmorPiercing/>
-			<MultiHit/>
+			<LifetimeMS>400</LifetimeMS>
+			<ArmorPiercing />
+			<MultiHit />
 			<Size>140</Size>
-		</Projectile>		
-		
-		
-		
+		</Projectile>
 	</Object>
 
 	<Object type="0x0d11" id="Red Swarm Masters">
 		<Group>Tomb Swarms</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8rMid2</File><Index>10</Index></AnimatedTexture>
 		<HitSound>monster/scorpions_hit</HitSound>
 		<DeathSound>monster/scorpions_death</DeathSound>
-		
+
 		<Size>120</Size>
 		<MaxHitPoints>3000</MaxHitPoints>
 		<Defense>0</Defense>
 		<XpMult>1.2</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Red Fire</ObjectId>
 			<Damage>80</Damage>
 			<Speed>50</Speed>
-			<LifetimeMS>2000</LifetimeMS>	
+			<LifetimeMS>2000</LifetimeMS>
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Fire Missile</ObjectId>
 			<Damage>40</Damage>
 			<Speed>70</Speed>
-			<LifetimeMS>2000</LifetimeMS>	
-			<ArmorPiercing/>
-			<MultiHit/>
+			<LifetimeMS>2000</LifetimeMS>
+			<ArmorPiercing />
+			<MultiHit />
 		</Projectile>
-		
+
 		<Projectile id="2">
 			<ObjectId>Red Fire</ObjectId>
 			<Damage>80</Damage>
 			<Speed>50</Speed>
-			<LifetimeMS>2000</LifetimeMS>	
+			<LifetimeMS>2000</LifetimeMS>
 		</Projectile>
-		
+
 		<Projectile id="3">
 			<ObjectId>Fire Missile</ObjectId>
 			<Damage>60</Damage>
 			<Speed>70</Speed>
-			<LifetimeMS>2000</LifetimeMS>	
-			<ArmorPiercing/>
-			<MultiHit/>
+			<LifetimeMS>2000</LifetimeMS>
+			<ArmorPiercing />
+			<MultiHit />
 		</Projectile>
-		
-				
-							
-							
-							
-		
-		
 	</Object>
 
 	<Object type="0x0d12" id="Yellow Swarm Minions">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8dEncounters</File><Index>10</Index></AnimatedTexture>
 		<HitSound>monster/scorpions_hit</HitSound>
 		<DeathSound>monster/scorpions_death</DeathSound>
-		
+
 		<Size>40</Size>
 		<MaxHitPoints>200</MaxHitPoints>
 		<Defense>0</Defense>
 		<XpMult>0.0</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Yellow Magic</ObjectId>
 			<Damage>0</Damage>
 			<Speed>50</Speed>
-			<LifetimeMS>500</LifetimeMS>	
-			<Wavy/>
+			<LifetimeMS>500</LifetimeMS>
+			<Wavy />
 			<ConditionEffect duration="1">Blind</ConditionEffect>
 			<Size>140</Size>
 		</Projectile>
-		
-		
-		
 	</Object>
 
 	<Object type="0x0d13" id="Yellow Swarm Masters">
 		<Group>Tomb Swarms</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8dEncounters</File><Index>10</Index></AnimatedTexture>
 		<HitSound>monster/scorpions_hit</HitSound>
 		<DeathSound>monster/scorpions_death</DeathSound>
-		
+
 		<Size>120</Size>
 		<MaxHitPoints>3000</MaxHitPoints>
 		<Defense>0</Defense>
 		<XpMult>1.2</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Yellow Magic</ObjectId>
 			<Damage>40</Damage>
 			<Speed>40</Speed>
-			<LifetimeMS>2000</LifetimeMS>	
-			<Wavy/>
-			<ConditionEffect duration="4">Blind</ConditionEffect>	
+			<LifetimeMS>2000</LifetimeMS>
+			<Wavy />
+			<ConditionEffect duration="4">Blind</ConditionEffect>
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Yellow Missile</ObjectId>
 			<Damage>80</Damage>
 			<Speed>40</Speed>
 			<LifetimeMS>2000</LifetimeMS>
 			<ConditionEffect duration="2">Confused</ConditionEffect>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
-		
+
 		<Projectile id="2">
 			<ObjectId>Yellow Magic</ObjectId>
 			<Damage>40</Damage>
 			<Speed>60</Speed>
-			<LifetimeMS>2000</LifetimeMS>	
-			<Wavy/>
-			<ConditionEffect duration="4">Blind</ConditionEffect>	
+			<LifetimeMS>2000</LifetimeMS>
+			<Wavy />
+			<ConditionEffect duration="4">Blind</ConditionEffect>
 		</Projectile>
-		
+
 		<Projectile id="3">
 			<ObjectId>Yellow Missile</ObjectId>
 			<Damage>80</Damage>
 			<Speed>60</Speed>
 			<LifetimeMS>2000</LifetimeMS>
 			<ConditionEffect duration="2">Confused</ConditionEffect>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
-		
-		
-		
-							
-							
-		
-		
 	</Object>
 
 	<Object type="0x0d14" id="Blue Swarm Minions">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8dEncounters</File><Index>9</Index></AnimatedTexture>
 		<HitSound>monster/scorpions_hit</HitSound>
 		<DeathSound>monster/scorpions_death</DeathSound>
-		
+
 		<Size>40</Size>
 		<MaxHitPoints>200</MaxHitPoints>
 		<Defense>5</Defense>
 		<XpMult>0.0</XpMult>
-				
+
 		<Projectile id="0">
 			<ObjectId>Blue Missile</ObjectId>
 			<Damage>0</Damage>
 			<Speed>40</Speed>
 			<LifetimeMS>700</LifetimeMS>
 			<ConditionEffect duration="1.2">Weak</ConditionEffect>
-			<MultiHit/>
+			<MultiHit />
 			<Size>140</Size>
 		</Projectile>
-		
-		
-		
 	</Object>
 
 	<Object type="0x0d15" id="Blue Swarm Masters">
 		<Group>Tomb Swarms</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8dEncounters</File><Index>9</Index></AnimatedTexture>
 		<HitSound>monster/scorpions_hit</HitSound>
 		<DeathSound>monster/scorpions_death</DeathSound>
-		
+
 		<Size>120</Size>
 		<MaxHitPoints>3000</MaxHitPoints>
 		<Defense>20</Defense>
 		<XpMult>1.2</XpMult>
-				
+
 		<Projectile id="0">
 			<ObjectId>Blue Magic</ObjectId>
 			<Damage>60</Damage>
 			<Speed>40</Speed>
-			<LifetimeMS>3000</LifetimeMS>		
-			<Wavy/>	
+			<LifetimeMS>3000</LifetimeMS>
+			<Wavy />
 		</Projectile>
-				
+
 		<Projectile id="1">
 			<ObjectId>Blue Missile</ObjectId>
 			<Damage>100</Damage>
 			<Speed>40</Speed>
 			<LifetimeMS>3000</LifetimeMS>
 			<ConditionEffect duration="1.2">Weak</ConditionEffect>
-			<MultiHit/>
-		</Projectile>	
-				
+			<MultiHit />
+		</Projectile>
+
 		<Projectile id="2">
 			<ObjectId>Blue Magic</ObjectId>
 			<Damage>60</Damage>
 			<Speed>60</Speed>
-			<LifetimeMS>3000</LifetimeMS>		
-			<Wavy/>	
+			<LifetimeMS>3000</LifetimeMS>
+			<Wavy />
 		</Projectile>
-				
+
 		<Projectile id="3">
 			<ObjectId>Blue Missile</ObjectId>
 			<Damage>100</Damage>
 			<Speed>60</Speed>
 			<LifetimeMS>3000</LifetimeMS>
 			<ConditionEffect duration="1.2">Weak</ConditionEffect>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
-		
-		
-								
-							
-							
-							
-		
-				
-		
 	</Object>
-
-
 
 	<Object type="0x0d16" id="Jackal Warrior">
 		<Group>Tomb Jackals</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>0</Index></AnimatedTexture>
 		<HitSound>monster/cyclops_hit</HitSound>
 		<DeathSound>monster/cyclops_death</DeathSound>
-		
+
 		<Size>100</Size>
 		<MaxHitPoints>1400</MaxHitPoints>
 		<Defense>10</Defense>
 		<XpMult>0.6</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Blade</ObjectId>
 			<Damage>80</Damage>
 			<Speed>60</Speed>
-			<LifetimeMS>800</LifetimeMS>	
-		</Projectile> 
-		
-		
-		
+			<LifetimeMS>800</LifetimeMS>
+		</Projectile>
 	</Object>
-
 
 	<Object type="0x0d17" id="Jackal Veteran">
 		<Group>Tomb Jackals</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>1</Index></AnimatedTexture>
 		<HitSound>monster/cyclops_hit</HitSound>
 		<DeathSound>monster/cyclops_death</DeathSound>
-		
+
 		<Size>100</Size>
 		<MaxHitPoints>1800</MaxHitPoints>
 		<Defense>20</Defense>
 		<XpMult>0.8</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Blade</ObjectId>
 			<Damage>120</Damage>
 			<Speed>80</Speed>
 			<LifetimeMS>800</LifetimeMS>
 		</Projectile>
-		
-		
-		
 	</Object>
-
 
 	<Object type="0x0d18" id="Jackal Assassin">
 		<Group>Tomb Jackals</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>2</Index></AnimatedTexture>
 		<HitSound>monster/cyclops_hit</HitSound>
 		<DeathSound>monster/cyclops_death</DeathSound>
-		
+
 		<Size>100</Size>
 		<MaxHitPoints>2000</MaxHitPoints>
 		<Defense>30</Defense>
 		<XpMult>1.1</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Blade</ObjectId>
 			<Damage>100</Damage>
 			<Speed>100</Speed>
 			<LifetimeMS>800</LifetimeMS>
-			<Wavy/>
+			<Wavy />
 		</Projectile>
-		
 	</Object>
 
-
 	<Object type="0x0d19" id="Jackal Lord">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars16x16dEncounters</File><Index>13</Index></AnimatedTexture>
 		<HitSound>monster/cyclops_hit</HitSound>
 		<DeathSound>monster/cyclops_death</DeathSound>
-		
+
 		<Size>120</Size>
 		<MaxHitPoints>6000</MaxHitPoints>
 		<Defense>40</Defense>
 		<XpMult>1.4</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Darkness Bolt</ObjectId>
 			<Damage>140</Damage>
 			<Speed>80</Speed>
 			<LifetimeMS>1200</LifetimeMS>
 		</Projectile>
-		
-					
-					
-					
-		
 	</Object>
-
-
 
 	<Object type="0x0d1a" id="Bloated Mummy">
 		<Group>Tomb Mummies</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>3</Index></AnimatedTexture>
 		<HitSound>monster/mummies_hit</HitSound>
@@ -370,7 +315,7 @@
 		<MaxHitPoints>3000</MaxHitPoints>
 		<Defense>20</Defense>
 		<XpMult>1.4</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Green Star</ObjectId>
 			<Damage>30</Damage>
@@ -386,13 +331,11 @@
 			<LifetimeMS>3500</LifetimeMS>
 			<Size>140</Size>
 		</Projectile>
-		
-		
 	</Object>
 
 	<Object type="0x0d1b" id="Scarab">
 		<Group>Scarabs</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>4</Index></AnimatedTexture>
 		<HitSound>monster/spiders_hit</HitSound>
@@ -416,26 +359,19 @@
 			<ConditionEffect duration="0.8">Paralyzed</ConditionEffect>
 			<Size>40</Size>
 		</Projectile>
-		
 	</Object>
-	
-
-
-
-
-
 
 	<Object type="0x0d1c" id="Sphinx Artifact 1">
 		<DisplayId>Sphinx Artifact</DisplayId>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8dEncounters</File><Index>11</Index></AnimatedTexture>
 		<Size>100</Size>
 		<MaxHitPoints>2000</MaxHitPoints>
 		<Defense>20</Defense>
-        
+
 		<XpMult>0.0</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Green Spinner</ObjectId>
 			<Damage>90</Damage>
@@ -444,7 +380,7 @@
 			<LifetimeMS>2000</LifetimeMS>
 			<ConditionEffect duration="3">Slowed</ConditionEffect>
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Green Spinner</ObjectId>
 			<Damage>130</Damage>
@@ -453,21 +389,19 @@
 			<LifetimeMS>1000</LifetimeMS>
 			<ConditionEffect duration="5">Slowed</ConditionEffect>
 		</Projectile>
-		
-		
 	</Object>
-	
+
 	<Object type="0x0d1d" id="Sphinx Artifact 2">
 		<DisplayId>Sphinx Artifact</DisplayId>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8dEncounters</File><Index>11</Index></AnimatedTexture>
 		<Size>100</Size>
 		<MaxHitPoints>2000</MaxHitPoints>
 		<Defense>20</Defense>
-        
+
 		<XpMult>0.0</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Green Spinner</ObjectId>
 			<Damage>90</Damage>
@@ -476,8 +410,7 @@
 			<LifetimeMS>2000</LifetimeMS>
 			<ConditionEffect duration="3">Slowed</ConditionEffect>
 		</Projectile>
-		
-		
+
 		<Projectile id="1">
 			<ObjectId>Green Spinner</ObjectId>
 			<Damage>130</Damage>
@@ -486,20 +419,19 @@
 			<LifetimeMS>1000</LifetimeMS>
 			<ConditionEffect duration="5">Slowed</ConditionEffect>
 		</Projectile>
-		
 	</Object>
-	
+
 	<Object type="0x0d1e" id="Sphinx Artifact 3">
 		<DisplayId>Sphinx Artifact</DisplayId>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8dEncounters</File><Index>11</Index></AnimatedTexture>
 		<Size>100</Size>
 		<MaxHitPoints>2000</MaxHitPoints>
 		<Defense>20</Defense>
-        
+
 		<XpMult>0.0</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Green Spinner</ObjectId>
 			<Damage>90</Damage>
@@ -508,7 +440,7 @@
 			<LifetimeMS>2000</LifetimeMS>
 			<ConditionEffect duration="3">Slowed</ConditionEffect>
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Green Spinner</ObjectId>
 			<Damage>130</Damage>
@@ -517,21 +449,19 @@
 			<LifetimeMS>1000</LifetimeMS>
 			<ConditionEffect duration="5">Slowed</ConditionEffect>
 		</Projectile>
-		
-		
 	</Object>
-	
+
 	<Object type="0x0d1f" id="Nile Artifact 1">
 		<DisplayId>Nile Artifact</DisplayId>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8dEncounters</File><Index>12</Index></AnimatedTexture>
 		<Size>100</Size>
 		<MaxHitPoints>2500</MaxHitPoints>
 		<Defense>20</Defense>
-        
+
 		<XpMult>0.0</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Black Missile</ObjectId>
 			<Damage>190</Damage>
@@ -539,21 +469,19 @@
 			<Size>120</Size>
 			<LifetimeMS>3000</LifetimeMS>
 		</Projectile>
-		
-		
 	</Object>
-	
+
 	<Object type="0x0d20" id="Nile Artifact 2">
 		<DisplayId>Nile Artifact</DisplayId>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8dEncounters</File><Index>12</Index></AnimatedTexture>
 		<Size>100</Size>
 		<MaxHitPoints>2500</MaxHitPoints>
 		<Defense>20</Defense>
-        
+
 		<XpMult>0.0</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Black Missile</ObjectId>
 			<Damage>190</Damage>
@@ -561,21 +489,19 @@
 			<Size>120</Size>
 			<LifetimeMS>3000</LifetimeMS>
 		</Projectile>
-		
-		
 	</Object>
-	
+
 	<Object type="0x0d21" id="Nile Artifact 3">
 		<DisplayId>Nile Artifact</DisplayId>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars8x8dEncounters</File><Index>12</Index></AnimatedTexture>
 		<Size>100</Size>
 		<MaxHitPoints>2500</MaxHitPoints>
 		<Defense>20</Defense>
-        
+
 		<XpMult>0.0</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Black Missile</ObjectId>
 			<Damage>190</Damage>
@@ -583,21 +509,19 @@
 			<Size>120</Size>
 			<LifetimeMS>3000</LifetimeMS>
 		</Projectile>
-		
-		
 	</Object>
 
 	<Object type="0x0d22" id="Pyramid Artifact 1">
 		<DisplayId>Pyramid Artifact</DisplayId>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars16x8dEncounters</File><Index>0</Index></AnimatedTexture>
 		<Size>120</Size>
 		<MaxHitPoints>3000</MaxHitPoints>
 		<Defense>50</Defense>
-        
+
 		<XpMult>0.0</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Beam</ObjectId>
 			<Damage>50</Damage>
@@ -606,22 +530,19 @@
 			<LifetimeMS>200</LifetimeMS>
 			<ConditionEffect duration="2">Weak</ConditionEffect>
 		</Projectile>
-		
-		
-		
 	</Object>
-	
+
 	<Object type="0x0d23" id="Pyramid Artifact 2">
 		<DisplayId>Pyramid Artifact</DisplayId>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars16x8dEncounters</File><Index>0</Index></AnimatedTexture>
 		<Size>120</Size>
 		<MaxHitPoints>3000</MaxHitPoints>
 		<Defense>50</Defense>
-        
+
 		<XpMult>0.0</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Beam</ObjectId>
 			<Damage>50</Damage>
@@ -630,22 +551,19 @@
 			<LifetimeMS>200</LifetimeMS>
 			<ConditionEffect duration="2">Weak</ConditionEffect>
 		</Projectile>
-		
-		
-		
 	</Object>
-	
+
 	<Object type="0x0d24" id="Pyramid Artifact 3">
 		<DisplayId>Pyramid Artifact</DisplayId>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars16x8dEncounters</File><Index>0</Index></AnimatedTexture>
 		<Size>120</Size>
 		<MaxHitPoints>3000</MaxHitPoints>
 		<Defense>50</Defense>
-        
+
 		<XpMult>0.0</XpMult>
-		
+
 		<Projectile id="0">
 			<ObjectId>Beam</ObjectId>
 			<Damage>50</Damage>
@@ -654,13 +572,7 @@
 			<LifetimeMS>200</LifetimeMS>
 			<ConditionEffect duration="2">Weak</ConditionEffect>
 		</Projectile>
-		
-		
-		
 	</Object>
-
-
-
 
 	<Object type="0x0d25" id="Tomb Boss Anchor">
 		<Class>Character</Class>
@@ -668,63 +580,60 @@
 		<Size>0</Size>
 		<Defense>0</Defense>
 		<XpMult>0.0</XpMult>
-		<NoMiniMap/>
+		<NoMiniMap />
 	</Object>
 
 	<Object type="0x0d3d" id="Tomb Support Statue">
 		<Group>Tomb Boss Statues</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Nut Statue</DisplayId>
 		<Size>140</Size>
         <MaxHitPoints>100000</MaxHitPoints>
 
 		<Texture><File>lofiChar216x16</File><Index>0x3a</Index></Texture>
-
 	</Object>
 
 	<Object type="0x0d3e" id="Tomb Attacker Statue">
 		<Group>Tomb Boss Statues</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Geb Statue</DisplayId>
 		<Size>140</Size>
         <MaxHitPoints>100000</MaxHitPoints>
 
 		<Texture><File>lofiChar216x16</File><Index>0x3b</Index></Texture>
-		
 	</Object>
 
 	<Object type="0x0d3f" id="Tomb Defender Statue">
 		<Group>Tomb Boss Statues</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Bes Statue</DisplayId>
 		<Size>140</Size>
         <MaxHitPoints>100000</MaxHitPoints>
 
 		<Texture><File>lofiChar216x16</File><Index>0x3c</Index></Texture>
-
 	</Object>
 
 	<Object type="0x0d26" id="Tomb Support">
 		<Group>Tomb Bosses</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Nut</DisplayId>
-		<Quest/>
+		<Quest />
 		<Level>1</Level>
-		
+
 		<AnimatedTexture><File>chars16x16dEncounters</File><Index>10</Index></AnimatedTexture>
 		<HitSound>monster/medusa_hit</HitSound>
-		<DeathSound>monster/medusa_death</DeathSound>		
-	
+		<DeathSound>monster/medusa_death</DeathSound>
+
 		<MaxHitPoints>80000</MaxHitPoints>
 		<Size>140</Size>
 		<Defense>15</Defense>
 		<XpMult>1</XpMult>
-		<God/>  
-		<NoArticle/>
+		<God />
+		<NoArticle />
 
 		<Projectile id="0">
 			<ObjectId>Darkness Bolt</ObjectId>
@@ -732,47 +641,47 @@
 			<Speed>100</Speed>
 			<LifetimeMS>2000</LifetimeMS>
 			<Size>120</Size>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Grey Boomerang</ObjectId>
 			<Damage>40</Damage>
 			<Speed>40</Speed>
 			<LifetimeMS>4000</LifetimeMS>
 			<ConditionEffect duration="1">Quiet</ConditionEffect>
-			<Boomerang/>
-			<MultiHit/>
+			<Boomerang />
+			<MultiHit />
 		</Projectile>
-		
+
 		<Projectile id="2">
 			<ObjectId>Blue Boomerang</ObjectId>
 			<Damage>40</Damage>
 			<Speed>40</Speed>
 			<LifetimeMS>4000</LifetimeMS>
 			<ConditionEffect duration="5">Weak</ConditionEffect>
-			<Boomerang/>
-			<MultiHit/>
+			<Boomerang />
+			<MultiHit />
 		</Projectile>
-		
+
 		<Projectile id="3">
 			<ObjectId>Green Boomerang</ObjectId>
 			<Damage>40</Damage>
 			<Speed>20</Speed>
 			<LifetimeMS>4000</LifetimeMS>
 			<ConditionEffect duration="5">Slowed</ConditionEffect>
-			<Boomerang/>
-			<MultiHit/>
+			<Boomerang />
+			<MultiHit />
 		</Projectile>
-		
+
 		<Projectile id="4">
 			<ObjectId>Purple Boomerang</ObjectId>
 			<Damage>40</Damage>
 			<Speed>40</Speed>
 			<LifetimeMS>4000</LifetimeMS>
 			<ConditionEffect duration="5">Blind</ConditionEffect>
-			<Boomerang/>
-			<MultiHit/>
+			<Boomerang />
+			<MultiHit />
 		</Projectile>
 
 		<Projectile id="5">
@@ -790,7 +699,7 @@
 			<Speed>40</Speed>
 			<LifetimeMS>4000</LifetimeMS>
 			<ConditionEffect duration="1.4">Paralyzed</ConditionEffect>
-			<MultiHit/>
+			<MultiHit />
 			<Size>200</Size>
 		</Projectile>
 
@@ -800,9 +709,9 @@
 			<Speed>120</Speed>
 			<LifetimeMS>5000</LifetimeMS>
 			<ConditionEffect duration="10">Weak</ConditionEffect>
-			<MultiHit/>
+			<MultiHit />
 			<Size>200</Size>
-		</Projectile>	
+		</Projectile>
 
 		<Projectile id="8">
 			<ObjectId>Ice Magic</ObjectId>
@@ -812,39 +721,26 @@
 			<ConditionEffect duration="1.0">Paralyzed</ConditionEffect>
 			<Size>120</Size>
 		</Projectile>
-		
-									
-			
-
-		
-		
-		
-		
-		
-		
-		
-		
-
 	</Object>
-	
+
 	<Object type="0x0d27" id="Tomb Attacker">
 		<Group>Tomb Bosses</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Geb</DisplayId>
-		<Quest/>
+		<Quest />
 		<Level>1</Level>
-		
+
 		<AnimatedTexture><File>chars16x16dEncounters</File><Index>11</Index></AnimatedTexture>
 		<HitSound>monster/medusa_hit</HitSound>
-		<DeathSound>monster/medusa_death</DeathSound>		
-	
+		<DeathSound>monster/medusa_death</DeathSound>
+
 		<MaxHitPoints>90000</MaxHitPoints>
 		<Size>140</Size>
 		<Defense>30</Defense>
 		<XpMult>1</XpMult>
-		<God/>		
-		<NoArticle/>
+		<God />
+		<NoArticle />
 
 		<Projectile id="0">
 			<ObjectId>Darkness Bolt</ObjectId>
@@ -852,17 +748,17 @@
 			<Speed>80</Speed>
 			<LifetimeMS>2000</LifetimeMS>
 			<Size>140</Size>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Green Boomerang</ObjectId>
 			<Damage>100</Damage>
 			<Speed>40</Speed>
 			<LifetimeMS>3600</LifetimeMS>
 			<ConditionEffect duration="5">Slowed</ConditionEffect>
-			<Boomerang/>
-			<MultiHit/>
+			<Boomerang />
+			<MultiHit />
 		</Projectile>
 
 		<Projectile id="2">
@@ -870,9 +766,9 @@
 			<Damage>30</Damage>
 			<Speed>100</Speed>
 			<LifetimeMS>2000</LifetimeMS>
-			<ArmorPiercing/>
+			<ArmorPiercing />
 			<Size>100</Size>
-		</Projectile>	
+		</Projectile>
 
 		<Projectile id="3">
 			<ObjectId>Dark Gray Spinner</ObjectId>
@@ -880,9 +776,9 @@
 			<Speed>120</Speed>
 			<LifetimeMS>5000</LifetimeMS>
 			<ConditionEffect duration="10">Weak</ConditionEffect>
-			<MultiHit/>
+			<MultiHit />
 			<Size>200</Size>
-		</Projectile>	
+		</Projectile>
 
 		<Projectile id="4">
 			<ObjectId>Fireball</ObjectId>
@@ -890,8 +786,8 @@
 			<Speed>60</Speed>
 			<LifetimeMS>2000</LifetimeMS>
 			<Size>140</Size>
-			<Parametric/>
-		</Projectile>	
+			<Parametric />
+		</Projectile>
 
 		<Projectile id="5">
 			<ObjectId>Darkness Bolt</ObjectId>
@@ -899,40 +795,28 @@
 			<Speed>50</Speed>
 			<LifetimeMS>4000</LifetimeMS>
 			<Size>140</Size>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
-		
-
-		
-
-		
-		
-		
-		
-		
-		
-		
-
 	</Object>
-	
+
 	<Object type="0x0d28" id="Tomb Defender">
 		<Group>Tomb Bosses</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Bes</DisplayId>
-		<Quest/>
+		<Quest />
 		<Level>1</Level>
-		
+
 		<AnimatedTexture><File>chars16x16dEncounters</File><Index>12</Index></AnimatedTexture>
 		<HitSound>monster/medusa_hit</HitSound>
-		<DeathSound>monster/medusa_death</DeathSound>		
-	
+		<DeathSound>monster/medusa_death</DeathSound>
+
 		<MaxHitPoints>100000</MaxHitPoints>
 		<Size>140</Size>
 		<Defense>50</Defense>
 		<XpMult>1</XpMult>
-		<God/> 
-		<NoArticle/>
+		<God />
+		<NoArticle />
 
 		<Projectile id="0">
 			<ObjectId>Darkness Bolt</ObjectId>
@@ -940,17 +824,17 @@
 			<Speed>60</Speed>
 			<LifetimeMS>2000</LifetimeMS>
 			<Size>180</Size>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Fire Boomerang</ObjectId>
 			<Damage>150</Damage>
 			<Speed>60</Speed>
 			<LifetimeMS>5000</LifetimeMS>
 			<ConditionEffect duration="5">Armor Broken</ConditionEffect>
-			<Boomerang/>
-			<MultiHit/>
+			<Boomerang />
+			<MultiHit />
 		</Projectile>
 
 		<Projectile id="2">
@@ -960,7 +844,7 @@
 			<LifetimeMS>540</LifetimeMS>
 			<ConditionEffect duration="1.2">Stunned</ConditionEffect>
 			<Size>200</Size>
-		</Projectile>	
+		</Projectile>
 
 		<Projectile id="3">
 			<ObjectId>Dark Gray Spinner</ObjectId>
@@ -968,7 +852,7 @@
 			<Speed>120</Speed>
 			<LifetimeMS>5000</LifetimeMS>
 			<ConditionEffect duration="10">Weak</ConditionEffect>
-			<MultiHit/>
+			<MultiHit />
 			<Size>200</Size>
 		</Projectile>
 
@@ -979,42 +863,27 @@
 			<LifetimeMS>1200</LifetimeMS>
 			<ConditionEffect duration="1.2">Stunned</ConditionEffect>
 			<Size>200</Size>
-		</Projectile>	
-		
-		
-		
-
-		
-		
-		
-		
-		
-		
-		
-
+		</Projectile>
 	</Object>
-
-
-	
 
 	<Object type="0x0d29" id="Active Sarcophagus">
 		<Group>Support Beam</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Sarcophagus</DisplayId>
-		<Quest/>
+		<Quest />
 		<Level>20</Level>
-		
+
 		<Texture><File>lofiChar216x16</File><Index>0x0e</Index></Texture>
 		<HitSound>monster/medusa_hit</HitSound>
-		<DeathSound>monster/medusa_death</DeathSound>		
-	
+		<DeathSound>monster/medusa_death</DeathSound>
+
 		<MaxHitPoints>15000</MaxHitPoints>
 		<Size>140</Size>
 		<Defense>100</Defense>
-		<StasisImmune/>
+		<StasisImmune />
 		<XpMult>1.4</XpMult>
-		<God/>
+		<God />
 
 		<Projectile id="0">
 			<ObjectId>Silver Shield</ObjectId>
@@ -1023,31 +892,25 @@
 			<LifetimeMS>2000</LifetimeMS>
 			<Size>200</Size>
 			<ConditionEffect duration="3">Stunned</ConditionEffect>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
-		
-
-        
-
-		
-		
 	</Object>
 
 	<Object type="0x0d2a" id="Beam Priest">
 		<Group>Beam Priests</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Worshiping Priest</DisplayId>
-		
+
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>5</Index></AnimatedTexture>
 		<HitSound>monster/medusa_hit</HitSound>
-		<DeathSound>monster/medusa_death</DeathSound>		
-	
+		<DeathSound>monster/medusa_death</DeathSound>
+
 		<MaxHitPoints>8000</MaxHitPoints>
 		<Size>100</Size>
 		<Defense>20</Defense>
 		<XpMult>1.0</XpMult>
-		<God/>			
+		<God />
 
 		<Projectile id="0">
 			<ObjectId>Purple Boomerang</ObjectId>
@@ -1056,9 +919,9 @@
 			<LifetimeMS>2000</LifetimeMS>
 			<Size>80</Size>
 			<ConditionEffect duration="5">Weak</ConditionEffect>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Violet Missile</ObjectId>
 			<Damage>100</Damage>
@@ -1066,37 +929,24 @@
 			<LifetimeMS>2000</LifetimeMS>
 			<Size>120</Size>
 		</Projectile>
-
-
-
-
-
-
-
-
-
-		
-
-		
-
 	</Object>
 
 	<Object type="0x0d2b" id="Beam Priestess">
 		<Group>Beam Priests</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Worshiping Priestess</DisplayId>
-		
+
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>6</Index></AnimatedTexture>
 		<HitSound>monster/medusa_hit</HitSound>
-		<DeathSound>monster/medusa_death</DeathSound>		
-	
+		<DeathSound>monster/medusa_death</DeathSound>
+
 		<MaxHitPoints>7000</MaxHitPoints>
 		<Size>100</Size>
 		<Defense>15</Defense>
 		<XpMult>1.0</XpMult>
-		<God/>
-			
+		<God />
+
 		<Projectile id="0">
 			<ObjectId>Blue Boomerang</ObjectId>
 			<Damage>0</Damage>
@@ -1104,9 +954,9 @@
 			<LifetimeMS>2000</LifetimeMS>
 			<Size>80</Size>
 			<ConditionEffect duration="7">Weak</ConditionEffect>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Blue Missile</ObjectId>
 			<Damage>80</Damage>
@@ -1114,123 +964,98 @@
 			<LifetimeMS>2000</LifetimeMS>
 			<Size>120</Size>
 		</Projectile>
-
-
-
-
-
-
-
-
-
-		
-
-		
 	</Object>
 
 	<Object type="0x0d2c" id="Inactive Sarcophagus">
 		<Group>Tomb Treasure</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Treasure Sarcophagus</DisplayId>
-		
+
 		<Texture><File>lofiChar216x16</File><Index>0x0f</Index></Texture>
 		<HitSound>monster/medusa_hit</HitSound>
-		<DeathSound>monster/medusa_death</DeathSound>		
-	
+		<DeathSound>monster/medusa_death</DeathSound>
+
 		<MaxHitPoints>50000</MaxHitPoints>
 		<Size>180</Size>
 		<Defense>100</Defense>
 		<XpMult>0.0</XpMult>
-		<God/>
-
-
+		<God />
 	</Object>
 
 	<Object type="0x0d2d" id="Canopic Jar 1">
 		<Group>Tomb Treasure</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Canopic Jar</DisplayId>
-		
+
 		<Texture><File>lofiObj4</File><Index>0xb0</Index></Texture>
 		<HitSound>monster/medusa_hit</HitSound>
-		<DeathSound>monster/medusa_death</DeathSound>		
-	
+		<DeathSound>monster/medusa_death</DeathSound>
+
 		<MaxHitPoints>1</MaxHitPoints>
 		<Size>100</Size>
 		<Defense>0</Defense>
 		<XpMult>0.0</XpMult>
-		<God/>
-			
-		
+		<God />
 	</Object>
 
 	<Object type="0x0d2e" id="Canopic Jar 2">
 		<Group>Tomb Treasure</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Canopic Jar</DisplayId>
-		
+
 		<Texture><File>lofiObj4</File><Index>0xb1</Index></Texture>
 		<HitSound>monster/medusa_hit</HitSound>
-		<DeathSound>monster/medusa_death</DeathSound>		
-	
+		<DeathSound>monster/medusa_death</DeathSound>
+
 		<MaxHitPoints>1</MaxHitPoints>
 		<Size>100</Size>
 		<Defense>0</Defense>
 		<XpMult>0.0</XpMult>
-		<God/>
-			
-		
+		<God />
 	</Object>
 
 	<Object type="0x0d2f" id="Canopic Jar 3">
 		<Group>Tomb Treasure</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Canopic Jar</DisplayId>
-		
+
 		<Texture><File>lofiObj4</File><Index>0xb2</Index></Texture>
 		<HitSound>monster/medusa_hit</HitSound>
-		<DeathSound>monster/medusa_death</DeathSound>		
-	
+		<DeathSound>monster/medusa_death</DeathSound>
+
 		<MaxHitPoints>1</MaxHitPoints>
 		<Size>100</Size>
 		<Defense>0</Defense>
 		<XpMult>0.0</XpMult>
-		<God/>
-			
-		
+		<God />
 	</Object>
 
 	<Object type="0x0d30" id="Canopic Jar 4">
 		<Group>Tomb Treasure</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<DisplayId>Canopic Jar</DisplayId>
-		
+
 		<Texture><File>lofiObj4</File><Index>0xb3</Index></Texture>
 		<HitSound>monster/medusa_hit</HitSound>
-		<DeathSound>monster/medusa_death</DeathSound>		
-	
+		<DeathSound>monster/medusa_death</DeathSound>
+
 		<MaxHitPoints>1</MaxHitPoints>
 		<Size>100</Size>
 		<Defense>0</Defense>
 		<XpMult>0.0</XpMult>
-		<God/>
-			
-		
+		<God />
 	</Object>
-        
-
-
 
 	<Object type="0x0d31" id="Tomb Fire Turret">
 		<Group>Tomb Turrets</Group>
 		<Class>GameObject</Class>
 		<Model>Obelisk</Model>
-		<Enemy/>
+		<Enemy />
 		<Texture><File>lofiEnvironment3</File><Index>0x40</Index></Texture>
 		<AltTexture id="1">
 			<Texture><File>lofiEnvironment3</File><Index>0x41</Index></Texture>
@@ -1243,14 +1068,13 @@
 			<LifetimeMS>500</LifetimeMS>
 			<ConditionEffect duration="2">Armor Broken</ConditionEffect>
 		</Projectile>
-
 	</Object>
 
 	<Object type="0x0d32" id="Tomb Thunder Turret">
 		<Group>Tomb Turrets</Group>
 		<Class>GameObject</Class>
 		<Model>Obelisk</Model>
-		<Enemy/>
+		<Enemy />
 		<Texture><File>lofiEnvironment3</File><Index>0x42</Index></Texture>
 		<AltTexture id="1">
 			<Texture><File>lofiEnvironment3</File><Index>0x43</Index></Texture>
@@ -1262,18 +1086,15 @@
 			<MaxDamage>100</MaxDamage>
 			<LifetimeMS>3000</LifetimeMS>
 			<ConditionEffect duration="1.4">Paralyzed</ConditionEffect>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
-
-
-		
 	</Object>
 
 	<Object type="0x0d33" id="Tomb Frost Turret">
 		<Group>Tomb Turrets</Group>
 		<Class>GameObject</Class>
 		<Model>Obelisk</Model>
-		<Enemy/>
+		<Enemy />
 		<Texture><File>lofiEnvironment3</File><Index>0x44</Index></Texture>
 		<AltTexture id="1">
 			<Texture><File>lofiEnvironment3</File><Index>0x45</Index></Texture>
@@ -1285,8 +1106,6 @@
 			<LifetimeMS>1400</LifetimeMS>
 			<ConditionEffect duration="2">Slowed</ConditionEffect>
 		</Projectile>
-
-
 	</Object>
 
 	<Object type="0x0d34" id="Center Tomb Fire Turret">
@@ -1294,7 +1113,7 @@
 		<Group>Center Tomb Turrets</Group>
 		<Class>GameObject</Class>
 		<Model>Obelisk</Model>
-		<Enemy/>
+		<Enemy />
 		<Texture><File>lofiEnvironment3</File><Index>0x46</Index></Texture>
 		<AltTexture id="1">
 			<Texture><File>lofiEnvironment3</File><Index>0x47</Index></Texture>
@@ -1307,8 +1126,6 @@
 			<LifetimeMS>800</LifetimeMS>
 			<ConditionEffect duration="2">Armor Broken</ConditionEffect>
 		</Projectile>
-
-
 	</Object>
 
 	<Object type="0x0d35" id="Center Tomb Thunder Turret">
@@ -1316,7 +1133,7 @@
 		<Group>Center Tomb Turrets</Group>
 		<Class>GameObject</Class>
 		<Model>Obelisk</Model>
-		<Enemy/>
+		<Enemy />
 		<Texture><File>lofiEnvironment3</File><Index>0x48</Index></Texture>
 		<AltTexture id="1">
 			<Texture><File>lofiEnvironment3</File><Index>0x49</Index></Texture>
@@ -1328,10 +1145,8 @@
 			<MaxDamage>80</MaxDamage>
 			<LifetimeMS>1000</LifetimeMS>
 			<ConditionEffect duration="1.4">Paralyzed</ConditionEffect>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
-
-
 	</Object>
 
 	<Object type="0x0d36" id="Center Tomb Frost Turret">
@@ -1339,7 +1154,7 @@
 		<Group>Center Tomb Turrets</Group>
 		<Class>GameObject</Class>
 		<Model>Obelisk</Model>
-		<Enemy/>
+		<Enemy />
 		<Texture><File>lofiEnvironment3</File><Index>0x4a</Index></Texture>
 		<AltTexture id="1">
 			<Texture><File>lofiEnvironment3</File><Index>0x4b</Index></Texture>
@@ -1352,76 +1167,59 @@
 			<ConditionEffect duration="4">Slowed</ConditionEffect>
 			<Size>60</Size>
 		</Projectile>
-
-
 	</Object>
-	
 
-
-	
 	<Object type="0x0d37" id="Tomb Bomb Trap Switch">
 		<DisplayId>Switch</DisplayId>
 		<Group>Tomb Traps</Group>
 		<Class>Character</Class>
-		<Enemy/>
+		<Enemy />
 		<Texture><File>lofiChar28x8</File><Index>0x90</Index></Texture>
 		<AltTexture id="1">
 			<Texture><File>lofiChar28x8</File><Index>0x91</Index></Texture>
 		</AltTexture>
 		<HitSound>monster/traps_hit</HitSound>
 		<DeathSound>monster/traps_death</DeathSound>
-		<StasisImmune/>
+		<StasisImmune />
 		<Size>100</Size>
-		<DrawOnGround/>
-		<NoMiniMap/>
-		
-		
-		
-		
-		
-		
+		<DrawOnGround />
+		<NoMiniMap />
 	</Object>
-	
+
 	<Object type="0x0d38" id="Tomb Bomb Trap">
 		<Group>Tomb Traps</Group>
 		<Class>Character</Class>
-		<Enemy/>
+		<Enemy />
 		<Texture><File>lofiChar28x8</File><Index>0x92</Index></Texture>
 		<HitSound>monster/traps_hit</HitSound>
 		<DeathSound>monster/traps_death</DeathSound>
 		<Size>100</Size>
-		<DrawOnGround/>
-		<NoMiniMap/>
-		
-		
+		<DrawOnGround />
+		<NoMiniMap />
 	</Object>
-	
+
 	<Object type="0x0d39" id="Deactivated Tomb Bomb Trap">
 		<Class>Character</Class>
 		<Texture><File>lofiChar28x8</File><Index>0x93</Index></Texture>
 		<Size>100</Size>
-		<DrawOnGround/>
-		<NoMiniMap/>
-	</Object>	
+		<DrawOnGround />
+		<NoMiniMap />
+	</Object>
 
-
-
-	
-	
 	<Object type="0x0d3a" id="Eagle Sentry">
 		<Group>Tomb Gang</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
-		
+
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>8</Index></AnimatedTexture>
 		<HitSound>monster/elves_hit</HitSound>
 		<DeathSound>monster/elves_death</DeathSound>
-	
+
 		<MaxHitPoints>4000</MaxHitPoints>
 		<Size>120</Size>
 		<Defense>35</Defense>
 		<XpMult>1.2</XpMult>
-		<God/>
+		<God />
 
 		<Projectile id="0">
 			<ObjectId>Stick</ObjectId>
@@ -1429,7 +1227,7 @@
 			<Speed>90</Speed>
 			<LifetimeMS>700</LifetimeMS>
 			<Size>100</Size>
-		</Projectile>			
+		</Projectile>
 
 		<Projectile id="1">
 			<ObjectId>Stick</ObjectId>
@@ -1446,30 +1244,23 @@
 			<LifetimeMS>700</LifetimeMS>
 			<Size>100</Size>
 		</Projectile>
-		
-		
-		
-		
-		
-		
-		
 	</Object>
-               
+
 	<Object type="0x0d3b" id="Jackal Priest">
 		<Group>Tomb Gang</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
-		
+
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>9</Index></AnimatedTexture>
 		<HitSound>monster/elves_hit</HitSound>
 		<DeathSound>monster/elves_death</DeathSound>
-	
+
 		<MaxHitPoints>2500</MaxHitPoints>
 		<Size>120</Size>
 		<Defense>5</Defense>
 		<XpMult>1.2</XpMult>
-		<God/>	
-		
+		<God />
+
 		<Projectile id="0">
 			<ObjectId>Violet Missile</ObjectId>
 			<Damage>100</Damage>
@@ -1477,38 +1268,30 @@
 			<LifetimeMS>3000</LifetimeMS>
 			<Size>100</Size>
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Violet Missile</ObjectId>
 			<Damage>140</Damage>
 			<Speed>50</Speed>
 			<LifetimeMS>3000</LifetimeMS>
 			<Size>120</Size>
-		</Projectile>	
-		
-		
-		
-				
-				
-				
-		
-		
+		</Projectile>
 	</Object>
-        
+
 	<Object type="0x0d3c" id="Lion Archer">
 		<Group>Tomb Gang</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
-		
+
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>7</Index></AnimatedTexture>
 		<HitSound>monster/elves_hit</HitSound>
 		<DeathSound>monster/elves_death</DeathSound>
-	
+
 		<MaxHitPoints>3200</MaxHitPoints>
 		<Size>120</Size>
 		<Defense>20</Defense>
 		<XpMult>1.2</XpMult>
-		<God/>			
+		<God />
 
 		<Projectile id="0">
 			<ObjectId>Indigo Arrow</ObjectId>
@@ -1516,8 +1299,8 @@
 			<Speed>70</Speed>
 			<LifetimeMS>1200</LifetimeMS>
 			<Size>100</Size>
-			<MultiHit/>
-		</Projectile>		
+			<MultiHit />
+		</Projectile>
 
 		<Projectile id="1">
 			<ObjectId>Indigo Arrow</ObjectId>
@@ -1525,8 +1308,8 @@
 			<Speed>70</Speed>
 			<LifetimeMS>1200</LifetimeMS>
 			<Size>120</Size>
-			<MultiHit/>
-		</Projectile>	
+			<MultiHit />
+		</Projectile>
 
 		<Projectile id="2">
 			<ObjectId>Spring Green Arrow</ObjectId>
@@ -1534,7 +1317,7 @@
 			<Speed>60</Speed>
 			<LifetimeMS>2000</LifetimeMS>
 			<Size>140</Size>
-			<MultiHit/>
+			<MultiHit />
 			<ConditionEffect duration="4">Slowed</ConditionEffect>
 		</Projectile>
 
@@ -1544,16 +1327,8 @@
 			<Speed>50</Speed>
 			<LifetimeMS>3000</LifetimeMS>
 			<Size>140</Size>
-			<MultiHit/>
+			<MultiHit />
 			<ConditionEffect duration="1.2">Paralyzed</ConditionEffect>
-		</Projectile>	
-		
-		
-		
-				
-		
-				
-		
-		
+		</Projectile>
 	</Object>
 </Objects>

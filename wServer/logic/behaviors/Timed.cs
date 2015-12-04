@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using wServer.realm;
 
 namespace wServer.logic.behaviors
 {
     //replacement for simple timed transition in sequence
-    class Timed : CycleBehavior
+    internal class Timed : CycleBehavior
     {
         //State storage: time
 
-        Behavior behavior;
-        int period;
+        private Behavior behavior;
+        private int period;
+
         public Timed(int period, Behavior behavior)
         {
             this.behavior = behavior;

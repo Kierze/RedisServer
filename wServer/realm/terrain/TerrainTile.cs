@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace terrain
 {
-    enum TerrainType
+    internal enum TerrainType
     {
         None,
         Mountains,
@@ -21,7 +18,8 @@ namespace terrain
         ShoreSand,
         ShorePlains,
     }
-    enum TileRegion : byte
+
+    internal enum TileRegion : byte
     {
         None,
         Spawn,
@@ -47,7 +45,8 @@ namespace terrain
         Setpiece2,
         Setpiece3
     }
-    struct TerrainTile : IEquatable<TerrainTile>
+
+    internal struct TerrainTile : IEquatable<TerrainTile>
     {
         public int PolygonId;
         public byte Elevation;
@@ -62,7 +61,7 @@ namespace terrain
         public bool Equals(TerrainTile other)
         {
             return
-                this.TileId  == other.TileId &&
+                this.TileId == other.TileId &&
                 this.TileObj == other.TileObj &&
                 this.Name == other.Name &&
                 this.Terrain == other.Terrain &&

@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using common;
 using System.Linq;
 using System.Text;
 using wServer.networking.svrPackets;
 using wServer.realm.entities;
-using common;
 
 namespace wServer.realm.commands
 {
-    class TutorialCommand : Command
+    internal class TutorialCommand : Command
     {
-        public TutorialCommand() : base("tutorial") { }
+        public TutorialCommand() : base("tutorial")
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -26,9 +26,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class WhoCommand : Command
+    internal class WhoCommand : Command
     {
-        public WhoCommand() : base("who") { }
+        public WhoCommand() : base("who")
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -50,9 +52,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class ServerCommand : Command
+    internal class ServerCommand : Command
     {
-        public ServerCommand() : base("server") { }
+        public ServerCommand() : base("server")
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -61,9 +65,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class PauseCommand : Command
+    internal class PauseCommand : Command
     {
-        public PauseCommand() : base("pause") { }
+        public PauseCommand() : base("pause")
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -99,13 +105,16 @@ namespace wServer.realm.commands
     }
 
     /// <summary>
-    /// This introduces a subtle bug, since the client UI is not notified when a /teleport is typed, it's cooldown does not reset.
-    /// This leads to the unfortunate situation where the cooldown has been not been reached, but the UI doesn't know. The graphical TP will fail
-    /// and cause it's timer to reset. NB: typing /teleport will workaround this timeout issue.
+    /// This introduces a subtle bug, since the client UI is not notified when a /teleport is typed,
+    /// it's cooldown does not reset. This leads to the unfortunate situation where the cooldown has
+    /// been not been reached, but the UI doesn't know. The graphical TP will fail and cause it's
+    /// timer to reset. NB: typing /teleport will workaround this timeout issue.
     /// </summary>
-    class TeleportCommand : Command
+    internal class TeleportCommand : Command
     {
-        public TeleportCommand() : base("teleport") { }
+        public TeleportCommand() : base("teleport")
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -128,9 +137,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class TellCommand : Command
+    internal class TellCommand : Command
     {
-        public TellCommand() : base("tell") { }
+        public TellCommand() : base("tell")
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -161,7 +172,7 @@ namespace wServer.realm.commands
         }
     }
 
-    class HelpCommand : Command
+    internal class HelpCommand : Command
     {
         //actually the command is 'help', but /help is intercepted by client
         public HelpCommand() : base("commands") { }

@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using common;
 using Mono.Game;
+using wServer.realm;
 using wServer.realm.entities;
 
 namespace wServer.logic.behaviors
 {
-    class Charge : CycleBehavior
+    internal class Charge : CycleBehavior
     {
         //State storage: charge state
-        class ChargeState
+        private class ChargeState
         {
             public Vector2 Direction;
             public int RemainingTime;
         }
 
-        float speed;
-        float range;
-        Cooldown coolDown;
+        private float speed;
+        private float range;
+        private Cooldown coolDown;
+
         public Charge(double speed = 4, float range = 10, Cooldown coolDown = new Cooldown())
         {
             this.speed = (float)speed;

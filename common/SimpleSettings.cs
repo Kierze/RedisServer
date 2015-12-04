@@ -1,20 +1,18 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Collections.Specialized;
-using log4net;
 
 namespace common
 {
     public class SimpleSettings : IDisposable
     {
-        static ILog log = LogManager.GetLogger(typeof(SimpleSettings));
+        private static ILog log = LogManager.GetLogger(typeof(SimpleSettings));
 
-        Dictionary<string, string> values;
-        string id;
-        string cfgFile;
+        private Dictionary<string, string> values;
+        private string id;
+        private string cfgFile;
+
         public SimpleSettings(string id)
         {
             log.InfoFormat("Loading settings for '{0}'...", id);

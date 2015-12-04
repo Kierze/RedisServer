@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using wServer.networking;
 
 namespace wServer.realm.entities
 {
     partial class Player
     {
-        Queue<Tuple<Packet, Predicate<Player>>> pendingPackets = new Queue<Tuple<Packet, Predicate<Player>>>();
+        private Queue<Tuple<Packet, Predicate<Player>>> pendingPackets = new Queue<Tuple<Packet, Predicate<Player>>>();
 
         internal void Flush()
         {
@@ -23,15 +21,18 @@ namespace wServer.realm.entities
         {
             BroadcastSync(packet, _ => true);
         }
+
         public void BroadcastSync(Packet packet, Predicate<Player> cond)
         {
             pendingPackets.Enqueue(Tuple.Create(packet, cond));
         }
+
         public void BroadcastSync(IEnumerable<Packet> packets)
         {
             foreach (var i in packets)
                 BroadcastSync(i, _ => true);
         }
+
         public void BroadcastSync(IEnumerable<Packet> packets, Predicate<Player> cond)
         {
             foreach (var i in packets)

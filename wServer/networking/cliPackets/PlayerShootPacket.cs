@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.cliPackets
 {
@@ -15,7 +11,11 @@ namespace wServer.networking.cliPackets
         public float Angle { get; set; }
 
         public override PacketID ID { get { return PacketID.PlayerShoot; } }
-        public override Packet CreateInstance() { return new PlayerShootPacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new PlayerShootPacket();
+        }
 
         protected override void Read(NReader rdr)
         {
@@ -25,6 +25,7 @@ namespace wServer.networking.cliPackets
             Position = Position.Read(rdr);
             Angle = rdr.ReadSingle();
         }
+
         protected override void Write(NWriter wtr)
         {
             wtr.Write(Time);

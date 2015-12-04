@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.networking.svrPackets;
-using common;
+﻿using common;
+using System;
 
 namespace wServer.realm.entities
 {
     partial class Player
     {
-        float healing = 0;
-        float bleeding = 0;
-        int healCount = 0;
-        void HandleEffects(RealmTime time)
+        private float healing = 0;
+        private float bleeding = 0;
+        private int healCount = 0;
+
+        private void HandleEffects(RealmTime time)
         {
             if (HasConditionEffect(ConditionEffects.Healing))
             {
@@ -46,7 +43,7 @@ namespace wServer.realm.entities
             if (newbieTime > 0)
             {
                 newbieTime -= time.thisTickTimes;
-                if (newbieTime < 0) 
+                if (newbieTime < 0)
                     newbieTime = 0;
             }
             if (CanTPCooldownTime > 0)
@@ -57,7 +54,7 @@ namespace wServer.realm.entities
             }
         }
 
-        bool CanHpRegen()
+        private bool CanHpRegen()
         {
             if (HasConditionEffect(ConditionEffects.Sick))
                 return false;
@@ -65,22 +62,26 @@ namespace wServer.realm.entities
                 return false;
             return true;
         }
-        bool CanMpRegen()
+
+        private bool CanMpRegen()
         {
             if (HasConditionEffect(ConditionEffects.Quiet))
                 return false;
             return true;
         }
 
-        int newbieTime = 0;
+        private int newbieTime = 0;
+
         internal void SetNewbiePeriod()
         {
             newbieTime = 3000;
         }
-        int CanTPCooldownTime = 0;
+
+        private int CanTPCooldownTime = 0;
+
         internal void SetTPDisabledPeriod()
         {
-            CanTPCooldownTime = 10*1000; // 10 seconds
+            CanTPCooldownTime = 10 * 1000; // 10 seconds
         }
 
         public bool IsVisibleToEnemy()
@@ -93,6 +94,7 @@ namespace wServer.realm.entities
                 return false;
             return true;
         }
+
         public bool TPCooledDown()
         {
             if (CanTPCooldownTime > 0)

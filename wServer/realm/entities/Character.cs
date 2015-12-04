@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace wServer.realm.entities
+﻿namespace wServer.realm.entities
 {
     public abstract class Character : Entity
     {
         public wRandom Random { get; private set; }
+
         protected Character(RealmManager manager, ushort objType, wRandom rand)
             : base(manager, objType)
         {

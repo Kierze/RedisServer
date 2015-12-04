@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using common;
 using Mono.Game;
-using wServer.realm.entities;
+using wServer.realm;
 
 namespace wServer.logic.behaviors
 {
-    class Protect : CycleBehavior
+    internal class Protect : CycleBehavior
     {
         //State storage: protect state
-        enum ProtectState
+        private enum ProtectState
         {
             DontKnowWhere,
             Protecting,
             Protected,
         }
 
-        float speed;
-        ushort protectee;
-        float acquireRange;
-        float protectionRange;
-        float reprotectRange;
+        private float speed;
+        private ushort protectee;
+        private float acquireRange;
+        private float protectionRange;
+        private float reprotectRange;
+
         public Protect(double speed, string protectee, double acquireRange = 10, double protectionRange = 2, double reprotectRange = 1)
         {
             this.speed = (float)speed;
@@ -40,7 +36,7 @@ namespace wServer.logic.behaviors
             else s = (ProtectState)state;
 
             Status = CycleStatus.NotStarted;
-            
+
             if (host.HasConditionEffect(ConditionEffects.Paralyzed)) return;
 
             var entity = host.GetNearestEntity(acquireRange, protectee);
@@ -89,7 +85,6 @@ namespace wServer.logic.behaviors
                         goto case ProtectState.Protecting;
                     }
                     break;
-
             }
 
             state = s;

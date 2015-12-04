@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using common;
 using wServer.realm;
-using common;
 
 namespace wServer.logic.behaviors
 {
-    class BackAndForth : CycleBehavior
+    internal class BackAndForth : CycleBehavior
     {
         //State storage: remaining distance
 
-        float speed;
-        int distance;
+        private float speed;
+        private int distance;
+
         public BackAndForth(double speed, int distance = 5)
         {
             this.speed = (float)speed;

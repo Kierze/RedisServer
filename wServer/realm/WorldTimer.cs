@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace wServer.realm
 {
     public class WorldTimer
     {
-        Action<World, RealmTime> cb;
-        int remain;
-        int total;
+        private Action<World, RealmTime> cb;
+        private int remain;
+        private int total;
 
-        int t = 0;
+        private int t = 0;
+
         public WorldTimer(int tickMs, Action<World, RealmTime> callback)
         {
             remain = total = tickMs;

@@ -1,34 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
-using System.Collections.Concurrent;
+﻿using common;
 using log4net;
+using System;
+using System.Collections.Concurrent;
 
 namespace wServer.realm
 {
     public class ISManager : InterServerChannel, IDisposable
     {
-        ILog log = LogManager.GetLogger(typeof(ISManager));
+        private ILog log = LogManager.GetLogger(typeof(ISManager));
 
         public const string NETWORK = "network";
         public const string CHAT = "chat";
         public const string CONTROL = "control";   //maybe later...
 
-        enum NetworkCode
+        private enum NetworkCode
         {
             JOIN,
             PING,
             QUIT
         }
-        struct NetworkMsg
+
+        private struct NetworkMsg
         {
             public NetworkCode Code;
             public string Type;
         }
 
-        RealmManager manager;
+        private RealmManager manager;
+
         public ISManager(RealmManager manager)
             : base(manager.Database, manager.InstanceId)
         {
@@ -44,9 +43,10 @@ namespace wServer.realm
             });
         }
 
-        ConcurrentDictionary<string, int> availableInstance = new ConcurrentDictionary<string, int>();
+        private ConcurrentDictionary<string, int> availableInstance = new ConcurrentDictionary<string, int>();
 
-        long remaining = 2000;
+        private long remaining = 2000;
+
         public void Tick(RealmTime t)
         {
             remaining -= t.thisTickTimes;
@@ -73,7 +73,7 @@ namespace wServer.realm
             Publish(NETWORK, new NetworkMsg() { Code = NetworkCode.QUIT });
         }
 
-        void HandleNetwork(object sender, InterServerEventArgs<NetworkMsg> e)
+        private void HandleNetwork(object sender, InterServerEventArgs<NetworkMsg> e)
         {
             switch (e.Content.Code)
             {

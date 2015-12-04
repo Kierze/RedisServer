@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.svrPackets
 {
@@ -17,7 +13,11 @@ namespace wServer.networking.svrPackets
         public string CleanText { get; set; }
 
         public override PacketID ID { get { return PacketID.Text; } }
-        public override Packet CreateInstance() { return new TextPacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new TextPacket();
+        }
 
         protected override void Read(NReader rdr)
         {
@@ -29,6 +29,7 @@ namespace wServer.networking.svrPackets
             Text = rdr.ReadUTF();
             CleanText = rdr.ReadUTF();
         }
+
         protected override void Write(NWriter wtr)
         {
             wtr.WriteUTF(Name);

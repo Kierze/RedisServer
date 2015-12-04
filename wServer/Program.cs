@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net.Sockets;
-using System.Net;
-using System.Threading;
-using wServer.realm;
-using common;
-using System.Net.NetworkInformation;
-using wServer.networking;
-using System.Globalization;
+﻿using common;
 using log4net;
 using log4net.Config;
+using System;
+using System.Globalization;
 using System.IO;
+using System.Threading;
+using wServer.networking;
+using wServer.realm;
 
 namespace wServer
 {
-    static class Program
+    internal static class Program
     {
         internal static SimpleSettings Settings;
 
-        static ILog log = LogManager.GetLogger("Server");
+        private static ILog log = LogManager.GetLogger("Server");
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             XmlConfigurator.ConfigureAndWatch(new FileInfo("log4net.config"));
 

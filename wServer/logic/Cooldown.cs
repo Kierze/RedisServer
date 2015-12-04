@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace wServer.logic
 {
-    struct Cooldown
+    internal struct Cooldown
     {
         public readonly int CoolDown;
         public readonly int Variance;
+
         public Cooldown(int cooldown, int variance)
         {
             this.CoolDown = cooldown;

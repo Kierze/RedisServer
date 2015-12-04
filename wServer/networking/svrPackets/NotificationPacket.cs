@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.svrPackets
 {
@@ -13,7 +9,11 @@ namespace wServer.networking.svrPackets
         public ARGB Color { get; set; }
 
         public override PacketID ID { get { return PacketID.Notification; } }
-        public override Packet CreateInstance() { return new NotificationPacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new NotificationPacket();
+        }
 
         protected override void Read(NReader rdr)
         {
@@ -21,6 +21,7 @@ namespace wServer.networking.svrPackets
             Text = rdr.ReadUTF();
             Color = ARGB.Read(rdr);
         }
+
         protected override void Write(NWriter wtr)
         {
             wtr.Write(ObjectId);

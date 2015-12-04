@@ -1,14 +1,13 @@
-﻿using System;
+﻿using common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using wServer.realm;
-using common;
 using wServer.realm.entities;
 
 namespace wServer
 {
-    static class EntityUtils
+    internal static class EntityUtils
     {
         public static double DistSqr(this Entity a, Entity b)
         {
@@ -16,11 +15,11 @@ namespace wServer
             var dy = a.Y - b.Y;
             return dx * dx + dy * dy;
         }
+
         public static double Dist(this Entity a, Entity b)
         {
             return Math.Sqrt(a.DistSqr(b));
         }
-
 
         public static bool AnyPlayerNearby(this Entity entity)
         {
@@ -32,6 +31,7 @@ namespace wServer
             }
             return false;
         }
+
         public static bool AnyPlayerNearby(this World world, double x, double y)
         {
             foreach (var i in world.PlayersCollision.HitTest(x, y, 16))
@@ -47,6 +47,7 @@ namespace wServer
         {
             return entity.GetNearestEntities(dist, objType).FirstOrDefault();
         }
+
         public static IEnumerable<Entity> GetNearestEntities(this Entity entity, double dist, ushort? objType)   //Null for player
         {
             if (entity.Owner == null) yield break;
@@ -67,6 +68,7 @@ namespace wServer
                         yield return i;
                 }
         }
+
         public static Entity GetNearestEntity(this Entity entity, double dist, bool players, Predicate<Entity> predicate = null)
         {
             if (entity.Owner == null) return null;
@@ -75,7 +77,8 @@ namespace wServer
                 foreach (var i in entity.Owner.PlayersCollision.HitTest(entity.X, entity.Y, dist))
                 {
                     if (!(i as IPlayer).IsVisibleToEnemy() ||
-                        i == entity) continue;
+                        i == entity)
+                        continue;
                     var d = i.Dist(entity);
                     if (d < dist)
                     {
@@ -105,6 +108,7 @@ namespace wServer
         {
             return entity.GetNearestEntitiesByGroup(dist, group).FirstOrDefault();
         }
+
         public static IEnumerable<Entity> GetNearestEntitiesByGroup(this Entity entity, double dist, string group)
         {
             if (entity.Owner == null)
@@ -140,6 +144,7 @@ namespace wServer
                 }
             return ret;
         }
+
         public static int CountEntity(this Entity entity, double dist, string group)
         {
             if (entity.Owner == null) return 0;
@@ -162,7 +167,8 @@ namespace wServer
         public static bool ValidateAndMove(this Entity entity, float x, float y)
         {
             if (entity.Owner == null ||
-                entity.HasConditionEffect(ConditionEffects.Paralyzed)) return false;
+                entity.HasConditionEffect(ConditionEffects.Paralyzed))
+                return false;
             if (entity.Validate(x, y))
                 entity.Move(x, y);
             else if (entity.Validate(entity.X, y))
@@ -173,10 +179,12 @@ namespace wServer
                 return false;
             return true;
         }
+
         public static bool Validate(this Entity entity, float x, float y)
         {
             if (entity.Owner == null ||
-                entity.HasConditionEffect(ConditionEffects.Paralyzed)) return false;
+                entity.HasConditionEffect(ConditionEffects.Paralyzed))
+                return false;
             if (x < 0 || x >= entity.Owner.Map.Width ||
                 y < 0 || y >= entity.Owner.Map.Height)
                 return false;
@@ -203,6 +211,7 @@ namespace wServer
                         callback(i);
                 }
         }
+
         public static void AOE(this Entity entity, float radius, bool players, Action<Entity> callback)   //Null for player
         {
             if (players)
@@ -221,6 +230,7 @@ namespace wServer
                         callback(i);
                 }
         }
+
         public static void AOE(this World world, Position pos, float radius, bool players, Action<Entity> callback)   //Null for player
         {
             if (players)
@@ -241,7 +251,7 @@ namespace wServer
         }
     }
 
-    static class ItemUtils
+    internal static class ItemUtils
     {
         public static bool AuditItem(this IContainer container, Item item, int slot)
         {

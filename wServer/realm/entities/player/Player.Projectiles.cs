@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.networking.svrPackets;
-using wServer.networking.cliPackets;
-using wServer.logic;
-using common;
+﻿using common;
 
 namespace wServer.realm.entities
 {

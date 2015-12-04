@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.cliPackets
 {
@@ -11,7 +7,11 @@ namespace wServer.networking.cliPackets
         public bool[] Offers { get; set; }
 
         public override PacketID ID { get { return PacketID.ChangeTrade; } }
-        public override Packet CreateInstance() { return new ChangeTradePacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new ChangeTradePacket();
+        }
 
         protected override void Read(NReader rdr)
         {

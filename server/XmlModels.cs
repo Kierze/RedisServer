@@ -1,13 +1,12 @@
-﻿using System;
+﻿using common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
-using common;
 
 namespace server
 {
-    class ServerItem
+    internal class ServerItem
     {
         public string Name { get; set; }
         public string DNS { get; set; }
@@ -29,7 +28,8 @@ namespace server
                 );
         }
     }
-    class NewsItem
+
+    internal class NewsItem
     {
         public string Icon { get; internal set; }
         public string Title { get; internal set; }
@@ -62,7 +62,7 @@ namespace server
         }
     }
 
-    class Guild
+    internal class Guild
     {
         public int Id { get; private set; }
         public string Name { get; private set; }
@@ -79,7 +79,7 @@ namespace server
         }
     }
 
-    class ClassStatsEntry
+    internal class ClassStatsEntry
     {
         public ushort ObjectType { get; private set; }
         public int BestLevel { get; private set; }
@@ -105,13 +105,15 @@ namespace server
                 );
         }
     }
-    class Stats
+
+    internal class Stats
     {
         public int BestCharFame { get; private set; }
         public int TotalFame { get; private set; }
         public int Fame { get; private set; }
 
-        Dictionary<ushort, ClassStatsEntry> entries;
+        private Dictionary<ushort, ClassStatsEntry> entries;
+
         public ClassStatsEntry this[ushort objType]
         {
             get { return entries[objType]; }
@@ -148,9 +150,10 @@ namespace server
         }
     }
 
-    class Vault
+    internal class Vault
     {
-        ushort[][] chests;
+        private ushort[][] chests;
+
         public ushort[] this[int index]
         {
             get { return chests[index]; }
@@ -175,7 +178,7 @@ namespace server
         }
     }
 
-    class Account
+    internal class Account
     {
         public int AccountId { get; private set; }
         public string Name { get; set; }
@@ -235,7 +238,7 @@ namespace server
         }
     }
 
-    class Character
+    internal class Character
     {
         public int CharacterId { get; private set; }
         public ushort ObjectType { get; private set; }
@@ -316,7 +319,7 @@ namespace server
         }
     }
 
-    class CharList
+    internal class CharList
     {
         public Character[] Characters { get; private set; }
         public int NextCharId { get; private set; }
@@ -330,7 +333,7 @@ namespace server
         public double? Lat { get; set; }
         public double? Long { get; set; }
 
-        static IEnumerable<NewsItem> GetItems(Database db, DbAccount acc)
+        private static IEnumerable<NewsItem> GetItems(Database db, DbAccount acc)
         {
             var news = new DbNews(db, 10).Entries
                 .Select(x => NewsItem.FromDb(x)).ToArray();
@@ -384,7 +387,7 @@ namespace server
         }
     }
 
-    class Fame
+    internal class Fame
     {
         public string Name { get; private set; }
         public Character Character { get; private set; }
@@ -415,7 +418,7 @@ namespace server
             };
         }
 
-        XElement GetCharElem()
+        private XElement GetCharElem()
         {
             var ret = Character.ToXml();
             ret.Add(new XElement("Account",
@@ -470,7 +473,7 @@ namespace server
         }
     }
 
-    class FameListEntry
+    internal class FameListEntry
     {
         public int AccountId { get; private set; }
         public int CharId { get; private set; }
@@ -512,14 +515,14 @@ namespace server
                 );
         }
     }
-    class FameList
+
+    internal class FameList
     {
         public string TimeSpan { get; private set; }
         public IEnumerable<FameListEntry> Entries { get; private set; }
 
         public static FameList FromDb(Database db, string timeSpan, DbChar character)
         {
-
             DbLegendTimeSpan span;
             if (timeSpan.EqualsIgnoreCase("week")) span = DbLegendTimeSpan.Week;
             else if (timeSpan.EqualsIgnoreCase("month")) span = DbLegendTimeSpan.Month;

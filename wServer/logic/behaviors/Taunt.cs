@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
-using wServer.realm.entities;
 using wServer.networking.svrPackets;
-using Mono.Game;
+using wServer.realm;
+using wServer.realm.entities;
 
 namespace wServer.logic.behaviors
 {
-    class Taunt : Behavior
+    internal class Taunt : Behavior
     {
         //State storage: time
 
-        float probability = 1;
-        bool broadcast = false;
-        Cooldown cooldown = new Cooldown(0, 0);
-        string[] text;
+        private float probability = 1;
+        private bool broadcast = false;
+        private Cooldown cooldown = new Cooldown(0, 0);
+        private string[] text;
 
         public Taunt(params string[] text)
         {
@@ -29,11 +24,13 @@ namespace wServer.logic.behaviors
             this.text = text;
             this.probability = (float)probability;
         }
+
         public Taunt(bool broadcast, params string[] text)
         {
             this.text = text;
             this.broadcast = broadcast;
         }
+
         public Taunt(Cooldown cooldown, params string[] text)
         {
             this.text = text;
@@ -46,12 +43,14 @@ namespace wServer.logic.behaviors
             this.probability = (float)probability;
             this.broadcast = broadcast;
         }
+
         public Taunt(double probability, Cooldown cooldown, params string[] text)
         {
             this.text = text;
             this.probability = (float)probability;
             this.cooldown = cooldown;
         }
+
         public Taunt(bool broadcast, Cooldown cooldown, params string[] text)
         {
             this.text = text;

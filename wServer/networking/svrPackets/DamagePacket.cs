@@ -1,8 +1,5 @@
-﻿using System;
+﻿using common;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
 
 namespace wServer.networking.svrPackets
 {
@@ -16,7 +13,11 @@ namespace wServer.networking.svrPackets
         public int ObjectId { get; set; }
 
         public override PacketID ID { get { return PacketID.Damage; } }
-        public override Packet CreateInstance() { return new DamagePacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new DamagePacket();
+        }
 
         protected override void Read(NReader rdr)
         {
@@ -30,6 +31,7 @@ namespace wServer.networking.svrPackets
             BulletId = rdr.ReadByte();
             ObjectId = rdr.ReadInt32();
         }
+
         protected override void Write(NWriter wtr)
         {
             wtr.Write(TargetId);

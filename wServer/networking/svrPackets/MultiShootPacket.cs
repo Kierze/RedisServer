@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.svrPackets
 {
@@ -18,7 +14,11 @@ namespace wServer.networking.svrPackets
         public float AngleIncrement { get; set; }
 
         public override PacketID ID { get { return PacketID.MultiShoot; } }
-        public override Packet CreateInstance() { return new MultiShootPacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new MultiShootPacket();
+        }
 
         protected override void Read(NReader rdr)
         {
@@ -31,6 +31,7 @@ namespace wServer.networking.svrPackets
             NumShots = rdr.ReadByte();
             AngleIncrement = rdr.ReadSingle();
         }
+
         protected override void Write(NWriter wtr)
         {
             wtr.Write(BulletId);

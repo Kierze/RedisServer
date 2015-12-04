@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using wServer.networking.svrPackets;
 using wServer.realm;
-using common;
-using wServer.networking.svrPackets;
 
 namespace wServer.logic.behaviors
 {
-    class Flash : Behavior
+    internal class Flash : Behavior
     {
         //State storage: none
 
-        uint color;
-        float flashPeriod;
-        int flashRepeats;
+        private uint color;
+        private float flashPeriod;
+        private int flashRepeats;
+
         public Flash(uint color, double flashPeriod, int flashRepeats)
         {
             this.color = color;
@@ -22,7 +18,9 @@ namespace wServer.logic.behaviors
             this.flashRepeats = flashRepeats;
         }
 
-        protected override void TickCore(Entity host, RealmTime time, ref object state) { }
+        protected override void TickCore(Entity host, RealmTime time, ref object state)
+        {
+        }
 
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state)
         {

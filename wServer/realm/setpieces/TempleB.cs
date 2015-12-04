@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using common;
+using System;
 using System.Linq;
-using System.Text;
 using wServer.realm.entities;
-using common;
 
 namespace wServer.realm.setpieces
 {
-    class TempleB : Temple
+    internal class TempleB : Temple
     {
         public override int Size { get { return 60; } }
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public override void RenderSetPiece(World world, IntPoint pos)
         {
             int[,] t = new int[Size, Size];
@@ -62,7 +61,6 @@ namespace wServer.realm.setpieces
                 o[bas + 13, bas - 1] = o[bas + 14, bas - 1] = o[bas + 15, bas - 1] = 1;
             o[bas + 7, bas + 23] = o[bas + 8, bas + 23] = o[bas + 9, bas + 23] =
                 o[bas + 13, bas + 23] = o[bas + 14, bas + 23] = o[bas + 15, bas + 23] = 1;
-
 
             for (int y = 0; y < 4; y++)                     //Columns
                 for (int x = 0; x < 4; x++)

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
+﻿using common;
 using Ionic.Zlib;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using wServer.realm.entities;
-using common;
 
 namespace wServer.realm.terrain
 {
@@ -32,6 +30,7 @@ namespace wServer.realm.terrain
         Hallway_3,
         Enemy,
     }
+
     public enum WmapTerrain : byte
     {
         None,
@@ -48,6 +47,7 @@ namespace wServer.realm.terrain
         ShoreSand,
         ShorePlains,
     }
+
     public struct WmapTile
     {
         public byte UpdateCount;
@@ -76,14 +76,14 @@ namespace wServer.realm.terrain
                             stats.Add(new KeyValuePair<StatsType, object>(StatsType.Effects, Utils.FromString(kv[1]))); break;
                         case "conn":
                             stats.Add(new KeyValuePair<StatsType, object>(StatsType.ObjectConnection, Utils.FromString(kv[1]))); break;
-                        //case "mtype":
-                        //    entity.Stats[StatsType.MerchantMerchandiseType] = Utils.FromString(kv[1]); break;
-                        //case "mcount":
-                        //    entity.Stats[StatsType.MerchantRemainingCount] = Utils.FromString(kv[1]); break;
-                        //case "mtime":
-                        //    entity.Stats[StatsType.MerchantRemainingMinute] = Utils.FromString(kv[1]); break;
-                        //case "nstar":
-                        //    entity.Stats[StatsType.NameChangerStar] = Utils.FromString(kv[1]); break;
+                            //case "mtype":
+                            //    entity.Stats[StatsType.MerchantMerchandiseType] = Utils.FromString(kv[1]); break;
+                            //case "mcount":
+                            //    entity.Stats[StatsType.MerchantRemainingCount] = Utils.FromString(kv[1]); break;
+                            //case "mtime":
+                            //    entity.Stats[StatsType.MerchantRemainingMinute] = Utils.FromString(kv[1]); break;
+                            //case "nstar":
+                            //    entity.Stats[StatsType.NameChangerStar] = Utils.FromString(kv[1]); break;
                     }
                 }
             return new ObjectDef()
@@ -116,9 +116,11 @@ namespace wServer.realm.terrain
             };
         }
     }
+
     public class Wmap
     {
-        XmlData dat;
+        private XmlData dat;
+
         public Wmap(XmlData dat)
         {
             this.dat = dat;
@@ -127,14 +129,16 @@ namespace wServer.realm.terrain
         public int Width { get; set; }
         public int Height { get; set; }
 
-        WmapTile[,] tiles;
+        private WmapTile[,] tiles;
+
         public WmapTile this[int x, int y]
         {
             get { return tiles[x, y]; }
             set { tiles[x, y] = value; }
         }
 
-        Tuple<IntPoint, ushort, string>[] entities;
+        private Tuple<IntPoint, ushort, string>[] entities;
+
         public int Load(Stream stream, int idBase)
         {
             int ver = stream.ReadByte();
@@ -147,7 +151,7 @@ namespace wServer.realm.terrain
             }
         }
 
-        int LoadV0(BinaryReader reader, int idBase)
+        private int LoadV0(BinaryReader reader, int idBase)
         {
             List<WmapTile> dict = new List<WmapTile>();
             short c = reader.ReadInt16();
@@ -188,14 +192,13 @@ namespace wServer.realm.terrain
                         tile.ObjId = idBase + enCount;
                     }
 
-
                     tiles[x, y] = tile;
                 }
             this.entities = entities.ToArray();
             return enCount;
         }
 
-        int LoadV1(BinaryReader reader, int idBase)
+        private int LoadV1(BinaryReader reader, int idBase)
         {
             List<WmapTile> dict = new List<WmapTile>();
             short c = reader.ReadInt16();
@@ -237,14 +240,13 @@ namespace wServer.realm.terrain
                         tile.ObjId = idBase + enCount;
                     }
 
-
                     tiles[x, y] = tile;
                 }
             this.entities = entities.ToArray();
             return enCount;
         }
 
-        int LoadV2(BinaryReader reader, int idBase)
+        private int LoadV2(BinaryReader reader, int idBase)
         {
             List<WmapTile> dict = new List<WmapTile>();
             short c = reader.ReadInt16();
@@ -286,7 +288,6 @@ namespace wServer.realm.terrain
                         tile.ObjId = idBase + enCount;
                     }
 
-
                     tiles[x, y] = tile;
                 }
             this.entities = entities.ToArray();
@@ -313,14 +314,14 @@ namespace wServer.realm.terrain
                                 entity.ConditionEffects = (ConditionEffects)Utils.FromString(kv[1]); break;
                             case "conn":
                                 (entity as ConnectedObject).Connection = ConnectionInfo.Infos[(uint)Utils.FromString(kv[1])]; break;
-                            //case "mtype":
-                            //    entity.Stats[StatsType.MerchantMerchandiseType] = Utils.FromString(kv[1]); break;
-                            //case "mcount":
-                            //    entity.Stats[StatsType.MerchantRemainingCount] = Utils.FromString(kv[1]); break;
-                            //case "mtime":
-                            //    entity.Stats[StatsType.MerchantRemainingMinute] = Utils.FromString(kv[1]); break;
-                            //case "nstar":
-                            //    entity.Stats[StatsType.NameChangerStar] = Utils.FromString(kv[1]); break;
+                                //case "mtype":
+                                //    entity.Stats[StatsType.MerchantMerchandiseType] = Utils.FromString(kv[1]); break;
+                                //case "mcount":
+                                //    entity.Stats[StatsType.MerchantRemainingCount] = Utils.FromString(kv[1]); break;
+                                //case "mtime":
+                                //    entity.Stats[StatsType.MerchantRemainingMinute] = Utils.FromString(kv[1]); break;
+                                //case "nstar":
+                                //    entity.Stats[StatsType.NameChangerStar] = Utils.FromString(kv[1]); break;
                         }
                     }
                 yield return entity;

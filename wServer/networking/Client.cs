@@ -1,17 +1,12 @@
-﻿using System;
+﻿using common;
+using log4net;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Net.Sockets;
-using System.Threading;
-using System.IO;
-using wServer.networking.svrPackets;
 using wServer.networking.cliPackets;
-using System.Xml;
-using common;
+using wServer.networking.svrPackets;
 using wServer.realm;
 using wServer.realm.entities;
-using log4net;
 
 namespace wServer.networking
 {
@@ -22,11 +17,12 @@ namespace wServer.networking
         Ready,
         Disconnected
     }
+
     public class Client
     {
-        static ILog log = LogManager.GetLogger(typeof(Client));
+        private static ILog log = LogManager.GetLogger(typeof(Client));
 
-        Socket skt;
+        private Socket skt;
         public RC4 ReceiveKey { get; private set; }
         public RC4 SendKey { get; private set; }
 
@@ -42,7 +38,8 @@ namespace wServer.networking
             SendKey = new RC4(new byte[] { 0x72, 0xc5, 0x58, 0x3c, 0xaf, 0xb6, 0x81, 0x89, 0x95, 0xcb, 0xd7, 0x4b, 0x80 });
         }
 
-        NetworkHandler handler;
+        private NetworkHandler handler;
+
         public void BeginProcess()
         {
             log.InfoFormat("Received client @ {0}.", skt.RemoteEndPoint);
@@ -54,6 +51,7 @@ namespace wServer.networking
         {
             handler.SendPacket(pkt);
         }
+
         public void SendPackets(IEnumerable<Packet> pkts)
         {
             handler.SendPackets(pkts);
@@ -68,6 +66,7 @@ namespace wServer.networking
                 return false;
             return true;
         }
+
         internal void ProcessPacket(Packet pkt)
         {
             try
@@ -98,7 +97,8 @@ namespace wServer.networking
                 DisconnectFromRealm();
             skt.Close();
         }
-        void Save() //Only when disconnect
+
+        private void Save() //Only when disconnect
         {
             if (Character != null && Player != null)
             {
@@ -119,7 +119,7 @@ namespace wServer.networking
         internal int targetWorld = -1;
 
         //Following must execute, network loop will discard disconnected client, so logic loop
-        void DisconnectFromRealm()
+        private void DisconnectFromRealm()
         {
             Manager.Logic.AddPendingAction(t =>
             {
@@ -129,6 +129,7 @@ namespace wServer.networking
                 Manager.Disconnect(this);
             }, PendingPriority.Destruction);
         }
+
         public void Reconnect(ReconnectPacket pkt)
         {
             log.InfoFormat("Reconnecting client @ {0} to {1}...", skt.RemoteEndPoint, pkt.Name);

@@ -1,25 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net.Sockets;
-using System.Net;
+﻿using common;
 using log4net;
-using common;
+using System;
+using System.Net;
+using System.Net.Sockets;
 
 namespace wServer.networking
 {
-    class PolicyServer
+    internal class PolicyServer
     {
-        static ILog log = LogManager.GetLogger(typeof(PolicyServer));
+        private static ILog log = LogManager.GetLogger(typeof(PolicyServer));
 
-        TcpListener listener;
+        private TcpListener listener;
+
         public PolicyServer()
         {
             listener = new TcpListener(IPAddress.Any, 843);
         }
 
-        static void ServePolicyFile(IAsyncResult ar)
+        private static void ServePolicyFile(IAsyncResult ar)
         {
             TcpClient cli = (ar.AsyncState as TcpListener).EndAcceptTcpClient(ar);
             (ar.AsyncState as TcpListener).BeginAcceptTcpClient(ServePolicyFile, ar.AsyncState);
@@ -41,7 +39,8 @@ namespace wServer.networking
             catch { }
         }
 
-        bool started = false;
+        private bool started = false;
+
         public void Start()
         {
             log.Info("Starting policy server...");

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.cliPackets
 {
@@ -14,7 +10,11 @@ namespace wServer.networking.cliPackets
         public bool Killed { get; set; }
 
         public override PacketID ID { get { return PacketID.EnemyHit; } }
-        public override Packet CreateInstance() { return new EnemyHitPacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new EnemyHitPacket();
+        }
 
         protected override void Read(NReader rdr)
         {
@@ -23,6 +23,7 @@ namespace wServer.networking.cliPackets
             TargetId = rdr.ReadInt32();
             Killed = rdr.ReadBoolean();
         }
+
         protected override void Write(NWriter wtr)
         {
             wtr.Write(Time);

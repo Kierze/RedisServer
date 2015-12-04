@@ -1,17 +1,15 @@
-﻿using System;
+﻿using common;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm.entities;
 using wServer.realm;
-using common;
+using wServer.realm.entities;
 using wServer.realm.worlds;
 
 namespace wServer.logic
 {
     public class DamageCounter
     {
-        Enemy enemy;
+        private Enemy enemy;
         public Enemy Host { get { return enemy; } }
         public Projectile LastProjectile { get; private set; }
         public Player LastHitter { get; private set; }
@@ -19,7 +17,8 @@ namespace wServer.logic
         public DamageCounter Corpse { get; set; }
         public DamageCounter Parent { get; set; }
 
-        WeakDictionary<Player, int> hitters = new WeakDictionary<Player, int>();
+        private WeakDictionary<Player, int> hitters = new WeakDictionary<Player, int>();
+
         public DamageCounter(Enemy enemy)
         {
             this.enemy = enemy;

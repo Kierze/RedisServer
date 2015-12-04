@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using common;
+using System;
 using System.Linq;
-using System.Text;
 using wServer.realm.entities;
-using common;
 
 namespace wServer.realm.setpieces
 {
-    class TempleA : Temple
+    internal class TempleA : Temple
     {
         public override int Size { get { return 60; } }
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public override void RenderSetPiece(World world, IntPoint pos)
         {
             int[,] t = new int[Size, Size];

@@ -1,23 +1,20 @@
-﻿using System;
+﻿using Mono.Game;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using wServer.networking.svrPackets;
-using Mono.Game;
-using wServer.logic;
 
 namespace wServer.realm.entities
 {
-    class Decoy : StaticObject, IPlayer
+    internal class Decoy : StaticObject, IPlayer
     {
-        static Random rand = new Random();
+        private static Random rand = new Random();
 
-        Player player;
-        int duration;
-        Vector2 direction;
-        float speed;
+        private Player player;
+        private int duration;
+        private Vector2 direction;
+        private float speed;
 
-        Vector2 GetRandDirection()
+        private Vector2 GetRandDirection()
         {
             double angle = rand.NextDouble() * 2 * Math.PI;
             return new Vector2(
@@ -25,6 +22,7 @@ namespace wServer.realm.entities
                 (float)Math.Sin(angle)
             );
         }
+
         public Decoy(Player player, int duration, float tps)
             : base(player.Manager, 0x0715, duration, true, true, true)
         {
@@ -52,7 +50,8 @@ namespace wServer.realm.entities
             base.ExportStats(stats);
         }
 
-        bool exploded = false;
+        private bool exploded = false;
+
         public override void Tick(RealmTime time)
         {
             if (HP > duration / 2)
@@ -76,8 +75,13 @@ namespace wServer.realm.entities
             base.Tick(time);
         }
 
-        public void Damage(int dmg, Character chr) { }
+        public void Damage(int dmg, Character chr)
+        {
+        }
 
-        public bool IsVisibleToEnemy() { return true; }
+        public bool IsVisibleToEnemy()
+        {
+            return true;
+        }
     }
 }

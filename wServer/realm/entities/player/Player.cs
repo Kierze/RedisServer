@@ -1,30 +1,27 @@
-﻿using System;
+﻿using common;
+using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Collections.Concurrent;
-using wServer.realm.worlds;
 using wServer.logic;
-using wServer.networking.svrPackets;
-using wServer.networking.cliPackets;
 using wServer.networking;
+using wServer.networking.svrPackets;
 using wServer.realm.terrain;
-using log4net;
-using common;
 
 namespace wServer.realm.entities
 {
-    interface IPlayer
+    internal interface IPlayer
     {
         void Damage(int dmg, Character chr);
+
         bool IsVisibleToEnemy();
     }
 
     public partial class Player : Character, IContainer, IPlayer
     {
-        static ILog log = LogManager.GetLogger(typeof(Player));
+        private static ILog log = LogManager.GetLogger(typeof(Player));
 
-        Client client;
+        private Client client;
         public Client Client { get { return client; } }
 
         //Stats
@@ -106,6 +103,7 @@ namespace wServer.realm.entities
                 case StatsType.Dexterity: Stats[7] = (int)val; break;
             }
         }
+
         protected override void ExportStats(IDictionary<StatsType, object> stats)
         {
             base.ExportStats(stats);
@@ -165,6 +163,7 @@ namespace wServer.realm.entities
             stats[StatsType.WisdomBonus] = Boost[6];
             stats[StatsType.DexterityBonus] = Boost[7];
         }
+
         public void SaveToCharacter()
         {
             var chr = client.Character;
@@ -181,7 +180,7 @@ namespace wServer.realm.entities
             chr.LastSeen = DateTime.Now;
         }
 
-        void CalculateBoost()
+        private void CalculateBoost()
         {
             if (Boost == null) Boost = new int[12];
             else
@@ -206,8 +205,8 @@ namespace wServer.realm.entities
             }
         }
 
+        private StatsManager statsMgr;
 
-        StatsManager statsMgr;
         public Player(Client client)
             : base(client.Manager, (ushort)client.Character.ObjectType, client.Random)
         {
@@ -241,7 +240,7 @@ namespace wServer.realm.entities
             Stats = (int[])client.Character.Stats.Clone();
         }
 
-        byte[,] tiles;
+        private byte[,] tiles;
         public FameCounter FameCounter { get; private set; }
 
         public override void Init(World owner)
@@ -294,9 +293,10 @@ namespace wServer.realm.entities
             base.Tick(time);
         }
 
-        float hpRegenCounter;
-        float mpRegenCounter;
-        void HandleRegen(RealmTime time)
+        private float hpRegenCounter;
+        private float mpRegenCounter;
+
+        private void HandleRegen(RealmTime time)
         {
             if (HP == Stats[0] + Boost[0] || !CanHpRegen())
                 hpRegenCounter = 0;
@@ -386,9 +386,10 @@ namespace wServer.realm.entities
                 ObjectId = projectile.ProjectileOwner.Self.Id
             }, this);
 
-            if (HP <= 0) Death(
-                projectile.ProjectileOwner.Self.ObjectDesc.DisplayId ??
-                projectile.ProjectileOwner.Self.ObjectDesc.ObjectId);
+            if (HP <= 0)
+                Death(
+       projectile.ProjectileOwner.Self.ObjectDesc.DisplayId ??
+       projectile.ProjectileOwner.Self.ObjectDesc.ObjectId);
 
             return base.HitByProjectile(projectile, time);
         }
@@ -414,13 +415,15 @@ namespace wServer.realm.entities
                 ObjectId = chr.Id
             }, this);
 
-            if (HP <= 0) Death(
-                chr.ObjectDesc.DisplayId ??
-                chr.ObjectDesc.ObjectId);
+            if (HP <= 0)
+                Death(
+       chr.ObjectDesc.DisplayId ??
+       chr.ObjectDesc.ObjectId);
         }
 
-        bool resurrecting = false;
-        bool CheckResurrection()
+        private bool resurrecting = false;
+
+        private bool CheckResurrection()
         {
             for (int i = 0; i < 4; i++)
             {
@@ -447,7 +450,8 @@ namespace wServer.realm.entities
             }
             return false;
         }
-        void GenerateGravestone()
+
+        private void GenerateGravestone()
         {
             int maxed = 0;
             foreach (var i in Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease"))

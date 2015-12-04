@@ -1,19 +1,18 @@
-
 <Objects>
 	<Object type="0x0dc0" id="Great Temple Snake">
 		<Class>Character</Class>
-		<Enemy/>
+		<Enemy />
 		<Size>100</Size>
 		<ShadowSize>90</ShadowSize>
 		<MaxHitPoints>50</MaxHitPoints>
 		<Defense>20</Defense>
 		<XpMult>0.1</XpMult>
-		
+
 		<HitSound>monster/wooden_walls_hit</HitSound>
 		<DeathSound>monster/stone_walls_death</DeathSound>
-		
+
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>20</Index></AnimatedTexture>
-		
+
 		<Projectile id="0">
 			<ObjectId>Snake Shot Yellow</ObjectId>
 			<Damage>20</Damage>
@@ -21,7 +20,7 @@
 			<Size>60</Size>
 			<LifetimeMS>800</LifetimeMS>
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Snake Shot Yellow</ObjectId>
 			<Damage>15</Damage>
@@ -29,21 +28,20 @@
 			<Size>60</Size>
 			<LifetimeMS>800</LifetimeMS>
 		</Projectile>
-		
 	</Object>
-	
+
 	<Object type="0x0dc1" id="Great Snake Egg">
 		<Class>Character</Class>
-		<Enemy/>
+		<Enemy />
 		<Size>100</Size>
 		<ShadowSize>90</ShadowSize>
 		<MaxHitPoints>50</MaxHitPoints>
 		<Defense>20</Defense>
 		<XpMult>0.0</XpMult>
-		
+
 		<HitSound>monster/wooden_walls_hit</HitSound>
 		<DeathSound>monster/stone_walls_death</DeathSound>
-		
+
 		<Texture><File>lofiEnvironment3</File><Index>0x8a</Index></Texture>
 		<Animation prob="1.0" period="0.0">
 			<Frame time="0.4"><Texture><File>lofiEnvironment3</File><Index>0x2f</Index></Texture></Frame>
@@ -51,27 +49,25 @@
 			<Frame time="0.2"><Texture><File>lofiEnvironment3</File><Index>0x37</Index></Texture></Frame>
 			<Frame time="0.2"><Texture><File>lofiEnvironment3</File><Index>0x36</Index></Texture></Frame>
 		</Animation>
-		
-		
 	</Object>
-	
+
 	<Object type="0x0dc2" id="Great Coil Snake">
 		<Class>Character</Class>
-		<Enemy/>
+		<Enemy />
 		<Group>Heros</Group>
 		<Size>100</Size>
 		<ShadowSize>90</ShadowSize>
 		<MaxHitPoints>900</MaxHitPoints>
 		<Defense>16</Defense>
-		<Quest/>
+		<Quest />
 		<Level>8</Level>
 		<XpMult>3.0</XpMult>
-		
+
 		<HitSound>monster/wooden_walls_hit</HitSound>
 		<DeathSound>monster/stone_walls_death</DeathSound>
-		
+
 		<AnimatedTexture><File>chars16x16rEncounters</File><Index>15</Index></AnimatedTexture>
-		
+
 		<Projectile id="0">
 			<ObjectId>Snake Shot</ObjectId>
 			<Damage>50</Damage>
@@ -79,7 +75,7 @@
 			<Size>100</Size>
 			<LifetimeMS>16000</LifetimeMS>
 		</Projectile>
-	
+
 		<Projectile id="1">
 			<ObjectId>Ghost Shot</ObjectId>
 			<Damage>40</Damage>
@@ -87,40 +83,36 @@
 			<Size>90</Size>
 			<LifetimeMS>1000</LifetimeMS>
 		</Projectile>
-		
-		
-		
-		
 	</Object>
-	
+
 	<Object type="0x0dc3" id="Mixcoatl the Masked God">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Group>Jungle Men</Group>
-		
-		<AnimatedTexture><File>chars16x16rEncounters</File><Index>16</Index></AnimatedTexture> 
-		
+
+		<AnimatedTexture><File>chars16x16rEncounters</File><Index>16</Index></AnimatedTexture>
+
 		<AltTexture id="1">
-			<AnimatedTexture><File>chars16x16dEncounters2</File><Index>25</Index></AnimatedTexture> 
+			<AnimatedTexture><File>chars16x16dEncounters2</File><Index>25</Index></AnimatedTexture>
 		</AltTexture>
 		<AltTexture id="2">
-			<AnimatedTexture><File>chars16x16dEncounters2</File><Index>26</Index></AnimatedTexture> 
+			<AnimatedTexture><File>chars16x16dEncounters2</File><Index>26</Index></AnimatedTexture>
 		</AltTexture>
-		
+
 		<AltTexture id="3">
-			<AnimatedTexture><File>chars16x16dEncounters2</File><Index>27</Index></AnimatedTexture> 
+			<AnimatedTexture><File>chars16x16dEncounters2</File><Index>27</Index></AnimatedTexture>
 		</AltTexture>
 		<AltTexture id="4">
-			<AnimatedTexture><File>chars16x16dEncounters2</File><Index>28</Index></AnimatedTexture> 
+			<AnimatedTexture><File>chars16x16dEncounters2</File><Index>28</Index></AnimatedTexture>
 		</AltTexture>
-		
+
 		<AltTexture id="5">
-			<AnimatedTexture><File>chars16x16dEncounters2</File><Index>29</Index></AnimatedTexture> 
+			<AnimatedTexture><File>chars16x16dEncounters2</File><Index>29</Index></AnimatedTexture>
 		</AltTexture>
 		<AltTexture id="6">
-			<AnimatedTexture><File>chars16x16dEncounters2</File><Index>30</Index></AnimatedTexture> 
+			<AnimatedTexture><File>chars16x16dEncounters2</File><Index>30</Index></AnimatedTexture>
 		</AltTexture>
-		
+
 		<HitSound>monster/slimes_death</HitSound>
 		<DeathSound>monster/flying_brain_death</DeathSound>
 		<Size>140</Size>
@@ -128,13 +120,13 @@
 		<MaxHitPoints>4200</MaxHitPoints>
 		<Defense>15</Defense>
 		<XpMult>0.85</XpMult>
-		
-		<God/>
-		<StasisImmune/>
-		<Quest/>
+
+		<God />
+		<StasisImmune />
+		<Quest />
 		<Level>1</Level>
-		<NoArticle/>
-		
+		<NoArticle />
+
 		<Projectile id="0">
 			<ObjectId>Mask Powerwave</ObjectId>
 			<Damage>60</Damage>
@@ -142,7 +134,7 @@
 			<Size>100</Size>
 			<LifetimeMS>800</LifetimeMS>
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Mask Powershot</ObjectId>
 			<Damage>60</Damage>
@@ -150,7 +142,7 @@
 			<Size>80</Size>
 			<LifetimeMS>1200</LifetimeMS>
 		</Projectile>
-			
+
 		<Projectile id="2">
 			<ObjectId>Fireball 2</ObjectId>
 			<MinDamage>45</MinDamage>
@@ -159,51 +151,31 @@
 			<Size>80</Size>
 			<LifetimeMS>1200</LifetimeMS>
 		</Projectile>
-			
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	</Object>
-	
+
 	<Object type="0x0dc4" id="Boss Totem">
-		<Enemy/>
+		<Enemy />
 		<Class>GameObject</Class>
-		
+
 		<AnimatedTexture><File>chars16x16dEncounters2</File><Index>31</Index></AnimatedTexture>
-	
+
 		<HitSound>monster/stone_walls_hit</HitSound>
 		<DeathSound>monster/stone_walls_death</DeathSound>
-		
+
 		<Size>120</Size>
 		<ShadowSize>80</ShadowSize>
-		<OccupySquare/>
-		
+		<OccupySquare />
+
 		<Projectile id="0">
 			<ObjectId>Totem Fire Wall</ObjectId>
 			<Damage>50</Damage>
 			<Speed>40</Speed>
 			<Size>100</Size>
 			<LifetimeMS>1600</LifetimeMS>
-			<PassesCover/>
+			<PassesCover />
 		</Projectile>
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	</Object>
-	
+
 	<Object type="0x0dc5" id="Jungle Spear">
 		<Class>GameObject</Class>
 			<RandomTexture>
@@ -215,11 +187,11 @@
 				<Texture><File>lofiObjBig</File><Index>0x05</Index></Texture>
 				<Texture><File>lofiObjBig</File><Index>0x06</Index></Texture>
 			</RandomTexture>
-		<Static/>
+		<Static />
 		<Size>80</Size>
 		<ShadowSize>60</ShadowSize>
 	</Object>
-	
+
 	<Object type="0x0dc6" id="Jungle Brazier">
 		<Class>GameObject</Class>
 		<Texture><File>lofiObjBig</File><Index>0x07</Index></Texture>
@@ -229,36 +201,34 @@
 			<Frame time="0.2"><Texture><File>lofiObjBig</File><Index>0x09</Index></Texture></Frame>
 		</Animation>
 		<Size>100</Size>
-		<Static/>
-		<OccupySquare/>
+		<Static />
+		<OccupySquare />
 		<ShadowSize>80</ShadowSize>
 	</Object>
-	
-	
+
 	<Object type="0x0dc7" id="Jungle Summoner">
 		<Class>Character</Class>
-		
+
 		<Texture><File>invisible</File><Index>0</Index></Texture>
-	
+
 		<Size>0</Size>
 		<ShadowSize>0</ShadowSize>
 		<MaxHitPoints>10</MaxHitPoints>
 		<Defense>0</Defense>
 		<XpMult>0</XpMult>
-		<NoMiniMap/>
-		
+		<NoMiniMap />
 	</Object>
-	
+
 	<Object type="0x0dc8" id="Jungle Invisible Solid">
 		<Class>GameObject</Class>
 			<Texture><File>lofiEnvironment3</File><Index>0x38</Index></Texture>
-		<Static/>
-		<OccupySquare/>
-		<NoMiniMap/>
+		<Static />
+		<OccupySquare />
+		<NoMiniMap />
 		<Size>0</Size>
 		<ShadowSize>0</ShadowSize>
 	</Object>
-	
+
 	<Object type="0x0dc9" id="Jungle Grass Solid">
 		<Class>GameObject</Class>
 			<RandomTexture>
@@ -267,10 +237,10 @@
 				<Texture><File>lofiEnvironment3</File><Index>0x65</Index></Texture>
 				<Texture><File>lofiEnvironment3</File><Index>0x66</Index></Texture>
 			</RandomTexture>
-		<Static/>
-		<OccupySquare/>
+		<Static />
+		<OccupySquare />
 	</Object>
-	
+
 	<Object type="0x0dca" id="Jungle Flowers Solid">
 		<Class>GameObject</Class>
 			<RandomTexture>
@@ -279,12 +249,12 @@
 				<Texture><File>lofiEnvironment3</File><Index>0x69</Index></Texture>
 				<Texture><File>lofiEnvironment3</File><Index>0x6a</Index></Texture>
 			</RandomTexture>
-		<DrawOnGround/>
-		<OccupySquare/>
-		<NoMiniMap/>
-		<Static/>
+		<DrawOnGround />
+		<OccupySquare />
+		<NoMiniMap />
+		<Static />
 	</Object>
-	
+
 	<Object type="0x0dcb" id="Jungle Plant Unbreakable">
 		<Class>GameObject</Class>
 			<RandomTexture>
@@ -292,29 +262,29 @@
 				<Texture><File>lofiEnvironment3</File><Index>0x6c</Index></Texture>
 				<Texture><File>lofiEnvironment3</File><Index>0x6d</Index></Texture>
 			</RandomTexture>
-		<Static/>
-		<OccupySquare/>
+		<Static />
+		<OccupySquare />
 		<HitSound>monster/trees_hit</HitSound>
 		<DeathSound>monster/tress_death</DeathSound>
 	</Object>
-	
+
 	<Object type="0x0dcc" id="Totem Spirit">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
-		
+
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>22</Index></AnimatedTexture>
-		<Flying/>
-		
+		<Flying />
+
 		<HitSound>monster/wooden_walls_hit</HitSound>
 		<DeathSound>monster/stone_walls_death</DeathSound>
-		
+
 		<Size>80</Size>
 		<ShadowSize>90</ShadowSize>
 		<MaxHitPoints>125</MaxHitPoints>
 		<Defense>25</Defense>
 		<XpMult>0.2</XpMult>
 		<Z>0.26</Z>
-		
+
 		<Projectile id="0">
 			<ObjectId>Ghost Shot</ObjectId>
 			<Damage>25</Damage>
@@ -322,24 +292,22 @@
 			<Size>90</Size>
 			<LifetimeMS>1000</LifetimeMS>
 		</Projectile>
-		
-		
 	</Object>
-	
+
 	<Object type="0x0dcd" id="Jungle Totem">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
-		
+
 		<AnimatedTexture><File>chars16x16dEncounters2</File><Index>32</Index></AnimatedTexture>
-		
+
 		<HitSound>monster/wooden_walls_hit</HitSound>
 		<DeathSound>monster/stone_walls_death</DeathSound>
-		
+
 		<Size>130</Size>
 		<ShadowSize>90</ShadowSize>
 		<MaxHitPoints>900</MaxHitPoints>
 		<Defense>10</Defense>
-		
+
 		<Projectile id="0">
 			<ObjectId>Totem Blast</ObjectId>
 			<Damage>40</Damage>
@@ -347,24 +315,21 @@
 			<Size>100</Size>
 			<LifetimeMS>1000</LifetimeMS>
 		</Projectile>
-		
-		
-		
 	</Object>
-	
+
 	<Object type="0x0dce" id="Basilisk Baby">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
-		
+
 		<AnimatedTexture><File>chars16x8dEncounters</File><Index>1</Index></AnimatedTexture>
-		
+
 		<HitSound>monster/slimes_death</HitSound>
 		<DeathSound>monster/flying_brain_death</DeathSound>
 		<Size>100</Size>
 		<ShadowSize>100</ShadowSize>
 		<MaxHitPoints>200</MaxHitPoints>
 		<Defense>10</Defense>
-		
+
 		<Projectile id="0">
 			<ObjectId>Basilisk Acid</ObjectId>
 			<MinDamage>15</MinDamage>
@@ -375,23 +340,21 @@
 			<Amplitude>0.05</Amplitude>
 			<Frequency>5</Frequency>
 		</Projectile>
-		
-		
 	</Object>
-	
+
 	<Object type="0x0dcf" id="Basilisk">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
-		
+
 		<AnimatedTexture><File>chars16x16dEncounters2</File><Index>33</Index></AnimatedTexture>
-		
+
 		<HitSound>monster/slimes_death</HitSound>
 		<DeathSound>monster/flying_brain_death</DeathSound>
 		<Size>100</Size>
 		<ShadowSize>100</ShadowSize>
 		<MaxHitPoints>370</MaxHitPoints>
 		<Defense>10</Defense>
-		
+
 		<Projectile id="0">
 			<ObjectId>Basilisk Acid</ObjectId>
 			<MinDamage>15</MinDamage>
@@ -402,7 +365,7 @@
 			<Amplitude>0.05</Amplitude>
 			<Frequency>5</Frequency>
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Basilisk Beam</ObjectId>
 			<MinDamage>15</MinDamage>
@@ -410,9 +373,9 @@
 			<Speed>38</Speed>
 			<Size>80</Size>
 			<LifetimeMS>800</LifetimeMS>
-			<PassesCover/>
+			<PassesCover />
 		</Projectile>
-		
+
 		<Projectile id="2">
 			<ObjectId>Basilisk Beam</ObjectId>
 			<MinDamage>25</MinDamage>
@@ -420,9 +383,9 @@
 			<Speed>45</Speed>
 			<Size>130</Size>
 			<LifetimeMS>800</LifetimeMS>
-			<PassesCover/>
+			<PassesCover />
 		</Projectile>
-		
+
 		<Projectile id="3">
 			<ObjectId>Basilisk Beam</ObjectId>
 			<MinDamage>30</MinDamage>
@@ -430,27 +393,24 @@
 			<Speed>55</Speed>
 			<Size>180</Size>
 			<LifetimeMS>800</LifetimeMS>
-			<PassesCover/>
+			<PassesCover />
 		</Projectile>
-		
-		
-		
 	</Object>
-	
+
 	<Object type="0x0dd0" id="Mask Shaman">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Group>Jungle Men</Group>
-		
+
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>23</Index></AnimatedTexture>
-		
+
 		<HitSound>monster/slimes_death</HitSound>
 		<DeathSound>monster/flying_brain_death</DeathSound>
 		<Size>100</Size>
 		<ShadowSize>100</ShadowSize>
 		<MaxHitPoints>250</MaxHitPoints>
 		<Defense>5</Defense>
-		
+
 		<Projectile id="0">
 			<ObjectId>Shaman Star</ObjectId>
 			<Damage>10</Damage>
@@ -460,25 +420,22 @@
 			<ConditionEffect duration="4">Hallucinating</ConditionEffect>
 			<ConditionEffect duration="1">Quiet</ConditionEffect>
 		</Projectile>
-		
-		
 	</Object>
-	
+
 	<Object type="0x0dd1" id="Mask Warrior">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Group>Jungle Men</Group>
-		
+
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>24</Index></AnimatedTexture>
-		
+
 		<HitSound>monster/slimes_death</HitSound>
 		<DeathSound>monster/flying_brain_death</DeathSound>
 		<Size>100</Size>
 		<ShadowSize>100</ShadowSize>
 		<MaxHitPoints>300</MaxHitPoints>
 		<Defense>20</Defense>
-		
-		
+
 		<Projectile id="0">
 			<ObjectId>Mask Blast</ObjectId>
 			<Damage>10</Damage>
@@ -486,24 +443,22 @@
 			<Size>80</Size>
 			<LifetimeMS>800</LifetimeMS>
 		</Projectile>
-			
-		
 	</Object>
-	
+
 	<Object type="0x0dd2" id="Mask Hunter">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Group>Jungle Men</Group>
-		
+
 		<AnimatedTexture><File>chars8x8rEncounters</File><Index>25</Index></AnimatedTexture>
-		
+
 		<HitSound>monster/slimes_death</HitSound>
 		<DeathSound>monster/flying_brain_death</DeathSound>
 		<Size>100</Size>
 		<ShadowSize>100</ShadowSize>
 		<MaxHitPoints>300</MaxHitPoints>
 		<Defense>10</Defense>
-		
+
 		<Projectile id="0">
 			<ObjectId>Hunter Spear</ObjectId>
 			<Damage>25</Damage>
@@ -511,14 +466,12 @@
 			<Size>80</Size>
 			<LifetimeMS>1000</LifetimeMS>
 		</Projectile>
-		
-		
 	</Object>
 
 	<Object type="0x0dd3" id="Jungle Fire">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
-		
+
 		<Texture><File>lofiObjBig</File><Index>0x0a</Index></Texture>
 		<Animation prob="1.0" period="0.0">
 			<Frame time="0.2"><Texture><File>lofiObjBig</File><Index>0x0b</Index></Texture></Frame>
@@ -530,7 +483,7 @@
 			<Frame time="0.2"><Texture><File>lofiObjBig</File><Index>0x0f</Index></Texture></Frame>
 			<Frame time="0.2"><Texture><File>lofiObjBig</File><Index>0x10</Index></Texture></Frame>
 		</Animation>
-		
+
 		<HitSound>monster/slimes_death</HitSound>
 		<DeathSound>monster/flying_brain_death</DeathSound>
 		<Size>100</Size>
@@ -538,7 +491,7 @@
 		<ShadowColor>0xFA9632</ShadowColor>
 		<MaxHitPoints>400</MaxHitPoints>
 		<Defense>80</Defense>
-		
+
 		<Projectile id="0">
 			<ObjectId>Invisible</ObjectId>
 			<MinDamage>10</MinDamage>
@@ -546,9 +499,9 @@
 			<Speed>0</Speed>
 			<Size>120</Size>
 			<LifetimeMS>5000</LifetimeMS>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
-		
+
 		<Projectile id="1">
 			<ObjectId>Fireball 2</ObjectId>
 			<MinDamage>20</MinDamage>
@@ -557,11 +510,8 @@
 			<Size>80</Size>
 			<LifetimeMS>1200</LifetimeMS>
 		</Projectile>
-		
-		
-		
 	</Object>
-	
+
 	<Object type="0x0dd4" id="Jungle Ground Flowers">
 		<Class>GameObject</Class>
 			<RandomTexture>
@@ -570,10 +520,10 @@
 				<Texture><File>lofiEnvironment3</File><Index>0x69</Index></Texture>
 				<Texture><File>lofiEnvironment3</File><Index>0x6a</Index></Texture>
 			</RandomTexture>
-		<DrawOnGround/>
-		<Static/>
+		<DrawOnGround />
+		<Static />
 	</Object>
-	
+
 	<Object type="0x0dd5" id="Jungle Grass">
 		<Class>GameObject</Class>
 			<RandomTexture>
@@ -582,19 +532,18 @@
 				<Texture><File>lofiEnvironment3</File><Index>0x65</Index></Texture>
 				<Texture><File>lofiEnvironment3</File><Index>0x66</Index></Texture>
 			</RandomTexture>
-		<Static/>
+		<Static />
 	</Object>
-	
+
 	<Object type="0x0dd6" id="Jungle Flower Bright">
 		<Class>GameObject</Class>
 			<RandomTexture>
 				<Texture><File>lofiEnvironment3</File><Index>0x6e</Index></Texture>
 				<Texture><File>lofiEnvironment3</File><Index>0x6f</Index></Texture>
 			</RandomTexture>
-		<Static/>
+		<Static />
 	</Object>
-	
-	
+
 	<Object type="0x0dd7" id="Jungle Plant">
 		<Class>GameObject</Class>
 			<RandomTexture>
@@ -602,9 +551,9 @@
 				<Texture><File>lofiEnvironment3</File><Index>0x71</Index></Texture>
 				<Texture><File>lofiEnvironment3</File><Index>0x72</Index></Texture>
 			</RandomTexture>
-		<Static/>
+		<Static />
 	</Object>
-	
+
 	<Object type="0x0dd8" id="Jungle Plant Solid">
 		<Class>GameObject</Class>
 			<RandomTexture>
@@ -612,16 +561,16 @@
 				<Texture><File>lofiEnvironment3</File><Index>0x6c</Index></Texture>
 				<Texture><File>lofiEnvironment3</File><Index>0x6d</Index></Texture>
 			</RandomTexture>
-		<Static/>
-		<OccupySquare/>
+		<Static />
+		<OccupySquare />
 		<MaxHitPoints>500</MaxHitPoints>
-		<StasisImmune/>
-		<Enemy/>
+		<StasisImmune />
+		<Enemy />
 		<XpMult>0.0</XpMult>
 		<HitSound>monster/trees_hit</HitSound>
 		<DeathSound>monster/tress_death</DeathSound>
 	</Object>
-	
+
 	<Object type="0x0dd9" id="Jungle Rock">
 		<Class>GameObject</Class>
 			<RandomTexture>
@@ -630,8 +579,8 @@
 				<Texture><File>lofiEnvironment3</File><Index>0x74</Index></Texture>
 				<Texture><File>lofiEnvironment3</File><Index>0x75</Index></Texture>
 			</RandomTexture>
-		<Static/>
-		<OccupySquare/>
+		<Static />
+		<OccupySquare />
 		<HitSound>monster/trees_hit</HitSound>
 		<DeathSound>monster/tress_death</DeathSound>
 	</Object>
@@ -644,8 +593,8 @@
 				<Texture><File>lofiObjBig</File><Index>0x13</Index></Texture>
 				<Texture><File>lofiObjBig</File><Index>0x14</Index></Texture>
 			</RandomTexture>
-		<Static/>
-		<OccupySquare/>
+		<Static />
+		<OccupySquare />
 		<HitSound>monster/trees_hit</HitSound>
 		<DeathSound>monster/tress_death</DeathSound>
 	</Object>

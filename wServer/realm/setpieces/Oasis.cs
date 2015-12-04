@@ -1,25 +1,24 @@
-﻿using System;
+﻿using common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using wServer.logic.loot;
-using common;
 using wServer.realm.entities;
 
 namespace wServer.realm.setpieces
 {
-    class Oasis : ISetPiece
+    internal class Oasis : ISetPiece
     {
         public int Size
         {
             get { return 30; }
         }
 
-        static readonly string Floor = "Light Grass";
-        static readonly string Water = "Shallow Water";
-        static readonly string Tree = "Palm Tree";
+        private static readonly string Floor = "Light Grass";
+        private static readonly string Water = "Shallow Water";
+        private static readonly string Tree = "Palm Tree";
 
-        static readonly Loot chest = new Loot(
+        private static readonly Loot chest = new Loot(
                 new TierLoot(5, ItemType.Weapon, 0.3),
                 new TierLoot(6, ItemType.Weapon, 0.2),
                 new TierLoot(7, ItemType.Weapon, 0.1),
@@ -37,7 +36,8 @@ namespace wServer.realm.setpieces
                 new TierLoot(1, ItemType.Potion, 0.5)
             );
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public void RenderSetPiece(World world, IntPoint pos)
         {
             int outerRadius = 13;

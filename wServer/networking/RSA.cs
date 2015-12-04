@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using Org.BouncyCastle.Crypto;
-using Org.BouncyCastle.Crypto.Parameters;
+﻿using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Encodings;
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.OpenSsl;
+using System;
+using System.IO;
+using System.Text;
 
 namespace wServer.networking
 {
@@ -30,8 +27,9 @@ ACJPZbKTSE6gk18DhXUCQQCoPIr7Vf7pGmGtkNYAhQPa3ISkjlm/5DTSpTvABiYq
 Ndk0XNr+U+9HLLxxEbQgUcfftRv/7kojO01LtmE743DJ
 -----END RSA PRIVATE KEY-----");
 
-        RsaEngine engine;
-        AsymmetricKeyParameter key;
+        private RsaEngine engine;
+        private AsymmetricKeyParameter key;
+
         private RSA(string privPem)
         {
             key = (new PemReader(new StringReader(privPem.Trim())).ReadObject() as AsymmetricCipherKeyPair).Private;
@@ -47,6 +45,7 @@ Ndk0XNr+U+9HLLxxEbQgUcfftRv/7kojO01LtmE743DJ
             encoding.Init(false, key);
             return Encoding.UTF8.GetString(encoding.ProcessBlock(dat, 0, dat.Length));
         }
+
         public string Encrypt(string str)
         {
             if (string.IsNullOrEmpty(str)) return "";

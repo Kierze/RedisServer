@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using common;
+using System;
 using wServer.networking.cliPackets;
-using wServer.realm;
-using common;
 using wServer.networking.svrPackets;
+using wServer.realm;
 
 namespace wServer.networking.handlers
 {
-    class HelloPacketHandler : PacketHandlerBase<HelloPacket>
+    internal class HelloPacketHandler : PacketHandlerBase<HelloPacket>
     {
         public override PacketID ID { get { return PacketID.Hello; } }
 
@@ -40,7 +37,7 @@ namespace wServer.networking.handlers
 
             if (!client.Manager.Database.AcquireLock(acc))
             {
-                SendFailure(client, "Account in Use (" + 
+                SendFailure(client, "Account in Use (" +
                     client.Manager.Database.GetLockTime(acc) + " seconds until timeout)");
                 client.Disconnect();
                 return;
@@ -77,8 +74,6 @@ namespace wServer.networking.handlers
                 ExtraXML = world.ExtraXML
             });
             client.Stage = ProtocalStage.Handshaked;
-
         }
-
     }
 }

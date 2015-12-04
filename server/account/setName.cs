@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
-using common;
+﻿using common;
 using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
+using System.Net;
 using System.Web;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
-using System.Xml;
 
 namespace server.account
 {
-    class setName : RequestHandler
+    internal class setName : RequestHandler
     {
         public override void HandleRequest(HttpListenerContext context)
         {
@@ -52,7 +46,7 @@ namespace server.account
                                     if (acc.NameChosen)
                                         Database.UpdateCredit(acc, -1000);
                                     while (!Database.RenameIGN(acc, name, lockToken)) ;
-                                        Write(context, "<Success />");
+                                    Write(context, "<Success />");
                                 }
                             }
                             else

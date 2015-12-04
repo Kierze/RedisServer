@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using common;
 using wServer.realm.entities;
-using common;
 
 namespace wServer.realm
 {
-    class StatsManager
+    internal class StatsManager
     {
-        Player player;
+        private Player player;
+
         public StatsManager(Player player)
         {
             this.player = player;
         }
+
         //from wiki
 
-        int GetStats(int id)
+        private int GetStats(int id)
         {
             return player.Stats[id] + player.Boost[id];
         }
@@ -34,6 +32,7 @@ namespace wServer.realm
 
             return ret;
         }
+
         public static float GetDefenseDamage(Entity host, int dmg, int def)
         {
             if (host.HasConditionEffect(ConditionEffects.Armored))
@@ -52,6 +51,7 @@ namespace wServer.realm
                 ret = 0;
             return ret;
         }
+
         public float GetDefenseDamage(int dmg, bool noDef)
         {
             var def = GetStats(3);
@@ -72,6 +72,7 @@ namespace wServer.realm
                 ret = 0;
             return ret;
         }
+
         public static float GetSpeed(Entity entity, float stat)
         {
             var ret = 4 + 5.6f * (stat / 75f);
@@ -83,10 +84,12 @@ namespace wServer.realm
                 ret = 0;
             return ret;
         }
+
         public float GetSpeed()
         {
             return GetSpeed(player, GetStats(4));
         }
+
         public float GetHPRegen()
         {
             var vit = GetStats(5);
@@ -94,12 +97,14 @@ namespace wServer.realm
                 vit = 0;
             return 1 + vit / 8f;
         }
+
         public float GetMPRegen()
         {
             if (player.HasConditionEffect(ConditionEffects.Quiet))
                 return 0;
             return 0.6f + GetStats(6) / 125f;
         }
+
         public float GetDex()
         {
             var dex = GetStats(7);
@@ -126,8 +131,10 @@ namespace wServer.realm
                 case "HpRegen": return 5;
                 case "MpRegen": return 6;
                 case "Dexterity": return 7;
-            } return -1;
+            }
+            return -1;
         }
+
         public static string StatsIndexToName(int index)
         {
             switch (index)
@@ -140,7 +147,8 @@ namespace wServer.realm
                 case 5: return "HpRegen";
                 case 6: return "MpRegen";
                 case 7: return "Dexterity";
-            } return null;
+            }
+            return null;
         }
     }
 }

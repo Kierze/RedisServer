@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace wServer
 {
-    enum StatsType : byte
+    internal enum StatsType : byte
     {
         MaximumHP = 0,
         HP = 1,
@@ -81,10 +78,12 @@ namespace wServer
         GuildRank = 63,
         ____Unknown64 = 64,
     }
-    struct TimedPosition
+
+    internal struct TimedPosition
     {
         public int Time;
         public Position Position;
+
         public static TimedPosition Read(NReader rdr)
         {
             TimedPosition ret = new TimedPosition();
@@ -92,16 +91,19 @@ namespace wServer
             ret.Position = Position.Read(rdr);
             return ret;
         }
+
         public void Write(NWriter wtr)
         {
             wtr.Write(Time);
             Position.Write(wtr);
         }
     }
-    struct Position
+
+    internal struct Position
     {
         public float X;
         public float Y;
+
         public static Position Read(NReader rdr)
         {
             Position ret = new Position();
@@ -109,6 +111,7 @@ namespace wServer
             ret.Y = rdr.ReadSingle();
             return ret;
         }
+
         public void Write(NWriter wtr)
         {
             wtr.Write(X);
@@ -116,10 +119,11 @@ namespace wServer
         }
     }
 
-    struct ObjectDef
+    internal struct ObjectDef
     {
         public ushort ObjectType;
         public ObjectStats Stats;
+
         public static ObjectDef Read(NReader rdr)
         {
             ObjectDef ret = new ObjectDef();
@@ -127,6 +131,7 @@ namespace wServer
             ret.Stats = ObjectStats.Read(rdr);
             return ret;
         }
+
         public void Write(NWriter wtr)
         {
             wtr.Write(ObjectType);
@@ -134,11 +139,12 @@ namespace wServer
         }
     }
 
-    struct ObjectStats
+    internal struct ObjectStats
     {
         public int Id;
         public Position Position;
         public KeyValuePair<StatsType, object>[] Stats;
+
         public static ObjectStats Read(NReader rdr)
         {
             ObjectStats ret = new ObjectStats();
@@ -156,6 +162,7 @@ namespace wServer
 
             return ret;
         }
+
         public void Write(NWriter wtr)
         {
             wtr.Write(Id);

@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using common;
 using Mono.Game;
-using wServer.realm.entities;
+using wServer.realm;
 
 namespace wServer.logic.behaviors
 {
-    class StayCloseToSpawn : CycleBehavior
+    internal class StayCloseToSpawn : CycleBehavior
     {
         //State storage: target position
         //assume spawn=state entry position
 
-        float speed;
-        int range;
+        private float speed;
+        private int range;
+
         public StayCloseToSpawn(double speed, int range = 5)
         {
             this.speed = (float)speed;

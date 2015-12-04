@@ -1,27 +1,26 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using wServer.realm.entities;
-using log4net;
 
 namespace wServer.realm.commands
 {
     public abstract class Command
     {
-        static ILog log = LogManager.GetLogger(typeof(Command));
+        private static ILog log = LogManager.GetLogger(typeof(Command));
 
         public Command(string name, int permLevel = 0)
         {
             this.CommandName = name;
             this.PermissionLevel = permLevel;
         }
+
         public string CommandName { get; private set; }
         public int PermissionLevel { get; private set; }
 
         protected abstract bool Process(Player player, RealmTime time, string args);
 
-        static int GetPermissionLevel(Player player)
+        private static int GetPermissionLevel(Player player)
         {
             if (player.Client.Account.Admin)
                 return 1;
@@ -29,13 +28,13 @@ namespace wServer.realm.commands
                 return 0;
         }
 
-
         public bool HasPermission(Player player)
         {
             if (GetPermissionLevel(player) < PermissionLevel)
                 return false;
             return true;
         }
+
         public bool Execute(Player player, RealmTime time, string args)
         {
             if (!HasPermission(player))
@@ -59,12 +58,13 @@ namespace wServer.realm.commands
 
     public class CommandManager
     {
-        static ILog log = LogManager.GetLogger(typeof(CommandManager));
+        private static ILog log = LogManager.GetLogger(typeof(CommandManager));
 
-        Dictionary<string, Command> cmds;
+        private Dictionary<string, Command> cmds;
         public IDictionary<string, Command> Commands { get { return cmds; } }
 
-        RealmManager manager;
+        private RealmManager manager;
+
         public CommandManager(RealmManager manager)
         {
             this.manager = manager;

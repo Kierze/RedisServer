@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using wServer.realm;
-using common;
 using wServer.realm.entities;
 
 namespace wServer.logic.behaviors
 {
-    class Reproduce : Behavior
+    internal class Reproduce : Behavior
     {
         //State storage: cooldown timer
 
-        double densityRadius;
-        int densityMax;
-        Cooldown coolDown;
-        ushort? children;
+        private double densityRadius;
+        private int densityMax;
+        private Cooldown coolDown;
+        private ushort? children;
 
         public Reproduce(string children = null, double densityRadius = 10, int densityMax = 5, Cooldown coolDown = new Cooldown())
         {

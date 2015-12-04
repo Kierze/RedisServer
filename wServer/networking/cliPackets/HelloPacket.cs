@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.cliPackets
 {
@@ -22,7 +18,11 @@ namespace wServer.networking.cliPackets
         public string PlayPlatform { get; set; }
 
         public override PacketID ID { get { return PacketID.Hello; } }
-        public override Packet CreateInstance() { return new HelloPacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new HelloPacket();
+        }
 
         protected override void Read(NReader rdr)
         {

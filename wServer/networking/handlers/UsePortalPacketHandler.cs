@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.networking.cliPackets;
-using wServer.realm;
-using common;
+﻿using wServer.networking.cliPackets;
 using wServer.networking.svrPackets;
+using wServer.realm;
 using wServer.realm.entities;
 using wServer.realm.worlds;
 
 namespace wServer.networking.handlers
 {
-    class UsePortalPacketHandler : PacketHandlerBase<UsePortalPacket>
+    internal class UsePortalPacketHandler : PacketHandlerBase<UsePortalPacket>
     {
         public override PacketID ID { get { return PacketID.UsePortal; } }
 
@@ -20,7 +15,7 @@ namespace wServer.networking.handlers
             client.Manager.Logic.AddPendingAction(t => Handle(client.Player, packet));
         }
 
-        void Handle(Player player, UsePortalPacket packet)
+        private void Handle(Player player, UsePortalPacket packet)
         {
             Portal entity = player.Owner.GetEntity(packet.ObjectId) as Portal;
             if (entity == null || !entity.Usable) return;
@@ -35,7 +30,8 @@ namespace wServer.networking.handlers
                                 world = player.Manager.PlayerWorldMapping[player.AccountId];  //also reconnecting to vault is a little unexpected
                             else
                                 world = player.Manager.GetWorld(World.NEXUS_ID);
-                        } break;
+                        }
+                        break;
                     case 0x0712:
                         world = player.Manager.GetWorld(World.VAULT_ID); break;
                     case 0x071d:
@@ -50,9 +46,9 @@ namespace wServer.networking.handlers
                         //world = RealmManager.GetWorld(World.GauntletMap); break; //this creates a singleton dungeon
                         world = player.Manager.AddWorld(new GauntletMap()); break; //this allows each dungeon to be unique
                     default: player.SendError("Portal Not Implemented!"); break;
-                    //case 1795
-                    /*case 0x0712:
-                        world = RealmManager.GetWorld(World.NEXUS_ID); break;*/
+                        //case 1795
+                        /*case 0x0712:
+                            world = RealmManager.GetWorld(World.NEXUS_ID); break;*/
                 }
 
                 entity.WorldInstance = world;

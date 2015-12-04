@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.networking.cliPackets;
-using wServer.realm;
-using common;
+﻿using wServer.networking.cliPackets;
 using wServer.networking.svrPackets;
-using wServer.realm.entities;
+using wServer.realm;
 
 namespace wServer.networking.handlers
 {
-    class EscapePacketHandler : PacketHandlerBase<EscapePacket>
+    internal class EscapePacketHandler : PacketHandlerBase<EscapePacket>
     {
         public override PacketID ID { get { return PacketID.Escape; } }
 

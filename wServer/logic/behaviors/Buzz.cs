@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using common;
 using Mono.Game;
+using System;
+using wServer.realm;
 
 namespace wServer.logic.behaviors
 {
@@ -17,7 +14,6 @@ namespace wServer.logic.behaviors
             public float RemainingDistance;
             public int RemainingTime;
         }
-
 
         float speed;
         float dist;

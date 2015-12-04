@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.networking.cliPackets;
-using wServer.realm;
-using common;
-using wServer.networking.svrPackets;
+﻿using wServer.networking.cliPackets;
 using wServer.realm.entities;
 
 namespace wServer.networking.handlers
 {
-    class CheckCreditsPacketHandler : PacketHandlerBase<CheckCreditsPacket>
+    internal class CheckCreditsPacketHandler : PacketHandlerBase<CheckCreditsPacket>
     {
         public override PacketID ID { get { return PacketID.CheckCredits; } }
 
@@ -21,7 +14,7 @@ namespace wServer.networking.handlers
             client.Manager.Logic.AddPendingAction(t => Handle(client.Player));
         }
 
-        void Handle(Player player)
+        private void Handle(Player player)
         {
             player.Credits = player.Client.Account.Credits;
             player.UpdateCount++;

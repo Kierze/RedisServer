@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
-using System.Threading;
-using System.Diagnostics;
-using System.IO;
-using wServer.realm.worlds;
-using System.Collections.Concurrent;
-using wServer.networking;
-using System.Globalization;
-using wServer.logic;
+﻿using common;
 using log4net;
+using System;
+using System.Collections.Concurrent;
+using System.Globalization;
+using System.Threading;
+using wServer.logic;
+using wServer.networking;
 using wServer.realm.commands;
+using wServer.realm.worlds;
 
 namespace wServer.realm
 {
@@ -23,12 +18,14 @@ namespace wServer.realm
         public int thisTickCounts;
         public int thisTickTimes;
     }
+
     public class TimeEventArgs : EventArgs
     {
         public TimeEventArgs(RealmTime time)
         {
             this.Time = time;
         }
+
         public RealmTime Time { get; private set; }
     }
 
@@ -42,12 +39,13 @@ namespace wServer.realm
 
     public class RealmManager
     {
-        static ILog log = LogManager.GetLogger(typeof(RealmManager));
+        private static ILog log = LogManager.GetLogger(typeof(RealmManager));
 
         public string InstanceId { get; private set; }
         public int MaxClient { get; private set; }
         public int TPS { get; private set; }
         public Database Database { get; private set; }
+
         public RealmManager(int maxClient, int tps, Database db)
         {
             this.InstanceId = Guid.NewGuid().ToString();
@@ -56,8 +54,8 @@ namespace wServer.realm
             this.Database = db;
         }
 
-        int nextWorldId = 0;
-        int nextClientId = 0;
+        private int nextWorldId = 0;
+        private int nextClientId = 0;
         public readonly ConcurrentDictionary<int, World> Worlds = new ConcurrentDictionary<int, World>();
         public readonly ConcurrentDictionary<int, Client> Clients = new ConcurrentDictionary<int, Client>();
         public ConcurrentDictionary<int, World> PlayerWorldMapping = new ConcurrentDictionary<int, World>();
@@ -75,6 +73,7 @@ namespace wServer.realm
                 return true;
             }
         }
+
         public void Disconnect(Client client)
         {
             Clients.TryRemove(client.Id, out client);
@@ -89,6 +88,7 @@ namespace wServer.realm
             OnWorldAdded(world);
             return world;
         }
+
         public World AddWorld(World world)
         {
             if (world.Manager != null)
@@ -120,8 +120,7 @@ namespace wServer.realm
             return ret;
         }
 
-
-        void OnWorldAdded(World world)
+        private void OnWorldAdded(World world)
         {
             world.Manager = this;
             if (world is GameWorld)
@@ -129,7 +128,7 @@ namespace wServer.realm
             log.InfoFormat("World {0}({1}) added.", world.Id, world.Name);
         }
 
-        void OnWorldRemoved(World world)
+        private void OnWorldRemoved(World world)
         {
             world.Manager = null;
             if (world is GameWorld)
@@ -137,20 +136,18 @@ namespace wServer.realm
             log.InfoFormat("World {0}({1}) removed.", world.Id, world.Name);
         }
 
-        Thread network;
+        private Thread network;
         public NetworkTicker Network { get; private set; }
 
-        Thread logic;
+        private Thread logic;
         public LogicTicker Logic { get; private set; }
 
         public XmlData GameData { get; private set; }
         public BehaviorDb Behaviors { get; private set; }
 
-
         public ISManager InterServer { get; private set; }
         public ChatManager Chat { get; private set; }
         public CommandManager Commands { get; private set; }
-
 
         public void Initialize()
         {
@@ -202,6 +199,7 @@ namespace wServer.realm
         }
 
         public bool Terminating { get; private set; }
+
         public void Stop()
         {
             log.Info("Stopping Realm Manager...");

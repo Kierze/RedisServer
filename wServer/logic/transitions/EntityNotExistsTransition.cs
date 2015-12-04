@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
-using wServer.realm.entities;
+﻿using wServer.realm;
 
 namespace wServer.logic.transitions
 {
-    class EntityNotExistsTransition : Transition
+    internal class EntityNotExistsTransition : Transition
     {
         //State storage: none
 
-        double dist;
-        ushort target;
+        private double dist;
+        private ushort target;
 
         public EntityNotExistsTransition(string target, double dist, string targetState)
             : base(targetState)

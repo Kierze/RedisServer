@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.svrPackets
 {
@@ -12,7 +8,11 @@ namespace wServer.networking.svrPackets
         public int[] AccountIds { get; set; }
 
         public override PacketID ID { get { return PacketID.AccountList; } }
-        public override Packet CreateInstance() { return new AccountListPacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new AccountListPacket();
+        }
 
         protected override void Read(NReader rdr)
         {

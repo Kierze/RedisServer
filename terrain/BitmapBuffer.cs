@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 
 namespace terrain
 {
-    unsafe class BitmapBuffer
+    internal unsafe class BitmapBuffer
     {
-        Bitmap bmp;
-        int w;
-        int h;
-        int s;
-        byte* ptr;
-        BitmapData dat;
+        private Bitmap bmp;
+        private int w;
+        private int h;
+        private int s;
+        private byte* ptr;
+        private BitmapData dat;
+
         public BitmapBuffer(Bitmap bmp)
         {
             this.bmp = bmp;
@@ -28,6 +25,7 @@ namespace terrain
             s = dat.Stride;
             ptr = (byte*)dat.Scan0;
         }
+
         public void Unlock()
         {
             bmp.UnlockBits(dat);

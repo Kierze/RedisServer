@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using wServer.realm;
-using common;
 
 namespace wServer.logic.transitions
 {
-    class TimedTransition : Transition
+    internal class TimedTransition : Transition
     {
         //State storage: cooldown timer
 
-        int time;
-        bool randomized;
+        private int time;
+        private bool randomized;
 
         public TimedTransition(int time, string targetState, bool randomized = false)
             : base(targetState)

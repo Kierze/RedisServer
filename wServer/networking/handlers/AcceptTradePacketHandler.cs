@@ -1,16 +1,13 @@
-﻿using System;
+﻿using common;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using wServer.networking.cliPackets;
-using wServer.realm;
-using common;
 using wServer.networking.svrPackets;
 using wServer.realm.entities;
 
 namespace wServer.networking.handlers
 {
-    class AcceptTradePacketHandler : PacketHandlerBase<AcceptTradePacket>
+    internal class AcceptTradePacketHandler : PacketHandlerBase<AcceptTradePacket>
     {
         public override PacketID ID { get { return PacketID.AcceptTrade; } }
 
@@ -35,7 +32,7 @@ namespace wServer.networking.handlers
             }
         }
 
-        void DoTrade(Player player)
+        private void DoTrade(Player player)
         {
             var tradeTarget = player.tradeTarget;
             if (!player.tradeAccepted || !tradeTarget.tradeAccepted)
@@ -90,7 +87,6 @@ namespace wServer.networking.handlers
                         if (targetItems.Count == 0) break;
                     }
 
-
             for (int i = 0; i < tradeTarget.Inventory.Length; i++) //put items by slotType
                 if (tradeTarget.Inventory[i] == null)
                 {
@@ -127,7 +123,6 @@ namespace wServer.networking.handlers
 
             player.UpdateCount++;
             tradeTarget.UpdateCount++;
-
 
             player.Client.SendPacket(new TradeDonePacket()
             {

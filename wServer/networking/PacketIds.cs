@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace wServer.networking
+﻿namespace wServer.networking
 {
     public enum PacketID_v123_4_4 : byte
     {
@@ -77,12 +72,13 @@ namespace wServer.networking
         EnemyHit = 24,
         InvDrop = 11
     }
+
     public enum PacketID : byte
     {
         Packet = 11,
         Reconnect = 39,
         Failure = 0,
-        InvitedToGuild =77 ,
+        InvitedToGuild = 77,
         CreateGuildResult = 58,
         Damage = 47,
         GroundDamage = 64,

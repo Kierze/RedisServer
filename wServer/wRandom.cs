@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace wServer
 {
     public class wRandom
     {
-        uint seed;
-        public wRandom() : this((uint)Environment.TickCount) { }
+        private uint seed;
+
+        public wRandom() : this((uint)Environment.TickCount)
+        {
+        }
+
         public wRandom(uint seed)
         {
             this.seed = seed;

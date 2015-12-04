@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using common;
 using System.Net;
-using common;
 using System.Web;
 
 namespace server.credits
 {
-    class add : RequestHandler
+    internal class add : RequestHandler
     {
         //Obviously a place holder
         public override void HandleRequest(HttpListenerContext context)

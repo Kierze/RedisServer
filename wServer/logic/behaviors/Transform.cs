@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using wServer.realm;
 
 namespace wServer.logic.behaviors
 {
-    class Transform : Behavior
+    internal class Transform : Behavior
     {
         //State storage: none
 
-        ushort target;
+        private ushort target;
+
         public Transform(string target)
         {
             this.target = BehaviorDb.InitGameData.IdToObjectType[target];

@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace terrain
 {
-    class Test
+    internal class Test
     {
         [STAThread]
-        static void Main() { Terrain.Generate(); }
+        private static void Main()
+        { Terrain.Generate(); }
 
         public static void Show(Image img)
         {

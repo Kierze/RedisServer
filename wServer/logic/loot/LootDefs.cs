@@ -1,10 +1,9 @@
-﻿using System;
+﻿using common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using wServer.realm.entities;
 using wServer.realm;
-using common;
+using wServer.realm.entities;
 
 namespace wServer.logic.loot
 {
@@ -16,8 +15,9 @@ namespace wServer.logic.loot
 
     public class ItemLoot : ILootDef
     {
-        string item;
-        double probability;
+        private string item;
+        private double probability;
+
         public ItemLoot(string item, double probability)
         {
             this.item = item;
@@ -41,6 +41,7 @@ namespace wServer.logic.loot
         Ring,
         Potion
     }
+
     public class TierLoot : ILootDef
     {
         public static readonly int[] WeaponT = new int[] { 1, 2, 3, 8, 17, };
@@ -49,9 +50,10 @@ namespace wServer.logic.loot
         public static readonly int[] RingT = new int[] { 9 };
         public static readonly int[] PotionT = new int[] { 10 };
 
-        byte tier;
-        int[] types;
-        double probability;
+        private byte tier;
+        private int[] types;
+        private double probability;
+
         public TierLoot(byte tier, ItemType type, double probability)
         {
             this.tier = tier;
@@ -89,8 +91,9 @@ namespace wServer.logic.loot
 
     public class Threshold : ILootDef
     {
-        double threshold;
-        ILootDef[] children;
+        private double threshold;
+        private ILootDef[] children;
+
         public Threshold(double threshold, params ILootDef[] children)
         {
             this.threshold = threshold;

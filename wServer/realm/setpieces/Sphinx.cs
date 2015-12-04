@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using wServer.realm.entities;
 
 namespace wServer.realm.setpieces
 {
-    class Sphinx : ISetPiece
+    internal class Sphinx : ISetPiece
     {
         public int Size
         {
             get { return 81; }
         }
 
-        static readonly byte[,] Center = new byte[,]
+        private static readonly byte[,] Center = new byte[,]
         {
             { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -34,11 +31,12 @@ namespace wServer.realm.setpieces
             { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
         };
 
-        static readonly string Floor = "Gold Sand";
-        static readonly string Central = "Sand Tile";
-        static readonly string Pillar = "Tomb Wall";
+        private static readonly string Floor = "Gold Sand";
+        private static readonly string Central = "Sand Tile";
+        private static readonly string Pillar = "Tomb Wall";
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public void RenderSetPiece(World world, IntPoint pos)
         {
             int[,] t = new int[81, 81];

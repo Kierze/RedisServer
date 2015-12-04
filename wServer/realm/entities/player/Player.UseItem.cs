@@ -1,18 +1,15 @@
-﻿using System;
+﻿using common;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.networking.cliPackets;
-using wServer.networking.svrPackets;
 using wServer.logic;
 using wServer.networking;
-using common;
+using wServer.networking.svrPackets;
 
 namespace wServer.realm.entities
 {
     partial class Player
     {
-        static readonly ConditionEffect[] NegativeEffs = new ConditionEffect[]
+        private static readonly ConditionEffect[] NegativeEffs = new ConditionEffect[]
         {
             new ConditionEffect()
             {
@@ -103,7 +100,7 @@ namespace wServer.realm.entities
                 FameCounter.UseAbility();
         }
 
-        static void ActivateHealHp(Player player, int amount, List<Packet> pkts)
+        private static void ActivateHealHp(Player player, int amount, List<Packet> pkts)
         {
             int maxHp = player.Stats[0] + player.Boost[0];
             int newHp = Math.Min(maxHp, player.HP + amount);
@@ -125,7 +122,8 @@ namespace wServer.realm.entities
                 player.UpdateCount++;
             }
         }
-        static void ActivateHealMp(Player player, int amount, List<Packet> pkts)
+
+        private static void ActivateHealMp(Player player, int amount, List<Packet> pkts)
         {
             int maxMp = player.Stats[1] + player.Boost[1];
             int newMp = Math.Min(maxMp, player.MP + amount);
@@ -147,7 +145,8 @@ namespace wServer.realm.entities
                 player.UpdateCount++;
             }
         }
-        void ActivateShoot(RealmTime time, Item item, Position target)
+
+        private void ActivateShoot(RealmTime time, Item item, Position target)
         {
             var arcGap = item.ArcGap * Math.PI / 180;
             var startAngle = Math.Atan2(target.Y - Y, target.X - X) - (item.NumProjectiles - 1) / 2 * arcGap;
@@ -162,7 +161,8 @@ namespace wServer.realm.entities
                 FameCounter.Shoot(proj);
             }
         }
-        void PoisonEnemy(Enemy enemy, ActivateEffect eff)
+
+        private void PoisonEnemy(Enemy enemy, ActivateEffect eff)
         {
             int remainingDmg = (int)StatsManager.GetDefenseDamage(enemy, eff.TotalDamage, enemy.ObjectDesc.Defense);
             int perDmg = (int)(remainingDmg * 1000 / eff.DurationMS);
@@ -197,7 +197,7 @@ namespace wServer.realm.entities
             Owner.Timers.Add(tmr);
         }
 
-        void Activate(RealmTime time, Item item, Position target)
+        private void Activate(RealmTime time, Item item, Position target)
         {
             MP -= item.MpCost;
             foreach (var eff in item.ActivateEffects)
@@ -236,11 +236,13 @@ namespace wServer.realm.entities
                                 Color = new ARGB(0xFFFF00AA)
                             };
                             BroadcastSync(batch, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Shoot:
                         {
                             ActivateShoot(time, item, target);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.StatBoostSelf:
                         {
                             int idx = -1;
@@ -269,7 +271,8 @@ namespace wServer.realm.entities
                                 TargetId = Id,
                                 Color = new ARGB(0xffffffff)
                             }, null);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.StatBoostAura:
                         {
                             int idx = -1;
@@ -302,7 +305,8 @@ namespace wServer.realm.entities
                                 Color = new ARGB(0xffffffff),
                                 PosA = new Position() { X = eff.Range / 2 }
                             }, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.ConditionEffectSelf:
                         {
                             ApplyConditionEffect(new ConditionEffect()
@@ -317,7 +321,8 @@ namespace wServer.realm.entities
                                 Color = new ARGB(0xffffffff),
                                 PosA = new Position() { X = 1 }
                             }, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.ConditionEffectAura:
                         {
                             this.AOE(eff.Range / 2, true, player =>
@@ -338,13 +343,15 @@ namespace wServer.realm.entities
                                 Color = new ARGB(color),
                                 PosA = new Position() { X = eff.Range / 2 }
                             }, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Heal:
                         {
                             List<Packet> pkts = new List<Packet>();
                             ActivateHealHp(this, eff.Amount, pkts);
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.HealNova:
                         {
                             List<Packet> pkts = new List<Packet>();
@@ -360,13 +367,15 @@ namespace wServer.realm.entities
                                 PosA = new Position() { X = eff.Range / 2 }
                             });
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Magic:
                         {
                             List<Packet> pkts = new List<Packet>();
                             ActivateHealMp(this, eff.Amount, pkts);
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.MagicNova:
                         {
                             List<Packet> pkts = new List<Packet>();
@@ -382,7 +391,8 @@ namespace wServer.realm.entities
                                 PosA = new Position() { X = eff.Range / 2 }
                             });
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Teleport:
                         {
                             Move(target.X, target.Y);
@@ -410,7 +420,8 @@ namespace wServer.realm.entities
                                     Color = new ARGB(0xFFFFFFFF)
                                 }
                             }, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.VampireBlast:
                         {
                             List<Packet> pkts = new List<Packet>();
@@ -460,7 +471,8 @@ namespace wServer.realm.entities
                             }
 
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Trap:
                         {
                             BroadcastSync(new ShowEffectPacket()
@@ -481,7 +493,8 @@ namespace wServer.realm.entities
                                 trap.Move(target.X, target.Y);
                                 world.EnterWorld(trap);
                             }));
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.StasisBlast:
                         {
                             List<Packet> pkts = new List<Packet>();
@@ -522,10 +535,10 @@ namespace wServer.realm.entities
                                     Owner.Timers.Add(new WorldTimer(eff.DurationMS, (world, t) =>
                                     {
                                         enemy.ApplyConditionEffect(new ConditionEffect()
-                                            {
-                                                Effect = ConditionEffectIndex.StasisImmune,
-                                                DurationMS = 3000
-                                            }
+                                        {
+                                            Effect = ConditionEffectIndex.StasisImmune,
+                                            DurationMS = 3000
+                                        }
                                         );
                                     }
                                     ));
@@ -538,13 +551,15 @@ namespace wServer.realm.entities
                                 }
                             });
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Decoy:
                         {
                             var decoy = new Decoy(this, eff.DurationMS, statsMgr.GetSpeed());
                             decoy.Move(X, Y);
                             Owner.EnterWorld(decoy);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Lightning:
                         {
                             Enemy start = null;
@@ -604,7 +619,8 @@ namespace wServer.realm.entities
                                 });
                             }
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.PoisonGrenade:
                         {
                             BroadcastSync(new ShowEffectPacket()
@@ -630,7 +646,8 @@ namespace wServer.realm.entities
                                 Owner.AOE(target, eff.Radius, false,
                                     enemy => PoisonEnemy(enemy as Enemy, eff));
                             }));
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.RemoveNegativeConditions:
                         {
                             this.AOE(eff.Range / 2, true, player =>
@@ -644,7 +661,8 @@ namespace wServer.realm.entities
                                 Color = new ARGB(0xffffffff),
                                 PosA = new Position() { X = eff.Range / 2 }
                             }, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.RemoveNegativeConditionsSelf:
                         {
                             ApplyConditionEffect(NegativeEffs);
@@ -655,7 +673,8 @@ namespace wServer.realm.entities
                                 Color = new ARGB(0xffffffff),
                                 PosA = new Position() { X = 1 }
                             }, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.IncrementStat:
                         {
                             int idx = -1;
@@ -675,7 +694,8 @@ namespace wServer.realm.entities
                             if (Stats[idx] > limit)
                                 Stats[idx] = limit;
                             UpdateCount++;
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Create: //this is a portal
                         {
                             ushort objType;
@@ -699,7 +719,8 @@ namespace wServer.realm.entities
                                     Console.WriteLine("Couldn't despawn portal.");
                                 }
                             }));
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Pet:
                     case ActivateEffects.UnlockPortal:
                         break;

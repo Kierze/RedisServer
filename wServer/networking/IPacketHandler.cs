@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using wServer.networking.cliPackets;
 
 namespace wServer.networking
 {
-    interface IPacketHandler
+    internal interface IPacketHandler
     {
         PacketID ID { get; }
+
         void Handle(Client client, ClientPacket packet);
     }
-    abstract class PacketHandlerBase<T> : IPacketHandler where T : ClientPacket
+
+    internal abstract class PacketHandlerBase<T> : IPacketHandler where T : ClientPacket
     {
         protected abstract void HandlePacket(Client client, T packet);
 
@@ -35,9 +35,10 @@ namespace wServer.networking
         }
     }
 
-    class PacketHandlers
+    internal class PacketHandlers
     {
         public static Dictionary<PacketID, IPacketHandler> Handlers = new Dictionary<PacketID, IPacketHandler>();
+
         static PacketHandlers()
         {
             foreach (var i in typeof(Packet).Assembly.GetTypes())

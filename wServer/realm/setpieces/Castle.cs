@@ -1,25 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using common;
+using System;
 using System.Linq;
-using System.Text;
 using wServer.logic.loot;
-using common;
 using wServer.realm.entities;
 
 namespace wServer.realm.setpieces
 {
-    class Castle : ISetPiece
+    internal class Castle : ISetPiece
     {
         public int Size { get { return 40; } }
 
-        static readonly string Floor = "Rock";
-        static readonly string Bridge = "Bridge";
-        static readonly string WaterA = "Shallow Water";
-        static readonly string WaterB = "Dark Water";
-        static readonly string WallA = "Grey Wall";
-        static readonly string WallB = "Destructible Grey Wall";
+        private static readonly string Floor = "Rock";
+        private static readonly string Bridge = "Bridge";
+        private static readonly string WaterA = "Shallow Water";
+        private static readonly string WaterB = "Dark Water";
+        private static readonly string WallA = "Grey Wall";
+        private static readonly string WallB = "Destructible Grey Wall";
 
-        static readonly Loot chest = new Loot(
+        private static readonly Loot chest = new Loot(
                 new TierLoot(6, ItemType.Weapon, 0.3),
                 new TierLoot(7, ItemType.Weapon, 0.2),
                 new TierLoot(8, ItemType.Weapon, 0.1),
@@ -34,11 +32,12 @@ namespace wServer.realm.setpieces
 
                 new TierLoot(2, ItemType.Ring, 0.25),
                 new TierLoot(3, ItemType.Ring, 0.15),
-                
+
                 new TierLoot(1, ItemType.Potion, 0.5)
             );
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public void RenderSetPiece(World world, IntPoint pos)
         {
             int[,] t = new int[31, 40];
@@ -123,7 +122,6 @@ namespace wServer.realm.setpieces
                         tile.ObjType = 0;
                         world.Map[x + pos.X, y + pos.Y] = tile;
                     }
-
                     else if (t[x, y] == 2)
                     {
                         var tile = world.Map[x + pos.X, y + pos.Y].Clone();
@@ -138,7 +136,6 @@ namespace wServer.realm.setpieces
                         tile.ObjType = 0;
                         world.Map[x + pos.X, y + pos.Y] = tile;
                     }
-
                     else if (t[x, y] == 4)
                     {
                         var tile = world.Map[x + pos.X, y + pos.Y].Clone();
@@ -156,7 +153,6 @@ namespace wServer.realm.setpieces
                         wall.Move(x + pos.X + 0.5f, y + pos.Y + 0.5f);
                         world.EnterWorld(wall);
                     }
-
                     else if (t[x, y] == 6)
                     {
                         var tile = world.Map[x + pos.X, y + pos.Y].Clone();

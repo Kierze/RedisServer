@@ -1,30 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using common;
 using Mono.Game;
+using System;
+using wServer.realm;
 
 namespace wServer.logic.behaviors
 {
-    class Wander : CycleBehavior
+    internal class Wander : CycleBehavior
     {
         //State storage: direction & remain time
-        class WanderStorage
+        private class WanderStorage
         {
             public Vector2 Direction;
             public float RemainingDistance;
         }
 
+        private float speed;
 
-        float speed;
         public Wander(double speed)
         {
             this.speed = (float)speed;
         }
 
-        static Cooldown period = new Cooldown(500, 200);
+        private static Cooldown period = new Cooldown(500, 200);
+
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
             WanderStorage storage;

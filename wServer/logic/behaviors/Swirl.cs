@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm.entities;
-using wServer.realm;
-using common;
+﻿using common;
 using Mono.Game;
+using System;
+using wServer.realm;
 
 namespace wServer.logic.behaviors
 {
-    class Swirl : CycleBehavior
+    internal class Swirl : CycleBehavior
     {
         //State storage: swirl state
-        class SwirlState
+        private class SwirlState
         {
             public Vector2 Center;
             public bool Acquired;
             public int RemainingTime;
         }
 
-        float speed;
-        float acquireRange;
-        float radius;
-        bool targeted;
+        private float speed;
+        private float acquireRange;
+        private float radius;
+        private bool targeted;
+
         public Swirl(double speed = 1, double radius = 8, double acquireRange = 10, bool targeted = true)
         {
             this.speed = (float)speed;
@@ -55,7 +52,7 @@ namespace wServer.logic.behaviors
             {
                 var entity = host.GetNearestEntity(acquireRange, null);
                 if (entity != null && entity.X != host.X && entity.Y != host.Y)
-                { 
+                {
                     //find circle which pass through host and player pos
                     var l = entity.Dist(host);
                     var hx = (host.X + entity.X) / 2;

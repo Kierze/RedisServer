@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
-using wServer.realm.entities;
-using wServer.networking.svrPackets;
+﻿using wServer.realm;
 
 namespace wServer.logic.behaviors
 {
-    class Order : Behavior
+    internal class Order : Behavior
     {
         //State storage: none
 
-        double range;
-        ushort children;
-        string targetStateName;
-        State targetState;
+        private double range;
+        private ushort children;
+        private string targetStateName;
+        private State targetState;
 
         public Order(double range, string children, string targetState)
         {
@@ -25,7 +18,7 @@ namespace wServer.logic.behaviors
             this.targetStateName = targetState;
         }
 
-        static State FindState(State state, string name)
+        private static State FindState(State state, string name)
         {
             if (state.Name == name) return state;
             State ret;
@@ -36,7 +29,6 @@ namespace wServer.logic.behaviors
             }
             return null;
         }
-
 
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {

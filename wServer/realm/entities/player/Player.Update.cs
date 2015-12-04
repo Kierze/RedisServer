@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using wServer.networking.svrPackets;
 using wServer.realm.terrain;
 
@@ -10,14 +9,14 @@ namespace wServer.realm.entities
     public partial class Player
     {
         public const int RADIUS = 15;
-        const int APPOX_AREA_OF_SIGHT = (int)(Math.PI * RADIUS * RADIUS + 1);
+        private const int APPOX_AREA_OF_SIGHT = (int)(Math.PI * RADIUS * RADIUS + 1);
 
-        int mapWidth, mapHeight;
+        private int mapWidth, mapHeight;
 
-        HashSet<Entity> clientEntities = new HashSet<Entity>();
-        HashSet<IntPoint> clientStatic = new HashSet<IntPoint>(new IntPointComparer());
+        private HashSet<Entity> clientEntities = new HashSet<Entity>();
+        private HashSet<IntPoint> clientStatic = new HashSet<IntPoint>(new IntPointComparer());
 
-        IEnumerable<Entity> GetNewEntities()
+        private IEnumerable<Entity> GetNewEntities()
         {
             foreach (var i in Owner.Players)
             {
@@ -48,7 +47,8 @@ namespace wServer.realm.entities
             if (questEntity != null && clientEntities.Add(questEntity))
                 yield return questEntity;
         }
-        IEnumerable<int> GetRemovedEntities()
+
+        private IEnumerable<int> GetRemovedEntities()
         {
             foreach (var i in clientEntities)
             {
@@ -61,7 +61,8 @@ namespace wServer.realm.entities
                     yield return i.Id;
             }
         }
-        IEnumerable<ObjectDef> GetNewStatics(int _x, int _y)
+
+        private IEnumerable<ObjectDef> GetNewStatics(int _x, int _y)
         {
             List<ObjectDef> ret = new List<ObjectDef>();
             foreach (var i in Sight.GetSightCircle(RADIUS))
@@ -69,14 +70,16 @@ namespace wServer.realm.entities
                 int x = i.X + _x;
                 int y = i.Y + _y;
                 if (x < 0 || x >= mapWidth ||
-                    y < 0 || y >= mapHeight) continue;
+                    y < 0 || y >= mapHeight)
+                    continue;
                 var tile = Owner.Map[x, y];
                 if (tile.ObjId != 0 && tile.ObjType != 0 && clientStatic.Add(new IntPoint(x, y)))
                     ret.Add(tile.ToDef(x, y));
             }
             return ret;
         }
-        IEnumerable<IntPoint> GetRemovedStatics(int _x, int _y)
+
+        private IEnumerable<IntPoint> GetRemovedStatics(int _x, int _y)
         {
             foreach (var i in clientStatic)
             {
@@ -93,8 +96,9 @@ namespace wServer.realm.entities
             }
         }
 
-        Dictionary<Entity, int> lastUpdate = new Dictionary<Entity, int>();
-        void SendUpdate(RealmTime time)
+        private Dictionary<Entity, int> lastUpdate = new Dictionary<Entity, int>();
+
+        private void SendUpdate(RealmTime time)
         {
             mapWidth = Owner.Map.Width;
             mapHeight = Owner.Map.Height;
@@ -112,7 +116,8 @@ namespace wServer.realm.entities
                 WmapTile tile;
                 if (x < 0 || x >= mapWidth ||
                     y < 0 || y >= mapHeight ||
-                    tiles[x, y] >= (tile = map[x, y]).UpdateCount) continue;
+                    tiles[x, y] >= (tile = map[x, y]).UpdateCount)
+                    continue;
                 list.Add(new UpdatePacket.TileData()
                 {
                     X = (short)x,
@@ -151,8 +156,9 @@ namespace wServer.realm.entities
             SendNewTick(time);
         }
 
-        int tickId = 0;
-        void SendNewTick(RealmTime time)
+        private int tickId = 0;
+
+        private void SendNewTick(RealmTime time)
         {
             var sendEntities = new List<Entity>();
             foreach (var i in clientEntities)

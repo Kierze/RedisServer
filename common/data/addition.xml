@@ -1,5 +1,5 @@
 <Addition>
-  <!--    
+  <!--
     Note that the client should support 2 byte tile id, but the protocol doesn't support
     Due to the same reason, some kind of object can only be within signed part because
     the client read them as signed short then cast to int, making them becomes negative
@@ -10,14 +10,14 @@
      Projectile: Client side  -> Full
         Textile: ObjectStats  -> Full
     Auto assign feature takes care of the limitations.
-    
+
     Also to use remote texture, the client should have Parameters._-IO call patch to
     true in assembleegameclient.objects._-ZH and the texture should stored in 32 bits
     png format.
-    
+
     And remember add 'ext' attributes
-    
-    Available Tile IDs : 
+
+    Available Tile IDs :
     08 09 0a 0b 0d 0e 0f
     10 11 12
     20 27 28 29 2a 2b
@@ -34,7 +34,7 @@
   -->
   <Character>
     <Object id="Forgotten Archmage of Flame" ext="true">
-      <Enemy/>
+      <Enemy />
       <Class>Character</Class>
       <RemoteTexture>
         <Instance>production</Instance>
@@ -50,16 +50,16 @@
         <Damage>200</Damage>
         <Speed>50</Speed>
         <LifetimeMS>10000</LifetimeMS>
-        <PassesCover/>
+        <PassesCover />
       </Projectile>
     </Object>
   </Character>
-  
+
   <Item>
     <ItemGroup type="testing">
       <Object id="Staff of Someone" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj5</File>
           <Index>0x70</Index>
@@ -75,19 +75,19 @@
           <MaxDamage>10000</MaxDamage>
           <LifetimeMS>5000</LifetimeMS>
           <Size>75</Size>
-          <PassesCover/>
-          <MultiHit/>
+          <PassesCover />
+          <MultiHit />
         </Projectile>
         <BagType>4</BagType>
         <NumProjectiles>10</NumProjectiles>
         <ArcGap>36</ArcGap>
         <OldSound>magicShoot</OldSound>
-        <Soulbound/>
+        <Soulbound />
       </Object>
-      
+
       <Object id="Robe of Someone" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj3</File>
           <Index>0x86</Index>
@@ -97,12 +97,12 @@
         <ActivateOnEquip stat="21" amount="100">IncrementStat</ActivateOnEquip>
         <BagType>2</BagType>
         <FameBonus>5</FameBonus>
-        <Soulbound/>
+        <Soulbound />
       </Object>
-      
+
       <Object id="Star of Invincible" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiProjs</File>
           <Index>0x5e</Index>
@@ -111,16 +111,16 @@
         <Tier>4</Tier>
         <Description>Super Power!</Description>
         <Sound>use_potion</Sound>
-        <InvUse/>
+        <InvUse />
         <Activate effect="Invulnerable" duration="60">ConditionEffectSelf</Activate>
         <Activate>RemoveNegativeConditionsSelf</Activate>
         <BagType>4</BagType>
-        <Soulbound/>
+        <Soulbound />
       </Object>
-      
+
       <Object id="Kitty" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <AnimatedTexture>
           <File>chars8x8rPets1</File>
           <Index>0x02</Index>
@@ -134,21 +134,21 @@
           <MinDamage>150</MinDamage>
           <MaxDamage>200</MaxDamage>
           <LifetimeMS>1000</LifetimeMS>
-          <PassesCover/>
-          <MultiHit/>
+          <PassesCover />
+          <MultiHit />
         </Projectile>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <MpCost>0</MpCost>
         <Activate effect="Invisible" duration="10">ConditionEffectSelf</Activate>
         <Activate maxDistance="20">Teleport</Activate>
         <Activate>BulletNova</Activate>
-        <Soulbound/>
+        <Soulbound />
       </Object>
-      
+
       <Object id="Potion of Maxy" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj2</File>
           <Index>0x35</Index>
@@ -165,15 +165,15 @@
         <Activate stat="28" amount="1000">IncrementStat</Activate>
         <Activate stat="0" amount="1000">IncrementStat</Activate>
         <Activate stat="3" amount="1000">IncrementStat</Activate>
-        <Consumable/>
-        <Potion/>
+        <Consumable />
+        <Potion />
         <BagType>4</BagType>
       </Object>
     </ItemGroup>
     <ItemGroup type="ability" tier="7">
       <Object id="Souleater Skull" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x07</Index>
@@ -183,7 +183,7 @@
         <Description>A red skull, stained with the blood of only a portion of its victims.</Description>
         <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="3">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>5</FameBonus>
         <MpCost>160</MpCost>
@@ -192,7 +192,7 @@
 
       <Object id="Mobstopper Trap" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x17</Index>
@@ -202,7 +202,7 @@
         <Description>Known in the ancient world to be strong against the most powerful armies in existence.</Description>
         <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="3">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>5</FameBonus>
         <MpCost>160</MpCost>
@@ -211,7 +211,7 @@
 
       <Object id="Cloak of Dimensions" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x27</Index>
@@ -224,7 +224,7 @@
         <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="28" amount="5">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>5</FameBonus>
         <MpCost>90</MpCost>
@@ -234,7 +234,7 @@
 
       <Object id="Bloodorc Quiver" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x37</Index>
@@ -251,15 +251,15 @@
           <LifetimeMS>1000</LifetimeMS>
           <Size>150</Size>
           <ConditionEffect duration="3.5">Paralyzed</ConditionEffect>
-          <MultiHit/>
-          <PassesCover/>
-          <ParticleTrail/>
+          <MultiHit />
+          <PassesCover />
+          <ParticleTrail />
         </Projectile>
         <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="28" amount="6">IncrementStat</ActivateOnEquip>
         <ConditionEffect duration="3.5">Paralyzed</ConditionEffect>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>5</FameBonus>
         <MpCost>80</MpCost>
@@ -268,7 +268,7 @@
 
       <Object id="Space Deterioration Spell" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x47</Index>
@@ -286,7 +286,7 @@
         </Projectile>
         <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="3">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>5</FameBonus>
         <MpCost>90</MpCost>
@@ -295,7 +295,7 @@
 
       <Object id="Tome of the Fountains" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x57</Index>
@@ -306,7 +306,7 @@
         <Sound>spell/major_heal</Sound>
         <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="3">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>5</FameBonus>
         <MpCost>90</MpCost>
@@ -315,7 +315,7 @@
 
       <Object id="Helm of the Holy Warrior" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x67</Index>
@@ -326,7 +326,7 @@
         <ActivateOnEquip stat="21" amount="12">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="3">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>5</FameBonus>
         <MpCost>90</MpCost>
@@ -337,7 +337,7 @@
 
       <Object id="Magma Shield" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x77</Index>
@@ -354,15 +354,15 @@
           <LifetimeMS>200</LifetimeMS>
           <Size>140</Size>
           <ConditionEffect duration="3.5">Stunned</ConditionEffect>
-          <MultiHit/>
-          <PassesCover/>
-          <ParticleTrail/>
+          <MultiHit />
+          <PassesCover />
+          <ParticleTrail />
         </Projectile>
         <ActivateOnEquip stat="21" amount="16">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="3">IncrementStat</ActivateOnEquip>
         <ConditionEffect duration="3.5">Stunned</ConditionEffect>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>5</FameBonus>
         <MpCost>105</MpCost>
@@ -372,7 +372,7 @@
 
       <Object id="1940s Orb" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x97</Index>
@@ -382,7 +382,7 @@
         <Description>A devilish orb that traps your foes in the 1940s for 9 seconds!</Description>
         <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="3">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>5</FameBonus>
         <MpCost>90</MpCost>
@@ -391,7 +391,7 @@
 
       <Object id="Toothpaste Poison" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x87</Index>
@@ -401,7 +401,7 @@
         <Description>Instead of using it to toughen up your immune system, you decide to give your foes a taste of it. It's even worse than rotten milk.</Description>
         <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="3">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>5</FameBonus>
         <MpCost>125</MpCost>
@@ -410,7 +410,7 @@
 
       <Object id="Seal of Mass Power" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0xa7</Index>
@@ -421,7 +421,7 @@
         <Sound>spell/light_heal</Sound>
         <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="3">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>5</FameBonus>
         <MpCost>100</MpCost>
@@ -431,7 +431,7 @@
 
       <Object id="Prism of the Soul Stealer" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0xb7</Index>
@@ -441,7 +441,7 @@
         <Description>A prism once used to take control of his enemies souls, causing them to forever wander in search of the illusion they saw.</Description>
         <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="3">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>5</FameBonus>
         <MpCost>90</MpCost>
@@ -451,7 +451,7 @@
 
       <Object id="Scepter of the Grand Sorcerer" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0xc7</Index>
@@ -462,7 +462,7 @@
         <Sound>spell/magic_nova</Sound>
         <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="3">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>5</FameBonus>
         <MpCost>90</MpCost>
@@ -472,7 +472,7 @@
     <ItemGroup type="ability" tier="8">
       <Object id="Skull of the Undead King" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x08</Index>
@@ -482,16 +482,16 @@
         <Description>A skull sporting a crown from its past necrotic king who died to the extent of his own power.</Description>
         <ActivateOnEquip stat="26" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>6</FameBonus>
         <MpCost>180</MpCost>
         <Activate radius="4" totalDamage="200" condEffect="Sick" condDuration="3">VampireBlast</Activate>
       </Object>
-      
+
       <Object id="Azure Trap" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x18</Index>
@@ -501,17 +501,17 @@
         <Description>The strongest trap ever created. Some say it stopped a giant meteor from crashing into the planet.</Description>
         <ActivateOnEquip stat="26" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>6</FameBonus>
         <MpCost>180</MpCost>
         <Activate radius="8" totalDamage="400" condEffect="Paralyzed" condDuration="8">Trap</Activate>
         <ConditionEffect duration="4">Sick</ConditionEffect>
       </Object>
-      
+
       <Object id="Cloak of the Phantom" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x28</Index>
@@ -524,7 +524,7 @@
         <ActivateOnEquip stat="26" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="28" amount="7">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>6</FameBonus>
         <MpCost>95</MpCost>
@@ -532,10 +532,10 @@
         <Activate effect="Speedy" duration="5.5">ConditionEffectSelf</Activate>
         <Cooldown>7</Cooldown>
       </Object>
-      
+
       <Object id="Quiver of Artemis" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x38</Index>
@@ -553,25 +553,25 @@
           <Size>150</Size>
           <ConditionEffect duration="4">Paralyzed</ConditionEffect>
           <ConditionEffect duration="3">Bleeding</ConditionEffect>
-          <MultiHit/>
-          <PassesCover/>
-          <ParticleTrail/>
+          <MultiHit />
+          <PassesCover />
+          <ParticleTrail />
         </Projectile>
         <ActivateOnEquip stat="26" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="28" amount="8">IncrementStat</ActivateOnEquip>
         <ConditionEffect duration="4">Paralyzed</ConditionEffect>
         <ConditionEffect duration="3">Bleeding</ConditionEffect>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>6</FameBonus>
         <MpCost>85</MpCost>
         <Activate>Shoot</Activate>
       </Object>
-      
+
       <Object id="Spell of the Eternal Void" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x48</Index>
@@ -586,20 +586,20 @@
           <MinDamage>120</MinDamage>
           <MaxDamage>210</MaxDamage>
           <LifetimeMS>1000</LifetimeMS>
-          <MultiHit/>
+          <MultiHit />
         </Projectile>
         <ActivateOnEquip stat="26" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>6</FameBonus>
         <MpCost>95</MpCost>
         <Activate>BulletNova</Activate>
       </Object>
-      
+
       <Object id="Tome of the Ancients" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x58</Index>
@@ -610,16 +610,16 @@
         <Sound>spell/major_heal</Sound>
         <ActivateOnEquip stat="26" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>6</FameBonus>
         <MpCost>95</MpCost>
         <Activate range="10" amount="400">HealNova</Activate>
       </Object>
-      
+
       <Object id="Helm of the Leviathan General" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x68</Index>
@@ -630,7 +630,7 @@
         <ActivateOnEquip stat="21" amount="16">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="26" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>6</FameBonus>
         <MpCost>95</MpCost>
@@ -640,10 +640,10 @@
         <Activate effect="Sick" duration="4">ConditionEffectSelf</Activate>
         <Cooldown>7.5</Cooldown>
       </Object>
-      
+
       <Object id="Shield of Death" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x78</Index>
@@ -661,26 +661,26 @@
           <Size>140</Size>
           <ConditionEffect duration="4">Stunned</ConditionEffect>
           <ConditionEffect duration="4">Bleeding</ConditionEffect>
-          <MultiHit/>
-          <PassesCover/>
-          <ParticleTrail/>
+          <MultiHit />
+          <PassesCover />
+          <ParticleTrail />
         </Projectile>
         <ActivateOnEquip stat="21" amount="20">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="26" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
         <ConditionEffect duration="4">Stunned</ConditionEffect>
         <ConditionEffect duration="4">Bleeding</ConditionEffect>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>6</FameBonus>
         <MpCost>110</MpCost>
         <Activate>Shoot</Activate>
         <NumProjectiles>7</NumProjectiles>
       </Object>
-      
+
       <Object id="Fury Orb" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x98</Index>
@@ -690,16 +690,16 @@
         <Description>An orb, made out of pure fury.</Description>
         <ActivateOnEquip stat="26" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>6</FameBonus>
         <MpCost>95</MpCost>
         <Activate totalDamage="300" duration="9">StasisBlast</Activate>
       </Object>
-      
+
       <Object id="Bile Poison" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0x88</Index>
@@ -709,16 +709,16 @@
         <Description>Poison harvested from the floors of Oryx's Wine Cellar. It seems to work pretty well.</Description>
         <ActivateOnEquip stat="26" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>6</FameBonus>
         <MpCost>150</MpCost>
         <Activate radius="6" totalDamage="1500" condEffect="Sick" condDuration="6" duration="8">PoisonGrenade</Activate>
       </Object>
-      
+
       <Object id="Seal of War" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0xa8</Index>
@@ -729,17 +729,17 @@
         <Sound>spell/light_heal</Sound>
         <ActivateOnEquip stat="26" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>6</FameBonus>
         <MpCost>110</MpCost>
         <Activate effect="Healing" duration="12" range="8">ConditionEffectAura</Activate>
         <Activate effect="Damaging" duration="12" range="8">ConditionEffectAura</Activate>
       </Object>
-      
+
       <Object id="Prism of the Bloody Surprise" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0xb8</Index>
@@ -749,7 +749,7 @@
         <Description>None even know about this prism. Nobody has ever been found using it. They're dead before they see it.</Description>
         <ActivateOnEquip stat="26" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>6</FameBonus>
         <MpCost>100</MpCost>
@@ -757,10 +757,10 @@
         <Activate maxDistance="30">Teleport</Activate>
         <Activate effect="Invisible" duration="3">ConditionEffectSelf</Activate>
       </Object>
-      
+
       <Object id="Scepter of Vorv" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj6</File>
           <Index>0xc8</Index>
@@ -771,7 +771,7 @@
         <Sound>spell/magic_nova</Sound>
         <ActivateOnEquip stat="26" amount="4">IncrementStat</ActivateOnEquip>
         <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
-        <Usable/>
+        <Usable />
         <BagType>4</BagType>
         <FameBonus>6</FameBonus>
         <MpCost>95</MpCost>
@@ -781,7 +781,7 @@
     <ItemGroup type="key">
       <Object id="Gauntlet Key" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <Texture>
           <File>lofiObj2</File>
           <Index>0x75</Index>
@@ -789,15 +789,15 @@
         <SlotType>10</SlotType>
         <Description>A key which opens an entrance to a Gauntlet.</Description>
         <Sound>use_key</Sound>
-        <Consumable/>
-        <Soulbound/>
+        <Consumable />
+        <Soulbound />
         <Activate id="Gauntlet Portal" ext="true">Create</Activate>
       </Object>
     </ItemGroup>
     <ItemGroup type="ut">
       <Object id="Staff of the Abyss" ext="true">
         <Class>Equipment</Class>
-        <Item/>
+        <Item />
         <RemoteTexture>
           <Instance>production</Instance>
           <Id>staff_of_the_abyss</Id>
@@ -826,7 +826,7 @@
   <Environment>
     <Object id="Gauntlet Portal" ext="true">
       <Class>Portal</Class>
-      <IntergamePortal/>
+      <IntergamePortal />
       <DungeonName>The Gauntlet</DungeonName>
       <Texture>
         <File>lofiEnvironment</File>
@@ -852,15 +852,13 @@
       <AngleCorrection>1</AngleCorrection>
     </Object>
   </Projectile>
-  
+
   <Textile>
-
   </Textile>
-  
-  <Misc>
 
+  <Misc>
   </Misc>
-  
+
   <Tile>
 
     <Ground type="0x08" id="Firey Floor" ext="true">
@@ -869,7 +867,5 @@
         <Id>firey_floor</Id>
       </RemoteTexture>
     </Ground>
-    
   </Tile>
-
 </Addition>

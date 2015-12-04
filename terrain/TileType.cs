@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace terrain
 {
-    class TileTypes
+    internal class TileTypes
     {
         public const ushort DeepWater = 0xbc;
         public const ushort Water = 0x73;

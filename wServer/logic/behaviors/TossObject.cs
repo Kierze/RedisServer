@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using common;
+using System;
 using wServer.networking.svrPackets;
+using wServer.realm;
 using wServer.realm.entities;
 
 namespace wServer.logic.behaviors
 {
-    class TossObject : Behavior
+    internal class TossObject : Behavior
     {
         //State storage: cooldown timer
 
-        double range;
-        double? angle;
-        ushort child;
-        Cooldown coolDown;
-        int coolDownOffset;
+        private double range;
+        private double? angle;
+        private ushort child;
+        private Cooldown coolDown;
+        private int coolDownOffset;
 
         public TossObject(string child, double range = 5, double? angle = null,
             Cooldown coolDown = new Cooldown(), int coolDownOffset = 0)
@@ -43,10 +40,10 @@ namespace wServer.logic.behaviors
                 if (host.HasConditionEffect(ConditionEffects.Stunned)) return;
 
                 Position target = new Position()
-                    {
-                        X = host.X + (float)(range * Math.Cos(angle.Value)),
-                        Y = host.Y + (float)(range * Math.Sin(angle.Value)),
-                    };
+                {
+                    X = host.X + (float)(range * Math.Cos(angle.Value)),
+                    Y = host.Y + (float)(range * Math.Sin(angle.Value)),
+                };
                 host.Owner.BroadcastPacket(new ShowEffectPacket()
                 {
                     EffectType = EffectType.Throw,

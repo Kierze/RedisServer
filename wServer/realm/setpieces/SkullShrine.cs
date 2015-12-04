@@ -1,23 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using terrain;
 
 namespace wServer.realm.setpieces
 {
-    class SkullShrine : ISetPiece
+    internal class SkullShrine : ISetPiece
     {
         public int Size { get { return 33; } }
 
-        static readonly string Grass = "Blue Grass";
-        static readonly string Tile = "Castle Stone Floor Tile";
-        static readonly string TileDark = "Castle Stone Floor Tile Dark";
-        static readonly string Stone = "Cracked Purple Stone";
-        static readonly string PillarA = "Blue Pillar";
-        static readonly string PillarB = "Broken Blue Pillar";
+        private static readonly string Grass = "Blue Grass";
+        private static readonly string Tile = "Castle Stone Floor Tile";
+        private static readonly string TileDark = "Castle Stone Floor Tile Dark";
+        private static readonly string Stone = "Cracked Purple Stone";
+        private static readonly string PillarA = "Blue Pillar";
+        private static readonly string PillarB = "Broken Blue Pillar";
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public void RenderSetPiece(World world, IntPoint pos)
         {
             int[,] t = new int[33, 33];

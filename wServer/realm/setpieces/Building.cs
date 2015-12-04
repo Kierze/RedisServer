@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace wServer.realm.setpieces
 {
-    class Building : ISetPiece
+    internal class Building : ISetPiece
     {
         public int Size { get { return 21; } }
 
-        static readonly string Floor = "Brown Lines";
-        static readonly string Wall = "Wooden Wall";
+        private static readonly string Floor = "Brown Lines";
+        private static readonly string Wall = "Wooden Wall";
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public void RenderSetPiece(World world, IntPoint pos)
         {
             int w = rand.Next(19, 22), h = rand.Next(19, 22);

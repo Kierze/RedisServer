@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using wServer.networking.svrPackets;
-using wServer.networking.cliPackets;
 
 namespace wServer.realm.entities
 {
     public partial class Player
     {
-        long lastPong = -1;
-        int? lastTime = null;
-        long tickMapping = 0;
-        Queue<long> ts = new Queue<long>();
+        private long lastPong = -1;
+        private int? lastTime = null;
+        private long tickMapping = 0;
+        private Queue<long> ts = new Queue<long>();
 
-        const int PING_PERIOD = 5000;
-        const int DC_THRESOLD = 10000;
+        private const int PING_PERIOD = 5000;
+        private const int DC_THRESOLD = 10000;
 
-        bool sentPing = false;
-        bool KeepAlive(RealmTime time)
+        private bool sentPing = false;
+
+        private bool KeepAlive(RealmTime time)
         {
             if (lastPong == -1) lastPong = time.tickTimes - PING_PERIOD;
             if (time.tickTimes - lastPong > PING_PERIOD && !sentPing)
@@ -34,6 +31,7 @@ namespace wServer.realm.entities
             }
             return true;
         }
+
         internal void Pong(int time)
         {
             if (lastTime != null && (time - lastTime.Value > DC_THRESOLD || time - lastTime.Value < 0))

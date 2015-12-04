@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace common
@@ -14,6 +13,7 @@ namespace common
             if (x.StartsWith("0x")) return int.Parse(x.Substring(2), System.Globalization.NumberStyles.HexNumber);
             else return int.Parse(x);
         }
+
         public static string To4Hex(this ushort x)
         {
             return "0x" + x.ToString("x4");
@@ -62,6 +62,7 @@ namespace common
         {
             return self.IndexOf(val, StringComparison.InvariantCultureIgnoreCase) != -1;
         }
+
         public static bool EqualsIgnoreCase(this string self, string val)
         {
             return self.Equals(val, StringComparison.InvariantCultureIgnoreCase);

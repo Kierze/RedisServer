@@ -1,24 +1,23 @@
-﻿using System;
+﻿using common;
+using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
-using wServer.realm.entities;
-using wServer.logic.loot;
-using System.Threading;
 using System.Reflection;
-using log4net;
+using System.Threading;
+using wServer.logic.loot;
+using wServer.realm;
+using wServer.realm.entities;
 
 namespace wServer.logic
 {
     public partial class BehaviorDb
     {
-        static ILog log = LogManager.GetLogger(typeof(BehaviorDb));
+        private static ILog log = LogManager.GetLogger(typeof(BehaviorDb));
 
         public RealmManager Manager { get; private set; }
 
-        static int initializing;
+        private static int initializing;
         internal static BehaviorDb InitDb;
         internal static XmlData InitGameData { get { return InitDb.Manager.GameData; } }
 
@@ -62,8 +61,9 @@ namespace wServer.logic
                 entity.SwitchTo(def.Item1);
         }
 
-        delegate ctor _();
-        struct ctor
+        private delegate ctor _();
+
+        private struct ctor
         {
             public ctor Init(string objType, State rootState, params ILootDef[] defs)
             {
@@ -82,12 +82,12 @@ namespace wServer.logic
                 return this;
             }
         }
-        static ctor Behav()
+
+        private static ctor Behav()
         {
             return new ctor();
         }
 
         public Dictionary<ushort, Tuple<State, Loot>> Definitions { get; private set; }
-
     }
 }

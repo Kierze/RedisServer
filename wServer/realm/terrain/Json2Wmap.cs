@@ -1,27 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
+﻿using common;
 using Ionic.Zlib;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using common;
 
 namespace terrain
 {
-    class Json2Wmap
+    internal class Json2Wmap
     {
         private struct obj
         {
             public string name;
             public string id;
         }
+
         private struct loc
         {
             public string ground;
             public obj[] objs;
             public obj[] regions;
         }
+
         private struct json_dat
         {
             public byte[] data;
@@ -35,6 +35,7 @@ namespace terrain
             var x = Convert(data, File.ReadAllText(from));
             File.WriteAllBytes(to, x);
         }
+
         public static byte[] Convert(XmlData data, string json)
         {
             var obj = JsonConvert.DeserializeObject<json_dat>(json);

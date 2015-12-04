@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using log4net;
+using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using wServer.networking;
-using log4net;
 
 namespace wServer.realm
 {
     using Work = Tuple<Client, PacketID, byte[]>;
+
     public class NetworkTicker //Sync network processing
     {
-        ILog log = LogManager.GetLogger(typeof(NetworkTicker));
+        private ILog log = LogManager.GetLogger(typeof(NetworkTicker));
 
         public RealmManager Manager { get; private set; }
+
         public NetworkTicker(RealmManager manager)
         {
             this.Manager = manager;
@@ -24,9 +23,9 @@ namespace wServer.realm
         {
             pendings.Enqueue(new Work(client, id, packet));
         }
-        static ConcurrentQueue<Work> pendings = new ConcurrentQueue<Work>();
-        static SpinWait loopLock = new SpinWait();
 
+        private static ConcurrentQueue<Work> pendings = new ConcurrentQueue<Work>();
+        private static SpinWait loopLock = new SpinWait();
 
         public void TickLoop()
         {

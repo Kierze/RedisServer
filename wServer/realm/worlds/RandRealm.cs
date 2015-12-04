@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using wServer.realm.entities;
-using wServer.networking;
+﻿using wServer.networking;
 
 namespace wServer.realm.worlds
 {

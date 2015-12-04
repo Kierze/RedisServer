@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics;
 
 namespace common
 {
-    // Adds strong typing to WeakReference.Target using generics. Also,
-    // the Create factory method is used in place of a constructor
-    // to handle the case where target is null, but we want the 
+    // Adds strong typing to WeakReference.Target using generics. Also, the Create factory method is
+    // used in place of a constructor to handle the case where target is null, but we want the
     // reference to still appear to be alive.
     public class WeakReference<T> : WeakReference where T : class
     {
@@ -21,7 +18,8 @@ namespace common
         }
 
         protected WeakReference(T target)
-            : base(target, false) { }
+            : base(target, false)
+        { }
 
         public new T Target
         {
@@ -29,15 +27,16 @@ namespace common
         }
     }
 
-    // Provides a weak reference to a null target object, which, unlike
-    // other weak references, is always considered to be alive. This 
-    // facilitates handling null dictionary values, which are perfectly
-    // legal.
+    // Provides a weak reference to a null target object, which, unlike other weak references, is
+    // always considered to be alive. This facilitates handling null dictionary values, which are
+    // perfectly legal.
     internal class WeakNullReference<T> : WeakReference<T> where T : class
     {
         public static readonly WeakNullReference<T> Singleton = new WeakNullReference<T>();
 
-        private WeakNullReference() : base(null) { }
+        private WeakNullReference() : base(null)
+        {
+        }
 
         public override bool IsAlive
         {
@@ -45,8 +44,8 @@ namespace common
         }
     }
 
-    // Provides a weak reference to an object of the given type to be used in
-    // a WeakDictionary along with the given comparer.
+    // Provides a weak reference to an object of the given type to be used in a WeakDictionary along
+    // with the given comparer.
     internal sealed class WeakKeyReference<T> : WeakReference<T> where T : class
     {
         public readonly int HashCode;
@@ -54,23 +53,19 @@ namespace common
         public WeakKeyReference(T key, WeakKeyComparer<T> comparer)
             : base(key)
         {
-            // retain the object's hash code immediately so that even
-            // if the target is GC'ed we will be able to find and
-            // remove the dead weak reference.
+            // retain the object's hash code immediately so that even if the target is GC'ed we will
+            // be able to find and remove the dead weak reference.
             this.HashCode = comparer.GetHashCode(key);
         }
     }
 
-    // Compares objects of the given type or WeakKeyReferences to them
-    // for equality based on the given comparer. Note that we can only
-    // implement IEqualityComparer<T> for T = object as there is no 
-    // other common base between T and WeakKeyReference<T>. We need a
-    // single comparer to handle both types because we don't want to
-    // allocate a new weak reference for every lookup.
+    // Compares objects of the given type or WeakKeyReferences to them for equality based on the
+    // given comparer. Note that we can only implement IEqualityComparer<T> for T = object as there
+    // is no other common base between T and WeakKeyReference<T>. We need a single comparer to
+    // handle both types because we don't want to allocate a new weak reference for every lookup.
     internal sealed class WeakKeyComparer<T> : IEqualityComparer<object>
         where T : class
     {
-
         private IEqualityComparer<T> comparer;
 
         internal WeakKeyComparer(IEqualityComparer<T> comparer)
@@ -88,24 +83,12 @@ namespace common
             return this.comparer.GetHashCode((T)obj);
         }
 
-        // Note: There are actually 9 cases to handle here.
-        //
-        //  Let Wa = Alive Weak Reference
-        //  Let Wd = Dead Weak Reference
-        //  Let S  = Strong Reference
-        //  
-        //  x  | y  | Equals(x,y)
-        // -------------------------------------------------
-        //  Wa | Wa | comparer.Equals(x.Target, y.Target) 
-        //  Wa | Wd | false
-        //  Wa | S  | comparer.Equals(x.Target, y)
-        //  Wd | Wa | false
-        //  Wd | Wd | x == y
-        //  Wd | S  | false
-        //  S  | Wa | comparer.Equals(x, y.Target)
-        //  S  | Wd | false
-        //  S  | S  | comparer.Equals(x, y)
-        // -------------------------------------------------
+        // Note: There are actually 9 cases to handle here. // Let Wa = Alive Weak Reference Let Wd
+        //       = Dead Weak Reference Let S = Strong Reference // x | y | Equals(x,y)
+        // ------------------------------------------------- Wa | Wa | comparer.Equals(x.Target,
+        // y.Target) Wa | Wd | false Wa | S | comparer.Equals(x.Target, y) Wd | Wa | false Wd | Wd |
+        // x == y Wd | S | false S | Wa | comparer.Equals(x, y.Target) S | Wd | false S | S |
+        // comparer.Equals(x, y) -------------------------------------------------
         public new bool Equals(object x, object y)
         {
             bool xIsDead, yIsDead;
@@ -139,15 +122,9 @@ namespace common
         }
     }
 
-    /// <summary>
-    /// Represents a dictionary mapping keys to values.
-    /// </summary>
-    /// 
-    /// <remarks>
-    /// Provides the plumbing for the portions of IDictionary<TKey,
-    /// TValue> which can reasonably be implemented without any
-    /// dependency on the underlying representation of the dictionary.
-    /// </remarks>
+    /// <summary> Represents a dictionary mapping keys to values. </summary> /// <remarks> Provides
+    /// the plumbing for the portions of IDictionary<TKey, TValue> which can reasonably be
+    /// implemented without any dependency on the underlying representation of the dictionary. </remarks>
     [DebuggerDisplay("Count = {Count}")]
     [DebuggerTypeProxy(PREFIX + "DictionaryDebugView`2" + SUFFIX)]
     public abstract class BaseDictionary<TKey, TValue> : IDictionary<TKey, TValue>
@@ -158,15 +135,24 @@ namespace common
         private KeyCollection keys;
         private ValueCollection values;
 
-        protected BaseDictionary() { }
+        protected BaseDictionary()
+        {
+        }
 
         public abstract int Count { get; }
+
         public abstract void Clear();
+
         public abstract void Add(TKey key, TValue value);
+
         public abstract bool ContainsKey(TKey key);
+
         public abstract bool Remove(TKey key);
+
         public abstract bool TryGetValue(TKey key, out TValue value);
+
         public abstract IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator();
+
         protected abstract void SetValue(TKey key, TValue value);
 
         public bool IsReadOnly
@@ -310,12 +296,14 @@ namespace common
         private class KeyCollection : Collection<TKey>
         {
             public KeyCollection(IDictionary<TKey, TValue> dictionary)
-                : base(dictionary) { }
+                : base(dictionary)
+            { }
 
             protected override TKey GetItem(KeyValuePair<TKey, TValue> pair)
             {
                 return pair.Key;
             }
+
             public override bool Contains(TKey item)
             {
                 return this.dictionary.ContainsKey(item);
@@ -327,7 +315,8 @@ namespace common
         private class ValueCollection : Collection<TValue>
         {
             public ValueCollection(IDictionary<TKey, TValue> dictionary)
-                : base(dictionary) { }
+                : base(dictionary)
+            { }
 
             protected override TValue GetItem(KeyValuePair<TKey, TValue> pair)
             {
@@ -354,18 +343,20 @@ namespace common
     public sealed class WeakDictionary<TKey, TValue> : BaseDictionary<TKey, TValue>
         where TKey : class
     {
-
         private Dictionary<object, TValue> dictionary;
         private WeakKeyComparer<TKey> comparer;
 
         public WeakDictionary()
-            : this(0, null) { }
+            : this(0, null)
+        { }
 
         public WeakDictionary(int capacity)
-            : this(capacity, null) { }
+            : this(capacity, null)
+        { }
 
         public WeakDictionary(IEqualityComparer<TKey> comparer)
-            : this(0, comparer) { }
+            : this(0, comparer)
+        { }
 
         public WeakDictionary(int capacity, IEqualityComparer<TKey> comparer)
         {
@@ -373,10 +364,9 @@ namespace common
             this.dictionary = new Dictionary<object, TValue>(capacity, this.comparer);
         }
 
-        // WARNING: The count returned here may include entries for which
-        // either the key or value objects have already been garbage
-        // collected. Call RemoveCollectedEntries to weed out collected
-        // entries and update the count accordingly.
+        // WARNING: The count returned here may include entries for which either the key or value
+        // objects have already been garbage collected. Call RemoveCollectedEntries to weed out
+        // collected entries and update the count accordingly.
         public override int Count
         {
             get { return this.dictionary.Count; }
@@ -434,10 +424,9 @@ namespace common
             }
         }
 
-        // Removes the left-over weak references for entries in the dictionary
-        // whose key or value has already been reclaimed by the garbage
-        // collector. This will reduce the dictionary's Count by the number
-        // of dead key-value pairs that were eliminated.
+        // Removes the left-over weak references for entries in the dictionary whose key or value
+        // has already been reclaimed by the garbage collector. This will reduce the dictionary's
+        // Count by the number of dead key-value pairs that were eliminated.
         public void RemoveCollectedEntries()
         {
             List<object> toRemove = null;

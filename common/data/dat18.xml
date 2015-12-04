@@ -2,66 +2,66 @@
 	<Object type="0x1400" id="Purple Drake">
 		<Class>Character</Class>
 		<Texture><File>lofiChar216x8</File><Index>0x30</Index></Texture>
-		<Flying/>
+		<Flying />
 		<Z>0.2</Z>
-		<NoMiniMap/>
+		<NoMiniMap />
 	</Object>
 	<Object type="0x1401" id="White Drake">
 		<Class>Character</Class>
 		<Texture><File>lofiChar216x8</File><Index>0x31</Index></Texture>
-		<Flying/>
+		<Flying />
 		<Z>0.2</Z>
-		<NoMiniMap/>
+		<NoMiniMap />
 	</Object>
 	<Object type="0x1402" id="Blue Drake">
 		<Class>Character</Class>
 		<Texture><File>lofiChar216x8</File><Index>0x32</Index></Texture>
-		<Flying/>
+		<Flying />
 		<Z>0.2</Z>
-		<NoMiniMap/>
+		<NoMiniMap />
 	</Object>
 	<Object type="0x1403" id="Orange Drake">
 		<Class>Character</Class>
 		<Texture><File>lofiChar216x8</File><Index>0x33</Index></Texture>
-		<Flying/>
+		<Flying />
 		<Z>0.2</Z>
-		<NoMiniMap/>
+		<NoMiniMap />
 	</Object>
 	<Object type="0x1404" id="Green Drake">
 		<Class>Character</Class>
 		<Texture><File>lofiChar216x8</File><Index>0x34</Index></Texture>
-		<Flying/>
+		<Flying />
 		<Z>0.2</Z>
-		<NoMiniMap/>
+		<NoMiniMap />
 	</Object>
     <Object type="0x1405" id="Yellow Drake">
         <Class>Character</Class>
         <Texture><File>lofiChar216x8</File><Index>0x35</Index></Texture>
-        <Flying/>
+        <Flying />
         <Z>0.2</Z>
-        <NoMiniMap/>
+        <NoMiniMap />
     </Object>
-    
+
 	<Object type="0x1406" id="Red Drake">
 		<Class>Character</Class>
 		<AnimatedTexture><File>chars16x8rEncounters</File><Index>0</Index></AnimatedTexture>
-		<Flying/>
+		<Flying />
 		<Z>0.2</Z>
-		<NoMiniMap/>
+		<NoMiniMap />
 	</Object>
-	<Object type="0x1407" id="Lil Firecracker"> 
+	<Object type="0x1407" id="Lil Firecracker">
 		<Class>Character</Class>
 		<Texture><File>invisible</File><Index>0</Index></Texture>
-		<NoMiniMap/>
+		<NoMiniMap />
 		<Sound id="0">weapon/firework</Sound>
 		<ShadowSize>0</ShadowSize>
 		<Size>0</Size>
 	</Object>
-	
+
 	<Object type="0x1408" id="Big Firecracker">
 		<Class>Character</Class>
 		<Texture><File>invisible</File><Index>0</Index></Texture>
-		<NoMiniMap/>
+		<NoMiniMap />
 		<Sound id="0">weapon/firework</Sound>
 		<ShadowSize>0</ShadowSize>
 		<Size>0</Size>
@@ -73,7 +73,7 @@
 			<Frame time="0.2"><Texture><File>lofiObj3</File><Index>0xcf</Index></Texture></Frame>
 			<Frame time="0.2"><Texture><File>lofiObj3</File><Index>0xd6</Index></Texture></Frame>
 		</Animation>
-		<NoMiniMap/>
+		<NoMiniMap />
 		<Sound id="0">weapon/fire_wand</Sound>
 		<ShadowSize>70</ShadowSize>
 		<Size>100</Size>
@@ -84,7 +84,7 @@
 			<Texture><File>lofiObj3</File><Index>0x194</Index></Texture>
 			<Texture><File>lofiObj3</File><Index>0x195</Index></Texture>
 			<Texture><File>lofiObj3</File><Index>0x196</Index></Texture>
-            
+
 			<Texture><File>lofiObj3</File><Index>0x197</Index></Texture>
 			<Texture><File>lofiObj3</File><Index>0x198</Index></Texture>
 			<Texture><File>lofiObjBig</File><Index>0x47</Index></Texture>
@@ -93,7 +93,7 @@
 			<Texture><File>lofiObjBig</File><Index>0x49</Index></Texture>
 			<Texture><File>lofiObjBig</File><Index>0x4a</Index></Texture>
 		</RandomTexture>
-		<NoMiniMap/>
+		<NoMiniMap />
 		<ShadowSize>0</ShadowSize>
 		<MinSize>80</MinSize>
 		<MaxSize>120</MaxSize>

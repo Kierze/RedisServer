@@ -1,21 +1,16 @@
-﻿using System;
+﻿using BookSleeve;
+using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using MySql.Data.MySqlClient;
-using System.Data;
-using System.Xml;
-using Ionic.Zlib;
-using System.Xml.Linq;
-using log4net;
-using BookSleeve;
 using System.Security.Cryptography;
+using System.Xml.Linq;
 
 namespace common
 {
     public class Database : RedisConnection
     {
-        static ILog log = LogManager.GetLogger(typeof(Database));
+        private static ILog log = LogManager.GetLogger(typeof(Database));
 
         public Database(string host, int port, string password)
             : base(host, port, password: password == "" ? null : password)
@@ -24,7 +19,7 @@ namespace common
             Open().Wait();
         }
 
-        static string[] names = new string[] { 
+        private static string[] names = new string[] {
             "Darq", "Deyst", "Drac", "Drol",
             "Eango", "Eashy", "Eati", "Eendi", "Ehoni",
             "Gharr", "Iatho", "Iawa", "Idrae", "Iri", "Issz", "Itani",
@@ -35,6 +30,7 @@ namespace common
             "Tal", "Tiar", "Uoro", "Urake", "Utanu",
             "Vorck", "Vorv", "Yangu", "Yimi", "Zhiar"
         };
+
         public DbAccount CreateGuestAccount(string uuid)
         {
             return new DbAccount(this, 0)
@@ -92,10 +88,12 @@ namespace common
                 return ok;
             }
         }
+
         public int GetLockTime(DbAccount acc)
         {
             return (int)Keys.TimeToLive(1, "lock." + acc.AccountId).Exec();
         }
+
         public int GetLockTime(int id)
         {
             return (int)Keys.TimeToLive(1, "lock." + id).Exec();
@@ -111,6 +109,7 @@ namespace common
                 return trans.Execute().Exec();
             }
         }
+
         public void ReleaseLock(DbAccount acc)
         {
             string key = "lock." + acc.AccountId;
@@ -126,15 +125,18 @@ namespace common
         {
             return new l(this, acc);
         }
+
         public bool LockOk(IDisposable l)
         {
             return ((l)l).lockOk;
         }
-        struct l : IDisposable
+
+        private struct l : IDisposable
         {
-            Database db;
-            DbAccount acc;
+            private Database db;
+            private DbAccount acc;
             internal bool lockOk;
+
             public l(Database db, DbAccount acc)
             {
                 this.db = db;
@@ -165,6 +167,7 @@ namespace common
                 return trans.Execute().Exec() ? lockToken : null;
             }
         }
+
         public void ReleaseLock(string key, string token)
         {
             using (var trans = CreateTransaction())
@@ -189,6 +192,7 @@ namespace common
             acc.Flush();
             return true;
         }
+
         public bool RenameIGN(DbAccount acc, string newName, string lockToken)
         {
             if (names.Contains(newName, StringComparer.InvariantCultureIgnoreCase))
@@ -206,7 +210,8 @@ namespace common
             return true;
         }
 
-        static RandomNumberGenerator gen = RNGCryptoServiceProvider.Create();
+        private static RandomNumberGenerator gen = RNGCryptoServiceProvider.Create();
+
         public void ChangePassword(string uuid, string password)
         {
             DbLoginInfo login = new DbLoginInfo(this, uuid);
@@ -275,12 +280,14 @@ namespace common
         {
             return Hashes.Exists(0, "login", uuid.ToUpperInvariant()).Exec();
         }
+
         public DbAccount GetAccount(int id)
         {
             var ret = new DbAccount(this, id);
             if (ret.IsNull) return null;
             return ret;
         }
+
         public DbAccount GetAccount(string uuid)
         {
             DbLoginInfo info = new DbLoginInfo(this, uuid);
@@ -298,6 +305,7 @@ namespace common
             if (val == null) return 0;
             else return int.Parse(val);
         }
+
         public string ResolveIgn(int accId)
         {
             return Hashes.GetString(0, "account." + accId, "name").Exec();
@@ -314,6 +322,7 @@ namespace common
             acc.Flush();
             acc.Reload();
         }
+
         public void UpdateFame(DbAccount acc, int amount)
         {
             if (amount > 0)
@@ -349,11 +358,13 @@ namespace common
             foreach (var i in Sets.GetAll(0, "alive." + acc.AccountId).Exec())
                 yield return BitConverter.ToInt32(i, 0);
         }
+
         public IEnumerable<int> GetDeadCharacters(DbAccount acc)
         {
             foreach (var i in Lists.Range(0, "dead." + acc.AccountId, 0, int.MaxValue).Exec())
                 yield return BitConverter.ToInt32(i, 0);
         }
+
         public bool IsAlive(DbChar character)
         {
             return Sets.Contains(0, "alive." + character.Account.AccountId,
@@ -409,6 +420,7 @@ namespace common
             if (ret.IsNull) return null;
             else return ret;
         }
+
         public DbChar LoadCharacter(int accId, int charId)
         {
             DbAccount acc = new DbAccount(this, accId);
@@ -432,6 +444,7 @@ namespace common
                 return trans.Execute().Exec();
             }
         }
+
         public void DeleteCharacter(DbAccount acc, int charId)
         {
             Keys.Remove(0, "char." + acc.AccountId + "." + charId);
@@ -471,6 +484,5 @@ namespace common
             };
             DbLegend.Insert(this, death.DeathTime, entry);
         }
-
     }
 }

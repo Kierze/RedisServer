@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace terrain
 {
-    class TerrainDisplay : Form
+    internal class TerrainDisplay : Form
     {
-        enum Mode
+        private enum Mode
         {
             None,
             Erase,
@@ -17,13 +15,14 @@ namespace terrain
             MAX
         }
 
-        Mode mode;
-        TerrainTile[,] tiles;
-        TerrainTile[,] tilesBak;
-        Bitmap bmp;
-        PictureBox pic;
-        PictureBox pic2;
-        Panel panel;
+        private Mode mode;
+        private TerrainTile[,] tiles;
+        private TerrainTile[,] tilesBak;
+        private Bitmap bmp;
+        private PictureBox pic;
+        private PictureBox pic2;
+        private Panel panel;
+
         public TerrainDisplay(TerrainTile[,] tiles)
         {
             mode = Mode.Erase;
@@ -66,7 +65,7 @@ namespace terrain
             pic.MouseDoubleClick += new MouseEventHandler(pic_MouseDoubleClick);
         }
 
-        void pic_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void pic_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             tiles[e.X, e.Y].Region = TileRegion.Spawn;
             bmp.SetPixel(e.X, e.Y, Color.FromArgb((int)GetColor(tiles[e.X, e.Y])));
@@ -74,7 +73,7 @@ namespace terrain
             pic2.Invalidate();
         }
 
-        void pic_MouseMove(object sender, MouseEventArgs e)
+        private void pic_MouseMove(object sender, MouseEventArgs e)
         {
             if (mode == Mode.Erase && (Control.MouseButtons & MouseButtons.Left) != 0)
             {
@@ -127,13 +126,14 @@ namespace terrain
             }
         }
 
-        static uint GetColor(TerrainTile tile)
+        private static uint GetColor(TerrainTile tile)
         {
             if (tile.Region == TileRegion.Spawn)
                 return 0xffff0000;
             return TileTypes.color[tile.TileId];
         }
-        static Bitmap RenderColorBmp(TerrainTile[,] tiles)
+
+        private static Bitmap RenderColorBmp(TerrainTile[,] tiles)
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);

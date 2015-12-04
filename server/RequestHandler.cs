@@ -1,16 +1,16 @@
-﻿using System;
+﻿using common;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Net;
-using common;
+using System.Text;
 
 namespace server
 {
-    abstract class RequestHandler
+    internal abstract class RequestHandler
     {
         public abstract void HandleRequest(HttpListenerContext context);
+
         protected Database Database { get { return Program.Database; } }
+
         protected void Write(HttpListenerContext txt, string val)
         {
             var buff = Encoding.UTF8.GetBytes(val);
@@ -18,7 +18,7 @@ namespace server
         }
     }
 
-    static class RequestHandlers
+    internal static class RequestHandlers
     {
         public static readonly Dictionary<string, RequestHandler> Handlers = new Dictionary<string, RequestHandler>()
         {

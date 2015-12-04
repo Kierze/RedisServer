@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm.entities;
-using wServer.realm;
-using common;
+﻿using common;
 using Mono.Game;
+using System;
+using wServer.realm;
 
 namespace wServer.logic.behaviors
 {
-    class Orbit : CycleBehavior
+    internal class Orbit : CycleBehavior
     {
         //State storage: orbit state
-        class OrbitState
+        private class OrbitState
         {
             public float Speed;
             public float Radius;
         }
 
-        float speed;
-        float acquireRange;
-        float radius;
-        ushort? target;
-        float speedVariance;
-        float radiusVariance;
+        private float speed;
+        private float acquireRange;
+        private float radius;
+        private ushort? target;
+        private float speedVariance;
+        private float radiusVariance;
+
         public Orbit(double speed, double radius, double acquireRange = 10,
             string target = null, double? speedVariance = null, double? radiusVariance = null)
         {

@@ -1,10 +1,6 @@
-﻿using System;
+﻿using common;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Xml.Linq;
-using common;
 
 namespace wServer.realm.entities
 {
@@ -12,6 +8,7 @@ namespace wServer.realm.entities
     {
         //Stats
         public bool Vulnerable { get; private set; }
+
         public bool Static { get; private set; }
         public bool Hittestable { get; private set; }
         public int HP { get; set; }
@@ -44,6 +41,7 @@ namespace wServer.realm.entities
                 stats[StatsType.HP] = HP;
             base.ExportStats(stats);
         }
+
         protected override void ImportStats(StatsType stats, object val)
         {
             if (stats == StatsType.HP) HP = (int)val;

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Mono.Game;
 
 namespace terrain
 {
@@ -67,8 +63,8 @@ namespace terrain
             double x0 = pX - X0; // The x,y,z distances from the cell origin
             double y0 = pY - Y0;
             double z0 = pZ - Z0;
-            // For the 3D case, the simplex shape is a slightly irregular tetrahedron.
-            // Determine which simplex we are in.
+            // For the 3D case, the simplex shape is a slightly irregular tetrahedron. Determine
+            // which simplex we are in.
             int i1, j1, k1; // Offsets for second corner of simplex in (i,j,k) coords
             int i2, j2, k2; // Offsets for third corner of simplex in (i,j,k) coords
             if (x0 >= y0)
@@ -131,10 +127,9 @@ namespace terrain
                     k2 = 0;
                 } // Y X Z order
             }
-            // A step of (1,0,0) in (i,j,k) means a step of (1-c,-c,-c) in (x,y,z),
-            // a step of (0,1,0) in (i,j,k) means a step of (-c,1-c,-c) in (x,y,z), and
-            // a step of (0,0,1) in (i,j,k) means a step of (-c,-c,1-c) in (x,y,z), where
-            // c = 1/6.
+            // A step of (1,0,0) in (i,j,k) means a step of (1-c,-c,-c) in (x,y,z), a step of
+            // (0,1,0) in (i,j,k) means a step of (-c,1-c,-c) in (x,y,z), and a step of (0,0,1) in
+            // (i,j,k) means a step of (-c,-c,1-c) in (x,y,z), where c = 1/6.
 
             double x1 = x0 - i1 + G3; // Offsets for second corner in (x,y,z) coords
             double y1 = y0 - j1 + G3;
@@ -186,8 +181,8 @@ namespace terrain
                 t3 *= t3;
                 n3 = t3 * t3 * dot(grad3[gi3], x3, y3, z3);
             }
-            // Add contributions from each corner to get the final noise value.
-            // The result is scaled to stay just inside [-1, 1] - now [0, 1]
+            // Add contributions from each corner to get the final noise value. The result is scaled
+            // to stay just inside [-1, 1] - now [0, 1]
             return (32.0f * (float)(n0 + n1 + n2 + n3) + 1) * 0.5f;
         }
     }

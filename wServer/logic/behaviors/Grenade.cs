@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
-using wServer.realm.entities;
+﻿using common;
+using System;
 using wServer.networking.svrPackets;
+using wServer.realm;
+using wServer.realm.entities;
 
 namespace wServer.logic.behaviors
 {
-    class Grenade : Behavior
+    internal class Grenade : Behavior
     {
         //State storage: cooldown timer
 
-        double range;
-        float radius;
-        double? fixedAngle;
-        int damage;
-        Cooldown coolDown;
+        private double range;
+        private float radius;
+        private double? fixedAngle;
+        private int damage;
+        private Cooldown coolDown;
 
         public Grenade(double radius, int damage, double range = 5,
             double? fixedAngle = null, Cooldown coolDown = new Cooldown())

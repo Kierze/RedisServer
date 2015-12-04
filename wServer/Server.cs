@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using log4net;
+using System;
 using System.Linq;
-using System.Text;
-using System.Net.Sockets;
 using System.Net;
-using wServer.realm;
-using common;
+using System.Net.Sockets;
 using wServer.networking;
-using log4net;
+using wServer.realm;
 
 namespace wServer
 {
-    class Server
+    internal class Server
     {
-        static ILog log = LogManager.GetLogger(typeof(Server));
+        private static ILog log = LogManager.GetLogger(typeof(Server));
 
         public Socket Socket { get; private set; }
         public RealmManager Manager { get; private set; }
+
         public Server(RealmManager manager, int port)
         {
             Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -31,7 +29,7 @@ namespace wServer
             Socket.BeginAccept(Listen, null);
         }
 
-        void Listen(IAsyncResult ar)
+        private void Listen(IAsyncResult ar)
         {
             if (!Socket.IsBound) return;
             var cliSkt = Socket.EndAccept(ar);

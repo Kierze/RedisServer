@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using wServer.realm;
-using common;
 using wServer.realm.entities;
 
 namespace wServer.logic.behaviors
 {
-    class Spawn : Behavior
+    internal class Spawn : Behavior
     {
         //State storage: Spawn state
-        class SpawnState
+        private class SpawnState
         {
             public int CurrentNumber;
             public int RemainingTime;
         }
 
-        int maxChildren;
-        int initialSpawn;
-        Cooldown coolDown;
-        ushort children;
+        private int maxChildren;
+        private int initialSpawn;
+        private Cooldown coolDown;
+        private ushort children;
 
         public Spawn(string children, int maxChildren = 5, double initialSpawn = 0.5, Cooldown coolDown = new Cooldown())
         {

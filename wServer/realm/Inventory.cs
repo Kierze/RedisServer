@@ -1,8 +1,6 @@
-﻿using System;
+﻿using common;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
 
 namespace wServer.realm
 {
@@ -26,12 +24,16 @@ namespace wServer.realm
         public Item OldItem { get; private set; }
         public Item NewItem { get; private set; }
     }
+
     public class Inventory : IEnumerable<Item>
     {
-        Item[] items;
-        IContainer parent;
+        private Item[] items;
+        private IContainer parent;
 
-        public Inventory(IContainer parent) : this(parent, new Item[12]) { }
+        public Inventory(IContainer parent) : this(parent, new Item[12])
+        {
+        }
+
         public Inventory(IContainer parent, Item[] items)
         {
             this.parent = parent;

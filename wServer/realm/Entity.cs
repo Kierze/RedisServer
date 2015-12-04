@@ -1,12 +1,10 @@
-﻿using System;
+﻿using common;
+using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using common;
-using wServer.realm.entities;
 using wServer.logic;
-using wServer.networking.svrPackets;
-using log4net;
+using wServer.realm.entities;
 
 namespace wServer.realm
 {
@@ -32,7 +30,6 @@ namespace wServer.realm
             }
         }
 
-
         ObjectDesc desc;
         public ObjectDesc ObjectDesc { get { return desc; } }
 
@@ -44,7 +41,6 @@ namespace wServer.realm
         public int Id { get; internal set; }
         public float X { get; private set; }
         public float Y { get; private set; }
-
 
         public CollisionNode<Entity> CollisionNode { get; set; }
         public CollisionMap<Entity> Parent { get; set; }
@@ -58,12 +54,10 @@ namespace wServer.realm
             return this;
         }
 
-
         //Stats
         public string Name { get; set; }
         public int Size { get; set; }
         public ConditionEffects ConditionEffects { get; set; }
-
 
         protected virtual void ImportStats(StatsType stats, object val)
         {
@@ -135,7 +129,6 @@ namespace wServer.realm
             if (effects != null)
                 ProcessConditionEffects(time);
         }
-
 
         Dictionary<object, object> states;
         public IDictionary<object, object> StateStorage
@@ -219,7 +212,6 @@ namespace wServer.realm
             }
         }
 
-
         public Position? TryGetHistory(long timeAgo)
         {
             if (posHistory == null) return null;
@@ -227,7 +219,6 @@ namespace wServer.realm
             if (tickPast > 255) return null;
             return posHistory[(byte)(posIdx - (byte)tickPast)];
         }
-
 
         /* Projectile
          * Sign
@@ -294,7 +285,6 @@ namespace wServer.realm
                 case "GuildMerchant":
                     return new SellableObject(manager, id);
 
-
                 case "GuildHallPortal":
                 //return new StaticObject(id);
                 default:
@@ -340,8 +330,6 @@ namespace wServer.realm
         public virtual void ProjectileHit(Projectile projectile, Entity target)
         {
         }
-
-
 
         const int EFFECT_COUNT = 28;
         int[] effects;

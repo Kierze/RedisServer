@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using common;
+﻿using common;
 
 namespace wServer.networking.cliPackets
 {
@@ -14,7 +10,11 @@ namespace wServer.networking.cliPackets
         public int TargetId { get; set; }
 
         public override PacketID ID { get { return PacketID.OtherHit; } }
-        public override Packet CreateInstance() { return new OtherHitPacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new OtherHitPacket();
+        }
 
         protected override void Read(NReader rdr)
         {
@@ -23,6 +23,7 @@ namespace wServer.networking.cliPackets
             ObjectId = rdr.ReadInt32();
             TargetId = rdr.ReadInt32();
         }
+
         protected override void Write(NWriter wtr)
         {
             wtr.Write(Time);

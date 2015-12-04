@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using terrain;
 
 namespace wServer.realm.setpieces
 {
-    class Pentaract : ISetPiece
+    internal class Pentaract : ISetPiece
     {
         public int Size { get { return 41; } }
 
-        static readonly string Floor = "Scorch Blend";
-        static readonly byte[,] Circle = new byte[,]
+        private static readonly string Floor = "Scorch Blend";
+
+        private static readonly byte[,] Circle = new byte[,]
         {
             { 0, 0, 1, 1, 1, 0, 0 },
             { 0, 1, 1, 1, 1, 1, 0 },
@@ -22,7 +19,8 @@ namespace wServer.realm.setpieces
             { 0, 0, 1, 1, 1, 0, 0 },
         };
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public void RenderSetPiece(World world, IntPoint pos)
         {
             int[,] t = new int[41, 41];

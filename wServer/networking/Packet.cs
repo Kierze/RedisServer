@@ -1,19 +1,17 @@
-﻿using System;
+﻿using common;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using wServer.networking.cliPackets;
-using wServer.networking.svrPackets;
-using System.Net.Sockets;
 using System.Net;
-using common;
+using System.Text;
+using wServer.networking.svrPackets;
 
 namespace wServer.networking
 {
     public abstract class Packet
     {
         public static Dictionary<PacketID, Packet> Packets = new Dictionary<PacketID, Packet>();
+
         static Packet()
         {
             foreach (var i in typeof(Packet).Assembly.GetTypes())
@@ -24,7 +22,9 @@ namespace wServer.networking
                         Packets.Add(pkt.ID, pkt);
                 }
         }
+
         public abstract PacketID ID { get; }
+
         public abstract Packet CreateInstance();
 
         public abstract void Crypt(Client client, byte[] dat, int offset, int len);
@@ -34,6 +34,7 @@ namespace wServer.networking
             Crypt(client, body, offset, len);
             Read(new NReader(new MemoryStream(body)));
         }
+
         public int Write(Client client, byte[] buff, int offset)
         {
             MemoryStream s = new MemoryStream(buff, offset + 5, buff.Length - offset - 5);
@@ -47,6 +48,7 @@ namespace wServer.networking
         }
 
         protected abstract void Read(NReader rdr);
+
         protected abstract void Write(NWriter wtr);
 
         public override string ToString()
@@ -66,9 +68,22 @@ namespace wServer.networking
     public class NopPacket : Packet
     {
         public override PacketID ID { get { return PacketID.Packet; } }
-        public override Packet CreateInstance() { return new NopPacket(); }
-        public override void Crypt(Client client, byte[] dat, int offset, int len) { }
-        protected override void Read(NReader rdr) { }
-        protected override void Write(NWriter wtr) { }
+
+        public override Packet CreateInstance()
+        {
+            return new NopPacket();
+        }
+
+        public override void Crypt(Client client, byte[] dat, int offset, int len)
+        {
+        }
+
+        protected override void Read(NReader rdr)
+        {
+        }
+
+        protected override void Write(NWriter wtr)
+        {
+        }
     }
 }

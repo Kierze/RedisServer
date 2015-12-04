@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using common;
 using Mono.Game;
-using wServer.realm.entities;
+using wServer.realm;
 
 namespace wServer.logic.behaviors
 {
-    class StayAbove : CycleBehavior
+    internal class StayAbove : CycleBehavior
     {
         //State storage: none
 
-        float speed;
-        int altitude;
+        private float speed;
+        private int altitude;
+
         public StayAbove(double speed, int altitude)
         {
             this.speed = (float)speed;

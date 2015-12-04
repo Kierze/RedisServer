@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using common;
 using wServer.realm.terrain;
 
 namespace wServer.networking.svrPackets
@@ -22,7 +17,11 @@ namespace wServer.networking.svrPackets
         public int[] RemovedObjectIds { get; set; }
 
         public override PacketID ID { get { return PacketID.Update; } }
-        public override Packet CreateInstance() { return new UpdatePacket(); }
+
+        public override Packet CreateInstance()
+        {
+            return new UpdatePacket();
+        }
 
         protected override void Read(NReader rdr)
         {

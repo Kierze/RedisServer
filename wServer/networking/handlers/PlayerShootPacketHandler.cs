@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using common;
 using wServer.networking.cliPackets;
-using wServer.realm;
-using common;
 using wServer.networking.svrPackets;
 using wServer.realm.entities;
 
 namespace wServer.networking.handlers
 {
-    class PlayerShootPacketHandler : PacketHandlerBase<PlayerShootPacket>
+    internal class PlayerShootPacketHandler : PacketHandlerBase<PlayerShootPacket>
     {
         public override PacketID ID { get { return PacketID.PlayerShoot; } }
 
@@ -19,7 +14,7 @@ namespace wServer.networking.handlers
             client.Manager.Logic.AddPendingAction(t => Handle(client.Player, packet));
         }
 
-        void Handle(Player player, PlayerShootPacket packet)
+        private void Handle(Player player, PlayerShootPacket packet)
         {
             if (player.Owner == null) return;
 

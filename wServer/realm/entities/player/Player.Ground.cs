@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.networking.svrPackets;
-using wServer.networking.cliPackets;
+﻿using common;
 using wServer.realm.terrain;
-using common;
 
 namespace wServer.realm.entities
 {
     public partial class Player
     {
-        long l = 0;
-        void HandleGround(RealmTime time)
+        private long l = 0;
+
+        private void HandleGround(RealmTime time)
         {
             if (time.tickTimes - l > 500)
             {

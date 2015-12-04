@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
+﻿using common;
 using Ionic.Zlib;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
-using common;
 
 namespace wServer.realm
 {
-    class JsonMap
+    internal class JsonMap
     {
-        XmlData dat;
+        private XmlData dat;
+
         public JsonMap(XmlData dat)
         {
             this.dat = dat;
         }
+
         public int Width { get; set; }
         public int Height { get; set; }
         public Tile[][] Tiles { get; private set; }
@@ -42,12 +41,14 @@ namespace wServer.realm
             public string name;
             public string id;
         }
+
         private struct loc
         {
             public string ground;
             public obj[] objs;
             public obj[] regions;
         }
+
         private struct json_dat
         {
             public byte[] data;
@@ -128,7 +129,8 @@ namespace wServer.realm
                         {
                             if (locs[i].ground != loc.ground) continue;
                             if (!((locs[i].objs != null && loc.objs != null) ||
-                              (locs[i].objs == null && loc.objs == null))) continue;
+                              (locs[i].objs == null && loc.objs == null)))
+                                continue;
                             if (locs[i].objs != null)
                             {
                                 if (locs[i].objs.Length != loc.objs.Length) continue;

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using wServer.realm;
-using common;
 
 namespace wServer.logic
 {
@@ -22,6 +18,7 @@ namespace wServer.logic
             else
                 host.StateStorage[this] = state;
         }
+
         protected abstract void TickCore(Entity host, RealmTime time, ref object state);
 
         public void OnStateEntry(Entity host, RealmTime time)
@@ -37,6 +34,7 @@ namespace wServer.logic
             else
                 host.StateStorage[this] = state;
         }
+
         protected virtual void OnStateEntry(Entity host, RealmTime time, ref object state)
         { }
 
@@ -53,12 +51,17 @@ namespace wServer.logic
             else
                 host.StateStorage[this] = state;
         }
+
         protected virtual void OnStateExit(Entity host, RealmTime time, ref object state)
         { }
-        protected internal virtual void Resolve(State parent) { }
+
+        protected internal virtual void Resolve(State parent)
+        {
+        }
 
         [ThreadStatic]
         private static Random rand;
+
         protected static Random Random
         {
             get

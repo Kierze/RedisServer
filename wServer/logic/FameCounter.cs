@@ -1,20 +1,18 @@
-﻿using System;
+﻿using common;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm.entities;
 using wServer.realm;
-using common;
+using wServer.realm.entities;
 
 namespace wServer.logic
 {
     public class FameCounter
     {
-        Player player;
+        private Player player;
         public Player Host { get { return player; } }
 
         public FameStats Stats { get; private set; }
         public DbClassStats ClassStats { get; private set; }
+
         public FameCounter(Player player)
         {
             this.player = player;
@@ -22,7 +20,8 @@ namespace wServer.logic
             this.ClassStats = new DbClassStats(player.Client.Account);
         }
 
-        HashSet<Projectile> projs = new HashSet<Projectile>();
+        private HashSet<Projectile> projs = new HashSet<Projectile>();
+
         public void Shoot(Projectile proj)
         {
             Stats.Shots++;
@@ -59,6 +58,7 @@ namespace wServer.logic
                     Stats.OryxKills++;
             }
         }
+
         public void LevelUpAssist(int count)
         {
             Stats.LevelUpAssists += count;
@@ -84,7 +84,8 @@ namespace wServer.logic
             Stats.PotionsDrunk++;
         }
 
-        int elapsed = 0;
+        private int elapsed = 0;
+
         public void Tick(RealmTime time)
         {
             elapsed += time.thisTickTimes;

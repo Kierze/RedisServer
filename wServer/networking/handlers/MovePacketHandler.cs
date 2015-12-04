@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.networking.cliPackets;
-using wServer.realm;
-using common;
-using wServer.networking.svrPackets;
+﻿using wServer.networking.cliPackets;
 using wServer.realm.entities;
 
 namespace wServer.networking.handlers
 {
-    class MovePacketHandler : PacketHandlerBase<MovePacket>
+    internal class MovePacketHandler : PacketHandlerBase<MovePacket>
     {
         public override PacketID ID { get { return PacketID.Move; } }
 
@@ -19,7 +12,7 @@ namespace wServer.networking.handlers
             client.Manager.Logic.AddPendingAction(t => Handle(client.Player, packet));
         }
 
-        void Handle(Player player, MovePacket packet)
+        private void Handle(Player player, MovePacket packet)
         {
             if (player.Owner == null) return;
 

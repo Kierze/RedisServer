@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace wServer.realm
 {
-    static class Sight
+    internal static class Sight
     {
-        static Dictionary<int, IntPoint[]> points = new Dictionary<int, IntPoint[]>();
+        private static Dictionary<int, IntPoint[]> points = new Dictionary<int, IntPoint[]>();
+
         public static IntPoint[] GetSightCircle(int radius)
         {
             IntPoint[] ret;

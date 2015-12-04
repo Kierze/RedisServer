@@ -1,34 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using wServer.realm;
-using common;
+﻿using common;
 using Mono.Game;
+using System;
+using wServer.realm;
 using wServer.realm.entities;
 
 namespace wServer.logic.behaviors
 {
-    class Follow : CycleBehavior
+    internal class Follow : CycleBehavior
     {
         //State storage: follow state
-        class FollowState
+        private class FollowState
         {
             public F State;
             public int RemainingTime;
         }
-        enum F
+
+        private enum F
         {
             DontKnowWhere,
             Acquired,
             Resting
         }
 
-        float speed;
-        float acquireRange;
-        float range;
-        int duration;
-        Cooldown coolDown;
+        private float speed;
+        private float acquireRange;
+        private float range;
+        private int duration;
+        private Cooldown coolDown;
+
         public Follow(double speed, double acquireRange = 10, double range = 6,
             int duration = 0, Cooldown coolDown = new Cooldown())
         {
@@ -116,7 +115,6 @@ namespace wServer.logic.behaviors
                         goto case F.Acquired;
                     }
                     break;
-
             }
 
             state = s;

@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using common;
+using System;
 using System.Text;
-using wServer.realm.setpieces;
-using wServer.realm.worlds;
-using wServer.networking.svrPackets;
 using wServer.networking;
+using wServer.networking.svrPackets;
 using wServer.realm.entities;
-using common;
+using wServer.realm.setpieces;
 
 namespace wServer.realm.commands
 {
-    class SpawnCommand : Command
+    internal class SpawnCommand : Command
     {
-        public SpawnCommand() : base("spawn", permLevel: 1) { }
+        public SpawnCommand() : base("spawn", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -44,9 +43,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class ToggleEffCommand : Command
+    internal class ToggleEffCommand : Command
     {
-        public ToggleEffCommand() : base("eff", permLevel: 1) { }
+        public ToggleEffCommand() : base("eff", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -78,9 +79,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class GimmeCommand : Command
+    internal class GimmeCommand : Command
     {
-        public GimmeCommand() : base("gimme", permLevel: 1) { }
+        public GimmeCommand() : base("gimme", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -102,9 +105,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class TpPosCommand : Command
+    internal class TpPosCommand : Command
     {
-        public TpPosCommand() : base("tpPos", permLevel: 1) { }
+        public TpPosCommand() : base("tpPos", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -139,9 +144,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class SetpieceCommand : Command
+    internal class SetpieceCommand : Command
     {
-        public SetpieceCommand() : base("setpiece", permLevel: 1) { }
+        public SetpieceCommand() : base("setpiece", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -152,11 +159,12 @@ namespace wServer.realm.commands
         }
     }
 
-    class DebugCommand : Command
+    internal class DebugCommand : Command
     {
-        class Locater : Enemy
+        private class Locater : Enemy
         {
-            Player player;
+            private Player player;
+
             public Locater(Player player)
                 : base(player.Manager, 0x0d5d)
             {
@@ -168,6 +176,7 @@ namespace wServer.realm.commands
                     DurationMS = -1
                 });
             }
+
             public override void Tick(RealmTime time)
             {
                 Move(player.X, player.Y);
@@ -176,7 +185,9 @@ namespace wServer.realm.commands
             }
         }
 
-        public DebugCommand() : base("debug", permLevel: 1) { }
+        public DebugCommand() : base("debug", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -185,9 +196,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class AllOnlineCommand : Command
+    internal class AllOnlineCommand : Command
     {
-        public AllOnlineCommand() : base("online", permLevel: 1) { }
+        public AllOnlineCommand() : base("online", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -206,9 +219,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class KillAllCommand : Command
+    internal class KillAllCommand : Command
     {
-        public KillAllCommand() : base("killAll", permLevel: 1) { }
+        public KillAllCommand() : base("killAll", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -229,9 +244,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class KickCommand : Command
+    internal class KickCommand : Command
     {
-        public KickCommand() : base("kick", permLevel: 1) { }
+        public KickCommand() : base("kick", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -249,9 +266,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class GetQuestCommand : Command
+    internal class GetQuestCommand : Command
     {
-        public GetQuestCommand() : base("getQuest", permLevel: 1) { }
+        public GetQuestCommand() : base("getQuest", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -265,9 +284,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class OryxSayCommand : Command
+    internal class OryxSayCommand : Command
     {
-        public OryxSayCommand() : base("oryxSay", permLevel: 1) { }
+        public OryxSayCommand() : base("oryxSay", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -276,9 +297,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class AnnounceCommand : Command
+    internal class AnnounceCommand : Command
     {
-        public AnnounceCommand() : base("announce", permLevel: 1) { }
+        public AnnounceCommand() : base("announce", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -287,9 +310,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class SummonCommand : Command
+    internal class SummonCommand : Command
     {
-        public SummonCommand() : base("summon", permLevel: 1) { }
+        public SummonCommand() : base("summon", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -307,9 +332,11 @@ namespace wServer.realm.commands
         }
     }
 
-    class KillPlayerCommand : Command
+    internal class KillPlayerCommand : Command
     {
-        public KillPlayerCommand() : base("killPlayer", permLevel: 1) { }
+        public KillPlayerCommand() : base("killPlayer", permLevel: 1)
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
@@ -327,5 +354,4 @@ namespace wServer.realm.commands
             return false;
         }
     }
-
 }

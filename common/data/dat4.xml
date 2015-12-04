@@ -1,7 +1,6 @@
-
 <Objects>
 	<Object type="0x0d90" id="Septavius the Ghost God">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar216x16</File><Index>0x30</Index></Texture>
 		<HitSound>monster/ghost_god_hit</HitSound>
@@ -9,24 +8,23 @@
 		<Size>100</Size>
 		<MaxHitPoints>8000</MaxHitPoints>
 		<Defense>12</Defense>
-		<Flying/>
-		<Quest/>
-		<God/>
-		<StasisImmune/>
+		<Flying />
+		<Quest />
+		<God />
+		<StasisImmune />
 		<Level>1</Level>
 		<XpMult>0.7</XpMult>
-		<NoArticle/>
+		<NoArticle />
 
-		
 		<Projectile id="0">
 			<ObjectId>White Bullet</ObjectId>
 			<Speed>80</Speed>
 			<Damage>75</Damage>
 			<Size>25</Size>
 			<LifetimeMS>1500</LifetimeMS>
-			<ArmorPiercing/>
-			<MultiHit/>
-		</Projectile>		
+			<ArmorPiercing />
+			<MultiHit />
+		</Projectile>
 		<Projectile id="1">
 			<ObjectId>Brown Magic</ObjectId>
 			<Speed>90</Speed>
@@ -34,19 +32,19 @@
 			<MaxDamage>45</MaxDamage>
 			<Size>40</Size>
 			<LifetimeMS>2600</LifetimeMS>
-			<MultiHit/>
-			<Boomerang/>
+			<MultiHit />
+			<Boomerang />
 			<Amplitude>2</Amplitude>
 			<Frequency>2.5</Frequency>
 			<ConditionEffect duration="1">Quiet</ConditionEffect>
-		</Projectile>			
+		</Projectile>
 		<Projectile id="2">
 			<ObjectId>Yellow Star</ObjectId>
 			<Speed>57</Speed>
 			<Damage>65</Damage>
 			<Size>80</Size>
 			<LifetimeMS>3000</LifetimeMS>
-			<MultiHit/>
+			<MultiHit />
 			<ConditionEffect duration="1.5">Confused</ConditionEffect>
 		</Projectile>
 		<Projectile id="4">
@@ -55,34 +53,21 @@
 			<Damage>160</Damage>
 			<Size>80</Size>
 			<LifetimeMS>4000</LifetimeMS>
-			<MultiHit/>		
-		</Projectile>		
+			<MultiHit />
+		</Projectile>
 		<Projectile id="5">
 			<ObjectId>White Bullet</ObjectId>
 			<Speed>70</Speed>
 			<Damage>60</Damage>
 			<Size>60</Size>
 			<LifetimeMS>2000</LifetimeMS>
-			<MultiHit/>		
-		</Projectile>		
-		
-			
+			<MultiHit />
+		</Projectile>
+	</Object>
 
-
-					
-
-		
-		
-		
-
-
-
-		
-	</Object>	
-	
 	<Object type="0x0d91" id="Lair Skeleton">
 		<Group>Lair Skeletons</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x60</Index></Texture>
 		<HitSound>monster/skeletons_hit</HitSound>
@@ -99,7 +84,7 @@
 	</Object>
 	<Object type="0x0d92" id="Lair Skeleton Swordsman">
 		<Group>Lair Skeletons</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x61</Index></Texture>
 		<HitSound>monster/skeletons_hit</HitSound>
@@ -116,7 +101,7 @@
 	</Object>
 	<Object type="0x0d93" id="Lair Skeleton Veteran">
 		<Group>Lair Skeletons</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x62</Index></Texture>
 		<HitSound>monster/skeletons_hit</HitSound>
@@ -133,7 +118,7 @@
 	</Object>
 	<Object type="0x0d94" id="Lair Skeleton Mage">
 		<Group>Lair Skeletons</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x63</Index></Texture>
 		<HitSound>monster/skeletons_hit</HitSound>
@@ -150,7 +135,7 @@
 	</Object>
 	<Object type="0x0d95" id="Lair Skeleton King">
 		<Group>Lair Skeletons</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x64</Index></Texture>
 		<HitSound>monster/skeletons_hit</HitSound>
@@ -167,7 +152,7 @@
 	</Object>
 	<Object type="0x0d96" id="Lair Mummy">
 		<Group>Lair Mummies</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x6a</Index></Texture>
 		<HitSound>monster/mummies_hit</HitSound>
@@ -184,7 +169,7 @@
 	</Object>
 	<Object type="0x0d97" id="Lair Mummy King">
 		<Group>Lair Mummies</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x6b</Index></Texture>
 		<HitSound>monster/mummies_hit</HitSound>
@@ -201,7 +186,7 @@
 	</Object>
 	<Object type="0x0d98" id="Lair Mummy Pharaoh">
 		<Group>Lair Mummies</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x6c</Index></Texture>
 		<HitSound>monster/mummies_hit</HitSound>
@@ -218,7 +203,7 @@
 	</Object>
 	<Object type="0x0d99" id="Lair Construct Giant">
 		<Group>Lair Constructs</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar16x16</File><Index>0x4c</Index></Texture>
 		<HitSound>monster/dwarf_god_hit</HitSound>
@@ -243,7 +228,7 @@
 	</Object>
 	<Object type="0x0d9a" id="Lair Construct Titan">
 		<Group>Lair Constructs</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar16x16</File><Index>0x4d</Index></Texture>
 		<HitSound>monster/dwarf_god_hit</HitSound>
@@ -267,7 +252,7 @@
 	</Object>
 	<Object type="0x0d9b" id="Lair Big Black Slime">
 		<Group>Lair Slimes</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0xb0</Index></Texture>
 		<HitSound>monster/slimes_hit</HitSound>
@@ -283,7 +268,7 @@
 		</Projectile>
 	</Object>
 	<Object type="0x0d9c" id="Lair Medium Black Slime">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0xb0</Index></Texture>
 		<HitSound>monster/slimes_hit</HitSound>
@@ -299,7 +284,7 @@
 		</Projectile>
 	</Object>
 	<Object type="0x0d9d" id="Lair Little Black Slime">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0xb0</Index></Texture>
 		<HitSound>monster/slimes_hit</HitSound>
@@ -316,7 +301,7 @@
 	</Object>
 	<Object type="0x0d9e" id="Lair Big Brown Slime">
 		<Group>Lair Slimes</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0xb1</Index></Texture>
 		<HitSound>monster/slimes_hit</HitSound>
@@ -332,7 +317,7 @@
 		</Projectile>
 	</Object>
 	<Object type="0x0d9f" id="Lair Little Brown Slime">
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0xb1</Index></Texture>
 		<HitSound>monster/slimes_hit</HitSound>
@@ -349,7 +334,7 @@
 	</Object>
 	<Object type="0x0da0" id="Lair Brown Bat">
 		<Group>Lair Bats</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0xce</Index></Texture>
 		<HitSound>monster/bats_hit</HitSound>
@@ -357,7 +342,7 @@
 		<Size>50</Size>
 		<MaxHitPoints>200</MaxHitPoints>
 		<Defense>0</Defense>
-		<Flying/>
+		<Flying />
 		<Projectile id="0">
 			<ObjectId>Blue Magic</ObjectId>
 			<Damage>50</Damage>
@@ -367,7 +352,7 @@
 	</Object>
 	<Object type="0x0da1" id="Lair Ghost Bat">
 		<Group>Lair Bats</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x79</Index></Texture>
 		<HitSound>monster/bats_hit</HitSound>
@@ -375,7 +360,7 @@
 		<Size>50</Size>
 		<MaxHitPoints>200</MaxHitPoints>
 		<Defense>30</Defense>
-		<Flying/>
+		<Flying />
 		<Projectile id="0">
 			<ObjectId>Blue Magic</ObjectId>
 			<Damage>50</Damage>
@@ -385,7 +370,7 @@
 	</Object>
 	<Object type="0x0da2" id="Lair Burst Trap">
 		<Group>Lair Traps</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiEnvironment</File><Index>0x61</Index></Texture>
 		<HitSound>monster/traps_hit</HitSound>
@@ -393,8 +378,8 @@
 		<Size>100</Size>
 		<MaxHitPoints>100</MaxHitPoints>
 		<Defense>0</Defense>
-		<DrawOnGround/>
-		<NoMiniMap/>
+		<DrawOnGround />
+		<NoMiniMap />
 		<Projectile id="0">
 			<ObjectId>Red Fire</ObjectId>
 			<Damage>100</Damage>
@@ -404,7 +389,7 @@
 	</Object>
 	<Object type="0x0da3" id="Lair Blast Trap">
 		<Group>Lair Traps</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiEnvironment</File><Index>0x51</Index></Texture>
 		<HitSound>monster/traps_hit</HitSound>
@@ -412,8 +397,8 @@
 		<Size>100</Size>
 		<MaxHitPoints>100</MaxHitPoints>
 		<Defense>0</Defense>
-		<DrawOnGround/>
-		<NoMiniMap/>
+		<DrawOnGround />
+		<NoMiniMap />
 		<Projectile id="0">
 			<ObjectId>Red Fire</ObjectId>
 			<Damage>100</Damage>
@@ -423,7 +408,7 @@
 	</Object>
 	<Object type="0x0da4" id="Lair Reaper">
 		<Group>Lair Reapers</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x6d</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -440,7 +425,7 @@
 	</Object>
 	<Object type="0x0da5" id="Lair Vampire">
 		<Group>Lair Vampires</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x6e</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -464,7 +449,7 @@
 	</Object>
 	<Object type="0x0da6" id="Lair Vampire King">
 		<Group>Lair Vampires</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x6f</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -488,7 +473,7 @@
 	</Object>
 	<Object type="0x0da7" id="Lair Grey Spectre">
 		<Group>Lair Spectres</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x76</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -496,7 +481,7 @@
 		<Size>100</Size>
 		<MaxHitPoints>200</MaxHitPoints>
 		<Defense>0</Defense>
-		<Flying/>
+		<Flying />
 		<Projectile id="0">
 			<ObjectId>Pink Bolt</ObjectId>
 			<Damage>100</Damage>
@@ -506,7 +491,7 @@
 	</Object>
 	<Object type="0x0da8" id="Lair Blue Spectre">
 		<Group>Lair Spectres</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x77</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -514,7 +499,7 @@
 		<Size>115</Size>
 		<MaxHitPoints>300</MaxHitPoints>
 		<Defense>0</Defense>
-		<Flying/>
+		<Flying />
 		<Projectile id="0">
 			<ObjectId>Pink Bolt</ObjectId>
 			<Damage>120</Damage>
@@ -524,7 +509,7 @@
 	</Object>
 	<Object type="0x0da9" id="Lair White Spectre">
 		<Group>Lair Spectres</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x78</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -532,7 +517,7 @@
 		<Size>130</Size>
 		<MaxHitPoints>400</MaxHitPoints>
 		<Defense>0</Defense>
-		<Flying/>
+		<Flying />
 		<Projectile id="0">
 			<ObjectId>Pink Bolt</ObjectId>
 			<Damage>140</Damage>
@@ -542,7 +527,7 @@
 	</Object>
 	<Object type="0x0daa" id="Lair Ghost Archer">
 		<Group>Lair Ghosts</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x7a</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -560,7 +545,7 @@
 	</Object>
 	<Object type="0x0dab" id="Lair Ghost Warrior">
 		<Group>Lair Ghosts</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x7b</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -577,7 +562,7 @@
 	</Object>
 	<Object type="0x0dac" id="Lair Ghost Mage">
 		<Group>Lair Ghosts</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x7c</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -594,7 +579,7 @@
 	</Object>
 	<Object type="0x0dad" id="Lair Ghost Rogue">
 		<Group>Lair Ghosts</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x7d</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -611,7 +596,7 @@
 	</Object>
 	<Object type="0x0dae" id="Lair Ghost Paladin">
 		<Group>Lair Ghosts</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x7e</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -628,7 +613,7 @@
 	</Object>
 	<Object type="0x0daf" id="Lair Ghost Knight">
 		<Group>Lair Ghosts</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x7f</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -645,7 +630,7 @@
 	</Object>
 	<Object type="0x0db0" id="Ghost Warrior of Septavius">
 		<Group>Lair Ghosts</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x7b</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -663,7 +648,7 @@
 	</Object>
 	<Object type="0x0db1" id="Ghost Mage of Septavius">
 		<Group>Lair Ghosts</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x7c</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
@@ -681,7 +666,7 @@
 	</Object>
 	<Object type="0x0db2" id="Ghost Rogue of Septavius">
 		<Group>Lair Ghosts</Group>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
 		<Texture><File>lofiChar8x8</File><Index>0x7d</Index></Texture>
 		<HitSound>monster/ghosts_hit</HitSound>
