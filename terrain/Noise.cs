@@ -12,6 +12,7 @@ namespace terrain
             for (int i = 0; i < 512; i++)
                 perm[i] = p[i & 255];
         }
+
         // simplex noise in 2D, 3D and 4D
         private int[][] grad3 = new int[][] {
             new int[] {1,1,0}, new int[] {-1,1,0}, new int[] {1,-1,0}, new int[] {-1,-1,0},
@@ -32,6 +33,7 @@ namespace terrain
         251,34,242,193,238,210,144,12,191,179,162,241, 81,51,145,235,249,14,239,107,
         49,192,214, 31,181,199,106,157,184, 84,204,176,115,121,50,45,127, 4,150,254,
         138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180};
+
         // To remove the need for index wrapping, double the permutation table length
         private int[] perm = new int[512];
 

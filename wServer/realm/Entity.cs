@@ -10,9 +10,10 @@ namespace wServer.realm
 {
     public class Entity : IProjectileOwner, ICollidable<Entity>
     {
-        static ILog log = LogManager.GetLogger(typeof(Entity));
+        private static ILog log = LogManager.GetLogger(typeof(Entity));
 
         public RealmManager Manager { get; private set; }
+
         protected Entity(RealmManager manager, ushort objType)
         {
             this.ObjectType = objType;
@@ -30,7 +31,7 @@ namespace wServer.realm
             }
         }
 
-        ObjectDesc desc;
+        private ObjectDesc desc;
         public ObjectDesc ObjectDesc { get { return desc; } }
 
         public World Owner { get; internal set; }
@@ -44,6 +45,7 @@ namespace wServer.realm
 
         public CollisionNode<Entity> CollisionNode { get; set; }
         public CollisionMap<Entity> Parent { get; set; }
+
         public Entity Move(float x, float y)
         {
             if (Owner != null && !(this is Projectile) &&
@@ -56,6 +58,7 @@ namespace wServer.realm
 
         //Stats
         public string Name { get; set; }
+
         public int Size { get; set; }
         public ConditionEffects ConditionEffects { get; set; }
 
@@ -78,6 +81,7 @@ namespace wServer.realm
             ObjectType = def.ObjectType;
             ImportStats(def.Stats);
         }
+
         public void ImportStats(ObjectStats stat)
         {
             Id = stat.Id;
@@ -101,6 +105,7 @@ namespace wServer.realm
                 Stats = stats.ToArray()
             };
         }
+
         public ObjectDef ToDefinition()
         {
             return new ObjectDef()
@@ -114,8 +119,10 @@ namespace wServer.realm
         {
             Owner = owner;
         }
-        Position[] posHistory;
-        byte posIdx = 0;
+
+        private Position[] posHistory;
+        private byte posIdx = 0;
+
         public virtual void Tick(RealmTime time)
         {
             if (this is Projectile || Owner == null) return;
@@ -130,7 +137,8 @@ namespace wServer.realm
                 ProcessConditionEffects(time);
         }
 
-        Dictionary<object, object> states;
+        private Dictionary<object, object> states;
+
         public IDictionary<object, object> StateStorage
         {
             get
@@ -141,6 +149,7 @@ namespace wServer.realm
         }
 
         public State CurrentState { get; private set; }
+
         public void SwitchTo(State state)
         {
             var origState = CurrentState;
@@ -151,7 +160,8 @@ namespace wServer.realm
             stateEntryCommonRoot = State.CommonParent(origState, CurrentState);
             stateEntry = true;
         }
-        void GoDeeeeeeeep()
+
+        private void GoDeeeeeeeep()
         {
             //always the first deepest sub-state
             if (CurrentState == null) return;
@@ -159,9 +169,10 @@ namespace wServer.realm
                 CurrentState = CurrentState = CurrentState.States[0];
         }
 
-        bool stateEntry = false;
-        State stateEntryCommonRoot = null;
-        void TickState(RealmTime time)
+        private bool stateEntry = false;
+        private State stateEntryCommonRoot = null;
+
+        private void TickState(RealmTime time)
         {
             if (stateEntry)
             {
@@ -245,6 +256,7 @@ namespace wServer.realm
          * GameObject
          * Character
          */
+
         public static Entity Resolve(RealmManager manager, string name)
         {
             ushort id;
@@ -253,6 +265,7 @@ namespace wServer.realm
             else
                 return Resolve(manager, id);
         }
+
         public static Entity Resolve(RealmManager manager, ushort id)
         {
             var node = manager.GameData.ObjectTypeToElement[id];
@@ -295,9 +308,10 @@ namespace wServer.realm
 
         Entity IProjectileOwner.Self { get { return this; } }
 
-        Projectile[] projectiles;
+        private Projectile[] projectiles;
         Projectile[] IProjectileOwner.Projectiles { get { return projectiles; } }
         protected byte projectileId;
+
         public Projectile CreateProjectile(ProjectileDesc desc, ushort container, int dmg, long time, Position pos, float angle)
         {
             var ret = new Projectile(Manager, desc) //Assume only one
@@ -319,6 +333,7 @@ namespace wServer.realm
             projectiles[ret.ProjectileId] = ret;
             return ret;
         }
+
         public virtual bool HitByProjectile(Projectile projectile, RealmTime time)
         {
             //Console.WriteLine("HIT! " + Id);
@@ -327,15 +342,16 @@ namespace wServer.realm
             else
                 return ObjectDesc.Enemy || ObjectDesc.Player;
         }
+
         public virtual void ProjectileHit(Projectile projectile, Entity target)
         {
         }
 
-        const int EFFECT_COUNT = 28;
-        int[] effects;
-        bool tickingEffects = false;
+        private const int EFFECT_COUNT = 28;
+        private int[] effects;
+        private bool tickingEffects = false;
 
-        void ProcessConditionEffects(RealmTime time)
+        private void ProcessConditionEffects(RealmTime time)
         {
             if (effects == null || !tickingEffects) return;
 
@@ -364,6 +380,7 @@ namespace wServer.realm
         {
             return (ConditionEffects & eff) != 0;
         }
+
         public void ApplyConditionEffect(params ConditionEffect[] effs)
         {
             foreach (var i in effs)

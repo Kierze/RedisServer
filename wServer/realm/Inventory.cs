@@ -53,7 +53,10 @@ namespace wServer.realm
 
         public Item this[int index]
         {
-            get { return items[index]; }
+            get
+            {
+                return items[index];
+            }
             set
             {
                 if (items[index] != value)

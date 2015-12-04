@@ -47,7 +47,10 @@ namespace wServer.realm
 
         public RealmManager Manager
         {
-            get { return manager; }
+            get
+            {
+                return manager;
+            }
             internal set
             {
                 manager = value;

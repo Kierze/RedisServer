@@ -5,19 +5,20 @@ using wServer.realm;
 
 namespace wServer.logic.behaviors
 {
-    class Buzz : CycleBehavior
+    internal class Buzz : CycleBehavior
     {
         //State storage: direction & remain
-        class BuzzStorage
+        private class BuzzStorage
         {
             public Vector2 Direction;
             public float RemainingDistance;
             public int RemainingTime;
         }
 
-        float speed;
-        float dist;
-        Cooldown coolDown;
+        private float speed;
+        private float dist;
+        private Cooldown coolDown;
+
         public Buzz(double speed = 2, double dist = 0.5, Cooldown coolDown = new Cooldown())
         {
             this.speed = (float)speed;

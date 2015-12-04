@@ -4,12 +4,13 @@ using wServer.realm.setpieces;
 
 namespace wServer.realm.worlds
 {
-    class GameWorld : World
+    internal class GameWorld : World
     {
-        static ILog log = LogManager.GetLogger(typeof(GameWorld));
+        private static ILog log = LogManager.GetLogger(typeof(GameWorld));
 
-        bool oryxPresent;
-        int mapId;
+        private bool oryxPresent;
+        private int mapId;
+
         public GameWorld(int mapId, string name, bool oryxPresent)
         {
             Name = name;

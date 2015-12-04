@@ -5,9 +5,11 @@ using wServer.realm;
 namespace wServer.logic
 {
     public interface IStateChildren { }
+
     public class State : IStateChildren
     {
         public State(params IStateChildren[] children) : this("", children) { }
+
         public State(string name, params IStateChildren[] children)
         {
             this.Name = name;
@@ -42,7 +44,8 @@ namespace wServer.logic
             if (a == null || b == null) return null;
             else return _CommonParent(a, a, b);
         }
-        static State _CommonParent(State current, State a, State b)
+
+        private static State _CommonParent(State current, State a, State b)
         {
             if (b.Is(current)) return current;
             else if (a.Parent == null) return null;
@@ -74,6 +77,7 @@ namespace wServer.logic
             foreach (var i in States)
                 i.Resolve(states);
         }
+
         internal void ResolveChildren(Dictionary<string, State> states)
         {
             foreach (var i in States)
@@ -84,7 +88,7 @@ namespace wServer.logic
                 j.Resolve(this);
         }
 
-        void ResolveTransition(Dictionary<string, State> states)
+        private void ResolveTransition(Dictionary<string, State> states)
         {
             foreach (var i in Transitions)
                 i.Resolve(states);
@@ -105,6 +109,7 @@ namespace wServer.logic
             this.Host = host;
             this.Time = time;
         }
+
         public Entity Host { get; private set; }
         public RealmTime Time { get; private set; }
     }
