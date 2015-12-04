@@ -238,11 +238,13 @@ namespace wServer.realm.entities
                             BroadcastSync(batch, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.Shoot:
                         {
                             ActivateShoot(time, item, target);
                         }
                         break;
+
                     case ActivateEffects.StatBoostSelf:
                         {
                             int idx = -1;
@@ -273,6 +275,7 @@ namespace wServer.realm.entities
                             }, null);
                         }
                         break;
+
                     case ActivateEffects.StatBoostAura:
                         {
                             int idx = -1;
@@ -307,6 +310,7 @@ namespace wServer.realm.entities
                             }, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.ConditionEffectSelf:
                         {
                             ApplyConditionEffect(new ConditionEffect()
@@ -323,6 +327,7 @@ namespace wServer.realm.entities
                             }, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.ConditionEffectAura:
                         {
                             this.AOE(eff.Range / 2, true, player =>
@@ -345,6 +350,7 @@ namespace wServer.realm.entities
                             }, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.Heal:
                         {
                             List<Packet> pkts = new List<Packet>();
@@ -352,6 +358,7 @@ namespace wServer.realm.entities
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.HealNova:
                         {
                             List<Packet> pkts = new List<Packet>();
@@ -369,6 +376,7 @@ namespace wServer.realm.entities
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.Magic:
                         {
                             List<Packet> pkts = new List<Packet>();
@@ -376,6 +384,7 @@ namespace wServer.realm.entities
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.MagicNova:
                         {
                             List<Packet> pkts = new List<Packet>();
@@ -393,6 +402,7 @@ namespace wServer.realm.entities
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.Teleport:
                         {
                             Move(target.X, target.Y);
@@ -422,6 +432,7 @@ namespace wServer.realm.entities
                             }, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.VampireBlast:
                         {
                             List<Packet> pkts = new List<Packet>();
@@ -473,6 +484,7 @@ namespace wServer.realm.entities
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.Trap:
                         {
                             BroadcastSync(new ShowEffectPacket()
@@ -495,6 +507,7 @@ namespace wServer.realm.entities
                             }));
                         }
                         break;
+
                     case ActivateEffects.StasisBlast:
                         {
                             List<Packet> pkts = new List<Packet>();
@@ -553,6 +566,7 @@ namespace wServer.realm.entities
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.Decoy:
                         {
                             var decoy = new Decoy(this, eff.DurationMS, statsMgr.GetSpeed());
@@ -560,6 +574,7 @@ namespace wServer.realm.entities
                             Owner.EnterWorld(decoy);
                         }
                         break;
+
                     case ActivateEffects.Lightning:
                         {
                             Enemy start = null;
@@ -621,6 +636,7 @@ namespace wServer.realm.entities
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.PoisonGrenade:
                         {
                             BroadcastSync(new ShowEffectPacket()
@@ -648,6 +664,7 @@ namespace wServer.realm.entities
                             }));
                         }
                         break;
+
                     case ActivateEffects.RemoveNegativeConditions:
                         {
                             this.AOE(eff.Range / 2, true, player =>
@@ -663,6 +680,7 @@ namespace wServer.realm.entities
                             }, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.RemoveNegativeConditionsSelf:
                         {
                             ApplyConditionEffect(NegativeEffs);
@@ -675,6 +693,7 @@ namespace wServer.realm.entities
                             }, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.IncrementStat:
                         {
                             int idx = -1;
@@ -696,6 +715,7 @@ namespace wServer.realm.entities
                             UpdateCount++;
                         }
                         break;
+
                     case ActivateEffects.Create: //this is a portal
                         {
                             ushort objType;
@@ -721,6 +741,7 @@ namespace wServer.realm.entities
                             }));
                         }
                         break;
+
                     case ActivateEffects.Pet:
                     case ActivateEffects.UnlockPortal:
                         break;

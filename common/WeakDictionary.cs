@@ -84,7 +84,7 @@ namespace common
         }
 
         // Note: There are actually 9 cases to handle here. // Let Wa = Alive Weak Reference Let Wd
-        //       = Dead Weak Reference Let S = Strong Reference // x | y | Equals(x,y)
+        // = Dead Weak Reference Let S = Strong Reference // x | y | Equals(x,y)
         // ------------------------------------------------- Wa | Wa | comparer.Equals(x.Target,
         // y.Target) Wa | Wd | false Wa | S | comparer.Equals(x.Target, y) Wd | Wa | false Wd | Wd |
         // x == y Wd | S | false S | Wa | comparer.Equals(x, y.Target) S | Wd | false S | S |

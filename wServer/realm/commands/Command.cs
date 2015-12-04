@@ -16,6 +16,7 @@ namespace wServer.realm.commands
         }
 
         public string CommandName { get; private set; }
+
         public int PermissionLevel { get; private set; }
 
         protected abstract bool Process(Player player, RealmTime time, string args);

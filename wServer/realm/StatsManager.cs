@@ -12,12 +12,7 @@ namespace wServer.realm
             this.player = player;
         }
 
-        //from wiki
-
-        private int GetStats(int id)
-        {
-            return player.Stats[id] + player.Boost[id];
-        }
+        private int GetStats(int index) => player.Stats[index] + player.Boost[index];
 
         public float GetAttackDamage(int min, int max)
         {

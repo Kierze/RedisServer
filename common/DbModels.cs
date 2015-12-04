@@ -308,7 +308,10 @@ namespace common
                 if (v != null) return JsonConvert.DeserializeObject<DbClassStatsEntry>(v);
                 else return default(DbClassStatsEntry);
             }
-            set { SetValue<string>(type.ToString(), JsonConvert.SerializeObject(value)); }
+            set
+            {
+                SetValue<string>(type.ToString(), JsonConvert.SerializeObject(value));
+            }
         }
     }
 
