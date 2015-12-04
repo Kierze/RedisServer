@@ -187,6 +187,28 @@
     <Compile Include="networking\handlers\HelloPacketHandler.cs" />
     <Compile Include="networking\IPacketHandler.cs" />
     <Compile Include="realm\ChatManager.cs" />
+    <Compile Include="realm\Command.cs" />
+    <Compile Include="realm\commands\AllOnline.cs" />
+    <Compile Include="realm\commands\Announcement.cs" />
+    <Compile Include="realm\commands\Debug.cs" />
+    <Compile Include="realm\commands\GetQuest.cs" />
+    <Compile Include="realm\commands\Give.cs" />
+    <Compile Include="realm\commands\Help.cs" />
+    <Compile Include="realm\commands\Kick.cs" />
+    <Compile Include="realm\commands\KillAll.cs" />
+    <Compile Include="realm\commands\KillPlayer.cs" />
+    <Compile Include="realm\commands\OryxSay.cs" />
+    <Compile Include="realm\commands\Pause.cs" />
+    <Compile Include="realm\commands\Server.cs" />
+    <Compile Include="realm\commands\Setpiece.cs" />
+    <Compile Include="realm\commands\Spawn.cs" />
+    <Compile Include="realm\commands\Summon.cs" />
+    <Compile Include="realm\commands\Teleport.cs" />
+    <Compile Include="realm\commands\Tell.cs" />
+    <Compile Include="realm\commands\ToggleEff.cs" />
+    <Compile Include="realm\commands\TpPos.cs" />
+    <Compile Include="realm\commands\Tutorial.cs" />
+    <Compile Include="realm\commands\Who.cs" />
     <Compile Include="realm\Inventory.cs" />
     <Compile Include="realm\ISManager.cs" />
     <Compile Include="realm\setpieces\ArchMage.cs" />
@@ -235,8 +257,6 @@
     <Compile Include="realm\entities\ConnectedObject.cs" />
     <Compile Include="realm\entities\Placeholder.cs" />
     <Compile Include="realm\entities\Decoy.cs" />
-    <Compile Include="realm\commands\Command.cs" />
-    <Compile Include="realm\commands\WorldCommand.cs" />
     <Compile Include="realm\entities\player\Player.Ground.cs" />
     <Compile Include="realm\entities\player\Player.Chat.cs" />
     <Compile Include="realm\entities\player\Player.Effects.cs" />
@@ -351,7 +371,6 @@
   <ItemGroup>
     <Content Include="bugs.txt" />
     <Content Include="packets.txt" />
-    <Compile Include="realm\commands\AdminCommands.cs" />
     <Content Include="todo.txt" />
   </ItemGroup>
   <ItemGroup>

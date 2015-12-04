@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using wServer.realm.entities;
 
-namespace wServer.realm.commands
+namespace wServer.realm
 {
     public abstract class Command
     {
