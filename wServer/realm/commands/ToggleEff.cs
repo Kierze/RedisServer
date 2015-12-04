@@ -6,7 +6,7 @@ namespace wServer.realm.commands
 {
     internal class CommandToggleEffect : Command
     {
-        public CommandToggleEffect() : base("eff", permLevel: 1)
+        public CommandToggleEffect() : base("eff", 1)
         {
         }
 

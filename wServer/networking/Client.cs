@@ -1,5 +1,6 @@
 ﻿using common;
 using log4net;
+using log4net.Core;
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -42,7 +43,7 @@ namespace wServer.networking
 
         public void BeginProcess()
         {
-            log.InfoFormat("Received client @ {0}.", skt.RemoteEndPoint);
+            log.Info($"Received client @ {skt.RemoteEndPoint}");
             handler = new NetworkHandler(this, skt);
             handler.BeginHandling();
         }
@@ -71,18 +72,17 @@ namespace wServer.networking
         {
             try
             {
-                log.Logger.Log(typeof(Client), log4net.Core.Level.Verbose,
-                    string.Format("Handling packet '{0}'...", pkt.ID), null);
+                log.Logger.Log(typeof(Client), Level.Verbose, $"Handling packet \"{pkt.ID}\"", null);
                 if (pkt.ID == PacketID.Packet) return;
                 IPacketHandler handler;
                 if (!PacketHandlers.Handlers.TryGetValue(pkt.ID, out handler))
-                    log.WarnFormat("Unhandled packet '{0}'.", pkt.ID);
+                    log.Warn($"Unhandled packet \"{pkt.ID}\"");
                 else
                     handler.Handle(this, (ClientPacket)pkt);
             }
             catch (Exception e)
             {
-                log.Error(string.Format("Error when handling packet '{0}'...", pkt.ToString()), e);
+                log.Error($"Error when handlig packet \"{pkt.ToString()}\"", e);
                 Disconnect();
             }
         }
@@ -90,7 +90,7 @@ namespace wServer.networking
         public void Disconnect()
         {
             if (Stage == ProtocalStage.Disconnected) return;
-            log.DebugFormat("Disconnecting client @ {0}...", skt.RemoteEndPoint);
+            log.Debug($"Disconnecting client @ {skt.RemoteEndPoint}");
             var original = Stage;
             Stage = ProtocalStage.Disconnected;
             if (Account != null)
@@ -102,7 +102,7 @@ namespace wServer.networking
         {
             if (Character != null && Player != null)
             {
-                log.DebugFormat("Saving character...");
+                log.Debug("Saving character");
                 Player.SaveToCharacter();
                 bool x = Manager.Database.SaveCharacter(Account, Character, true);
             }
@@ -132,7 +132,7 @@ namespace wServer.networking
 
         public void Reconnect(ReconnectPacket pkt)
         {
-            log.InfoFormat("Reconnecting client @ {0} to {1}...", skt.RemoteEndPoint, pkt.Name);
+            log.Info($"Reconnecting client @ {skt.RemoteEndPoint} to {pkt.Name}");
             Manager.Logic.AddPendingAction(t =>
             {
                 if (Player != null)

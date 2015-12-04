@@ -90,7 +90,7 @@ namespace wServer.realm.setpieces
 
         public static void ApplySetPieces(World world)
         {
-            log.InfoFormat("Applying set pieces to world {0}({1}).", world.Id, world.Name);
+            log.Info($"Applying setpieces to world {world.Id} ({world.Name})");
 
             var map = world.Map;
             int w = map.Width, h = map.Height;

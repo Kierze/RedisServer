@@ -53,12 +53,12 @@ namespace wServer.networking
 
         public override string ToString()
         {
-            StringBuilder ret = new StringBuilder("{");
+            var ret = new StringBuilder("{");
             var arr = GetType().GetProperties();
             for (var i = 0; i < arr.Length; i++)
             {
                 if (i != 0) ret.Append(", ");
-                ret.AppendFormat("{0}: {1}", arr[i].Name, arr[i].GetValue(this, null));
+                ret.Append($"{arr[i].Name}: {arr[i].GetValue(this, null)}");
             }
             ret.Append("}");
             return ret.ToString();

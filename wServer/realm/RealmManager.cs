@@ -125,7 +125,7 @@ namespace wServer.realm
             world.Manager = this;
             if (world is GameWorld)
                 Monitor.WorldAdded(world);
-            log.InfoFormat("World {0}({1}) added.", world.Id, world.Name);
+            log.Info($"World {world.Id} ({world.Name}) added");
         }
 
         private void OnWorldRemoved(World world)
@@ -133,7 +133,7 @@ namespace wServer.realm
             world.Manager = null;
             if (world is GameWorld)
                 Monitor.WorldRemoved(world);
-            log.InfoFormat("World {0}({1}) removed.", world.Id, world.Name);
+            log.Info($"World {world.Id} ({world.Name}) removed");
         }
 
         private Thread network;

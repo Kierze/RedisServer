@@ -60,7 +60,7 @@ namespace wServer.realm
                 portal.Move(pos.X + 0.5f, pos.Y + 0.5f);
                 nexus.EnterWorld(portal);
                 portals.Add(world, portal);
-                log.InfoFormat("World {0}({1}) added.", world.Id, world.Name);
+                log.Info($"World {world.Id} ({world.Name}) added");
             }
         }
 
@@ -71,7 +71,7 @@ namespace wServer.realm
                 var portal = portals[world];
                 nexus.LeaveWorld(portal);
                 portals.Remove(world);
-                log.InfoFormat("World {0}({1}) removed.", world.Id, world.Name);
+                log.Info($"World {world.Id} ({world.Name}) removed");
             }
         }
 
@@ -82,7 +82,7 @@ namespace wServer.realm
                 var portal = portals[world];
                 nexus.LeaveWorld(portal);
                 portals.Remove(world);
-                log.InfoFormat("World {0}({1}) closed.", world.Id, world.Name);
+                log.Info($"World {world.Id} ({world.Name}) closed");
             }
         }
 
@@ -100,7 +100,7 @@ namespace wServer.realm
                 portal.Move(pos.X, pos.Y);
                 nexus.EnterWorld(portal);
                 portals.Add(world, portal);
-                log.InfoFormat("World {0}({1}) opened.", world.Id, world.Name);
+                log.Info($"World {world.Id} ({world.Name}) opened");
             }
         }
 

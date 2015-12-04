@@ -4,7 +4,7 @@ namespace wServer.realm.commands
 {
     internal class CommandSpawn : Command
     {
-        public CommandSpawn() : base("spawn", permLevel: 1)
+        public CommandSpawn() : base("spawn", 1)
         {
         }
 

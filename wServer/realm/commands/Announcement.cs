@@ -4,7 +4,7 @@ namespace wServer.realm.commands
 {
     internal class CommandAnnouncement : Command
     {
-        public CommandAnnouncement() : base("announce", permLevel: 1)
+        public CommandAnnouncement() : base("announce", 1)
         {
         }
 

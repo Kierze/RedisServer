@@ -5,7 +5,7 @@ namespace wServer.realm.commands
 {
     internal class CommandDebug : Command
     {
-        public CommandDebug() : base("debug", permLevel: 1)
+        public CommandDebug() : base("debug", 1)
         {
         }
 

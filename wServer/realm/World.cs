@@ -3,6 +3,7 @@ using log4net;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using wServer.networking;
@@ -118,11 +119,11 @@ namespace wServer.realm
         {
         }
 
-        protected void FromWorldMap(System.IO.Stream dat)
+        protected void FromWorldMap(Stream dat)
         {
-            log.InfoFormat("Loading map for world {0}({1})...", Id, Name);
+            log.Info($"Loading map for world {Id} ({Name})");
 
-            this.Map = new Wmap(Manager.GameData);
+            Map = new Wmap(Manager.GameData);
             entityInc = 0;
             entityInc += Map.Load(dat, 0);
 

@@ -25,7 +25,7 @@ namespace wServer.realm.commands
                     return true;
                 }
             }
-            player.SendInfo(string.Format("Unable to find player: {0}", args));
+            player.SendInfo($"Player \"{args}\" could not be found");
             return false;
         }
     }

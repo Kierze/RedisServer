@@ -434,7 +434,7 @@ namespace wServer.realm.entities
                 MP = Stats[1] + Stats[1];
                 Inventory[i] = null;
                 foreach (var player in Owner.Players.Values)
-                    player.SendInfo(string.Format("{0}'s {1} breaks and he disappears", Name, item.ObjectId));
+                    player.SendInfo($"{Name}'s {item.DisplayId ?? item.ObjectId} breaks and he dissappears");
 
                 client.Reconnect(new ReconnectPacket()
                 {

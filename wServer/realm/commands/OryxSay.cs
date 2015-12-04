@@ -4,7 +4,7 @@ namespace wServer.realm.commands
 {
     internal class CommandOryxSay : Command
     {
-        public CommandOryxSay() : base("oryxSay", permLevel: 1)
+        public CommandOryxSay() : base("oryxSay", 1)
         {
         }
 

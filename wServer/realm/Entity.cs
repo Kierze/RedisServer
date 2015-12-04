@@ -301,7 +301,7 @@ namespace wServer.realm
                 case "GuildHallPortal":
                 //return new StaticObject(id);
                 default:
-                    log.WarnFormat("Not supported type: {0}", type);
+                    log.Warn($"Not supported type: {type}");
                     return new Entity(manager, id);
             }
         }

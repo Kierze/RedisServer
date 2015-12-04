@@ -5,7 +5,7 @@ namespace wServer.realm.commands
 {
     internal class CommandKick : Command
     {
-        public CommandKick() : base("kick", permLevel: 1)
+        public CommandKick() : base("kick", 1)
         {
         }
 
@@ -20,7 +20,7 @@ namespace wServer.realm.commands
                     return true;
                 }
             }
-            player.SendError(string.Format("Player '{0}' could not be found!", args));
+            player.SendInfo($"Player \"{args}\" could not be found");
             return false;
         }
     }

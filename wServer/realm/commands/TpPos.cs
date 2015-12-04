@@ -5,7 +5,7 @@ namespace wServer.realm.commands
 {
     internal class CommandTpPos : Command
     {
-        public CommandTpPos() : base("tpPos", permLevel: 1)
+        public CommandTpPos() : base("tpPos", 1)
         {
         }
 

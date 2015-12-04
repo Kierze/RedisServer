@@ -311,7 +311,7 @@ namespace Mono.Game
         {
             CultureInfo currentCulture = CultureInfo.CurrentCulture;
             return string.Format(currentCulture, "{{X:{0} Y:{1}}}", new object[] {
-                this.X.ToString(currentCulture), this.Y.ToString(currentCulture) });
+                X.ToString(currentCulture), Y.ToString(currentCulture) });
         }
 
         public static Vector2 operator -(Vector2 value)

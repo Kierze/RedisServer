@@ -11,7 +11,7 @@ namespace wServer.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
-            StringBuilder sb = new StringBuilder("Available commands: ");
+            var sb = new StringBuilder("Available commands: ");
             var cmds = player.Manager.Commands.Commands.Values
                 .Where(x => x.HasPermission(player))
                 .ToArray();

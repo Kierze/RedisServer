@@ -12,7 +12,7 @@ namespace wServer.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string args)
         {
-            StringBuilder sb = new StringBuilder("Players online: ");
+            var sb = new StringBuilder("Players online: ");
             var copy = player.Owner.Players.Values.ToArray();
             if (copy.Length == 0)
                 player.SendInfo("Nobody else is online");

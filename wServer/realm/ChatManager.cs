@@ -47,7 +47,7 @@ namespace wServer.realm
                 Text = text,
                 CleanText = text
             }, null);
-            log.InfoFormat("[{0}({1})] <{2}> {3}", src.Owner.Name, src.Owner.Id, src.Name, text);
+            log.Info($"[{src.Owner.Name} ({src.Owner.Id})] <{src.Name}> {text}");
         }
 
         public void Announce(string text)
@@ -69,7 +69,7 @@ namespace wServer.realm
                 Name = "#Oryx the Mad God",
                 Text = text
             }, null);
-            log.InfoFormat("[{0}({1})] <Oryx the Mad God> {2}", world.Name, world.Id, text);
+            log.Info($"[{world.Name} ({world.Id})] <Oryx the Mad God> {text}");
         }
 
         public bool Tell(Player src, string target, string text)

@@ -5,7 +5,7 @@ namespace wServer.realm.commands
 {
     internal class CommandSummon : Command
     {
-        public CommandSummon() : base("summon", permLevel: 1)
+        public CommandSummon() : base("summon", 1)
         {
         }
 
@@ -20,7 +20,7 @@ namespace wServer.realm.commands
                     return true;
                 }
             }
-            player.SendError(string.Format("Player '{0}' could not be found!", args));
+            player.SendInfo($"Player \"{args}\" could not be found");
             return false;
         }
     }

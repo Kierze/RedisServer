@@ -93,7 +93,7 @@ namespace wServer.realm
             }
             else
             {
-                log.InfoFormat("[Command] <{0}> {1}", player.Name, text);
+                log.Info($"[Command] <{player.Name}> {text}");
                 return command.Execute(player, time, args);
             }
         }

@@ -32,7 +32,7 @@ namespace wServer.realm.commands
             }
 
             if (!player.Manager.Chat.Tell(player, playername, msg))
-                player.SendError(string.Format("{0} not found.", playername));
+                player.SendError($"{playername} not found");
             return false;
         }
     }

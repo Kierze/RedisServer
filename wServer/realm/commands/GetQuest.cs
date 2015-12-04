@@ -4,7 +4,7 @@ namespace wServer.realm.commands
 {
     internal class CommandGetQuest : Command
     {
-        public CommandGetQuest() : base("getQuest", permLevel: 1)
+        public CommandGetQuest() : base("getQuest", 1)
         {
         }
 

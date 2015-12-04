@@ -247,7 +247,7 @@ namespace wServer.realm
 
         public void Init()
         {
-            log.InfoFormat("Oryx is controlling world {0}({1})...", world.Id, world.Name);
+            log.Info($"Oryx is controlling world {world.Id} ({world.Name})");
             int w = world.Map.Width;
             int h = world.Map.Height;
             int[] stats = new int[12];
@@ -651,7 +651,7 @@ namespace wServer.realm
             pt.X -= (setpiece.Size - 1) / 2;
             pt.Y -= (setpiece.Size - 1) / 2;
             setpiece.RenderSetPiece(world, pt);
-            log.InfoFormat("Oryx spawned {0} at ({1}, {2}).", name, pt.X, pt.Y);
+            log.Info($"Oryx spawned {name} at ({pt.X}, {pt.Y})");
         }
 
         private List<Tuple<string, ISetPiece>> events = new List<Tuple<string, ISetPiece>>()

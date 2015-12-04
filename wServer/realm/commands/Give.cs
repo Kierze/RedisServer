@@ -4,7 +4,7 @@ namespace wServer.realm.commands
 {
     internal class CommandGive : Command
     {
-        public CommandGive() : base("give", permLevel: 1)
+        public CommandGive() : base("give", 1)
         {
         }
 

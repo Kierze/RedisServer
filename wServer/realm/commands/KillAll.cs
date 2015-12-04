@@ -5,7 +5,7 @@ namespace wServer.realm.commands
 {
     internal class CommandKillAll : Command
     {
-        public CommandKillAll() : base("killAll", permLevel: 1)
+        public CommandKillAll() : base("killAll", 1)
         {
         }
 
@@ -23,7 +23,7 @@ namespace wServer.realm.commands
                     count++;
                 }
             }
-            player.SendInfo(string.Format("{0} enemy killed!", count));
+            player.SendInfo($"{count} enemies killed");
             return true;
         }
     }

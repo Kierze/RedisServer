@@ -43,7 +43,7 @@ namespace wServer.logic
             for (int i = 0; i < fields.Length; i++)
             {
                 var field = fields[i];
-                log.InfoFormat("Loading behavior for '{0}'({1}/{2})...", field.Name, i + 1, fields.Length);
+                log.Info($"Loading behavior for \"{field.Name}\" ({i + 1}/{fields.Length})");
                 ((_)field.GetValue(this))();
                 field.SetValue(this, null);
             }

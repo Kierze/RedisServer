@@ -26,13 +26,12 @@ namespace wServer.realm
             public string Type;
         }
 
-        private RealmManager manager;
+        private RealmManager Manager;
 
-        public ISManager(RealmManager manager)
-            : base(manager.Database, manager.InstanceId)
+        public ISManager(RealmManager manager) : base(manager.Database, manager.InstanceId)
         {
-            log.InfoFormat("Server's Id is {0}", manager.InstanceId);
-            this.manager = manager;
+            log.Info($"Server's Id is {manager.InstanceId}");
+            Manager = manager;
 
             AddHandler<NetworkMsg>(NETWORK, HandleNetwork);
 
@@ -61,8 +60,7 @@ namespace wServer.realm
                     {
                         int val;
                         availableInstance.TryRemove(i, out val);
-                        //race condition may occur, but dc for 10 sec...well let it be
-                        log.InfoFormat("Server '{0}' timed out.", i);
+                        log.Info($"Server {i} timed out");
                     }
                 }
             }
@@ -80,8 +78,7 @@ namespace wServer.realm
                 case NetworkCode.JOIN:
                     if (availableInstance.TryAdd(e.InstanceId, 5))
                     {
-                        log.InfoFormat("Server '{0}' ({1}) joined the network.",
-                            e.InstanceId, e.Content.Type);
+                        log.Info($"Server {e.InstanceId} ({e.Content.Type}) joined the network");
                         Publish(NETWORK, new NetworkMsg()   //for the new instances
                         {
                             Code = NetworkCode.JOIN,
@@ -93,13 +90,13 @@ namespace wServer.realm
                     break;
                 case NetworkCode.PING:
                     if (!availableInstance.ContainsKey(e.InstanceId))
-                        log.InfoFormat("Server '{0}' re-joined the network.", e.InstanceId);
+                        log.Info($"Server {e.InstanceId} re-joined the network");
                     availableInstance[e.InstanceId] = 5;
                     break;
                 case NetworkCode.QUIT:
                     int dummy;
                     availableInstance.TryRemove(e.InstanceId, out dummy);
-                    log.InfoFormat("Server '{0}' quited the network.", e.InstanceId);
+                    log.Info($"Server {e.InstanceId} quited the network");
                     break;
             }
         }

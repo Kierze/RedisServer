@@ -6,7 +6,7 @@ namespace wServer.realm.commands
 {
     internal class CommandSetpiece : Command
     {
-        public CommandSetpiece() : base("setpiece", permLevel: 1)
+        public CommandSetpiece() : base("setpiece", 1)
         {
         }
 

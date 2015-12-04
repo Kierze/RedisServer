@@ -23,8 +23,8 @@ namespace wServer.realm.worlds
 
         protected override void Init()
         {
-            log.InfoFormat("Initializing Game World {0}({1}) from map {2}...", Id, Name, mapId);
-            base.FromWorldMap(typeof(RealmManager).Assembly.GetManifestResourceStream("wServer.realm.worlds.world" + mapId + ".wmap"));
+            log.Info($"Initializing Game World {Id} ({Name}) from map {mapId}");
+            FromWorldMap(typeof(RealmManager).Assembly.GetManifestResourceStream("wServer.realm.worlds.world" + mapId + ".wmap"));
             SetPieces.ApplySetPieces(this);
             if (oryxPresent)
             {

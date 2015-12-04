@@ -130,10 +130,7 @@ namespace wServer
             wtr.Write(ObjectType);
         }
 
-        public override string ToString()
-        {
-            return string.Format("{{ObjectId: {0}, SlotId: {1}, ObjectType: {2}}}", ObjectId, SlotId, ObjectType);
-        }
+        public override string ToString() => $"{{ObjectId: {ObjectId}, SlotId: {SlotId}, ObjectType: {ObjectType}}}";
     }
 
     public struct TimedPosition
@@ -155,10 +152,7 @@ namespace wServer
             Position.Write(wtr);
         }
 
-        public override string ToString()
-        {
-            return string.Format("{{Time: {0}, Position: {1}}}", Time, Position);
-        }
+        public override string ToString() => $"{{Time: {Time}, Position: {Position}}}";
     }
 
     public struct Position
@@ -180,10 +174,7 @@ namespace wServer
             wtr.Write(Y);
         }
 
-        public override string ToString()
-        {
-            return string.Format("{{X: {0}, Y: {1}}}", X, Y);
-        }
+        public override string ToString() => $"{{X: {X}, Y: {Y}}}";
     }
 
     public struct ObjectDef
