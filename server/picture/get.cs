@@ -1,8 +1,5 @@
-﻿using System.Collections.Specialized;
-using System.IO;
-using System.Net;
+﻿using System.IO;
 using System.Text;
-using System.Web;
 
 namespace server.picture
 {
@@ -10,20 +7,16 @@ namespace server.picture
     {
         private byte[] buff = new byte[0x10000];
 
-        public override void HandleRequest(HttpListenerContext context)
+        protected override void HandleRequest()
         {
-            NameValueCollection query;
-            using (StreamReader rdr = new StreamReader(context.Request.InputStream))
-                query = HttpUtility.ParseQueryString(rdr.ReadToEnd());
-
             //warning: maybe has hidden url injection
-            string id = query["id"];
+            string id = Query["id"];
             foreach (var i in id)
             {
                 if (char.IsLetter(i) || i == '_' || i == '-') continue;
 
                 byte[] status = Encoding.UTF8.GetBytes("<Error>Invalid ID.</Error>");
-                context.Response.OutputStream.Write(status, 0, status.Length);
+                Context.Response.OutputStream.Write(status, 0, status.Length);
                 return;
             }
 
@@ -31,16 +24,16 @@ namespace server.picture
             if (!File.Exists(path))
             {
                 byte[] status = Encoding.UTF8.GetBytes("<Error>Invalid ID.</Error>");
-                context.Response.OutputStream.Write(status, 0, status.Length);
+                Context.Response.OutputStream.Write(status, 0, status.Length);
                 return;
             }
 
-            context.Response.ContentType = "image/png";
+            Context.Response.ContentType = "image/png";
             using (var i = File.OpenRead(path))
             {
                 int c;
                 while ((c = i.Read(buff, 0, buff.Length)) > 0)
-                    context.Response.OutputStream.Write(buff, 0, c);
+                    Context.Response.OutputStream.Write(buff, 0, c);
             }
         }
     }

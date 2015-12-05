@@ -1,42 +1,53 @@
 ﻿using common;
-using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
 using System.Net;
-using System.Text;
+using System.Web;
 
 namespace server
 {
-    internal abstract class RequestHandler
+    public abstract class RequestHandler
     {
-        public abstract void HandleRequest(HttpListenerContext context);
+        protected NameValueCollection Query { get; private set; }
+        protected HttpListenerContext Context { get; private set; }
+        protected Database Database => Program.Database;
 
-        protected Database Database { get { return Program.Database; } }
-
-        protected void Write(HttpListenerContext txt, string val)
+        public void HandleRequest(HttpListenerContext context)
         {
-            var buff = Encoding.UTF8.GetBytes(val);
-            txt.Response.OutputStream.Write(buff, 0, buff.Length);
+            this.Context = context;
+            if (ParseQueryString())
+            {
+                Query = new NameValueCollection();
+                using (var reader = new StreamReader(context.Request.InputStream))
+                    Query = HttpUtility.ParseQueryString(reader.ReadToEnd());
+
+                if (Query.AllKeys.Length == 0)
+                {
+                    string currurl = context.Request.RawUrl;
+                    int iqs = currurl.IndexOf('?');
+                    if (iqs >= 0)
+                        Query = HttpUtility.ParseQueryString((iqs < currurl.Length - 1) ? currurl.Substring(iqs + 1) : string.Empty);
+                }
+            }
+
+            HandleRequest();
         }
-    }
 
-    internal static class RequestHandlers
-    {
-        public static readonly Dictionary<string, RequestHandler> Handlers = new Dictionary<string, RequestHandler>()
+        public void WriteLine(string value, params object[] args)
         {
-            { "/crossdomain.xml", new crossdomain() },
-            { "/char/list", new @char.list() },
-            { "/char/delete", new @char.delete() },
-            { "/char/fame", new @char.fame() },
-            { "/account/register", new account.register() },
-            { "/account/verify", new account.verify() },
-            { "/account/forgotPassword", new account.forgotPassword() },
-            { "/account/sendVerifyEmail", new account.sendVerifyEmail() },
-            { "/account/changePassword", new account.changePassword() },
-            { "/account/purchaseCharSlot", new account.purchaseCharSlot() },
-            { "/account/setName", new account.setName() },
-            { "/credits/getoffers", new credits.getoffers() },
-            { "/credits/add", new credits.add() },
-            { "/fame/list", new fame.list() },
-            { "/picture/get", new picture.get() },
-        };
+            using (var writer = new StreamWriter(Context.Response.OutputStream))
+                if (args == null || args.Length == 0) writer.Write(value);
+                else writer.Write(value, args);
+        }
+
+        public void WriteErrorLine(string value, params object[] args)
+        {
+            using (var writer = new StreamWriter(Context.Response.OutputStream))
+                writer.Write("<Error>" + value + "</Error>", args);
+        }
+
+        protected virtual bool ParseQueryString() => true;
+
+        protected abstract void HandleRequest();
     }
 }

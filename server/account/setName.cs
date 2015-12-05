@@ -1,23 +1,15 @@
 ﻿using common;
-using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Web;
 
 namespace server.account
 {
     internal class setName : RequestHandler
     {
-        public override void HandleRequest(HttpListenerContext context)
+        protected override void HandleRequest()
         {
-            NameValueCollection query;
-            using (StreamReader rdr = new StreamReader(context.Request.InputStream))
-                query = HttpUtility.ParseQueryString(rdr.ReadToEnd());
-
-            string name = query["name"];
+            string name = Query["name"];
             if (name.Length < 3 || name.Length > 15 || !name.All(x => char.IsLetter(x) || char.IsNumber(x)))
-                Write(context, "<Error>Invalid name</Error>");
+                WriteErrorLine("Invalid name");
             else
             {
                 string key = Database.NAME_LOCK;
@@ -28,32 +20,32 @@ namespace server.account
 
                     if (Database.Hashes.Exists(0, "names", name.ToUpperInvariant()).Exec())
                     {
-                        Write(context, "<Error>Duplicated name</Error>");
+                        WriteErrorLine("Duplicated name");
                         return;
                     }
 
                     DbAccount acc;
-                    var status = Database.Verify(query["guid"], query["password"], out acc);
+                    var status = Database.Verify(Query["guid"], Query["password"], out acc);
                     if (status == LoginStatus.OK)
                     {
                         using (var l = Database.Lock(acc))
                             if (Database.LockOk(l))
                             {
                                 if (acc.NameChosen && acc.Credits < 1000)
-                                    Write(context, "<Error>Not enough credits</Error>");
+                                    WriteErrorLine("Not enough credits");
                                 else
                                 {
                                     if (acc.NameChosen)
                                         Database.UpdateCredit(acc, -1000);
                                     while (!Database.RenameIGN(acc, name, lockToken)) ;
-                                    Write(context, "<Success />");
+                                    WriteLine("<Success />");
                                 }
                             }
                             else
-                                Write(context, "<Error>Account in Use</Error>");
+                                WriteErrorLine("Account in use");
                     }
                     else
-                        Write(context, "<Error>" + status.GetInfo() + "</Error>");
+                        WriteErrorLine(status.GetInfo());
                 }
                 finally
                 {

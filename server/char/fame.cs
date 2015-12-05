@@ -1,33 +1,25 @@
 ﻿using common;
-using System.Collections.Specialized;
-using System.IO;
-using System.Net;
-using System.Web;
 
 namespace server.@char
 {
     internal class fame : RequestHandler
     {
-        public override void HandleRequest(HttpListenerContext context)
+        protected override void HandleRequest()
         {
-            NameValueCollection query;
-            using (StreamReader rdr = new StreamReader(context.Request.InputStream))
-                query = HttpUtility.ParseQueryString(rdr.ReadToEnd());
-
-            DbChar character = Database.LoadCharacter(int.Parse(query["accountId"]), int.Parse(query["charId"]));
+            DbChar character = Database.LoadCharacter(int.Parse(Query["accountId"]), int.Parse(Query["charId"]));
             if (character == null)
             {
-                Write(context, "<Error>Invalid character</Error>");
+                WriteErrorLine("Invalid character");
                 return;
             }
 
             Fame fame = Fame.FromDb(character);
             if (fame == null)
             {
-                Write(context, "<Error>Character not dead</Error>");
+                WriteErrorLine("Character not dead");
                 return;
             }
-            Write(context, fame.ToXml().ToString());
+            WriteLine(fame.ToXml().ToString());
         }
     }
 }

@@ -1,13 +1,10 @@
-﻿using System.Net;
-
-namespace server.credits
+﻿namespace server.credits
 {
     internal class getoffers : RequestHandler
     {
-        public override void HandleRequest(HttpListenerContext context)
+        protected override void HandleRequest()
         {
-            Write(context,
-"<Offers><Tok>WUT</Tok><Exp>STH</Exp><Offer><Id>0</Id><Price>0</Price><RealmGold>1000</RealmGold><CheckoutJWT>1000</CheckoutJWT><Data>YO</Data><Currency>HKD</Currency></Offer></Offers>");
+            WriteLine("<Offers><Tok>WUT</Tok><Exp>STH</Exp><Offer><Id>0</Id><Price>0</Price><RealmGold>1000</RealmGold><CheckoutJWT>1000</CheckoutJWT><Data>YO</Data><Currency>HKD</Currency></Offer></Offers>");
         }
     }
 }

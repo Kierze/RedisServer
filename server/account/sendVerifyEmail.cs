@@ -1,12 +1,10 @@
-﻿using System.Net;
-
-namespace server.account
+﻿namespace server.account
 {
     internal class sendVerifyEmail : RequestHandler
     {
-        public override void HandleRequest(HttpListenerContext context)
+        protected override void HandleRequest()
         {
-            Write(context, "<Error>Nope.</Error>");
+            WriteErrorLine("Not implemented");
         }
     }
 }

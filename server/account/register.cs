@@ -1,11 +1,7 @@
 ﻿using common;
 using System;
-using System.Collections.Specialized;
 using System.Globalization;
-using System.IO;
-using System.Net;
 using System.Text.RegularExpressions;
-using System.Web;
 
 namespace server.account
 {
@@ -46,14 +42,10 @@ namespace server.account
                       RegexOptions.IgnoreCase);
         }
 
-        public override void HandleRequest(HttpListenerContext context)
+        protected override void HandleRequest()
         {
-            NameValueCollection query;
-            using (StreamReader rdr = new StreamReader(context.Request.InputStream))
-                query = HttpUtility.ParseQueryString(rdr.ReadToEnd());
-
-            if (!IsValidEmail(query["newGUID"]))
-                Write(context, "<Error>Invalid email</Error>");
+            if (!IsValidEmail(Query["newGUID"]))
+                WriteErrorLine("Invalid email");
             else
             {
                 string key = Database.REG_LOCK;
@@ -63,21 +55,21 @@ namespace server.account
                     while ((lockToken = Database.AcquireLock(key)) == null) ;
 
                     DbAccount acc;
-                    var status = Database.Verify(query["guid"], "", out acc);
+                    var status = Database.Verify(Query["guid"], "", out acc);
                     if (status == LoginStatus.OK)
                     {
                         //what? can register in game? kill the account lock
-                        Database.RenameUUID(acc, query["newGUID"], lockToken);
-                        Database.ChangePassword(acc.UUID, query["newPassword"]);
-                        Write(context, "<Success />");
+                        Database.RenameUUID(acc, Query["newGUID"], lockToken);
+                        Database.ChangePassword(acc.UUID, Query["newPassword"]);
+                        WriteLine("<Success />");
                     }
                     else
                     {
-                        var s = Database.Register(query["newGUID"], query["newPassword"], false, out acc);
+                        var s = Database.Register(Query["newGUID"], Query["newPassword"], false, out acc);
                         if (s == RegisterStatus.OK)
-                            Write(context, "<Success />");
+                            WriteLine("<Success />");
                         else
-                            Write(context, "<Error>" + s.GetInfo() + "</Error>");
+                            WriteErrorLine(s.GetInfo());
                     }
                 }
                 finally

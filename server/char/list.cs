@@ -1,10 +1,6 @@
 ﻿using common;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Net;
-using System.Web;
 
 namespace server.@char
 {
@@ -21,37 +17,33 @@ namespace server.@char
         {
             var ret = new List<ServerItem>();
             int num = Program.Settings.GetValue<int>("svrNum");
-            for (int i = 0; i < num; i++)
+            for (int i = 0; i < Math.Min(num, 1); i++)
                 ret.Add(new ServerItem()
                 {
-                    Name = Program.Settings.GetValue("svr" + i + "Name"),
-                    Lat = Program.Settings.GetValue<int>("svr" + i + "Lat", "0"),
-                    Long = Program.Settings.GetValue<int>("svr" + i + "Long", "0"),
-                    DNS = Program.Settings.GetValue("svr" + i + "Adr", "127.0.0.1"),
+                    Name = Program.Settings.GetValue($"svr{i}Name", "Redis"),
+                    Lat = Program.Settings.GetValue<int>($"svr{i}Lat", "0"),
+                    Long = Program.Settings.GetValue<int>($"svr{i}Long", "0"),
+                    DNS = Program.Settings.GetValue($"svr{i}Adr", "127.0.0.1"),
                     Usage = 0.2,
-                    AdminOnly = Program.Settings.GetValue<bool>("svr" + i + "Admin", "false")
+                    AdminOnly = Program.Settings.GetValue<bool>($"svr{i}Admin", "false")
                 });
             return ret;
         }
 
-        public override void HandleRequest(HttpListenerContext context)
+        protected override void HandleRequest()
         {
-            NameValueCollection query;
-            using (StreamReader rdr = new StreamReader(context.Request.InputStream))
-                query = HttpUtility.ParseQueryString(rdr.ReadToEnd());
-
             DbAccount acc;
-            var status = Database.Verify(query["guid"], query["password"], out acc);
+            var status = Database.Verify(Query["guid"], Query["password"], out acc);
             if (status == LoginStatus.OK || status == LoginStatus.AccountNotExists)
             {
                 if (status == LoginStatus.AccountNotExists)
-                    acc = Database.CreateGuestAccount(query["guid"]);
+                    acc = Database.CreateGuestAccount(Query["guid"]);
                 var list = CharList.FromDb(Database, acc);
                 list.Servers = GetServerList();
-                Write(context, list.ToXml().ToString());
+                WriteLine(list.ToXml().ToString());
             }
             else
-                Write(context, "<Error>" + status.GetInfo() + "</Error>");
+                WriteErrorLine(status.GetInfo());
         }
     }
 }

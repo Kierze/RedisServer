@@ -1,28 +1,20 @@
 ﻿using common;
-using System.Collections.Specialized;
-using System.IO;
-using System.Net;
-using System.Web;
 
 namespace server.account
 {
     internal class changePassword : RequestHandler
     {
-        public override void HandleRequest(HttpListenerContext context)
+        protected override void HandleRequest()
         {
-            NameValueCollection query;
-            using (StreamReader rdr = new StreamReader(context.Request.InputStream))
-                query = HttpUtility.ParseQueryString(rdr.ReadToEnd());
-
             DbAccount acc;
-            var status = Database.Verify(query["guid"], query["password"], out acc);
+            var status = Database.Verify(Query["guid"], Query["password"], out acc);
             if (status == LoginStatus.OK)
             {
-                Database.ChangePassword(query["guid"], query["newPassword"]);
-                Write(context, "<Success />");
+                Database.ChangePassword(Query["guid"], Query["newPassword"]);
+                WriteLine("<Success />");
             }
             else
-                Write(context, "<Error>" + status.GetInfo() + "</Error>");
+                WriteErrorLine(status.GetInfo());
         }
     }
 }

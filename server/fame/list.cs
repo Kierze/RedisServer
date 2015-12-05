@@ -1,29 +1,21 @@
 ﻿using common;
-using System.Collections.Specialized;
-using System.IO;
-using System.Net;
-using System.Web;
 
 namespace server.fame
 {
     internal class list : RequestHandler
     {
-        public override void HandleRequest(HttpListenerContext context)
+        protected override void HandleRequest()
         {
-            NameValueCollection query;
-            using (StreamReader rdr = new StreamReader(context.Request.InputStream))
-                query = HttpUtility.ParseQueryString(rdr.ReadToEnd());
-
             DbChar character = null;
-            if (query["accountId"] != null)
+            if (Query["accountId"] != null)
             {
                 character = Database.LoadCharacter(
-                    int.Parse(query["accountId"]),
-                    int.Parse(query["charId"])
+                    int.Parse(Query["accountId"]),
+                    int.Parse(Query["charId"])
                 );
             }
-            FameList list = FameList.FromDb(Database, query["timespan"], character);
-            Write(context, list.ToXml().ToString());
+            FameList list = FameList.FromDb(Database, Query["timespan"], character);
+            WriteLine(list.ToXml().ToString());
         }
     }
 }

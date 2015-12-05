@@ -88,6 +88,9 @@
     <Compile Include="account\forgotPassword.cs" />
     <Compile Include="account\verify.cs" />
     <Compile Include="account\register.cs" />
+    <Compile Include="app\getLanguageStrings.cs" />
+    <Compile Include="app\globalNews.cs" />
+    <Compile Include="app\init.cs" />
     <Compile Include="char\fame.cs" />
     <Compile Include="char\list.cs" />
     <Compile Include="char\delete.cs" />
@@ -102,6 +105,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sfx.cs" />
     <Compile Include="XmlModels.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +133,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="text\init.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="text\news.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="text\strings.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="server.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
