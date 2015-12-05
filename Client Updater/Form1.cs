@@ -1,8 +1,7 @@
-﻿using System;
+﻿using MetroFramework.Forms;
+using System;
 using System.Net;
 using System.Text;
-using System.Windows.Forms;
-using MetroFramework.Forms;
 
 namespace Client_Updater
 {
@@ -16,7 +15,9 @@ namespace Client_Updater
         }
 
         private void localhost_btn_Click(object sender, EventArgs e) => runUpdater("127.0.0.1:8880");
+
         private void c453_btn_Click(object sender, EventArgs e) => runUpdater("25.108.113.162");
+
         private void button1_Click(object sender, EventArgs e) => runUpdater("71.231.167.96");
 
         private void runUpdater(string ip)
