@@ -21,7 +21,7 @@ namespace wServer.logic.behaviors
 
         public SpawnGroup(string group, int maxChildren = 5, double initialSpawn = 0.5, Cooldown coolDown = new Cooldown())
         {
-            this.children = BehaviorDb.InitGameData.ObjectDescs.Values
+            children = BehaviorDb.InitGameData.ObjectDescs.Values
                 .Where(x => x.Group == group)
                 .Select(x => x.ObjectType).ToArray();
             this.maxChildren = maxChildren;

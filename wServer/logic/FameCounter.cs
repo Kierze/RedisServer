@@ -16,8 +16,8 @@ namespace wServer.logic
         public FameCounter(Player player)
         {
             this.player = player;
-            this.Stats = FameStats.Read(player.Client.Character.FameStats);
-            this.ClassStats = new DbClassStats(player.Client.Account);
+            Stats = FameStats.Read(player.Client.Character.FameStats);
+            ClassStats = new DbClassStats(player.Client.Account);
         }
 
         private HashSet<Projectile> projs = new HashSet<Projectile>();

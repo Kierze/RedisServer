@@ -25,7 +25,7 @@ namespace wServer.logic
         {
             log.Info("Initializing Behavior Database...");
 
-            this.Manager = manager;
+            Manager = manager;
 
             Definitions = new Dictionary<ushort, Tuple<State, Loot>>();
 

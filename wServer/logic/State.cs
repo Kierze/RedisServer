@@ -12,7 +12,7 @@ namespace wServer.logic
 
         public State(string name, params IStateChildren[] children)
         {
-            this.Name = name;
+            Name = name;
             States = new List<State>();
             Behaviors = new List<Behavior>();
             Transitions = new List<Transition>();
@@ -57,7 +57,7 @@ namespace wServer.logic
         public bool Is(State state)
         {
             if (this == state) return true;
-            else if (this.Parent != null) return this.Parent.Is(state);
+            else if (Parent != null) return Parent.Is(state);
             else return false;
         }
 
@@ -106,8 +106,8 @@ namespace wServer.logic
     {
         public BehaviorEventArgs(Entity host, RealmTime time)
         {
-            this.Host = host;
-            this.Time = time;
+            Host = host;
+            Time = time;
         }
 
         public Entity Host { get; private set; }

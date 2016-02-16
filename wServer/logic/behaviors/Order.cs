@@ -15,7 +15,7 @@ namespace wServer.logic.behaviors
         {
             this.range = range;
             this.children = BehaviorDb.InitGameData.IdToObjectType[children];
-            this.targetStateName = targetState;
+            targetStateName = targetState;
         }
 
         private static State FindState(State state, string name)
@@ -33,7 +33,7 @@ namespace wServer.logic.behaviors
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
             if (targetState == null)
-                this.targetState = FindState(host.Manager.Behaviors.Definitions[this.children].Item1, targetStateName);
+                targetState = FindState(host.Manager.Behaviors.Definitions[children].Item1, targetStateName);
             foreach (var i in host.GetNearestEntities(range, children))
                 if (!i.CurrentState.Is(targetState))
                     i.SwitchTo(targetState);

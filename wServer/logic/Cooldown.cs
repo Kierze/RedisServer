@@ -9,8 +9,8 @@ namespace wServer.logic
 
         public Cooldown(int cooldown, int variance)
         {
-            this.CoolDown = cooldown;
-            this.Variance = variance;
+            CoolDown = cooldown;
+            Variance = variance;
         }
 
         public Cooldown Normalize()

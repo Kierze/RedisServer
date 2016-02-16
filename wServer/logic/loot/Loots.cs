@@ -11,8 +11,8 @@ namespace wServer.logic.loot
     {
         public LootDef(Item item, double probabilty)
         {
-            this.Item = item;
-            this.Probabilty = probabilty;
+            Item = item;
+            Probabilty = probabilty;
         }
 
         public readonly Item Item;
@@ -129,7 +129,7 @@ namespace wServer.logic.loot
                 ShowBag(enemy, ownerIds, bagType, items);
         }
 
-        private static void ShowBag(Enemy enemy, int[] owners, int bagType, Item[] items)
+        private static void ShowBag(Enemy enemy, string[] owners, int bagType, Item[] items)
         {
             ushort bag = 0x0500;
             switch (bagType)
