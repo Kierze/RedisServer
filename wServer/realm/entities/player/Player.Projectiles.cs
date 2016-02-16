@@ -10,7 +10,7 @@ namespace wServer.realm.entities
         {
             projectileId = id;
             return CreateProjectile(desc, objType,
-                (int)statsMgr.GetAttackDamage(desc.MinDamage, desc.MaxDamage),
+                (int)StatsManager.GetAttackDamage(desc.MinDamage, desc.MaxDamage),
                 time + tickMapping, position, angle);
         }
 

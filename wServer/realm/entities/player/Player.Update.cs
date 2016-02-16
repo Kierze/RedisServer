@@ -35,7 +35,7 @@ namespace wServer.realm.entities
             {
                 if (i is Container)
                 {
-                    int[] owners = (i as Container).BagOwners;
+                    string[] owners = (i as Container).BagOwners;
                     if (owners.Length > 0 && Array.IndexOf(owners, AccountId) == -1) continue;
                 }
                 if (MathsUtils.DistSqr(i.X, i.Y, X, Y) <= RADIUS * RADIUS)
@@ -122,7 +122,7 @@ namespace wServer.realm.entities
                 {
                     X = (short)x,
                     Y = (short)y,
-                    Tile = (Tile)tile.TileId
+                    Tile = tile.TileId
                 });
                 tiles[x, y] = tile.UpdateCount;
                 sent++;
@@ -151,7 +151,7 @@ namespace wServer.realm.entities
                 packet.Tiles = list.ToArray();
                 packet.NewObjects = sendEntities.Select(_ => _.ToDefinition()).Concat(newStatics).ToArray();
                 packet.RemovedObjectIds = dropEntities.Concat(removedIds).ToArray();
-                client.SendPacket(packet);
+                Client.SendPacket(packet);
             }
             SendNewTick(time);
         }
@@ -179,7 +179,7 @@ namespace wServer.realm.entities
             p.TickId = tickId;
             p.TickTime = time.thisTickTimes;
             p.UpdateStatuses = sendEntities.Select(_ => _.ExportStats()).ToArray();
-            client.SendPacket(p);
+            Client.SendPacket(p);
 
             SaveToCharacter();
         }

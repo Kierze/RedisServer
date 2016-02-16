@@ -68,7 +68,7 @@ namespace wServer.realm.entities
             if (!HasConditionEffect(ConditionEffects.Paused) &&
                 !HasConditionEffect(ConditionEffects.Stasis))
             {
-                var def = this.ObjectDesc.Defense;
+                var def = ObjectDesc.Defense;
                 if (noDef)
                     def = 0;
                 dmg = (int)StatsManager.GetDefenseDamage(this, dmg, def);
@@ -80,7 +80,7 @@ namespace wServer.realm.entities
                 ApplyConditionEffect(effs);
                 Owner.BroadcastPacket(new DamagePacket()
                 {
-                    TargetId = this.Id,
+                    TargetId = Id,
                     Effects = 0,
                     Damage = (ushort)dmg,
                     Killed = HP < 0,
@@ -110,7 +110,7 @@ namespace wServer.realm.entities
                 !HasConditionEffect(ConditionEffects.Paused) &&
                 !HasConditionEffect(ConditionEffects.Stasis))
             {
-                var def = this.ObjectDesc.Defense;
+                var def = ObjectDesc.Defense;
                 if (projectile.Descriptor.ArmorPiercing)
                     def = 0;
                 int dmg = (int)StatsManager.GetDefenseDamage(this, projectile.Damage, def);
@@ -119,7 +119,7 @@ namespace wServer.realm.entities
                 ApplyConditionEffect(projectile.Descriptor.Effects);
                 Owner.BroadcastPacket(new DamagePacket()
                 {
-                    TargetId = this.Id,
+                    TargetId = Id,
                     Effects = projectile.ConditionEffects,
                     Damage = (ushort)dmg,
                     Killed = HP < 0,

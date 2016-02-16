@@ -17,8 +17,9 @@ namespace wServer.realm
         public float GetAttackDamage(int min, int max)
         {
             var att = GetStats(2);
-            if (player.HasConditionEffect(ConditionEffects.Paralyzed))
-                att = 0;
+
+            if (player.HasConditionEffect(ConditionEffects.Weak))
+                return 0.5f;
 
             var ret = player.Random.Next(min, max) * (0.5f + att / 50f);
 
@@ -90,14 +91,15 @@ namespace wServer.realm
             var vit = GetStats(5);
             if (player.HasConditionEffect(ConditionEffects.Sick))
                 vit = 0;
-            return 1 + vit / 8f;
+            return 1 + 0.12f * vit;
         }
 
         public float GetMPRegen()
         {
+            int wis = GetStats(6);
             if (player.HasConditionEffect(ConditionEffects.Quiet))
                 return 0;
-            return 0.6f + GetStats(6) / 125f;
+            return 0.5f + 0.06f * wis;
         }
 
         public float GetDex()

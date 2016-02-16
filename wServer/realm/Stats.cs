@@ -4,7 +4,8 @@
     {
         Gold = 0,
         Fame = 1,
-        GuildFame = 2
+        GuildFame = 2,
+        FortuneTokens = 3
     }
 
     public enum StatsType : byte
@@ -82,5 +83,38 @@
         Guild = 62,
         GuildRank = 63,
         OxygenBar = 64,
+        XpBoosterActive = 65,
+        XpBoosterTime = 66,
+        LootDropBoostTimer = 67,
+        LootTierBoostTimer = 68,
+        HealStackCount = 69,
+        MagicStackCount = 70,
+        Backpack0 = 71,
+        Backpack1 = 72,
+        Backpack2 = 73,
+        Backpack3 = 74,
+        Backpack4 = 75,
+        Backpack5 = 76,
+        Backpack6 = 77,
+        Backpack7 = 78,
+        Has_Backpack = 79,
+        Skin = 80,
+        PetId = 81,
+        PetSkin = 82, //Is UTF
+        PetType = 83,
+        PetRarity = 84,
+        PetMaximumLevel = 85,
+        PetNothing = 86, //This does do nothing in the client
+        PetPoints0 = 87,
+        PetPoints1 = 88,
+        PetPoints2 = 89,
+        PetLevel0 = 90,
+        PetLevel1 = 91,
+        PetLevel2 = 92,
+        PetAbilityType0 = 93,
+        PetAbilityType1 = 94,
+        PetAbilityType2 = 95,
+        Effects2 = 96,
+        Tokens = 97,
     }
 }

@@ -21,7 +21,7 @@ namespace wServer.realm
         {
             log.Info("Initalizing Portal Monitor...");
             this.manager = manager;
-            this.nexus = manager.Worlds[World.NEXUS_ID] as Nexus;
+            nexus = manager.Worlds[World.NEXUS_ID] as Nexus;
             lock (worldLock)
                 foreach (var i in manager.Worlds)
                 {

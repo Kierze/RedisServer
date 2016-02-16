@@ -23,7 +23,7 @@ namespace wServer.realm
     {
         public TimeEventArgs(RealmTime time)
         {
-            this.Time = time;
+            Time = time;
         }
 
         public RealmTime Time { get; private set; }
@@ -48,17 +48,17 @@ namespace wServer.realm
 
         public RealmManager(int maxClient, int tps, Database db)
         {
-            this.InstanceId = Guid.NewGuid().ToString();
-            this.MaxClient = maxClient;
-            this.TPS = tps;
-            this.Database = db;
+            InstanceId = Guid.NewGuid().ToString();
+            MaxClient = maxClient;
+            TPS = tps;
+            Database = db;
         }
 
         private int nextWorldId = 0;
         private int nextClientId = 0;
         public readonly ConcurrentDictionary<int, World> Worlds = new ConcurrentDictionary<int, World>();
         public readonly ConcurrentDictionary<int, Client> Clients = new ConcurrentDictionary<int, Client>();
-        public ConcurrentDictionary<int, World> PlayerWorldMapping = new ConcurrentDictionary<int, World>();
+        public ConcurrentDictionary<string, World> PlayerWorldMapping = new ConcurrentDictionary<string, World>();
 
         public RealmPortalMonitor Monitor { get; private set; }
 
@@ -153,8 +153,8 @@ namespace wServer.realm
         {
             log.Info("Initializing Realm Manager...");
 
-            this.GameData = new XmlData();
-            this.Behaviors = new BehaviorDb(this);
+            GameData = new XmlData();
+            Behaviors = new BehaviorDb(this);
 
             AddWorld(World.NEXUS_ID, Worlds[0] = new Nexus());
             Monitor = new RealmPortalMonitor(this);

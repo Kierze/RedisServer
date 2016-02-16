@@ -1,11 +1,16 @@
 ﻿using common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using wServer.realm.entities;
 
 namespace wServer.realm.commands
 {
-    internal class CommandDebug : Command
+    internal class DebugCommand : Command
     {
-        public CommandDebug() : base("debug", 1)
+        public DebugCommand() : base("debug", 1)
         {
         }
 

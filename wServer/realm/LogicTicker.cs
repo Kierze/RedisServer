@@ -18,7 +18,7 @@ namespace wServer.realm
 
         public LogicTicker(RealmManager manager)
         {
-            this.Manager = manager;
+            Manager = manager;
             pendings = new ConcurrentQueue<Action<RealmTime>>[5];
             for (int i = 0; i < 5; i++)
                 pendings[i] = new ConcurrentQueue<Action<RealmTime>>();

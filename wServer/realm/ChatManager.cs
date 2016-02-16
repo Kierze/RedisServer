@@ -19,9 +19,9 @@ namespace wServer.realm
 
             public int ObjId;
             public int Stars;
-            public int From;
+            public string From;
 
-            public int To;
+            public string To;
             public string Text;
         }
 
@@ -74,8 +74,8 @@ namespace wServer.realm
 
         public bool Tell(Player src, string target, string text)
         {
-            int id = manager.Database.ResolveId(target);
-            if (id == 0) return false;
+            string id = manager.Database.ResolveId(target);
+            if (id == "0") return false;
 
             int time = manager.Database.GetLockTime(id);
             if (time == -1) return false;

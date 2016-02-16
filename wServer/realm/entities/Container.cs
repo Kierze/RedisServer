@@ -13,7 +13,7 @@ namespace wServer.realm.entities
         {
             Inventory = new Inventory(this);
             SlotTypes = new int[12];
-            BagOwners = new int[0];
+            BagOwners = new string[0];
 
             var node = manager.GameData.ObjectTypeToElement[ObjectType];
             SlotTypes = node.Element("SlotTypes").Value.CommaToArray<int>();
@@ -29,12 +29,12 @@ namespace wServer.realm.entities
         public Container(RealmManager manager, ushort id)
             : base(manager, id, null, false, false, false)
         {
-            BagOwners = new int[0];
+            BagOwners = new string[0];
         }
 
         public int[] SlotTypes { get; private set; }
         public Inventory Inventory { get; private set; }
-        public int[] BagOwners { get; set; }
+        public string[] BagOwners { get; set; }
 
         protected override void ImportStats(StatsType stats, object val)
         {
@@ -71,7 +71,7 @@ namespace wServer.realm.entities
             stats[StatsType.Inventory9] = (Inventory[9] != null ? Inventory[9].ObjectType : -1);
             stats[StatsType.Inventory10] = (Inventory[10] != null ? Inventory[10].ObjectType : -1);
             stats[StatsType.Inventory11] = (Inventory[11] != null ? Inventory[11].ObjectType : -1);
-            stats[StatsType.OwnerAccountId] = BagOwners.Length == 1 ? BagOwners[0] : -1;
+            stats[StatsType.OwnerAccountId] = BagOwners.Length == 1 ? BagOwners[0] : "-1";
             base.ExportStats(stats);
         }
 

@@ -26,7 +26,7 @@ namespace wServer.realm.entities
         public Projectile(RealmManager manager, ProjectileDesc desc)
             : base(manager, manager.GameData.IdToObjectType[desc.ObjectId])
         {
-            this.Descriptor = desc;
+            Descriptor = desc;
         }
 
         public void Destroy(bool immediate)

@@ -155,7 +155,7 @@ namespace wServer.realm.entities
             for (int i = 0; i < item.NumProjectiles; i++)
             {
                 Projectile proj = CreateProjectile(prjDesc, item.ObjectType,
-                    (int)statsMgr.GetAttackDamage(prjDesc.MinDamage, prjDesc.MaxDamage),
+                    (int)StatsManager.GetAttackDamage(prjDesc.MinDamage, prjDesc.MaxDamage),
                     time.tickTimes, new Position() { X = X, Y = Y }, (float)(startAngle + arcGap * i));
                 Owner.EnterWorld(proj);
                 FameCounter.Shoot(proj);
@@ -213,7 +213,7 @@ namespace wServer.realm.entities
                             for (int i = 0; i < 20; i++)
                             {
                                 Projectile proj = CreateProjectile(prjDesc, item.ObjectType,
-                                    (int)statsMgr.GetAttackDamage(prjDesc.MinDamage, prjDesc.MaxDamage),
+                                    (int)StatsManager.GetAttackDamage(prjDesc.MinDamage, prjDesc.MaxDamage),
                                     time.tickTimes, target, (float)(i * (Math.PI * 2) / 20));
                                 Owner.EnterWorld(proj);
                                 FameCounter.Shoot(proj);
@@ -407,7 +407,7 @@ namespace wServer.realm.entities
                         {
                             Move(target.X, target.Y);
                             UpdateCount++;
-                            BroadcastSync(new Packet[]
+                            Owner.BroadcastPackets(new Packet[]
                             {
                                 new GotoPacket()
                                 {
@@ -429,7 +429,7 @@ namespace wServer.realm.entities
                                     },
                                     Color = new ARGB(0xFFFFFFFF)
                                 }
-                            }, p => this.Dist(p) < 25);
+                            }, null);
                         }
                         break;
 
@@ -467,7 +467,7 @@ namespace wServer.realm.entities
                                 ActivateHealHp(player as Player, totalDmg, pkts);
                             });
 
-                            Random rand = new System.Random();
+                            Random rand = new Random();
                             for (int i = 0; i < 5; i++)
                             {
                                 Enemy a = enemies[rand.Next(0, enemies.Count)];
@@ -569,7 +569,7 @@ namespace wServer.realm.entities
 
                     case ActivateEffects.Decoy:
                         {
-                            var decoy = new Decoy(this, eff.DurationMS, statsMgr.GetSpeed());
+                            var decoy = new Decoy(this, eff.DurationMS, StatsManager.GetSpeed());
                             decoy.Move(X, Y);
                             Owner.EnterWorld(decoy);
                         }

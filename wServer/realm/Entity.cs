@@ -16,7 +16,7 @@ namespace wServer.realm
 
         protected Entity(RealmManager manager, ushort objType)
         {
-            this.ObjectType = objType;
+            ObjectType = objType;
             Name = "";
             Size = 100;
             Manager = manager;
@@ -386,7 +386,7 @@ namespace wServer.realm
             foreach (var i in effs)
             {
                 if (i.Effect == ConditionEffectIndex.Stunned &&
-                    HasConditionEffect(ConditionEffects.StunImmume))
+                    HasConditionEffect(ConditionEffects.StunImmune))
                     continue;
                 if (i.Effect == ConditionEffectIndex.Stasis &&
                     HasConditionEffect(ConditionEffects.StasisImmune))

@@ -21,7 +21,7 @@ namespace wServer.realm.entities
                 if (tileDesc.Damaging && (objDesc == null || !objDesc.ProtectFromGroundDamage))
                 {
                     int dmg = Random.Next(tileDesc.MinDamage, tileDesc.MaxDamage);
-                    dmg = (int)statsMgr.GetDefenseDamage(dmg, true);
+                    dmg = (int)StatsManager.GetDefenseDamage(dmg, true);
 
                     HP -= dmg;
                     UpdateCount++;

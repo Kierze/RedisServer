@@ -13,7 +13,7 @@ namespace wServer.realm.entities
             foreach (var i in Owner.Players.Values)
                 foreach (var j in pendingPackets)
                     if (j.Item2(i))
-                        i.client.SendPacket(j.Item1);
+                        i.Client.SendPacket(j.Item1);
             pendingPackets.Clear();
         }
 

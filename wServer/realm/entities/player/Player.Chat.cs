@@ -6,7 +6,7 @@ namespace wServer.realm.entities
     {
         public void SendInfo(string text)
         {
-            client.SendPacket(new TextPacket()
+            Client.SendPacket(new TextPacket()
             {
                 BubbleTime = 0,
                 Stars = -1,
@@ -17,7 +17,7 @@ namespace wServer.realm.entities
 
         public void SendError(string text)
         {
-            client.SendPacket(new TextPacket()
+            Client.SendPacket(new TextPacket()
             {
                 BubbleTime = 0,
                 Stars = -1,
@@ -28,7 +28,7 @@ namespace wServer.realm.entities
 
         public void SendClientText(string text)
         {
-            client.SendPacket(new TextPacket()
+            Client.SendPacket(new TextPacket()
             {
                 BubbleTime = 0,
                 Stars = -1,
@@ -39,7 +39,7 @@ namespace wServer.realm.entities
 
         public void SendHelp(string text)
         {
-            client.SendPacket(new TextPacket()
+            Client.SendPacket(new TextPacket()
             {
                 BubbleTime = 0,
                 Stars = -1,
@@ -50,7 +50,7 @@ namespace wServer.realm.entities
 
         public void SendEnemy(string name, string text)
         {
-            client.SendPacket(new TextPacket()
+            Client.SendPacket(new TextPacket()
             {
                 BubbleTime = 0,
                 Stars = -1,
@@ -61,7 +61,7 @@ namespace wServer.realm.entities
 
         public void SendText(string sender, string text)
         {
-            client.SendPacket(new TextPacket()
+            Client.SendPacket(new TextPacket()
             {
                 BubbleTime = 0,
                 Stars = -1,
@@ -84,7 +84,7 @@ namespace wServer.realm.entities
 
         internal void AnnouncementReceived(string text)
         {
-            client.Player.SendText("@Announcement", text);
+            Client.Player.SendText("@Announcement", text);
         }
 
         internal void GuildReceived(int objId, int stars, string from, string text)

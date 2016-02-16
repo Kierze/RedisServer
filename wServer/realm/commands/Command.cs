@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using wServer.realm.entities;
 
-namespace wServer.realm
+namespace wServer.realm.commands
 {
     public abstract class Command
     {
-        private static ILog log = LogManager.GetLogger(typeof(Command));
+        protected static ILog log = LogManager.GetLogger(typeof(Command));
 
         public Command(string name, int permLevel = 0)
         {

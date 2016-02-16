@@ -35,25 +35,25 @@ namespace wServer.realm.entities
                 return;
             }
 
-            if (this.potentialTrader.ContainsKey(target))
+            if (potentialTrader.ContainsKey(target))
             {
-                this.tradeTarget = target;
-                this.trade = new bool[12];
-                this.tradeAccepted = false;
+                tradeTarget = target;
+                trade = new bool[12];
+                tradeAccepted = false;
                 target.tradeTarget = this;
                 target.trade = new bool[12];
                 target.tradeAccepted = false;
-                this.potentialTrader.Clear();
+                potentialTrader.Clear();
                 target.potentialTrader.Clear();
 
-                TradeItem[] my = new TradeItem[this.Inventory.Length];
-                for (int i = 0; i < this.Inventory.Length; i++)
+                TradeItem[] my = new TradeItem[Inventory.Length];
+                for (int i = 0; i < Inventory.Length; i++)
                     my[i] = new TradeItem()
                     {
-                        Item = this.Inventory[i] == null ? -1 : this.Inventory[i].ObjectType,
-                        SlotType = this.SlotTypes[i],
+                        Item = Inventory[i] == null ? -1 : Inventory[i].ObjectType,
+                        SlotType = SlotTypes[i],
                         Included = false,
-                        Tradeable = (this.Inventory[i] == null || i < 4) ? false : !this.Inventory[i].Soulbound
+                        Tradeable = (Inventory[i] == null || i < 4) ? false : !Inventory[i].Soulbound
                     };
                 TradeItem[] your = new TradeItem[target.Inventory.Length];
                 for (int i = 0; i < target.Inventory.Length; i++)
@@ -65,23 +65,23 @@ namespace wServer.realm.entities
                         Tradeable = (target.Inventory[i] == null || i < 4) ? false : !target.Inventory[i].Soulbound
                     };
 
-                this.client.SendPacket(new TradeStartPacket()
+                Client.SendPacket(new TradeStartPacket()
                 {
                     MyItems = my,
                     YourName = target.Name,
                     YourItems = your
                 });
-                target.client.SendPacket(new TradeStartPacket()
+                target.Client.SendPacket(new TradeStartPacket()
                 {
                     MyItems = your,
-                    YourName = this.Name,
+                    YourName = Name,
                     YourItems = my
                 });
             }
             else
             {
                 target.potentialTrader[this] = 1000 * 20;
-                target.client.SendPacket(new TradeRequestedPacket()
+                target.Client.SendPacket(new TradeRequestedPacket()
                 {
                     Name = Name
                 });
@@ -92,12 +92,12 @@ namespace wServer.realm.entities
 
         public void CancelTrade()
         {
-            this.client.SendPacket(new TradeDonePacket()
+            Client.SendPacket(new TradeDonePacket()
             {
                 Result = 1,
                 Message = "Trade canceled!"
             });
-            tradeTarget.client.SendPacket(new TradeDonePacket()
+            tradeTarget.Client.SendPacket(new TradeDonePacket()
             {
                 Result = 1,
                 Message = "Trade canceled!"
@@ -111,10 +111,10 @@ namespace wServer.realm.entities
             tradeTarget.trade = null;
             tradeTarget.tradeAccepted = false;
             tradeTarget.Inventory.InventoryChanged -= MonitorInventory;
-            this.tradeTarget = null;
-            this.trade = null;
-            this.tradeAccepted = false;
-            this.Inventory.InventoryChanged -= MonitorInventory;
+            tradeTarget = null;
+            trade = null;
+            tradeAccepted = false;
+            Inventory.InventoryChanged -= MonitorInventory;
         }
 
         public void MonitorTrade()

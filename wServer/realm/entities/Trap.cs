@@ -19,8 +19,8 @@ namespace wServer.realm.entities
             this.player = player;
             this.radius = radius;
             this.dmg = dmg;
-            this.effect = eff;
-            this.duration = (int)(effDuration * 1000);
+            effect = eff;
+            duration = (int)(effDuration * 1000);
         }
 
         private int t = 0;

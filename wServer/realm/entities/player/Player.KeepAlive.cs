@@ -22,7 +22,7 @@ namespace wServer.realm.entities
             {
                 sentPing = true;
                 ts.Enqueue(time.tickTimes);
-                client.SendPacket(new PingPacket());
+                Client.SendPacket(new PingPacket());
             }
             else if (time.tickTimes - lastPong > DC_THRESOLD)
             {
@@ -41,8 +41,8 @@ namespace wServer.realm.entities
             tickMapping = ts.Dequeue() - time;
             lastPong = time + tickMapping;
             sentPing = false;
-            if (!Manager.Database.RenewLock(client.Account))
-                client.Disconnect();
+            if (!Manager.Database.RenewLock(Client.Account))
+                Client.Disconnect();
         }
     }
 }

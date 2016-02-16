@@ -14,7 +14,7 @@ namespace wServer.realm.entities
 
         private void SendAccountList(List<int> list, int id)
         {
-            client.SendPacket(new AccountListPacket()
+            Client.SendPacket(new AccountListPacket()
             {
                 AccountListId = id,
                 AccountIds = list.ToArray()

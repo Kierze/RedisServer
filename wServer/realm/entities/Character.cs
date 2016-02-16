@@ -7,7 +7,7 @@
         protected Character(RealmManager manager, ushort objType, wRandom rand)
             : base(manager, objType)
         {
-            this.Random = rand;
+            Random = rand;
 
             if (ObjectDesc != null)
             {

@@ -28,7 +28,7 @@ namespace wServer.realm.entities
         {
             this.player = player;
             this.duration = duration;
-            this.speed = tps;
+            speed = tps;
 
             var history = player.TryGetHistory(100);
             if (history == null)
@@ -75,7 +75,7 @@ namespace wServer.realm.entities
             base.Tick(time);
         }
 
-        public void Damage(int dmg, Character chr)
+        public void Damage(int dmg, Entity chr)
         {
         }
 

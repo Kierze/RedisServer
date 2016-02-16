@@ -19,33 +19,33 @@ namespace wServer.realm
 
         public void InsertAfter(CollisionNode<T> node)
         {
-            if (this.Next != null)
+            if (Next != null)
             {
-                node.Next = this.Next;
-                this.Next.Previous = node;
+                node.Next = Next;
+                Next.Previous = node;
             }
             else
                 node.Next = null;
 
             node.Previous = this;
-            this.Next = node;
+            Next = node;
         }
 
         public CollisionNode<T> Remove()
         {
             CollisionNode<T> ret = null;
-            if (this.Previous != null)
+            if (Previous != null)
             {
-                ret = this.Previous;
-                this.Previous.Next = this.Next;
+                ret = Previous;
+                Previous.Next = Next;
             }
-            if (this.Next != null)
+            if (Next != null)
             {
-                ret = this.Next;
-                this.Next.Previous = this.Previous;
+                ret = Next;
+                Next.Previous = Previous;
             }
-            this.Previous = null;
-            this.Next = null;
+            Previous = null;
+            Next = null;
             return ret;
         }
     }
@@ -189,7 +189,7 @@ namespace wServer.realm
 
         public IEnumerable<T> GetActiveChunks(CollisionMap<T> from)
         {
-            if (from.w != this.w || from.h != this.h)
+            if (from.w != w || from.h != h)
                 throw new ArgumentException("from");
 
             HashSet<T> ret = new HashSet<T>();
@@ -202,7 +202,7 @@ namespace wServer.realm
                             {
                                 if (x + j < 0 || x + j >= cW || y + i < 0 || y + i >= cH)
                                     continue;
-                                var node = this.chunks[x + j, y + i];
+                                var node = chunks[x + j, y + i];
                                 while (node != null)
                                 {
                                     ret.Add((T)node.Parent);

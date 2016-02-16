@@ -144,7 +144,7 @@ namespace wServer.realm.entities
                 {
                     Owner.Timers.Add(new WorldTimer(100, (w, t) =>
                     {
-                        client.SendPacket(new QuestObjIdPacket()
+                        Client.SendPacket(new QuestObjIdPacket()
                         {
                             ObjectID = newQuest.Id
                         });
@@ -191,7 +191,7 @@ namespace wServer.realm.entities
                 ExperienceGoal = GetExpGoal(Level);
                 foreach (XElement i in Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease"))
                 {
-                    Random rand = new System.Random();
+                    Random rand = new Random();
                     int min = int.Parse(i.Attribute("min").Value);
                     int max = int.Parse(i.Attribute("max").Value) + 1;
                     int limit = int.Parse(Manager.GameData.ObjectTypeToElement[ObjectType].Element(i.Value).Attribute("max").Value);

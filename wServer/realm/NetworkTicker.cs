@@ -16,7 +16,7 @@ namespace wServer.realm
 
         public NetworkTicker(RealmManager manager)
         {
-            this.Manager = manager;
+            Manager = manager;
         }
 
         public void AddPendingPacket(Client client, PacketID id, byte[] packet)

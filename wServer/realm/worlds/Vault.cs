@@ -59,7 +59,7 @@ namespace wServer.realm.worlds
             for (int i = 0; i < client.Account.VaultCount; i++)
             {
                 Container con = new Container(client.Manager, 0x0504, null, false);
-                var inv = dbVault[i].Select(x => x == 0xffff ? null : client.Manager.GameData.Items[x]).ToArray();
+                var inv = dbVault[i].Select(x => x == 0xffff ? null : client.Manager.GameData.Items[(ushort)x]).ToArray();
                 for (int j = 0; j < 8; j++)
                     con.Inventory[j] = inv[j];
                 con.Move(vaultChestPosition[0].X + 0.5f, vaultChestPosition[0].Y + 0.5f);
@@ -80,7 +80,7 @@ namespace wServer.realm.worlds
         {
             Container con = new Container(client.Manager, 0x0504, null, false);
             int index = Manager.Database.CreateChest(dbVault);
-            var inv = dbVault[index].Select(x => x == 0xffff ? null : client.Manager.GameData.Items[x]).ToArray();
+            var inv = dbVault[index].Select(x => x == 0xffff ? null : client.Manager.GameData.Items[(ushort)x]).ToArray();
             for (int j = 0; j < 8; j++)
                 con.Inventory[j] = inv[j];
             con.Move(original.X, original.Y);
@@ -102,8 +102,8 @@ namespace wServer.realm.worlds
             foreach (var i in vaultChests)
             {
                 if (i.Key.Item1.UpdateCount > i.Value)
-                {
-                    dbVault[i.Key.Item2] = i.Key.Item1.Inventory.Take(8).Select(_ => _ == null ? (ushort)0xffff : _.ObjectType).ToArray();
+                { 
+                    dbVault[i.Key.Item2] = i.Key.Item1.Inventory.Take(8).Select(_ => _?.ObjectType ?? -1).ToArray();
                     dbVault.Flush();
                     vaultChests[i.Key] = i.Key.Item1.UpdateCount;
                 }

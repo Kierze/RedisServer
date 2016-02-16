@@ -19,7 +19,7 @@ namespace wServer.realm.entities
                 HP -= dmg;
                 Owner.BroadcastPacket(new DamagePacket()
                 {
-                    TargetId = this.Id,
+                    TargetId = Id,
                     Effects = 0,
                     Damage = (ushort)dmg,
                     Killed = !CheckHP(),
