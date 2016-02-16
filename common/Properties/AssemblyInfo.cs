@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("common")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("K")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("common")]
-[assembly: AssemblyCopyright("Copyright © K 2012")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -17,10 +17,13 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("2aacea53-e69f-4e25-8256-a232fceeb005")]
+[assembly: Guid("37af8249-7ec4-41bf-a8f6-2a0cf2157ac7")]
 
-// Version information for an assembly consists of the following four values: // Major Version Minor
-// Version Build Number Revision // You can specify all the values or you can default the Build and
-// Revision Numbers by using the '*' as shown below: [assembly: AssemblyVersion("1.0.*")]
+// Version information for an assembly consists of the following four values:
+// 
+// Major Version Minor Version Build Number Revision
+// 
+// You can specify all the values or you can default the Build and Revision Numbers by using the '*'
+// as shown below: [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

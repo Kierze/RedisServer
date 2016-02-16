@@ -1,16 +1,16 @@
 ﻿using BookSleeve;
 using log4net;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Xml.Linq;
 
 namespace common
 {
     public class Database : RedisConnection
     {
-        private static ILog log = LogManager.GetLogger(typeof(Database));
+        private static ILog log = LogManager.GetLogger(nameof(Database));
 
         public Database(string host, int port, string password)
             : base(host, port, password: password == "" ? null : password)
@@ -19,7 +19,7 @@ namespace common
             Open().Wait();
         }
 
-        private static string[] names = new string[] {
+        private static string[] defaultNames = new string[] {
             "Darq", "Deyst", "Drac", "Drol",
             "Eango", "Eashy", "Eati", "Eendi", "Ehoni",
             "Gharr", "Iatho", "Iawa", "Idrae", "Iri", "Issz", "Itani",
@@ -33,37 +33,39 @@ namespace common
 
         public DbAccount CreateGuestAccount(string uuid)
         {
-            return new DbAccount(this, 0)
+            return new DbAccount(this, "0")
             {
                 UUID = uuid,
-                Name = names[(uint)uuid.GetHashCode() % names.Length],
+                Name = defaultNames[(uint)uuid.GetHashCode() % defaultNames.Length],
                 Admin = false,
                 NameChosen = false,
                 Verified = false,
-                GuildId = -1,
+                Converted = false,
+                GuildId = "-1",
                 GuildRank = -1,
                 VaultCount = 1,
                 MaxCharSlot = 1,
                 RegTime = DateTime.Now,
                 Guest = true,
-
                 Fame = 0,
                 TotalFame = 0,
                 Credits = 1000,
-                TotalCredits = 0
+                FortuneTokens = 0,
+                Gifts = new int[] { 0xae9 },
+                PetYardType = 0,
+                IsAgeVerified = 0,
+                Rank = 0,
             };
         }
 
         public LoginStatus Verify(string uuid, string password, out DbAccount acc)
         {
             acc = null;
-
-            //check login
-            DbLoginInfo info = new DbLoginInfo(this, uuid);
+            var info = new DbLoginInfo(this, uuid);
             if (info.IsNull)
                 return LoginStatus.AccountNotExists;
 
-            byte[] userPass = Utils.SHA1(password + info.Salt);
+            var userPass = Utils.SHA1(password + info.Salt);
             if (Convert.ToBase64String(userPass) != info.HashedPassword)
                 return LoginStatus.InvalidCredentials;
 
@@ -89,19 +91,13 @@ namespace common
             }
         }
 
-        public int GetLockTime(DbAccount acc)
-        {
-            return (int)Keys.TimeToLive(1, "lock." + acc.AccountId).Exec();
-        }
+        public int GetLockTime(DbAccount acc) => (int)Keys.TimeToLive(1, $"lock.{acc.AccountId}").Exec();
 
-        public int GetLockTime(int id)
-        {
-            return (int)Keys.TimeToLive(1, "lock." + id).Exec();
-        }
+        public int GetLockTime(string accId) => (int)Keys.TimeToLive(1, $"lock.{accId}").Exec();
 
         public bool RenewLock(DbAccount acc)
         {
-            string key = "lock." + acc.AccountId;
+            string key = $"lock.{acc.AccountId}";
             using (var trans = CreateTransaction())
             {
                 trans.AddCondition(Condition.KeyEquals(1, key, acc.LockToken));
@@ -112,7 +108,7 @@ namespace common
 
         public void ReleaseLock(DbAccount acc)
         {
-            string key = "lock." + acc.AccountId;
+            string key = $"lock.{acc.AccountId}";
             using (var trans = CreateTransaction())
             {
                 trans.AddCondition(Condition.KeyEquals(1, key, acc.LockToken));
@@ -121,15 +117,9 @@ namespace common
             }
         }
 
-        public IDisposable Lock(DbAccount acc)
-        {
-            return new l(this, acc);
-        }
+        public IDisposable Lock(DbAccount acc) => new l(this, acc);
 
-        public bool LockOk(IDisposable l)
-        {
-            return ((l)l).lockOk;
-        }
+        public bool LockOk(IDisposable l) => ((l)l).lockOk;
 
         private struct l : IDisposable
         {
@@ -195,7 +185,7 @@ namespace common
 
         public bool RenameIGN(DbAccount acc, string newName, string lockToken)
         {
-            if (names.Contains(newName, StringComparer.InvariantCultureIgnoreCase))
+            if (defaultNames.Contains(newName, StringComparer.InvariantCultureIgnoreCase))
                 return false;
             using (var trans = CreateTransaction())
             {
@@ -210,13 +200,13 @@ namespace common
             return true;
         }
 
-        private static RandomNumberGenerator gen = RNGCryptoServiceProvider.Create();
+        private static RandomNumberGenerator gen = RandomNumberGenerator.Create();
 
         public void ChangePassword(string uuid, string password)
         {
-            DbLoginInfo login = new DbLoginInfo(this, uuid);
+            var login = new DbLoginInfo(this, uuid);
 
-            byte[] x = new byte[0x10];
+            var x = new byte[0x10];
             gen.GetNonZeroBytes(x);
             string salt = Convert.ToBase64String(x);
             string hash = Convert.ToBase64String(Utils.SHA1(password + salt));
@@ -234,29 +224,34 @@ namespace common
 
             int newAccId = (int)Strings.Increment(0, "nextAccId").Exec();
 
-            acc = new DbAccount(this, newAccId)
+            acc = new DbAccount(this, newAccId.ToString())
             {
                 UUID = uuid,
-                Name = names[(uint)uuid.GetHashCode() % names.Length],
+                Name = defaultNames[(uint)uuid.GetHashCode() % defaultNames.Length],
+                Rank = 0,
                 Admin = false,
                 NameChosen = false,
                 Verified = false,
-                GuildId = -1,
+                Converted = false,
+                GuildId = "-1",
                 GuildRank = -1,
                 VaultCount = 1,
-                MaxCharSlot = 1,
+                MaxCharSlot = 3,
                 RegTime = DateTime.Now,
                 Guest = true,
                 Fame = 0,
                 TotalFame = 0,
                 Credits = 1000,
-                TotalCredits = 0
+                FortuneTokens = 0,
+                Gifts = new int[] { 0xae9 },
+                PetYardType = 0,
+                IsAgeVerified = 1,
             };
             acc.Flush();
 
-            DbLoginInfo login = new DbLoginInfo(this, uuid);
+            var login = new DbLoginInfo(this, uuid);
 
-            byte[] x = new byte[0x10];
+            var x = new byte[0x10];
             gen.GetNonZeroBytes(x);
             string salt = Convert.ToBase64String(x);
             string hash = Convert.ToBase64String(Utils.SHA1(password + salt));
@@ -266,57 +261,51 @@ namespace common
             login.AccountId = acc.AccountId;
             login.Flush();
 
-            DbClassStats stats = new DbClassStats(acc);
+            var stats = new DbClassStats(acc);
             stats.Flush();
 
-            DbVault vault = new DbVault(acc);
-            vault[0] = Enumerable.Repeat((ushort)0xffff, 8).ToArray();
+            var vault = new DbVault(acc);
+            vault[0] = Enumerable.Repeat(-1, 8).ToArray();
             vault.Flush();
 
             return RegisterStatus.OK;
         }
 
-        public bool HasUUID(string uuid)
-        {
-            return Hashes.Exists(0, "login", uuid.ToUpperInvariant()).Exec();
-        }
+        public bool HasUUID(string uuid) => Hashes.Exists(0, "login", uuid.ToUpperInvariant()).Exec();
 
-        public DbAccount GetAccount(int id)
+        public DbAccount GetAccountById(string id)
         {
             var ret = new DbAccount(this, id);
             if (ret.IsNull) return null;
             return ret;
         }
 
-        public DbAccount GetAccount(string uuid)
+        public DbAccount GetAccountByUUID(string uuid)
         {
-            DbLoginInfo info = new DbLoginInfo(this, uuid);
+            var info = new DbLoginInfo(this, uuid);
             if (info.IsNull)
                 return null;
-            DbAccount ret = new DbAccount(this, info.AccountId);
+            var ret = new DbAccount(this, info.AccountId);
             if (ret.IsNull)
                 return null;
             return ret;
         }
 
-        public int ResolveId(string ign)
+        public string ResolveId(string name)
         {
-            string val = Hashes.GetString(0, "names", ign.ToUpperInvariant()).Exec();
-            if (val == null) return 0;
-            else return int.Parse(val);
+            string val = Hashes.GetString(0, "names", name.ToUpperInvariant()).Exec();
+            if (val == null) return "0";
+            return val;
         }
 
-        public string ResolveIgn(int accId)
-        {
-            return Hashes.GetString(0, "account." + accId, "name").Exec();
-        }
+        public string ResolveIgn(string accId) => Hashes.GetString(0, $"account.{accId}", "name").Exec();
+
+        public string ResolveIgn(DbAccount acc) => Hashes.GetString(0, $"account.{acc.AccountId}", "name").Exec();
 
         public void UpdateCredit(DbAccount acc, int amount)
         {
             if (amount > 0)
-                WaitAll(
-                    Hashes.Increment(0, acc.Key, "totalCredits", amount),
-                    Hashes.Increment(0, acc.Key, "credits", amount));
+                WaitAll(Hashes.Increment(0, acc.Key, "credits", amount));
             else
                 Hashes.Increment(0, acc.Key, "credits", amount).Wait();
             acc.Flush();
@@ -335,22 +324,24 @@ namespace common
             acc.Reload();
         }
 
-        public DbClassStats ReadClassStats(DbAccount acc)
-        {
-            return new DbClassStats(acc);
-        }
+        public DbClassStats ReadClassStats(DbAccount acc) => new DbClassStats(acc);
 
-        public DbVault ReadVault(DbAccount acc)
-        {
-            return new DbVault(acc);
-        }
+        public DbVault ReadVault(DbAccount acc) => new DbVault(acc);
 
         public int CreateChest(DbVault vault)
         {
             int id = (int)Hashes.Increment(0, vault.Account.Key, "vaultCount").Exec();
-            vault[id] = Enumerable.Repeat((ushort)0xffff, 8).ToArray();
+            vault[id] = Enumerable.Repeat(-1, 8).ToArray();
             vault.Flush();
             return id;
+        }
+
+        public DbChar GetAliveCharacter(DbAccount acc)
+        {
+            int chara = 1;
+            foreach (var i in Sets.GetAll(0, "alive." + acc.AccountId).Exec().Reverse())
+                chara = BitConverter.ToInt32(i, 0);
+            return LoadCharacter(acc, chara);
         }
 
         public IEnumerable<int> GetAliveCharacters(DbAccount acc)
@@ -365,16 +356,11 @@ namespace common
                 yield return BitConverter.ToInt32(i, 0);
         }
 
-        public bool IsAlive(DbChar character)
-        {
-            return Sets.Contains(0, "alive." + character.Account.AccountId,
-                                 BitConverter.GetBytes(character.CharId)).Exec();
-        }
+        public bool IsAlive(DbChar character) => Sets.Contains(0, $"alive.{character.Account.AccountId}", BitConverter.GetBytes(character.CharId)).Exec();
 
-        public CreateStatus CreateCharacter(
-            XmlData dat, DbAccount acc, ushort type, out DbChar character)
+        public CreateStatus CreateCharacter(XmlData dat, DbAccount acc, ushort type, int skin, out DbChar character)
         {
-            XElement cls = dat.ObjectTypeToElement[type];
+            var @class = dat.ObjectTypeToElement[type];
 
             if (Sets.GetLength(0, "alive." + acc.AccountId).Exec() >= acc.MaxCharSlot)
             {
@@ -389,22 +375,24 @@ namespace common
                 Level = 1,
                 Experience = 0,
                 Fame = 0,
-                Items = cls.Element("Equipment").Value.CommaToArray<ushort>(),
+                HasBackpack = false,
+                Items = @class.Element("Equipment").Value.Replace("0xa22", "-1").CommaToArray<int>(),
                 Stats = new int[]{
-                    ushort.Parse(cls.Element("MaxHitPoints").Value),
-                    ushort.Parse(cls.Element("MaxMagicPoints").Value),
-                    ushort.Parse(cls.Element("Attack").Value),
-                    ushort.Parse(cls.Element("Defense").Value),
-                    ushort.Parse(cls.Element("Speed").Value),
-                    ushort.Parse(cls.Element("Dexterity").Value),
-                    ushort.Parse(cls.Element("HpRegen").Value),
-                    ushort.Parse(cls.Element("MpRegen").Value),
+                    int.Parse(@class.Element("MaxHitPoints").Value),
+                    int.Parse(@class.Element("MaxMagicPoints").Value),
+                    int.Parse(@class.Element("Attack").Value),
+                    int.Parse(@class.Element("Defense").Value),
+                    int.Parse(@class.Element("Speed").Value),
+                    int.Parse(@class.Element("Dexterity").Value),
+                    int.Parse(@class.Element("HpRegen").Value),
+                    int.Parse(@class.Element("MpRegen").Value),
                 },
-                HP = int.Parse(cls.Element("MaxHitPoints").Value),
-                MP = int.Parse(cls.Element("MaxMagicPoints").Value),
+                HP = int.Parse(@class.Element("MaxHitPoints").Value),
+                MP = int.Parse(@class.Element("MaxMagicPoints").Value),
                 Tex1 = 0,
                 Tex2 = 0,
-                Pet = 0xffff,
+                Skin = skin,
+                Pet = -1,
                 FameStats = new byte[0],
                 CreateTime = DateTime.Now,
                 LastSeen = DateTime.Now
@@ -416,18 +404,21 @@ namespace common
 
         public DbChar LoadCharacter(DbAccount acc, int charId)
         {
-            DbChar ret = new DbChar(acc, charId);
-            if (ret.IsNull) return null;
-            else return ret;
+            var ret = new DbChar(acc, charId);
+            if (ret.IsNull)
+                return null;
+            return ret;
         }
 
-        public DbChar LoadCharacter(int accId, int charId)
+        public DbChar LoadCharacter(string accId, int charId)
         {
-            DbAccount acc = new DbAccount(this, accId);
-            if (acc.IsNull) return null;
-            DbChar ret = new DbChar(acc, charId);
-            if (ret.IsNull) return null;
-            else return ret;
+            var acc = new DbAccount(this, accId);
+            if (acc.IsNull)
+                return null;
+            var ret = new DbChar(acc, charId);
+            if (ret.IsNull)
+                return null;
+            return ret;
         }
 
         public bool SaveCharacter(DbAccount acc, DbChar character, bool lockAcc)
@@ -436,9 +427,9 @@ namespace common
             {
                 if (lockAcc)
                     trans.AddCondition(Condition.KeyEquals(1,
-                        "lock." + acc.AccountId, acc.LockToken));
+                        $"lock.{acc.AccountId}", acc.LockToken));
                 character.Flush(trans);
-                DbClassStats stats = new DbClassStats(acc);
+                var stats = new DbClassStats(acc);
                 stats.Update(character);
                 stats.Flush(trans);
                 return trans.Execute().Exec();
@@ -447,10 +438,10 @@ namespace common
 
         public void DeleteCharacter(DbAccount acc, int charId)
         {
-            Keys.Remove(0, "char." + acc.AccountId + "." + charId);
+            Keys.Remove(0, $"char.{acc.AccountId}.{charId}");
             var buff = BitConverter.GetBytes(charId);
-            Sets.Remove(0, "alive." + acc.AccountId, buff);
-            Lists.Remove(0, "dead." + acc.AccountId, buff);
+            Sets.Remove(0, $"alive.{acc.AccountId}", buff);
+            Lists.Remove(0, $"dead.{acc.AccountId}", buff);
         }
 
         public void Death(XmlData dat, DbAccount acc, DbChar character, FameStats stats, string killer)
@@ -461,7 +452,7 @@ namespace common
             var finalFame = stats.CalculateTotal(dat, character,
                                 new DbClassStats(acc), out firstBorn);
 
-            DbDeath death = new DbDeath(acc, character.CharId);
+            var death = new DbDeath(acc, character.CharId);
             death.ObjectType = character.ObjectType;
             death.Level = character.Level;
             death.TotalFame = finalFame;
@@ -470,19 +461,48 @@ namespace common
             death.DeathTime = DateTime.Now;
             death.Flush();
 
-            byte[] idBuff = BitConverter.GetBytes(character.CharId);
-            Sets.Remove(0, "alive." + acc.AccountId, idBuff);
-            Lists.AddFirst(0, "dead." + acc.AccountId, idBuff);
+            var idBuff = BitConverter.GetBytes(character.CharId);
+            Sets.Remove(0, $"alive.{acc.AccountId}", idBuff);
+            Lists.AddFirst(0, $"dead.{acc.AccountId}", idBuff);
 
             UpdateFame(acc, finalFame);
 
-            DbLegendEntry entry = new DbLegendEntry()
+            var entry = new DbLegendEntry()
             {
                 AccId = acc.AccountId,
                 ChrId = character.CharId,
                 TotalFame = finalFame
             };
             DbLegend.Insert(this, death.DeathTime, entry);
+        }
+
+        public void VerifyAge(DbAccount acc)
+        {
+            Hashes.Set(0, acc.Key, "isAgeVerified", "1");
+            acc.Flush();
+            acc.Reload();
+        }
+
+        public void ChangeClassAvailability(DbAccount acc, XmlData data, ushort type)
+        {
+            int price;
+            if (acc.Credits < (price = data.ObjectDescs[type].UnlockCost))
+                return;
+
+            Hashes.Set(0, $"classAvailability.{acc.AccountId}", type.ToString(),
+                JsonConvert.SerializeObject(new DbClassAvailabilityEntry()
+                {
+                    Id = data.ObjectTypeToId[type],
+                    Restricted = "unrestricted"
+                }));
+            UpdateCredit(acc, -price);
+            acc.Flush();
+            acc.Reload();
+        }
+
+        public void AddToFriendList(DbAccount acc, string friendId)
+        {
+
         }
     }
 }

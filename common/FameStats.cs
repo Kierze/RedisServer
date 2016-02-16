@@ -36,7 +36,7 @@ namespace common
         public static FameStats Read(byte[] bytes)
         {
             var ret = new FameStats();
-            NReader reader = new NReader(new MemoryStream(bytes));
+            var reader = new NReader(new MemoryStream(bytes));
             byte id;
             while (reader.PeekChar() != -1)
             {
@@ -104,8 +104,8 @@ namespace common
                 new Tuple<byte, int>(24, ManorsCompleted),
             };
 
-            MemoryStream ret = new MemoryStream();
-            using (NWriter wtr = new NWriter(ret))
+            var ret = new MemoryStream();
+            using (var wtr = new NWriter(ret))
             {
                 foreach (var i in dat)
                 {
@@ -246,8 +246,7 @@ namespace common
             ),
         };
 
-        public int CalculateTotal(
-            XmlData data, DbChar character, DbClassStats stats, out bool firstBorn)
+        public int CalculateTotal(XmlData data, DbChar character, DbClassStats stats, out bool firstBorn)
         {
             double f = 0;
             foreach (var i in bonusDat)
@@ -255,7 +254,7 @@ namespace common
                     f += i.Item4(character.Fame);
 
             //Well Equiped
-            var bonus = character.Items.Take(4).Where(x => x != 0xffff).Sum(x => data.Items[x].FameBonus) / 100.0;
+            var bonus = character.Items.Take(4).Where(x => x != -1).Sum(x => data.Items[(ushort)x].FameBonus) / 100.0;
             f += character.Fame * bonus;
 
             //First born
@@ -270,8 +269,7 @@ namespace common
             return character.Fame + (int)bonus;
         }
 
-        public int CalculateTotal(
-            XmlData data, DbChar character, bool firstBorn)
+        public int CalculateTotal(XmlData data, DbChar character, bool firstBorn)
         {
             double f = 0;
             foreach (var i in bonusDat)
@@ -279,7 +277,7 @@ namespace common
                     f += i.Item4(character.Fame);
 
             //Well Equiped
-            var bonus = character.Items.Take(4).Where(x => x != 0xffff).Sum(x => data.Items[x].FameBonus) / 100.0;
+            var bonus = character.Items.Take(4).Where(x => x != -1).Sum(x => data.Items[(ushort)x].FameBonus) / 100.0;
             f += character.Fame * bonus;
 
             //First born
@@ -289,15 +287,14 @@ namespace common
             return character.Fame + (int)bonus;
         }
 
-        public IEnumerable<Tuple<string, string, double>> GetBonuses(
-            XmlData data, DbChar character, bool firstBorn)
+        public IEnumerable<Tuple<string, string, double>> GetBonuses(XmlData data, DbChar character, bool firstBorn)
         {
             foreach (var i in bonusDat)
                 if (i.Item3(this, character, character.Fame))
                     yield return Tuple.Create(i.Item1, i.Item2, i.Item4(character.Fame));
 
             //Well Equiped
-            var bonus = character.Items.Take(4).Where(x => x != 0xffff).Sum(x => data.Items[x].FameBonus) / 100.0;
+            var bonus = character.Items.Take(4).Where(x => x != -1).Sum(x => data.Items[(ushort)x].FameBonus) / 100.0;
             if (bonus > 0)
                 yield return Tuple.Create("Well Equipped", "Bonus for equipment", character.Fame * bonus);
 

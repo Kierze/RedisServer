@@ -5,23 +5,23 @@ using System.IO;
 
 namespace common
 {
-    public class SimpleSettings : IDisposable
+    public class Settings : IDisposable
     {
-        private static ILog log = LogManager.GetLogger(typeof(SimpleSettings));
+        private static ILog Logger = LogManager.GetLogger(nameof(Settings));
 
-        private Dictionary<string, string> values;
-        private string id;
-        private string cfgFile;
+        private Dictionary<string, string> values { get; set; }
+        private string id { get; set; }
+        private string cfgFile { get; set; }
 
-        public SimpleSettings(string id)
+        public Settings(string id)
         {
-            log.InfoFormat("Loading settings for '{0}'...", id);
+            Logger.Info($"Loading settings for \"{id}\"...");
 
             values = new Dictionary<string, string>();
             this.id = id;
             cfgFile = Path.Combine(Environment.CurrentDirectory, id + ".cfg");
             if (File.Exists(cfgFile))
-                using (StreamReader rdr = new StreamReader(File.OpenRead(cfgFile)))
+                using (var rdr = new StreamReader(File.OpenRead(cfgFile)))
                 {
                     string line;
                     int lineNum = 1;
@@ -30,7 +30,7 @@ namespace common
                         int i = line.IndexOf(":");
                         if (i == -1)
                         {
-                            log.InfoFormat("Invalid settings at line {0}.", lineNum);
+                            Logger.Info($"Invalid settings at line {lineNum}.");
                             throw new ArgumentException("Invalid settings.");
                         }
                         string val = line.Substring(i + 1);
@@ -39,24 +39,24 @@ namespace common
                             val.Equals("null", StringComparison.InvariantCultureIgnoreCase) ? null : val);
                         lineNum++;
                     }
-                    log.InfoFormat("Settings loaded.");
+                    Logger.Info("Settings loaded.");
                 }
             else
-                log.Info("Settings not found.");
+                Logger.Info("Settings not found.");
         }
 
         public void Dispose()
         {
             try
             {
-                log.InfoFormat("Saving settings for '{0}'...", id);
-                using (StreamWriter writer = new StreamWriter(File.OpenWrite(cfgFile)))
+                Logger.Info($"Saving settings for \"{id}\"...");
+                using (var writer = new StreamWriter(File.OpenWrite(cfgFile)))
                     foreach (var i in values)
-                        writer.WriteLine("{0}:{1}", i.Key, i.Value == null ? "null" : i.Value);
+                        writer.WriteLine($"{i.Key}:{(i.Value == null ? "null" : i.Value)}");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                log.Error("Error when saving settings.", e);
+                Logger.Error("Error when saving settings.", ex);
             }
         }
 
@@ -67,8 +67,8 @@ namespace common
             {
                 if (def == null)
                 {
-                    log.ErrorFormat("Attempt to access nonexistant settings '{0}'.", key);
-                    throw new ArgumentException(string.Format("'{0}' does not exist in settings.", key));
+                    Logger.Error($"Attempt to access nonexistant settings \"{key}\".");
+                    throw new ArgumentException($"\"{key}\" does not exist in settings.");
                 }
                 ret = values[key] = def;
             }
@@ -82,8 +82,8 @@ namespace common
             {
                 if (def == null)
                 {
-                    log.ErrorFormat("Attempt to access nonexistant settings '{0}'.", key);
-                    throw new ArgumentException(string.Format("'{0}' does not exist in settings.", key));
+                    Logger.Error($"Attempt to access nonexistant settings \"{key}\".");
+                    throw new ArgumentException($"\"{key}\" does not exist in settings.");
                 }
                 ret = values[key] = def;
             }

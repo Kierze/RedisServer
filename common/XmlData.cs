@@ -11,74 +11,234 @@ namespace common
 {
     public class XmlData : IDisposable
     {
-        private static string AssemblyDirectory
+        private static string AssemblyDirectory => Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+        private static ILog log = LogManager.GetLogger(nameof(XmlData));
+
+        public XmlData(string path = "resources/xml")
         {
-            get
-            {
-                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-                UriBuilder uri = new UriBuilder(codeBase);
-                string path = Uri.UnescapeDataString(uri.Path);
-                return Path.GetDirectoryName(path);
-            }
-        }
+            ObjectTypeToElement = new ReadOnlyDictionary<ushort, XElement>
+                (typeToElem = new Dictionary<ushort, XElement>());
+            ObjectTypeToId = new ReadOnlyDictionary<ushort, string>
+                (typeToId = new Dictionary<ushort, string>());
+            IdToObjectType = new ReadOnlyDictionary<string, ushort>
+                (idToType = new Dictionary<string, ushort>(StringComparer.InvariantCultureIgnoreCase));
 
-        private static ILog log = LogManager.GetLogger(typeof(XmlData));
+            TileTypeToElement = new ReadOnlyDictionary<ushort, XElement>
+                (typeToTileElem = new Dictionary<ushort, XElement>());
+            TileTypeToId = new ReadOnlyDictionary<ushort, string>
+                (typeToTileId = new Dictionary<ushort, string>());
+            IdToTileType = new ReadOnlyDictionary<string, ushort>
+                (idToTileType = new Dictionary<string, ushort>(StringComparer.InvariantCultureIgnoreCase));
 
-        public XmlData(string path = "data")
-        {
-            ObjectTypeToElement = new ReadOnlyDictionary<ushort, XElement>(
-                type2elem_obj = new Dictionary<ushort, XElement>());
+            Tiles = new ReadOnlyDictionary<ushort, TileDesc>
+                (tiles = new Dictionary<ushort, TileDesc>());
+            Items = new ReadOnlyDictionary<ushort, Item>
+                (items = new Dictionary<ushort, Item>());
+            ObjectDescs = new ReadOnlyDictionary<ushort, ObjectDesc>
+                (objDescs = new Dictionary<ushort, ObjectDesc>());
+            Portals = new ReadOnlyDictionary<ushort, PortalDesc>
+                (portals = new Dictionary<ushort, PortalDesc>());
 
-            ObjectTypeToId = new ReadOnlyDictionary<ushort, string>(
-                type2id_obj = new Dictionary<ushort, string>());
-            IdToObjectType = new ReadOnlyDictionary<string, ushort>(
-                id2type_obj = new Dictionary<string, ushort>(StringComparer.InvariantCultureIgnoreCase));
-
-            TileTypeToElement = new ReadOnlyDictionary<ushort, XElement>(
-                type2elem_tile = new Dictionary<ushort, XElement>());
-
-            TileTypeToId = new ReadOnlyDictionary<ushort, string>(
-                type2id_tile = new Dictionary<ushort, string>());
-            IdToTileType = new ReadOnlyDictionary<string, ushort>(
-                id2type_tile = new Dictionary<string, ushort>(StringComparer.InvariantCultureIgnoreCase));
-
-            Tiles = new ReadOnlyDictionary<ushort, TileDesc>(
-                tiles = new Dictionary<ushort, TileDesc>());
-            Items = new ReadOnlyDictionary<ushort, Item>(
-                items = new Dictionary<ushort, Item>());
-            ObjectDescs = new ReadOnlyDictionary<ushort, ObjectDesc>(
-                objDescs = new Dictionary<ushort, ObjectDesc>());
-            Portals = new ReadOnlyDictionary<ushort, PortalDesc>(
-                portals = new Dictionary<ushort, PortalDesc>());
-
-            this.addition = new XElement("ExtData");
-
-            assign = new AutoAssign(this);
+            addition = new XElement("ExtData");
 
             string basePath = Path.Combine(AssemblyDirectory, path);
-            log.InfoFormat("Loading game data from '{0}'...", basePath);
+            log.Info($"Loading game data from \"{basePath}\"");
             var xmls = Directory.EnumerateFiles(basePath, "*.xml", SearchOption.AllDirectories).ToArray();
             for (int i = 0; i < xmls.Length; i++)
             {
-                log.InfoFormat("Loading '{0}'({1}/{2})...", xmls[i], i + 1, xmls.Length);
-                using (Stream stream = File.OpenRead(xmls[i]))
+                log.Info($"Loading \"{path + xmls[i].Replace(path, "")}\" ({i + 1}/{xmls.Length})");
+                using (var stream = File.OpenRead(xmls[i]))
                     ProcessXml(XElement.Load(stream));
             }
             log.Info("Finish loading game data.");
-            log.InfoFormat("{0} Items", items.Count);
-            log.InfoFormat("{0} Tiles", tiles.Count);
-            log.InfoFormat("{0} Objects", objDescs.Count);
-            log.InfoFormat("{0} Additions", addition.Elements().Count());
+            log.Info($"{items.Count} Items");
+            log.Info($"{tiles.Count} Tiles");
+            log.Info($"{objDescs.Count} Objects");
+            log.Info($"{addition.Elements().Count()} Additions");
         }
 
-        private class AutoAssign : SimpleSettings
-        {
-            private XmlData dat;
-            private ushort nextSignedId;
-            private ushort nextFullId;
+        #region Local
 
-            internal AutoAssign(XmlData dat)
-                : base("autoId")
+        #region Object
+
+        private Dictionary<ushort, XElement> typeToElem { get; set; }
+        private Dictionary<ushort, string> typeToId { get; set; }
+        private Dictionary<string, ushort> idToType { get; set; }
+
+        #endregion
+
+        #region Tile
+
+        private Dictionary<ushort, XElement> typeToTileElem { get; set; }
+        private Dictionary<ushort, string> typeToTileId { get; set; }
+        private Dictionary<string, ushort> idToTileType { get; set; }
+
+        #endregion
+
+        private Dictionary<ushort, TileDesc> tiles;
+        private Dictionary<ushort, Item> items;
+        private Dictionary<ushort, ObjectDesc> objDescs;
+        private Dictionary<ushort, PortalDesc> portals;
+
+        #endregion
+
+        #region Public
+
+        #region Object
+
+        public IDictionary<ushort, XElement> ObjectTypeToElement { get; private set; }
+        public IDictionary<ushort, string> ObjectTypeToId { get; private set; }
+        public IDictionary<string, ushort> IdToObjectType { get; private set; }
+
+        #endregion
+
+        #region Tile
+
+        public IDictionary<ushort, XElement> TileTypeToElement { get; private set; }
+        public IDictionary<ushort, string> TileTypeToId { get; private set; }
+        public IDictionary<string, ushort> IdToTileType { get; private set; }
+
+        #endregion
+
+        public IDictionary<ushort, TileDesc> Tiles { get; private set; }
+        public IDictionary<ushort, Item> Items { get; private set; }
+        public IDictionary<ushort, ObjectDesc> ObjectDescs { get; private set; }
+        public IDictionary<ushort, PortalDesc> Portals { get; private set; }
+
+        #endregion
+
+        private int updateCount = 0;
+        private int prevUpdateCount = -1;
+        private XElement addition { get; set; }
+        private string[] addXml { get; set; }
+        private AutoAssign assign { get; set; }
+
+        private void ProcessXml(XElement root)
+        {
+            AddObjects(root);
+            AddGrounds(root);
+        }
+
+        public void AddObjects(XElement root)
+        {
+            foreach (var elem in root.XPathSelectElements("//Object"))
+            {
+                if (elem.Element("Class") == null) continue;
+                string @class = elem.Element("Class").Value;
+                string id = elem.Attribute("id").Value;
+
+                ushort type;
+                var typeAttr = elem.Attribute("type");
+                if (typeAttr == null)
+                    type = assign.Assign(id, elem);
+                else
+                    type = (ushort)Utils.FromString(typeAttr.Value);
+
+                if (typeToId.ContainsKey(type))
+                    log.Warn($"\"{id}\" and \"{typeToId[type]}\" has the same ID of 0x{type:x4}!");
+                if (idToType.ContainsKey(id))
+                    log.Warn($"0x{type:x4} and 0x{idToType[id]:x4} has the same name of {id}!");
+
+                typeToId[type] = id;
+                idToType[id] = type;
+                typeToElem[type] = elem;
+
+                switch (@class)
+                {
+                    case "Equipment":
+                        items[type] = new Item(type, elem);
+                        break;
+                    case "Portal":
+                        try
+                        {
+                            portals[type] = new PortalDesc(type, elem);
+                        }
+                        catch
+                        {
+                            log.Error($"Error for portal \"{type}\":\"{id}\"");
+                            /*3392,1792,1795,1796,1805,1806,1810,1825 -- no location, assume nexus?*
+        *  Tomb Portal of Cowardice,  Dungeon Portal,  Portal of Cowardice,  Realm Portal,  Glowing Portal of Cowardice,  Glowing Realm Portal,  Nexus Portal,  Locked Wine Cellar Portal*/
+                        }
+                        break;
+                    default:
+                        objDescs[type] = new ObjectDesc(type, elem);
+                        break;
+                }
+
+                var extAttr = elem.Attribute("ext");
+                bool ext;
+                if (extAttr != null && bool.TryParse(extAttr.Value, out ext) && ext)
+                {
+                    if (elem.Attribute("type") == null)
+                        elem.Add(new XAttribute("type", type));
+                    addition.Add(elem);
+                    updateCount++;
+                }
+            }
+        }
+
+        public void AddGrounds(XElement root)
+        {
+            foreach (var elem in root.XPathSelectElements("//Ground"))
+            {
+                string id = elem.Attribute("id").Value;
+
+                ushort type;
+                var typeAttr = elem.Attribute("type");
+                type = (ushort)Utils.FromString(typeAttr.Value);
+
+                if (typeToTileId.ContainsKey(type))
+                    log.Warn($"\"{id}\" and \"{typeToTileId[type]}\" has the same ID of 0x{type:x4}!");
+                if (idToTileType.ContainsKey(id))
+                    log.Warn($"0x{type:x4} and 0x{idToTileType[id]:x4} has the same name of {id}!");
+
+                typeToTileId[type] = id;
+                idToTileType[id] = type;
+                typeToTileElem[type] = elem;
+
+                tiles[type] = new TileDesc(type, elem);
+
+                var extAttr = elem.Attribute("ext");
+                bool ext;
+                if (extAttr != null && bool.TryParse(extAttr.Value, out ext) && ext)
+                {
+                    addition.Add(elem);
+                    updateCount++;
+                }
+            }
+        }
+
+        private void UpdateXml()
+        {
+            if (prevUpdateCount != updateCount)
+            {
+                addXml = new string[] { addition.ToString() };
+                prevUpdateCount = updateCount;
+            }
+        }
+
+        public string[] AdditionXml
+        {
+            get
+            {
+                UpdateXml();
+                return addXml;
+            }
+        }
+
+        public void Dispose()
+        {
+            assign.Dispose();
+        }
+
+        private class AutoAssign : Settings
+        {
+            private XmlData dat { get; set; }
+            private ushort nextSignedId { get; set; }
+            private ushort nextFullId { get; set; }
+
+            internal AutoAssign(XmlData dat) : base("autoId")
             {
                 this.dat = dat;
                 nextSignedId = GetValue<ushort>("nextSigned", "24576"); //0x6000
@@ -104,163 +264,10 @@ namespace common
                         SetValue("nextSigned", nextSignedId.ToString());
                     }
                     SetValue(id, type.ToString());
-                    log.InfoFormat("Auto assigned '{0}' to 0x{1:x4}", id, type);
+                    log.Info($"Auto assigned \"{id}\" to 0x{type:x4}");
                 }
                 return type;
             }
-        }
-
-        private AutoAssign assign;
-
-        public void AddObjects(XElement root)
-        {
-            foreach (var elem in root.XPathSelectElements("//Object"))
-            {
-                if (elem.Element("Class") == null) continue;
-                string cls = elem.Element("Class").Value;
-                string id = elem.Attribute("id").Value;
-
-                ushort type;
-                var typeAttr = elem.Attribute("type");
-                if (typeAttr == null)
-                    type = assign.Assign(id, elem);
-                else
-                    type = (ushort)Utils.FromString(typeAttr.Value);
-
-                if (type2id_obj.ContainsKey(type))
-                    log.WarnFormat("'{0}' and '{1}' has the same ID of 0x{2:x4}!", id, type2id_obj[type], type);
-                if (id2type_obj.ContainsKey(id))
-                    log.WarnFormat("0x{0:x4} and 0x{1:x4} has the same name of {2}!", type, id2type_obj[id], id);
-
-                type2id_obj[type] = id;
-                id2type_obj[id] = type;
-                type2elem_obj[type] = elem;
-
-                switch (cls)
-                {
-                    case "Equipment":
-                        items[type] = new Item(type, elem);
-                        break;
-                    case "Portal":
-                        try
-                        {
-                            portals[type] = new PortalDesc(type, elem);
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Error for portal: " + type + " id: " + id);
-                            /*3392,1792,1795,1796,1805,1806,1810,1825 -- no location, assume nexus?*
-        *  Tomb Portal of Cowardice,  Dungeon Portal,  Portal of Cowardice,  Realm Portal,  Glowing Portal of Cowardice,  Glowing Realm Portal,  Nexus Portal,  Locked Wine Cellar Portal*/
-                        }
-                        break;
-                    default:
-                        objDescs[type] = new ObjectDesc(type, elem);
-                        break;
-                }
-
-                var extAttr = elem.Attribute("ext");
-                bool ext;
-                if (extAttr != null && bool.TryParse(extAttr.Value, out ext) && ext)
-                {
-                    if (elem.Attribute("type") == null)
-                        elem.Add(new XAttribute("type", type));
-                    this.addition.Add(elem);
-                    updateCount++;
-                }
-            }
-        }
-
-        public void AddGrounds(XElement root)
-        {
-            foreach (var elem in root.XPathSelectElements("//Ground"))
-            {
-                string id = elem.Attribute("id").Value;
-
-                ushort type;
-                var typeAttr = elem.Attribute("type");
-                type = (ushort)Utils.FromString(typeAttr.Value);
-
-                if (type2id_tile.ContainsKey(type))
-                    log.WarnFormat("'{0}' and '{1}' has the same ID of 0x{2:x4}!", id, type2id_tile[type], type);
-                if (id2type_tile.ContainsKey(id))
-                    log.WarnFormat("0x{0:x4} and 0x{1:x4} has the same name of {2}!", type, id2type_tile[id], id);
-
-                type2id_tile[type] = id;
-                id2type_tile[id] = type;
-                type2elem_tile[type] = elem;
-
-                tiles[type] = new TileDesc(type, elem);
-
-                var extAttr = elem.Attribute("ext");
-                bool ext;
-                if (extAttr != null && bool.TryParse(extAttr.Value, out ext) && ext)
-                {
-                    this.addition.Add(elem);
-                    updateCount++;
-                }
-            }
-        }
-
-        private void ProcessXml(XElement root)
-        {
-            AddObjects(root);
-            AddGrounds(root);
-        }
-
-        private Dictionary<ushort, XElement> type2elem_obj;
-        private Dictionary<ushort, string> type2id_obj;
-        private Dictionary<string, ushort> id2type_obj;
-
-        private Dictionary<ushort, XElement> type2elem_tile;
-        private Dictionary<ushort, string> type2id_tile;
-        private Dictionary<string, ushort> id2type_tile;
-
-        private Dictionary<ushort, TileDesc> tiles;
-        private Dictionary<ushort, Item> items;
-        private Dictionary<ushort, ObjectDesc> objDescs;
-        private Dictionary<ushort, PortalDesc> portals;
-
-        public IDictionary<ushort, XElement> ObjectTypeToElement { get; private set; }
-
-        public IDictionary<ushort, string> ObjectTypeToId { get; private set; }
-        public IDictionary<string, ushort> IdToObjectType { get; private set; }
-
-        public IDictionary<ushort, XElement> TileTypeToElement { get; private set; }
-
-        public IDictionary<ushort, string> TileTypeToId { get; private set; }
-        public IDictionary<string, ushort> IdToTileType { get; private set; }
-
-        public IDictionary<ushort, TileDesc> Tiles { get; private set; }
-        public IDictionary<ushort, Item> Items { get; private set; }
-        public IDictionary<ushort, ObjectDesc> ObjectDescs { get; private set; }
-        public IDictionary<ushort, PortalDesc> Portals { get; private set; }
-
-        private int updateCount = 0;
-        private int prevUpdateCount = -1;
-        private XElement addition;
-        private string[] addXml;
-
-        private void UpdateXml()
-        {
-            if (prevUpdateCount != updateCount)
-            {
-                addXml = new string[] { addition.ToString() };
-                prevUpdateCount = updateCount;
-            }
-        }
-
-        public string[] AdditionXml
-        {
-            get
-            {
-                UpdateXml();
-                return addXml;
-            }
-        }
-
-        public void Dispose()
-        {
-            assign.Dispose();
         }
     }
 }

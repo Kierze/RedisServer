@@ -5,7 +5,7 @@ using System.Xml.Linq;
 namespace common
 {
     [Flags]
-    public enum ConditionEffects
+    public enum ConditionEffects : ulong
     {
         Dead = 1 << 0,
         Quiet = 1 << 1,
@@ -18,12 +18,12 @@ namespace common
         Hallucinating = 1 << 8,
         Drunk = 1 << 9,
         Confused = 1 << 10,
-        StunImmume = 1 << 11,
+        StunImmune = 1 << 11,
         Invisible = 1 << 12,
         Paralyzed = 1 << 13,
         Speedy = 1 << 14,
         Bleeding = 1 << 15,
-        NotUsed = 1 << 16,
+        ArmorBreakImmune = 1 << 16,
         Healing = 1 << 17,
         Damaging = 1 << 18,
         Berserk = 1 << 19,
@@ -34,6 +34,26 @@ namespace common
         Invulnerable = 1 << 24,
         Armored = 1 << 25,
         ArmorBroken = 1 << 26,
+        Hexed = 1 << 27,
+        NinjaSpeedy = 1 << 28,
+        Unstable = 1 << 29,
+        Darkness = 1 << 30,
+        SlowedImmune = (ulong)1 << 31,
+        DazedImmune = (ulong)1 << 32,
+        ParalyzeImmune = (ulong)1 << 33,
+        Petrify = (ulong)1 << 34,
+        PetrifyImmune = (ulong)1 << 35,
+        PetDisable = (ulong)1 << 36,
+        Curse = (ulong)1 << 37,
+        CurseImmune = (ulong)1 << 38,
+        HPBoost = (ulong)1 << 39,
+        MPBoost = (ulong)1 << 40,
+        AttBoost = (ulong)1 << 41,
+        DefBoost = (ulong)1 << 42,
+        SpdBoost = (ulong)1 << 43,
+        VitBoost = (ulong)1 << 44,
+        WisBoost = (ulong)1 << 45,
+        DexBoost = (ulong)1 << 46,
     }
 
     public enum ConditionEffectIndex
@@ -49,12 +69,12 @@ namespace common
         Hallucinating = 8,
         Drunk = 9,
         Confused = 10,
-        StunImmume = 11,
+        StunImmune = 11,
         Invisible = 12,
         Paralyzed = 13,
         Speedy = 14,
         Bleeding = 15,
-        NotUsed = 16,
+        ArmorBreakImmune = 16,
         Healing = 17,
         Damaging = 18,
         Berserk = 19,
@@ -65,7 +85,26 @@ namespace common
         Invulnerable = 24,
         Armored = 25,
         ArmorBroken = 26,
-        Hexed = 27
+        Hexed = 27,
+        NinjaSpeedy = 28,
+        Unstable = 29,
+        Darkness = 30,
+        SlowedImmune = 31,
+        DazedImmune = 32,
+        ParalyzeImmune = 33,
+        Petrify = 34,
+        PetrifyImmune = 35,
+        PetDisable = 36,
+        Curse = 37,
+        CurseImmune = 38,
+        HPBoost = 39,
+        MPBoost = 40,
+        AttBoost = 41,
+        DefBoost = 42,
+        SpdBoost = 43,
+        VitBoost = 44,
+        WisBoost = 45,
+        DexBoost = 46,
     }
 
     public class ConditionEffect
@@ -191,7 +230,13 @@ namespace common
         UnlockPortal,
         DazeBlast,
         ClearConditionEffectAura,
-        ClearConditionEffectSelf
+        ClearConditionEffectSelf,
+        Dye,
+        CreatePet,
+        ShurikenAbility,
+        UnlockSkin,
+        MysteryPortal,
+        GenericActivate,
     }
 
     public class ActivateEffect
@@ -408,43 +453,6 @@ namespace common
 
     public class ObjectDesc
     {
-        public ushort ObjectType { get; private set; }
-        public string ObjectId { get; private set; }
-        public string DisplayId { get; private set; }
-        public string Group { get; private set; }
-        public string Class { get; private set; }
-        public bool Player { get; private set; }
-        public bool Enemy { get; private set; }
-        public bool OccupySquare { get; private set; }
-        public bool FullOccupy { get; private set; }
-        public bool EnemyOccupySquare { get; private set; }
-        public bool Static { get; private set; }
-        public bool NoMiniMap { get; private set; }
-        public bool ProtectFromGroundDamage { get; private set; }
-        public bool ProtectFromSink { get; private set; }
-        public bool Flying { get; private set; }
-        public bool ShowName { get; private set; }
-        public bool DontFaceAttacks { get; private set; }
-        public int MinSize { get; private set; }
-        public int MaxSize { get; private set; }
-        public int SizeStep { get; private set; }
-        public ProjectileDesc[] Projectiles { get; private set; }
-
-        public int MaxHP { get; private set; }
-        public int Defense { get; private set; }
-        public string Terrain { get; private set; }
-        public float SpawnProbability { get; private set; }
-        public SpawnCount Spawn { get; private set; }
-        public bool Cube { get; private set; }
-        public bool God { get; private set; }
-        public bool Quest { get; private set; }
-        public int? Level { get; private set; }
-        public bool StasisImmune { get; private set; }
-        public bool Oryx { get; private set; }
-        public bool Hero { get; private set; }
-        public int? PerRealmMax { get; private set; }
-        public float? ExpMultiplier { get; private set; }    //Exp gained = level total / 10 * multi
-
         public ObjectDesc(ushort type, XElement elem)
         {
             XElement n;
@@ -509,6 +517,8 @@ namespace common
             if ((n = elem.Element("Spawn")) != null)
                 Spawn = new SpawnCount(n);
 
+            Skin = elem.Element("Skin") != null;
+            NoSkinSelect = elem.Element("NoSkinSelect") != null;
             God = elem.Element("God") != null;
             Cube = elem.Element("Cube") != null;
             Quest = elem.Element("Quest") != null;
@@ -516,6 +526,9 @@ namespace common
                 Level = Utils.FromString(n.Value);
             else
                 Level = null;
+
+            if ((n = elem.Element("UnlockCost")) != null)
+                UnlockCost = Utils.FromString(n.Value);
 
             StasisImmune = elem.Element("StasisImmune") != null;
             Oryx = elem.Element("Oryx") != null;
@@ -530,6 +543,46 @@ namespace common
             else
                 ExpMultiplier = null;
         }
+
+        public ushort ObjectType { get; private set; }
+        public string ObjectId { get; private set; }
+        public string DisplayId { get; private set; }
+        public string Group { get; private set; }
+        public string Class { get; private set; }
+        public bool Player { get; private set; }
+        public bool Enemy { get; private set; }
+        public bool OccupySquare { get; private set; }
+        public bool FullOccupy { get; private set; }
+        public bool EnemyOccupySquare { get; private set; }
+        public bool Static { get; private set; }
+        public bool NoMiniMap { get; private set; }
+        public bool ProtectFromGroundDamage { get; private set; }
+        public bool ProtectFromSink { get; private set; }
+        public bool Flying { get; private set; }
+        public bool ShowName { get; private set; }
+        public bool DontFaceAttacks { get; private set; }
+        public int MinSize { get; private set; }
+        public int MaxSize { get; private set; }
+        public int SizeStep { get; private set; }
+        public ProjectileDesc[] Projectiles { get; private set; }
+        public int UnlockCost { get; private set; }
+        public bool Skin { get; private set; }
+        public bool NoSkinSelect { get; private set; }
+
+        public int MaxHP { get; private set; }
+        public int Defense { get; private set; }
+        public string Terrain { get; private set; }
+        public float SpawnProbability { get; private set; }
+        public SpawnCount Spawn { get; private set; }
+        public bool Cube { get; private set; }
+        public bool God { get; private set; }
+        public bool Quest { get; private set; }
+        public int? Level { get; private set; }
+        public bool StasisImmune { get; private set; }
+        public bool Oryx { get; private set; }
+        public bool Hero { get; private set; }
+        public int? PerRealmMax { get; private set; }
+        public float? ExpMultiplier { get; private set; }    //Exp gained = level total / 10 * multi
     }
 
     public class TileDesc

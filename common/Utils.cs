@@ -10,8 +10,10 @@ namespace common
     {
         public static int FromString(string x)
         {
-            if (x.StartsWith("0x")) return int.Parse(x.Substring(2), System.Globalization.NumberStyles.HexNumber);
-            else return int.Parse(x);
+            if (x.StartsWith("0x"))
+                return int.Parse(x.Substring(2), System.Globalization.NumberStyles.HexNumber);
+            else
+                return int.Parse(x);
         }
 
         public static string To4Hex(this ushort x)
@@ -21,7 +23,7 @@ namespace common
 
         public static string ToCommaSepString<T>(this T[] arr)
         {
-            StringBuilder ret = new StringBuilder();
+            var ret = new StringBuilder();
             for (var i = 0; i < arr.Length; i++)
             {
                 if (i != 0) ret.Append(", ");
@@ -34,13 +36,15 @@ namespace common
         {
             if (typeof(T) == typeof(ushort))
                 return x.Split(',').Select(_ => (T)(object)(ushort)FromString(_.Trim())).ToArray();
+            else if (typeof(T) == typeof(string))
+                return x.Split(',').Select(_ => (T)(object)_).ToArray();
             else  //assume int
                 return x.Split(',').Select(_ => (T)(object)FromString(_.Trim())).ToArray();
         }
 
         public static byte[] SHA1(string val)
         {
-            SHA1Managed sha1 = new SHA1Managed();
+            var sha1 = new SHA1Managed();
             return sha1.ComputeHash(Encoding.UTF8.GetBytes(val));
         }
 
