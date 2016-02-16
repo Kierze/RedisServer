@@ -8,7 +8,7 @@ namespace wServer.networking.handlers
 {
     internal class InvSwapPacketHandler : PacketHandlerBase<InvSwapPacket>
     {
-        public override PacketID ID { get { return PacketID.InvSwap; } }
+        public override PacketID ID { get { return PacketID.INVSWAP; } }
 
         protected override void HandlePacket(Client client, InvSwapPacket packet)
         {
@@ -17,9 +17,9 @@ namespace wServer.networking.handlers
                 if (client.Player.Owner == null) return;
                 Handle(
                     client.Player,
-                    client.Player.Owner.GetEntity(packet.Obj1.ObjectId),
-                    client.Player.Owner.GetEntity(packet.Obj2.ObjectId),
-                    packet.Obj1.SlotId, packet.Obj2.SlotId);
+                    client.Player.Owner.GetEntity(packet.SlotObject1.ObjectId),
+                    client.Player.Owner.GetEntity(packet.SlotObject2.ObjectId),
+                    packet.SlotObject1.SlotId, packet.SlotObject2.SlotId);
             });
         }
 

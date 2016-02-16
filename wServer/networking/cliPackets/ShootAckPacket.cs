@@ -6,7 +6,10 @@ namespace wServer.networking.cliPackets
     {
         public int Time { get; set; }
 
-        public override PacketID ID { get { return PacketID.ShootAck; } }
+        public override PacketID ID
+        {
+            get { return PacketID.SHOOTACK; }
+        }
 
         public override Packet CreateInstance()
         {

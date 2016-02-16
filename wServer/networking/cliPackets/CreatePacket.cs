@@ -4,9 +4,14 @@ namespace wServer.networking.cliPackets
 {
     public class CreatePacket : ClientPacket
     {
-        public ushort ObjectType { get; set; }
+        public int ClassType { get; set; }
 
-        public override PacketID ID { get { return PacketID.Create; } }
+        public int SkinType { get; set; }
+
+        public override PacketID ID
+        {
+            get { return PacketID.CREATE; }
+        }
 
         public override Packet CreateInstance()
         {
@@ -15,12 +20,14 @@ namespace wServer.networking.cliPackets
 
         protected override void Read(NReader rdr)
         {
-            ObjectType = rdr.ReadUInt16();
+            ClassType = rdr.ReadInt16();
+            SkinType = rdr.ReadInt16();
         }
 
         protected override void Write(NWriter wtr)
         {
-            wtr.Write(ObjectType);
+            wtr.Write((ushort)ClassType);
+            wtr.Write((ushort)SkinType);
         }
     }
 }

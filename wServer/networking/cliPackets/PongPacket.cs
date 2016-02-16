@@ -5,9 +5,13 @@ namespace wServer.networking.cliPackets
     public class PongPacket : ClientPacket
     {
         public int Serial { get; set; }
+
         public int Time { get; set; }
 
-        public override PacketID ID { get { return PacketID.Pong; } }
+        public override PacketID ID
+        {
+            get { return PacketID.PONG; }
+        }
 
         public override Packet CreateInstance()
         {

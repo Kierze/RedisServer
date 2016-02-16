@@ -4,7 +4,10 @@ namespace wServer.networking.cliPackets
 {
     public class CancelTradePacket : ClientPacket
     {
-        public override PacketID ID { get { return PacketID.CancelTrade; } }
+        public override PacketID ID
+        {
+            get { return PacketID.CANCELTRADE; }
+        }
 
         public override Packet CreateInstance()
         {

@@ -6,7 +6,7 @@ namespace wServer.networking.handlers
 {
     internal class UseItemPacketHandler : PacketHandlerBase<UseItemPacket>
     {
-        public override PacketID ID { get { return PacketID.UseItem; } }
+        public override PacketID ID { get { return PacketID.USEITEM; } }
 
         protected override void HandlePacket(Client client, UseItemPacket packet)
         {
@@ -17,7 +17,7 @@ namespace wServer.networking.handlers
         {
             if (player.Owner == null) return;
 
-            player.UseItem(time, packet.Slot.ObjectId, packet.Slot.SlotId, packet.Position);
+            player.UseItem(time, packet.SlotObject.ObjectId, packet.SlotObject.SlotId, packet.ItemUsePos);
         }
     }
 }

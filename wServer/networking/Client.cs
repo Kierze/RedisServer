@@ -34,9 +34,9 @@ namespace wServer.networking
         public Client(RealmManager manager, Socket skt)
         {
             this.skt = skt;
-            this.Manager = manager;
-            ReceiveKey = new RC4(new byte[] { 0x31, 0x1f, 0x80, 0x69, 0x14, 0x51, 0xc7, 0x1b, 0x09, 0xa1, 0x3a, 0x2a, 0x6e });
-            SendKey = new RC4(new byte[] { 0x72, 0xc5, 0x58, 0x3c, 0xaf, 0xb6, 0x81, 0x89, 0x95, 0xcb, 0xd7, 0x4b, 0x80 });
+            Manager = manager;
+            ReceiveKey = new RC4(new byte[] { 0x31, 0x1f, 0x80, 0x69, 0x14, 0x51, 0xc7, 0x1d, 0x09, 0xa1, 0x3a, 0x2a, 0x6e });
+            SendKey = new RC4(new byte[] { 0x72, 0xc5, 0x58, 0x3c, 0xaf, 0xb6, 0x81, 0x89, 0x95, 0xcd, 0xd7, 0x4b, 0x80 });
         }
 
         private NetworkHandler handler;
@@ -73,7 +73,7 @@ namespace wServer.networking
             try
             {
                 log.Logger.Log(typeof(Client), Level.Verbose, $"Handling packet \"{pkt.ID}\"", null);
-                if (pkt.ID == PacketID.Packet) return;
+                if (pkt.ID == (PacketID)255) return;
                 IPacketHandler handler;
                 if (!PacketHandlers.Handlers.TryGetValue(pkt.ID, out handler))
                     log.Warn($"Unhandled packet \"{pkt.ID}\"");

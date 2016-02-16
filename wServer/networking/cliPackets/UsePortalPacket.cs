@@ -6,7 +6,10 @@ namespace wServer.networking.cliPackets
     {
         public int ObjectId { get; set; }
 
-        public override PacketID ID { get { return PacketID.UsePortal; } }
+        public override PacketID ID
+        {
+            get { return PacketID.USEPORTAL; }
+        }
 
         public override Packet CreateInstance()
         {

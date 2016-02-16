@@ -4,7 +4,10 @@ namespace wServer.networking.cliPackets
 {
     public class CheckCreditsPacket : ClientPacket
     {
-        public override PacketID ID { get { return PacketID.CheckCredits; } }
+        public override PacketID ID
+        {
+            get { return PacketID.CHECKCREDITS; }
+        }
 
         public override Packet CreateInstance()
         {

@@ -7,7 +7,7 @@ namespace wServer.networking.svrPackets
         public int AccountListId { get; set; }
         public int[] AccountIds { get; set; }
 
-        public override PacketID ID { get { return PacketID.AccountList; } }
+        public override PacketID ID { get { return PacketID.ACCOUNTLIST; } }
 
         public override Packet CreateInstance()
         {

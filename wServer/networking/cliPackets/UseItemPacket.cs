@@ -5,10 +5,17 @@ namespace wServer.networking.cliPackets
     public class UseItemPacket : ClientPacket
     {
         public int Time { get; set; }
-        public ObjectSlot Slot { get; set; }
-        public Position Position { get; set; }
 
-        public override PacketID ID { get { return PacketID.UseItem; } }
+        public ObjectSlot SlotObject { get; set; }
+
+        public Position ItemUsePos { get; set; }
+
+        public byte UseType { get; set; }
+
+        public override PacketID ID
+        {
+            get { return PacketID.USEITEM; }
+        }
 
         public override Packet CreateInstance()
         {
@@ -18,15 +25,17 @@ namespace wServer.networking.cliPackets
         protected override void Read(NReader rdr)
         {
             Time = rdr.ReadInt32();
-            Slot = ObjectSlot.Read(rdr);
-            Position = Position.Read(rdr);
+            SlotObject = ObjectSlot.Read(rdr);
+            ItemUsePos = Position.Read(rdr);
+            UseType = rdr.ReadByte();
         }
 
         protected override void Write(NWriter wtr)
         {
             wtr.Write(Time);
-            Slot.Write(wtr);
-            Position.Write(wtr);
+            SlotObject.Write(wtr);
+            ItemUsePos.Write(wtr);
+            wtr.Write(UseType);
         }
     }
 }

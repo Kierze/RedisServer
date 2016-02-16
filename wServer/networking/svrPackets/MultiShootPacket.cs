@@ -13,7 +13,7 @@ namespace wServer.networking.svrPackets
         public byte NumShots { get; set; }
         public float AngleIncrement { get; set; }
 
-        public override PacketID ID { get { return PacketID.MultiShoot; } }
+        public override PacketID ID { get { return PacketID.SHOOT; } }
 
         public override Packet CreateInstance()
         {

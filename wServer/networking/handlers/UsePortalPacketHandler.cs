@@ -8,7 +8,7 @@ namespace wServer.networking.handlers
 {
     internal class UsePortalPacketHandler : PacketHandlerBase<UsePortalPacket>
     {
-        public override PacketID ID { get { return PacketID.UsePortal; } }
+        public override PacketID ID { get { return PacketID.USEPORTAL; } }
 
         protected override void HandlePacket(Client client, UsePortalPacket packet)
         {

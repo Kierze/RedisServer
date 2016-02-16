@@ -6,7 +6,7 @@ namespace wServer.networking.svrPackets
     {
         public int ObjectID { get; set; }
 
-        public override PacketID ID { get { return PacketID.QuestObjId; } }
+        public override PacketID ID { get { return PacketID.QUESTOBJID; } }
 
         public override Packet CreateInstance()
         {

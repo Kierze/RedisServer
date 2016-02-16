@@ -5,9 +5,13 @@ namespace wServer.networking.cliPackets
     public class AOEAckPacket : ClientPacket
     {
         public int Time { get; set; }
+
         public Position Position { get; set; }
 
-        public override PacketID ID { get { return PacketID.AOEAck; } }
+        public override PacketID ID
+        {
+            get { return PacketID.AOEACK; }
+        }
 
         public override Packet CreateInstance()
         {

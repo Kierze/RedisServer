@@ -7,7 +7,7 @@ namespace wServer.networking.svrPackets
         public bool[] MyOffers { get; set; }
         public bool[] YourOffers { get; set; }
 
-        public override PacketID ID { get { return PacketID.TradeAccepted; } }
+        public override PacketID ID { get { return PacketID.TRADEACCEPTED; } }
 
         public override Packet CreateInstance()
         {

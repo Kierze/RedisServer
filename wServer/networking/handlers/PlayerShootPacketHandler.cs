@@ -7,7 +7,7 @@ namespace wServer.networking.handlers
 {
     internal class PlayerShootPacketHandler : PacketHandlerBase<PlayerShootPacket>
     {
-        public override PacketID ID { get { return PacketID.PlayerShoot; } }
+        public override PacketID ID { get { return PacketID.PLAYERSHOOT; } }
 
         protected override void HandlePacket(Client client, PlayerShootPacket packet)
         {
@@ -18,7 +18,7 @@ namespace wServer.networking.handlers
         {
             if (player.Owner == null) return;
 
-            Item item = player.Manager.GameData.Items[packet.ContainerType];
+            Item item = player.Manager.GameData.Items[(ushort)packet.ContainerType];
             var prjDesc = item.Projectiles[0]; //Assume only one
             Projectile prj = player.PlayerShootProjectile(
                 packet.BulletId, prjDesc, item.ObjectType,
@@ -28,7 +28,7 @@ namespace wServer.networking.handlers
             {
                 OwnerId = player.Id,
                 Angle = packet.Angle,
-                ContainerType = packet.ContainerType,
+                ContainerType = (ushort)packet.ContainerType,
                 BulletId = packet.BulletId
             }, p => p != player && player.Dist(p) < 25);
             player.FameCounter.Shoot(prj);

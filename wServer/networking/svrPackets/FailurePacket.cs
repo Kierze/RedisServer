@@ -6,7 +6,7 @@ namespace wServer.networking.svrPackets
     {
         public string Message { get; set; }
 
-        public override PacketID ID { get { return PacketID.Failure; } }
+        public override PacketID ID { get { return PacketID.FAILURE; } }
 
         public override Packet CreateInstance()
         {

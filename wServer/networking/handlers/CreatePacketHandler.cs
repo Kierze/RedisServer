@@ -8,7 +8,7 @@ namespace wServer.networking.handlers
 {
     internal class CreatePacketHandler : PacketHandlerBase<CreatePacket>
     {
-        public override PacketID ID { get { return PacketID.Create; } }
+        public override PacketID ID { get { return PacketID.CREATE; } }
 
         protected override void HandlePacket(Client client, CreatePacket packet)
         {
@@ -16,7 +16,7 @@ namespace wServer.networking.handlers
 
             DbChar character;
             var status = client.Manager.Database.CreateCharacter(
-                client.Manager.GameData, client.Account, packet.ObjectType, out character);
+                client.Manager.GameData, client.Account, (ushort)packet.ClassType, packet.SkinType, out character);
 
             if (status == CreateStatus.ReachCharLimit)
             {
@@ -34,7 +34,7 @@ namespace wServer.networking.handlers
                 client.SendPacket(new CreateSuccessPacket()
                 {
                     CharacterID = client.Character.CharId,
-                    ObjectID = target.EnterWorld(client.Player = new Player(client))
+                    ObjectID = target.EnterWorld(client.Player = new Player(client.Manager, client))
                 });
             }));
             client.Stage = ProtocalStage.Ready;

@@ -7,7 +7,7 @@ namespace wServer.networking.handlers
 {
     internal class LoadPacketHandler : PacketHandlerBase<LoadPacket>
     {
-        public override PacketID ID { get { return PacketID.Load; } }
+        public override PacketID ID { get { return PacketID.LOAD; } }
 
         protected override void HandlePacket(Client client, LoadPacket packet)
         {
@@ -29,7 +29,7 @@ namespace wServer.networking.handlers
                         client.SendPacket(new CreateSuccessPacket()
                         {
                             CharacterID = client.Character.CharId,
-                            ObjectID = target.EnterWorld(client.Player = new Player(client))
+                            ObjectID = target.EnterWorld(client.Player = new Player(client.Manager, client))
                         });
                     }));
                     client.Stage = ProtocalStage.Ready;

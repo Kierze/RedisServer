@@ -9,7 +9,7 @@ namespace wServer.networking.handlers
 {
     internal class AcceptTradePacketHandler : PacketHandlerBase<AcceptTradePacket>
     {
-        public override PacketID ID { get { return PacketID.AcceptTrade; } }
+        public override PacketID ID { get { return PacketID.ACCEPTTRADE; } }
 
         protected override void HandlePacket(Client client, AcceptTradePacket packet)
         {

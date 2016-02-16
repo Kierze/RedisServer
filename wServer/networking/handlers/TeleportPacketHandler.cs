@@ -6,7 +6,7 @@ namespace wServer.networking.handlers
 {
     internal class TeleportPacketHandler : PacketHandlerBase<TeleportPacket>
     {
-        public override PacketID ID { get { return PacketID.Teleport; } }
+        public override PacketID ID { get { return PacketID.TELEPORT; } }
 
         protected override void HandlePacket(Client client, TeleportPacket packet)
         {

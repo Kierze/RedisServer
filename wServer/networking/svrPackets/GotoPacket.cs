@@ -7,7 +7,7 @@ namespace wServer.networking.svrPackets
         public int ObjectId { get; set; }
         public Position Position { get; set; }
 
-        public override PacketID ID { get { return PacketID.Goto; } }
+        public override PacketID ID { get { return PacketID.GOTO; } }
 
         public override Packet CreateInstance()
         {

@@ -6,7 +6,10 @@ namespace wServer.networking.cliPackets
     {
         public string Name { get; set; }
 
-        public override PacketID ID { get { return PacketID.RequestTrade; } }
+        public override PacketID ID
+        {
+            get { return PacketID.REQUESTTRADE; }
+        }
 
         public override Packet CreateInstance()
         {

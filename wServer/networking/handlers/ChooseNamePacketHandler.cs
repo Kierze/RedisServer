@@ -8,7 +8,7 @@ namespace wServer.networking.handlers
 {
     internal class ChooseNamePacketHandler : PacketHandlerBase<ChooseNamePacket>
     {
-        public override PacketID ID { get { return PacketID.ChooseName; } }
+        public override PacketID ID { get { return PacketID.CHOOSENAME; } }
 
         protected override void HandlePacket(Client client, ChooseNamePacket packet)
         {

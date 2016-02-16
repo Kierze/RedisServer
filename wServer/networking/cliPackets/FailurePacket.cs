@@ -4,9 +4,14 @@ namespace wServer.networking.cliPackets
 {
     public class FailurePacket : ClientPacket
     {
-        public string Message { get; set; }
+        public int ErrorId { get; set; }
 
-        public override PacketID ID { get { return PacketID.Failure; } }
+        public string ErrorDescription { get; set; }
+
+        public override PacketID ID
+        {
+            get { return PacketID.FAILURE; }
+        }
 
         public override Packet CreateInstance()
         {
@@ -15,12 +20,14 @@ namespace wServer.networking.cliPackets
 
         protected override void Read(NReader rdr)
         {
-            Message = rdr.ReadUTF();
+            ErrorId = rdr.ReadInt32();
+            ErrorDescription = rdr.ReadUTF();
         }
 
         protected override void Write(NWriter wtr)
         {
-            wtr.WriteUTF(Message);
+            wtr.Write(ErrorId);
+            wtr.WriteUTF(ErrorDescription);
         }
     }
 }

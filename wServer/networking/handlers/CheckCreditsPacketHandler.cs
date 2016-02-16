@@ -5,7 +5,7 @@ namespace wServer.networking.handlers
 {
     internal class CheckCreditsPacketHandler : PacketHandlerBase<CheckCreditsPacket>
     {
-        public override PacketID ID { get { return PacketID.CheckCredits; } }
+        public override PacketID ID { get { return PacketID.CHECKCREDITS; } }
 
         protected override void HandlePacket(Client client, CheckCreditsPacket packet)
         {

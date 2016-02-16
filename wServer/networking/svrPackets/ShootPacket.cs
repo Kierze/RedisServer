@@ -11,7 +11,7 @@ namespace wServer.networking.svrPackets
         public float Angle { get; set; }
         public short Damage { get; set; }
 
-        public override PacketID ID { get { return PacketID.Shoot; } }
+        public override PacketID ID { get { return PacketID.SHOOT; } }
 
         public override Packet CreateInstance()
         {

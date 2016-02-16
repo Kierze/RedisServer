@@ -5,10 +5,15 @@ namespace wServer.networking.cliPackets
     public class SquareHitPacket : ClientPacket
     {
         public int Time { get; set; }
+
         public byte BulletId { get; set; }
+
         public int ObjectId { get; set; }
 
-        public override PacketID ID { get { return PacketID.SquareHit; } }
+        public override PacketID ID
+        {
+            get { return PacketID.SQUAREHIT; }
+        }
 
         public override Packet CreateInstance()
         {

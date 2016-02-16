@@ -5,7 +5,7 @@ namespace wServer.networking.handlers
 {
     internal class BuyPacketHandler : PacketHandlerBase<BuyPacket>
     {
-        public override PacketID ID { get { return PacketID.Buy; } }
+        public override PacketID ID { get { return PacketID.BUY; } }
 
         protected override void HandlePacket(Client client, BuyPacket packet)
         {

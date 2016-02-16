@@ -6,7 +6,7 @@ namespace wServer.networking.svrPackets
     {
         public string Name { get; set; }
 
-        public override PacketID ID { get { return PacketID.TradeRequested; } }
+        public override PacketID ID { get { return PacketID.TRADEREQUESTED; } }
 
         public override Packet CreateInstance()
         {

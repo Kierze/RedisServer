@@ -38,12 +38,12 @@ namespace wServer.networking
         public int Write(Client client, byte[] buff, int offset)
         {
             MemoryStream s = new MemoryStream(buff, offset + 5, buff.Length - offset - 5);
-            this.Write(new NWriter(s));
+            Write(new NWriter(s));
 
             var len = (int)s.Position;
             Crypt(client, buff, offset + 5, len);
             Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(len + 5)), 0, buff, offset, 4);
-            buff[offset + 4] = (byte)this.ID;
+            buff[offset + 4] = (byte)ID;
             return len + 5;
         }
 
@@ -67,7 +67,7 @@ namespace wServer.networking
 
     public class NopPacket : Packet
     {
-        public override PacketID ID { get { return PacketID.Packet; } }
+        public override PacketID ID { get { return (PacketID)255; } }
 
         public override Packet CreateInstance()
         {

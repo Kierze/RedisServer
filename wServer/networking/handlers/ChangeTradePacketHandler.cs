@@ -5,7 +5,7 @@ namespace wServer.networking.handlers
 {
     internal class ChangeTradePacketHandler : PacketHandlerBase<ChangeTradePacket>
     {
-        public override PacketID ID { get { return PacketID.ChangeTrade; } }
+        public override PacketID ID { get { return PacketID.CHANGETRADE; } }
 
         protected override void HandlePacket(Client client, ChangeTradePacket packet)
         {

@@ -9,14 +9,14 @@ namespace wServer.networking.svrPackets
         {
             public short X;
             public short Y;
-            public Tile Tile;
+            public int Tile;
         }
 
         public TileData[] Tiles { get; set; }
         public ObjectDef[] NewObjects { get; set; }
         public int[] RemovedObjectIds { get; set; }
 
-        public override PacketID ID { get { return PacketID.Update; } }
+        public override PacketID ID { get { return PacketID.UPDATE; } }
 
         public override Packet CreateInstance()
         {
@@ -32,7 +32,7 @@ namespace wServer.networking.svrPackets
                 {
                     X = rdr.ReadInt16(),
                     Y = rdr.ReadInt16(),
-                    Tile = (Tile)rdr.ReadByte()
+                    Tile = rdr.ReadUInt16()
                 };
             }
 
@@ -52,18 +52,16 @@ namespace wServer.networking.svrPackets
             {
                 wtr.Write(i.X);
                 wtr.Write(i.Y);
-                wtr.Write((byte)i.Tile);
+                wtr.Write((short)i.Tile);
             }
             wtr.Write((short)NewObjects.Length);
             foreach (var i in NewObjects)
-            {
                 i.Write(wtr);
-            }
+
             wtr.Write((short)RemovedObjectIds.Length);
             foreach (var i in RemovedObjectIds)
-            {
                 wtr.Write(i);
-            }
+
         }
     }
 }

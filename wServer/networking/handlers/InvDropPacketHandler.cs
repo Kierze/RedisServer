@@ -9,14 +9,14 @@ namespace wServer.networking.handlers
 {
     internal class InvDropPacketHandler : PacketHandlerBase<InvDropPacket>
     {
-        public override PacketID ID { get { return PacketID.InvDrop; } }
+        public override PacketID ID { get { return PacketID.INVDROP; } }
 
         protected override void HandlePacket(Client client, InvDropPacket packet)
         {
             client.Manager.Logic.AddPendingAction(t =>
             {
                 if (client.Player.Owner == null) return;
-                Handle(client.Player, packet.Slot.SlotId);
+                Handle(client.Player, packet.SlotObject.SlotId);
             });
         }
 
@@ -43,7 +43,7 @@ namespace wServer.networking.handlers
             if (item.Soulbound)
             {
                 container = new Container(player.Manager, SOUL_BAG, 1000 * 60, true);
-                container.BagOwners = new int[] { player.AccountId };
+                container.BagOwners = new string[] { player.AccountId };
             }
             else
                 container = new Container(player.Manager, NORM_BAG, 1000 * 60, true);

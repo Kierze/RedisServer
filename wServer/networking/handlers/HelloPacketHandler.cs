@@ -1,5 +1,6 @@
 ﻿using common;
 using System;
+using System.Text;
 using wServer.networking.cliPackets;
 using wServer.networking.svrPackets;
 using wServer.realm;
@@ -8,7 +9,7 @@ namespace wServer.networking.handlers
 {
     internal class HelloPacketHandler : PacketHandlerBase<HelloPacket>
     {
-        public override PacketID ID { get { return PacketID.Hello; } }
+        public override PacketID ID { get { return PacketID.HELLO; } }
 
         protected override void HandlePacket(Client client, HelloPacket packet)
         {
@@ -52,7 +53,7 @@ namespace wServer.networking.handlers
             }
 
             if (world.Id == -6) //Test World
-                (world as realm.worlds.Test).LoadJson(packet.MapInfo);
+                (world as realm.worlds.Test).LoadJson(Encoding.Default.GetString(packet.MapInfo));
             else if (world.IsLimbo)
                 world = world.GetInstance(client);
 

@@ -5,12 +5,19 @@ namespace wServer.networking.cliPackets
     public class PlayerShootPacket : ClientPacket
     {
         public int Time { get; set; }
+
         public byte BulletId { get; set; }
-        public ushort ContainerType { get; set; }
+
+        public short ContainerType { get; set; }
+
         public Position Position { get; set; }
+
         public float Angle { get; set; }
 
-        public override PacketID ID { get { return PacketID.PlayerShoot; } }
+        public override PacketID ID
+        {
+            get { return PacketID.PLAYERSHOOT; }
+        }
 
         public override Packet CreateInstance()
         {
@@ -21,7 +28,7 @@ namespace wServer.networking.cliPackets
         {
             Time = rdr.ReadInt32();
             BulletId = rdr.ReadByte();
-            ContainerType = rdr.ReadUInt16();
+            ContainerType = rdr.ReadInt16();
             Position = Position.Read(rdr);
             Angle = rdr.ReadSingle();
         }

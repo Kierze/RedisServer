@@ -6,7 +6,10 @@ namespace wServer.networking.cliPackets
     {
         public int ObjectId { get; set; }
 
-        public override PacketID ID { get { return PacketID.Buy; } }
+        public override PacketID ID
+        {
+            get { return PacketID.BUY; }
+        }
 
         public override Packet CreateInstance()
         {

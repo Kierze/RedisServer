@@ -5,11 +5,17 @@ namespace wServer.networking.cliPackets
     public class InvSwapPacket : ClientPacket
     {
         public int Time { get; set; }
-        public Position Position { get; set; }
-        public ObjectSlot Obj1 { get; set; }
-        public ObjectSlot Obj2 { get; set; }
 
-        public override PacketID ID { get { return PacketID.InvSwap; } }
+        public Position Position { get; set; }
+
+        public ObjectSlot SlotObject1 { get; set; }
+
+        public ObjectSlot SlotObject2 { get; set; }
+
+        public override PacketID ID
+        {
+            get { return PacketID.INVSWAP; }
+        }
 
         public override Packet CreateInstance()
         {
@@ -20,16 +26,16 @@ namespace wServer.networking.cliPackets
         {
             Time = rdr.ReadInt32();
             Position = Position.Read(rdr);
-            Obj1 = ObjectSlot.Read(rdr);
-            Obj2 = ObjectSlot.Read(rdr);
+            SlotObject1 = ObjectSlot.Read(rdr);
+            SlotObject2 = ObjectSlot.Read(rdr);
         }
 
         protected override void Write(NWriter wtr)
         {
             wtr.Write(Time);
             Position.Write(wtr);
-            Obj1.Write(wtr);
-            Obj2.Write(wtr);
+            SlotObject1.Write(wtr);
+            SlotObject2.Write(wtr);
         }
     }
 }

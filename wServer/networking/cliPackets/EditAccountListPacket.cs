@@ -5,10 +5,15 @@ namespace wServer.networking.cliPackets
     public class EditAccountListPacket : ClientPacket
     {
         public int AccountListId { get; set; }
+
         public bool Add { get; set; }
+
         public int ObjectId { get; set; }
 
-        public override PacketID ID { get { return PacketID.EditAccountList; } }
+        public override PacketID ID
+        {
+            get { return PacketID.EDITACCOUNTLIST; }
+        }
 
         public override Packet CreateInstance()
         {

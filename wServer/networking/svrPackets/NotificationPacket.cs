@@ -8,7 +8,7 @@ namespace wServer.networking.svrPackets
         public string Text { get; set; }
         public ARGB Color { get; set; }
 
-        public override PacketID ID { get { return PacketID.Notification; } }
+        public override PacketID ID { get { return PacketID.NOTIFICATION; } }
 
         public override Packet CreateInstance()
         {

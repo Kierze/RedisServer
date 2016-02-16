@@ -9,7 +9,7 @@ namespace wServer.networking.svrPackets
         public ushort ContainerType { get; set; }
         public float Angle { get; set; }
 
-        public override PacketID ID { get { return PacketID.AllyShoot; } }
+        public override PacketID ID { get { return PacketID.ALLYSHOOT; } }
 
         public override Packet CreateInstance()
         {

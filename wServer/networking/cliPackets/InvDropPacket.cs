@@ -4,9 +4,12 @@ namespace wServer.networking.cliPackets
 {
     public class InvDropPacket : ClientPacket
     {
-        public ObjectSlot Slot { get; set; }
+        public ObjectSlot SlotObject { get; set; }
 
-        public override PacketID ID { get { return PacketID.InvDrop; } }
+        public override PacketID ID
+        {
+            get { return PacketID.INVDROP; }
+        }
 
         public override Packet CreateInstance()
         {
@@ -15,12 +18,12 @@ namespace wServer.networking.cliPackets
 
         protected override void Read(NReader rdr)
         {
-            Slot = ObjectSlot.Read(rdr);
+            SlotObject = ObjectSlot.Read(rdr);
         }
 
         protected override void Write(NWriter wtr)
         {
-            Slot.Write(wtr);
+            SlotObject.Write(wtr);
         }
     }
 }

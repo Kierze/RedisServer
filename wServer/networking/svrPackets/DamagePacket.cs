@@ -12,7 +12,7 @@ namespace wServer.networking.svrPackets
         public byte BulletId { get; set; }
         public int ObjectId { get; set; }
 
-        public override PacketID ID { get { return PacketID.Damage; } }
+        public override PacketID ID { get { return PacketID.DAMAGE; } }
 
         public override Packet CreateInstance()
         {

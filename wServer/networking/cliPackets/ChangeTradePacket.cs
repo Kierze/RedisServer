@@ -6,7 +6,10 @@ namespace wServer.networking.cliPackets
     {
         public bool[] Offers { get; set; }
 
-        public override PacketID ID { get { return PacketID.ChangeTrade; } }
+        public override PacketID ID
+        {
+            get { return PacketID.CHANGETRADE; }
+        }
 
         public override Packet CreateInstance()
         {
@@ -22,8 +25,8 @@ namespace wServer.networking.cliPackets
 
         protected override void Write(NWriter wtr)
         {
-            wtr.Write((short)Offers.Length);
-            foreach (var i in Offers)
+            wtr.Write((ushort)Offers.Length);
+            foreach (bool i in Offers)
                 wtr.Write(i);
         }
     }

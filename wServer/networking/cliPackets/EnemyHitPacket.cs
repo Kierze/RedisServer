@@ -5,11 +5,17 @@ namespace wServer.networking.cliPackets
     public class EnemyHitPacket : ClientPacket
     {
         public int Time { get; set; }
+
         public byte BulletId { get; set; }
+
         public int TargetId { get; set; }
+
         public bool Killed { get; set; }
 
-        public override PacketID ID { get { return PacketID.EnemyHit; } }
+        public override PacketID ID
+        {
+            get { return PacketID.ENEMYHIT; }
+        }
 
         public override Packet CreateInstance()
         {

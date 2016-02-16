@@ -8,7 +8,7 @@ namespace wServer.networking.svrPackets
         public string YourName { get; set; }
         public TradeItem[] YourItems { get; set; }
 
-        public override PacketID ID { get { return PacketID.TradeStart; } }
+        public override PacketID ID { get { return PacketID.TRADESTART; } }
 
         public override Packet CreateInstance()
         {

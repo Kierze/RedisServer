@@ -5,7 +5,7 @@ namespace wServer.networking.handlers
 {
     internal class MovePacketHandler : PacketHandlerBase<MovePacket>
     {
-        public override PacketID ID { get { return PacketID.Move; } }
+        public override PacketID ID { get { return PacketID.MOVE; } }
 
         protected override void HandlePacket(Client client, MovePacket packet)
         {

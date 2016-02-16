@@ -6,7 +6,7 @@ namespace wServer.networking.svrPackets
     {
         public int Serial { get; set; }
 
-        public override PacketID ID { get { return PacketID.Ping; } }
+        public override PacketID ID { get { return PacketID.PING; } }
 
         public override Packet CreateInstance()
         {

@@ -7,7 +7,7 @@ namespace wServer.networking.svrPackets
         public int Type { get; set; }
         public string Text { get; set; }
 
-        public override PacketID ID { get { return PacketID.GlobalNotification; } }
+        public override PacketID ID { get { return PacketID.GLOBAL_NOTIFICATION; } }
 
         public override Packet CreateInstance()
         {

@@ -7,7 +7,7 @@ namespace wServer.networking.svrPackets
         public int ObjectID { get; set; }
         public int CharacterID { get; set; }
 
-        public override PacketID ID { get { return PacketID.Create_Success; } }
+        public override PacketID ID { get { return PacketID.CREATE_SUCCESS; } }
 
         public override Packet CreateInstance()
         {

@@ -1,0 +1,29 @@
+﻿using common;
+
+namespace wServer.networking.cliPackets
+{
+    public class LeaveArenaPacket : ClientPacket
+    {
+        public int _li { get; set; }
+
+        public override PacketID ID
+        {
+            get { return PacketID.LEAVEARENA; }
+        }
+
+        public override Packet CreateInstance()
+        {
+            return new LeaveArenaPacket();
+        }
+
+        protected override void Read(NReader rdr)
+        {
+            _li = rdr.ReadInt32();
+        }
+
+        protected override void Write(NWriter wtr)
+        {
+            wtr.Write(_li);
+        }
+    }
+}

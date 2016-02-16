@@ -6,7 +6,12 @@ namespace wServer.networking.cliPackets
     {
         public int CharacterId { get; set; }
 
-        public override PacketID ID { get { return PacketID.Load; } }
+        public bool IsFromArena { get; set; }
+
+        public override PacketID ID
+        {
+            get { return PacketID.LOAD; }
+        }
 
         public override Packet CreateInstance()
         {
@@ -16,11 +21,13 @@ namespace wServer.networking.cliPackets
         protected override void Read(NReader rdr)
         {
             CharacterId = rdr.ReadInt32();
+            IsFromArena = rdr.ReadBoolean();
         }
 
         protected override void Write(NWriter wtr)
         {
             wtr.Write(CharacterId);
+            wtr.Write(IsFromArena);
         }
     }
 }

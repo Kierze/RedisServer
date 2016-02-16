@@ -4,7 +4,7 @@ namespace wServer.networking.handlers
 {
     internal class AOEAckPacketHandler : PacketHandlerBase<AOEAckPacket>
     {
-        public override PacketID ID { get { return PacketID.AOEAck; } }
+        public override PacketID ID { get { return PacketID.AOEACK; } }
 
         protected override void HandlePacket(Client client, AOEAckPacket packet)
         {

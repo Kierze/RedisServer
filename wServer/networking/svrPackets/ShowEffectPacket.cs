@@ -10,7 +10,7 @@ namespace wServer.networking.svrPackets
         public Position PosB { get; set; }
         public ARGB Color { get; set; }
 
-        public override PacketID ID { get { return PacketID.Show_Effect; } }
+        public override PacketID ID { get { return PacketID.SHOW_EFFECT; } }
 
         public override Packet CreateInstance()
         {

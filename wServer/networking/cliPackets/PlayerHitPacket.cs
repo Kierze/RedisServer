@@ -5,9 +5,13 @@ namespace wServer.networking.cliPackets
     public class PlayerHitPacket : ClientPacket
     {
         public byte BulletId { get; set; }
+
         public int ObjectId { get; set; }
 
-        public override PacketID ID { get { return PacketID.PlayerHit; } }
+        public override PacketID ID
+        {
+            get { return PacketID.PLAYERHIT; }
+        }
 
         public override Packet CreateInstance()
         {
