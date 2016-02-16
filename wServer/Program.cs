@@ -12,18 +12,18 @@ namespace wServer
 {
     internal static class Program
     {
-        internal static SimpleSettings Settings;
+        internal static Settings Settings;
 
         private static ILog log = LogManager.GetLogger("Server");
 
         private static void Main(string[] args)
         {
-            XmlConfigurator.ConfigureAndWatch(new FileInfo("log4net.config"));
+            XmlConfigurator.ConfigureAndWatch(new FileInfo("resources/config/log4net_wServer.config"));
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             Thread.CurrentThread.Name = "Entry";
 
-            using (Settings = new SimpleSettings("wServer"))
+            using (Settings = new Settings("wServer"))
             using (var db = new Database(
                         Settings.GetValue<string>("db_host", "127.0.0.1"),
                         Settings.GetValue<int>("db_port", "6379"),

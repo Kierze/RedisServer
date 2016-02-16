@@ -76,14 +76,14 @@ namespace Mono.Game
 
         public Vector2(float x, float y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         public Vector2(float value)
         {
-            this.X = value;
-            this.Y = value;
+            X = value;
+            Y = value;
         }
 
         public static Vector2 Add(Vector2 value1, Vector2 value2)

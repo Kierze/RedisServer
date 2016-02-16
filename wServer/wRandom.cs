@@ -24,15 +24,15 @@ namespace wServer
 
         private uint Sample()
         {
-            uint lb = (16807 * (this.seed & 0xFFFF));
-            uint hb = (16807 * (this.seed >> 16));
+            uint lb = (16807 * (seed & 0xFFFF));
+            uint hb = (16807 * (seed >> 16));
             lb = lb + ((hb & 32767) << 16);
             lb = lb + (hb >> 15);
             if (lb > 2147483647)
             {
                 lb = (lb - 2147483647);
             }
-            return this.seed = lb;
+            return seed = lb;
         }
     }
 }

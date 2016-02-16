@@ -71,7 +71,10 @@ namespace wServer
         BlastWave = 13,     //origin=pos1, radius = pos2.x
         Earthquake = 14,
         Flashing = 15,      //period=pos1.x, numCycles=pos1.y
-        BeachBall = 16
+        BeachBall = 16,
+        ElectricBolts = 17, //If a pet paralyzes a monster
+        ElectricFlashing = 18, //If a monster got paralyzed from a electric pet
+        SavageEffect = 19 //If a pet is standing still (this white particles)
     }
 
     public struct ARGB
