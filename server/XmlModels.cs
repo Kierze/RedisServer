@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 
 namespace server
@@ -23,8 +24,8 @@ namespace server
                     new XElement("DNS", DNS),
                     new XElement("Lat", Lat),
                     new XElement("Long", Long),
-                    new XElement("Usage", Usage),
-                    new XElement("AdminOnly", AdminOnly)
+                    new XElement("Usage", Usage)/**,
+                    new XElement("AdminOnly", AdminOnly)*/
                 );
         }
     }
@@ -114,14 +115,11 @@ namespace server
 
         private Dictionary<ushort, ClassStatsEntry> entries;
 
-        public ClassStatsEntry this[ushort objType]
-        {
-            get { return entries[objType]; }
-        }
+        public ClassStatsEntry this[ushort objType] => entries[objType];
 
         public static Stats FromDb(DbAccount acc, DbClassStats stats)
         {
-            Stats ret = new Stats()
+            var ret = new Stats()
             {
                 TotalFame = acc.TotalFame,
                 Fame = acc.Fame,
@@ -152,12 +150,9 @@ namespace server
 
     internal class Vault
     {
-        private ushort[][] chests;
+        private int[][] chests { get; set; }
 
-        public ushort[] this[int index]
-        {
-            get { return chests[index]; }
-        }
+        public int[] this[int index] => chests[index];
 
         public static Vault FromDb(DbAccount acc, DbVault vault)
         {
@@ -165,12 +160,13 @@ namespace server
             {
                 chests = Enumerable.Range(1, acc.VaultCount).
                             Select(x => vault[x] ??
-                                Enumerable.Repeat((ushort)0xffff, 8).ToArray()).ToArray()
+                                Enumerable.Repeat(-1, 8).ToArray()).ToArray()
             };
         }
 
         public XElement ToXml()
         {
+            
             return
                 new XElement("Vault",
                     chests.Select(x => new XElement("Chest", x.ToCommaSepString()))
@@ -180,17 +176,23 @@ namespace server
 
     internal class Account
     {
-        public int AccountId { get; private set; }
+        public string AccountId { get; private set; }
         public string Name { get; set; }
 
         public bool NameChosen { get; private set; }
         public bool Converted { get; private set; }
         public bool Admin { get; private set; }
+        public bool MapEditor { get; private set; }
         public bool VerifiedEmail { get; private set; }
 
         public int Credits { get; private set; }
         public int NextCharSlotPrice { get; private set; }
-        public int BeginnerPackageTimeLeft { get; private set; }
+        public uint BeginnerPackageTimeLeft { get; private set; }
+
+        public int[] Gifts { get; private set; }
+        public int PetYardType { get; private set; }
+        public int FortuneTokens { get; private set; }
+        public int IsAgeVerified { get; private set; }
 
         public Vault Vault { get; private set; }
         public Stats Stats { get; private set; }
@@ -204,13 +206,20 @@ namespace server
                 Name = acc.Name,
 
                 NameChosen = acc.NameChosen,
-                Converted = false,
-                Admin = acc.Admin,
+                Converted = acc.Converted,
+                Admin = acc.Admin || acc.Rank > 2,
+                MapEditor = acc.MapEditor || acc.Rank > 1,
+
                 VerifiedEmail = acc.Verified,
 
                 Credits = acc.Credits,
                 NextCharSlotPrice = 100,
-                BeginnerPackageTimeLeft = 0,
+                BeginnerPackageTimeLeft = UInt32.MaxValue,
+
+                Gifts = acc.Gifts,
+                PetYardType = acc.PetYardType,
+                FortuneTokens = acc.FortuneTokens,
+                IsAgeVerified = acc.IsAgeVerified,
 
                 Vault = Vault.FromDb(acc, new DbVault(acc)),
                 Stats = Stats.FromDb(acc, new DbClassStats(acc)),
@@ -218,22 +227,151 @@ namespace server
             };
         }
 
+        public XElement ToXml() =>
+            new XElement("Account",
+                new XElement("AccountId", AccountId),
+                new XElement("Name", Name),
+                NameChosen ? new XElement("NameChosen", null) : null,
+                Converted ? new XElement("Converted", null) : null,
+                Admin ? new XElement("Admin", null) : null,
+                MapEditor ? new XElement("MapEditor", null) : null,
+                VerifiedEmail ? new XElement("VerifiedEmail", null) : null,
+                new XElement("Credits", Credits),
+                new XElement("FortuneToken", FortuneTokens),
+                new XElement("NextCharSlotPrice", NextCharSlotPrice),
+                new XElement("BeginnerPackageTimeLeft", BeginnerPackageTimeLeft),
+                new XElement("Originating", "None"),
+                new XElement("cleanPasswordStatus", 1),
+                new XElement("Gifts", Utils.ToCommaSepString(Gifts)),
+                Stats.ToXml(),
+                Guild.Id != 0 ? Guild.ToXml() : null,
+                Vault.ToXml(),
+                new XElement("IsAgeVerified", IsAgeVerified)/**,
+                new XElement("PetYardType", PetYardType)*/
+            );
+    }
+
+    internal class FriendRequests
+    {
+        public IEnumerable<FriendListEntry> Entries { get; private set; }
+
+        public static FriendRequests FromDb(Database db, DbAccount acc)
+        {
+            return new FriendRequests
+            {
+                Entries = acc.FriendRequests.Distinct().Select(_ => FriendListEntry.FromDb(db, db.GetAccountById(_)))
+            };
+        }
+
+        public XElement ToXml()
+        {
+            return
+                new XElement("Requests",
+                    Entries.Select(_ => _.ToXml()));
+        }
+    }
+
+    internal class FriendList
+    {
+        public IEnumerable<FriendListEntry> Entries { get; private set; }
+
+        public static FriendList FromDb(Database db, DbAccount acc)
+        {
+            return new FriendList
+            {
+                Entries = acc.Friends.Distinct().Select(_ => FriendListEntry.FromDb(db, db.GetAccountById(_)))
+            };
+        }
+
+        public XElement ToXml()
+        {
+            return
+                new XElement("Friends",
+                    Entries.Select(_ => _.ToXml()));
+        }
+    }
+
+    internal class FriendListEntry
+    {
+        public string Name { get; set; }
+        public Stats Stats { get; set; }
+        public Character Character { get; set; }
+
+        public static FriendListEntry FromDb(Database db, DbAccount acc)
+        {
+            return new FriendListEntry
+            {
+                Name = acc.Name,
+                Stats = Stats.FromDb(acc, new DbClassStats(acc)),
+                Character = Character.FromDb(db.GetAliveCharacter(acc), false)
+            };
+        }
+
         public XElement ToXml()
         {
             return
                 new XElement("Account",
-                    new XElement("AccountId", AccountId),
+                    new XElement("Character",
+                        new XElement("ObjectType", Character.ObjectType),
+                        new XElement("Level", Character.Level),
+                        new XElement("Exp", Character.Exp),
+                        new XElement("CurrentFame", Character.CurrentFame),
+                        new XElement("Texture", Character.Texture)),
                     new XElement("Name", Name),
-                    NameChosen ? new XElement("NameChosen", "") : null,
-                    Converted ? new XElement("Converted", "") : null,
-                    Admin ? new XElement("Admin", "") : null,
-                    VerifiedEmail ? new XElement("VerifiedEmail", "") : null,
-                    new XElement("Credits", Credits),
-                    new XElement("NextCharSlotPrice", NextCharSlotPrice),
-                    new XElement("BeginnerPackageTimeLeft", BeginnerPackageTimeLeft),
-                    Vault.ToXml(),
-                    Stats.ToXml(),
-                    Guild.ToXml()
+                    new XElement("Stats",
+                        Stats.ToXml()));
+        }
+    }
+
+    internal class ClassAvailabilityList
+    {
+        public string Id { get; private set; }
+        public string Restricted { get; private set; }
+        private Dictionary<ushort, ClassAvailabilityEntry> entries;
+        public ClassAvailabilityEntry this[ushort type] => entries[type];
+
+        public static ClassAvailabilityList FromDb(DbAccount acc, DbClassAvailability ca)
+        {
+            var ret = new ClassAvailabilityList()
+            {
+                entries = new Dictionary<ushort, ClassAvailabilityEntry>()
+            };
+            foreach (var i in ca.AllKeys)
+            {
+                var type = ushort.Parse(i);
+                var entry = ClassAvailabilityEntry.FromDb(ca[type]);
+                ret.entries[type] = entry;
+            }
+            return ret;
+        }
+
+        public XElement ToXml()
+        {
+            return new XElement("ClassAvailabilityList",
+                entries.Select(_ => _.Value.ToXml()));
+        }
+    }
+
+    internal class ClassAvailabilityEntry
+    {
+        public string Id { get; private set; }
+        public string Restricted { get; private set; }
+        
+        public static ClassAvailabilityEntry FromDb(DbClassAvailabilityEntry entry)
+        {
+            return new ClassAvailabilityEntry()
+            {
+                Id = entry.Id,
+                Restricted = entry.Restricted
+            };
+        }
+
+        public XElement ToXml()
+        {
+            return
+                new XElement("ClassAvailability",
+                    new XAttribute("id", Id),
+                    new XText(Restricted)
                 );
         }
     }
@@ -245,7 +383,7 @@ namespace server
         public int Level { get; private set; }
         public int Exp { get; private set; }
         public int CurrentFame { get; private set; }
-        public ushort[] Equipment { get; private set; }
+        public int[] Equipment { get; private set; }
         public int MaxHitPoints { get; private set; }
         public int HitPoints { get; private set; }
         public int MaxMagicPoints { get; private set; }
@@ -261,6 +399,14 @@ namespace server
         public FameStats PCStats { get; private set; }
         public bool Dead { get; private set; }
         public int Pet { get; private set; }
+        public int HpPotions { get; private set; }
+        public int MpPotions { get; private set; }
+        public int Texture { get; private set; }
+        public bool XpBoosted { get; private set; }
+        public int XpTimer { get; private set; }
+        public int LDTimer { get; private set; }
+        public int LTTimer { get; private set; }
+        public bool HasBackpack { get; private set; }
 
         public static Character FromDb(DbChar character, bool dead)
         {
@@ -286,7 +432,15 @@ namespace server
                 Tex2 = character.Tex2,
                 PCStats = FameStats.Read(character.FameStats),
                 Dead = dead,
-                Pet = character.Pet
+                Pet = character.Pet,
+                HpPotions = character.HealthPotions,
+                MpPotions = character.MagicPotions,
+                Texture = character.Skin,
+                XpBoosted = character.XPBoosted,
+                XpTimer = character.XPBoostTimer,
+                LDTimer = character.LootDropTimer,
+                LTTimer = character.LootTierTimer,
+                HasBackpack = character.HasBackpack
             };
         }
 
@@ -310,11 +464,19 @@ namespace server
                     new XElement("Dexterity", Dexterity),
                     new XElement("HpRegen", HpRegen),
                     new XElement("MpRegen", MpRegen),
-                    new XElement("Tex1", Tex1),
-                    new XElement("Tex2", Tex2),
                     new XElement("PCStats", PCStats),
+                    new XElement("HealthStackCount", HpPotions),
+                    new XElement("MagicStackCount", MpPotions),
                     new XElement("Dead", Dead),
-                    new XElement("Pet", Pet)
+                    Pet == -1 ? null : new XElement("Pet", Pet),
+                    Tex1 == 0 ? null : new XElement("Tex1", Tex1),
+                    Tex2 == 0 ? null : new XElement("Tex2", Tex2),
+                    new XElement("Texture", Texture),
+                    new XElement("XpBoosted", XpBoosted ? 1 : 0),
+                    new XElement("XpTimer", XpTimer),
+                    new XElement("LDTimer", LDTimer),
+                    new XElement("LTTimer", LTTimer),
+                    new XElement("HasBackpack", HasBackpack ? 1 : 0)
                 );
         }
     }
@@ -329,6 +491,7 @@ namespace server
 
         public IEnumerable<NewsItem> News { get; private set; }
         public IEnumerable<ServerItem> Servers { get; set; }
+        public ClassAvailabilityList ClassAvailabilityList { get; private set; }
 
         public double? Lat { get; set; }
         public double? Long { get; set; }
@@ -343,10 +506,9 @@ namespace server
                 return new NewsItem()
                 {
                     Icon = "fame",
-                    Title = "Your " + Program.GameData.ObjectTypeToId[death.ObjectType]
-                            + " died at level " + death.Level,
-                    TagLine = "You earned " + death.TotalFame + " glorious Fame",
-                    Link = "fame:" + death.CharId,
+                    Title = $"Your {Program.GameData.ObjectTypeToId[death.ObjectType]} died at level {death.Level}",
+                    TagLine = $"You earned {death.TotalFame} glorious Fame",
+                    Link = $"fame:{death.CharId}",
                     Date = death.DeathTime
                 };
             });
@@ -363,11 +525,12 @@ namespace server
                 NextCharId = acc.NextCharId,
                 MaxNumChars = acc.MaxCharSlot,
                 Account = Account.FromDb(acc),
-                News = GetItems(db, acc)
+                News = GetItems(db, acc),
+                ClassAvailabilityList = ClassAvailabilityList.FromDb(acc, new DbClassAvailability(acc))
             };
         }
 
-        public XElement ToXml()
+        public XElement ToXml(XmlData data, DbAccount acc)
         {
             return
                 new XElement("Chars",
@@ -381,9 +544,44 @@ namespace server
                     new XElement("Servers",
                         Servers.Select(x => x.ToXml())
                     ),
+                    ClassAvailabilityList.ToXml(),
+                    new XElement("OwnedSkins",
+                        data.ObjectDescs.Values.Where(_ => _.Skin && !_.NoSkinSelect).Select(_ => _.ObjectType).ToArray().ToCommaSepString()),
+                    //ItemCosts.ToXml(data),
                     Lat == null ? null : new XElement("Lat", Lat),
-                    Long == null ? null : new XElement("Long", Long)
+                    Long == null ? null : new XElement("Long", Long),
+                    MaxClassLevel.ToXml(data)
                 );
+        }
+    }
+
+    //internal class ItemCosts
+    //{
+    //    public static XElement ToXml(XmlData data)
+    //    {
+    //        return
+    //            new XElement("ItemCosts",
+    //            data.Items.Values.Where(_ => _.Skin).Select(_ =>
+    //                new XElement("ItemCost",
+    //                    new XAttribute("type", _.ObjectType),
+    //                    new XAttribute("purchasable", 1),
+    //                    new XAttribute("expires", 0),
+    //                    new XText("250"))
+    //           ));
+    //    }
+    //}
+
+    internal class MaxClassLevel
+    {
+        public static XElement ToXml(XmlData data)
+        {
+            return
+                new XElement("MaxClassLevelList",
+                data.ObjectDescs.Values.Where(_ => _.Class == "Player").Select(_ =>
+                    new XElement("MaxClassLevel",
+                        new XAttribute("classType", _.ObjectType),
+                        new XAttribute("maxLevel", 20))
+               ));
         }
     }
 
@@ -475,13 +673,13 @@ namespace server
 
     internal class FameListEntry
     {
-        public int AccountId { get; private set; }
+        public string AccountId { get; private set; }
         public int CharId { get; private set; }
         public string Name { get; private set; }
         public ushort ObjectType { get; private set; }
         public int Tex1 { get; private set; }
         public int Tex2 { get; private set; }
-        public ushort[] Equipment { get; private set; }
+        public int[] Equipment { get; private set; }
         public int TotalFame { get; private set; }
 
         public static FameListEntry FromDb(DbChar character)
@@ -499,7 +697,7 @@ namespace server
                 TotalFame = death.TotalFame
             };
         }
-
+        
         public XElement ToXml()
         {
             return

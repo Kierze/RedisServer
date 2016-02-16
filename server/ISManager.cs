@@ -8,7 +8,7 @@ namespace server
 {
     internal class ISManager : InterServerChannel, IDisposable
     {
-        private ILog log = LogManager.GetLogger(typeof(ISManager));
+        private ILog log = LogManager.GetLogger(nameof(ISManager));
 
         public const string NETWORK = "network";
         public const string CHAT = "chat";
@@ -23,14 +23,13 @@ namespace server
 
         private struct NetworkMsg
         {
-            public NetworkCode Code;
-            public string Type;
+            public NetworkCode Code { get; set; }
+            public string Type { get; set; }
         }
 
-        public ISManager()
-            : base(Program.Database, Program.InstanceId)
+        public ISManager() : base(Program.Database, Program.InstanceId)
         {
-            log.InfoFormat("Server's Id is {0}", Program.InstanceId);
+            log.Info($"Server's ID is {Program.InstanceId}");
 
             AddHandler<NetworkMsg>(NETWORK, HandleNetwork);
             AddHandler<Message>(CHAT, HandleChat);
@@ -63,7 +62,7 @@ namespace server
                     int val;
                     availableInstance.TryRemove(i, out val);
                     //race condition may occur, but dc for 10 sec...well let it be
-                    log.InfoFormat("Server '{0}' timed out.", i);
+                    log.Info($"Server \"{i}\" timed out.");
                 }
             }
         }
@@ -81,8 +80,7 @@ namespace server
                 case NetworkCode.JOIN:
                     if (availableInstance.TryAdd(e.InstanceId, 5))
                     {
-                        log.InfoFormat("Server '{0}' ({1}) joined the network.",
-                            e.InstanceId, e.Content.Type);
+                        log.Info($"Server \"{e.InstanceId}\" ({e.Content.Type}) joined the network.");
                         Publish(NETWORK, new NetworkMsg()   //for the new instances
                         {
                             Code = NetworkCode.JOIN,
@@ -94,13 +92,13 @@ namespace server
                     break;
                 case NetworkCode.PING:
                     if (!availableInstance.ContainsKey(e.InstanceId))
-                        log.InfoFormat("Server '{0}' re-joined the network.", e.InstanceId);
+                        log.Info($"Server \"{e.InstanceId}\" re-joined the network.");
                     availableInstance[e.InstanceId] = 5;
                     break;
                 case NetworkCode.QUIT:
                     int dummy;
                     availableInstance.TryRemove(e.InstanceId, out dummy);
-                    log.InfoFormat("Server '{0}' quited the network.", e.InstanceId);
+                    log.Info($"Server \"{e.InstanceId}\" quited the network.");
                     break;
             }
         }
@@ -113,15 +111,15 @@ namespace server
 
         private struct Message
         {
-            public char Type;
-            public string Inst;
+            public char Type { get; set; }
+            public string Inst { get; set; }
 
-            public int ObjId;
-            public int Stars;
-            public int From;
+            public int ObjId { get; set; }
+            public int Stars { get; set; }
+            public string From { get; set; }
 
-            public int To;
-            public string Text;
+            public string To { get; set; }
+            public string Text { get; set; }
         }
 
         private void HandleChat(object sender, InterServerEventArgs<Message> e)
@@ -132,18 +130,18 @@ namespace server
                     {
                         string from = Database.ResolveIgn(e.Content.From);
                         string to = Database.ResolveIgn(e.Content.To);
-                        log.InfoFormat("<{0} -> {1}> {2}", from, to, e.Content.Text);
+                        log.Info($"<{from} -> {to}> {e.Content.Text}");
                     }
                     break;
                 case GUILD:
                     {
                         string from = Database.ResolveIgn(e.Content.From);
-                        log.InfoFormat("<{0} -> Guild> {1}", from, e.Content.Text);
+                        log.Info($"<{from} -> Guild> {e.Content.Text}");
                     }
                     break;
                 case ANNOUNCE:
                     {
-                        log.InfoFormat("<Announcement> {0}", e.Content.Text);
+                        log.Info($"<Announcement> {e.Content.Text}");
                     }
                     break;
             }

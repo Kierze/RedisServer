@@ -2,7 +2,10 @@
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Web;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace server
 {
@@ -11,10 +14,11 @@ namespace server
         protected NameValueCollection Query { get; private set; }
         protected HttpListenerContext Context { get; private set; }
         protected Database Database => Program.Database;
+        protected XmlData GameData => Program.GameData;
 
         public void HandleRequest(HttpListenerContext context)
         {
-            this.Context = context;
+            Context = context;
             if (ParseQueryString())
             {
                 Query = new NameValueCollection();
@@ -33,18 +37,45 @@ namespace server
             HandleRequest();
         }
 
-        public void WriteLine(string value, params object[] args)
+        public void WriteLine(XElement value, bool xml = true, params object[] args)
         {
-            using (var writer = new StreamWriter(Context.Response.OutputStream))
-                if (args == null || args.Length == 0) writer.Write(value);
-                else writer.Write(value, args);
+            if (xml)
+                using (var writer = XmlWriter.Create(Context.Response.OutputStream, settings))
+                    value.Save(writer);
+            else
+                using (var writer = new StreamWriter(Context.Response.OutputStream))
+                    if (args == null || args.Length == 0) writer.Write(value);
+                    else writer.Write(value.ToString(), args);
         }
 
-        public void WriteErrorLine(string value, params object[] args)
+        public void WriteLine(string value, bool xml = true, params object[] args)
         {
-            using (var writer = new StreamWriter(Context.Response.OutputStream))
-                writer.Write("<Error>" + value + "</Error>", args);
+            if (xml)
+                using (var writer = XmlWriter.Create(Context.Response.OutputStream, settings))
+                    XElement.Parse(value).Save(writer);
+            else
+                using (var writer = new StreamWriter(Context.Response.OutputStream))
+                    if (args == null || args.Length == 0) writer.Write(value);
+                    else writer.Write(value, args);
         }
+
+        public void WriteErrorLine(string value, bool xml = true)
+        {
+            if (xml)
+                using (var writer = XmlWriter.Create(Context.Response.OutputStream, settings))
+                    XElement.Parse($"<Error>{value}</Error>").Save(writer);
+            else
+                using (var writer = new StreamWriter(Context.Response.OutputStream))
+                    writer.Write($"<Error>{value}</Error>");
+        }
+
+        private XmlWriterSettings settings = new XmlWriterSettings
+        {
+            Indent = true,
+            IndentChars = "    ",
+            OmitXmlDeclaration = true,
+            Encoding = Encoding.UTF8
+        };
 
         protected virtual bool ParseQueryString() => true;
 

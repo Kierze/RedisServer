@@ -9,7 +9,7 @@ namespace server.account
             DbAccount acc;
             var status = Database.Verify(Query["guid"], Query["password"], out acc);
             if (status == LoginStatus.OK)
-                WriteLine(Account.FromDb(acc).ToXml().ToString());
+                WriteLine(Account.FromDb(acc).ToXml());
             else
                 WriteErrorLine(status.GetInfo());
         }

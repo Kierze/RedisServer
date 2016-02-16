@@ -6,20 +6,20 @@ namespace server.@char
     {
         protected override void HandleRequest()
         {
-            DbChar character = Database.LoadCharacter(int.Parse(Query["accountId"]), int.Parse(Query["charId"]));
+            var character = Database.LoadCharacter(Query["accountId"], int.Parse(Query["charId"]));
             if (character == null)
             {
                 WriteErrorLine("Invalid character");
                 return;
             }
 
-            Fame fame = Fame.FromDb(character);
+            var fame = Fame.FromDb(character);
             if (fame == null)
             {
                 WriteErrorLine("Character not dead");
                 return;
             }
-            WriteLine(fame.ToXml().ToString());
+            WriteLine(fame.ToXml());
         }
     }
 }

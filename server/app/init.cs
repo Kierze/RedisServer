@@ -6,7 +6,7 @@ namespace server.app
     {
         protected override void HandleRequest()
         {
-            WriteLine(File.ReadAllText("text/init.txt"));
+            WriteLine(File.ReadAllText("resources/app/init.txt"));
         }
     }
 }

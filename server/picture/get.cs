@@ -20,7 +20,7 @@ namespace server.picture
                 return;
             }
 
-            string path = Path.GetFullPath("texture/_" + id + ".png");
+            string path = Path.GetFullPath($"texture/_{id}.png");
             if (!File.Exists(path))
             {
                 byte[] status = Encoding.UTF8.GetBytes("<Error>Invalid ID.</Error>");
