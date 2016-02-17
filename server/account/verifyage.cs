@@ -9,6 +9,7 @@ namespace server.account
          isAgeVerified
          password
         */
+
         protected override void HandleRequest()
         {
             DbAccount acc;

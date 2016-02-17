@@ -1,5 +1,4 @@
 ﻿using common;
-using System;
 using System.Collections.Generic;
 
 namespace server.friends
@@ -9,7 +8,7 @@ namespace server.friends
         protected override void HandleRequest()
         {
             DbAccount acc;
-            DbAccount target;            
+            DbAccount target;
             var status = Database.Verify(Query["guid"], Query["password"], out acc);
             if (status == LoginStatus.OK)
                 if ((target = Database.GetAccountById(Database.ResolveId(Query["targetName"] ?? ""))) != null)

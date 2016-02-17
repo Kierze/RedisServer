@@ -1,5 +1,4 @@
 ﻿using common;
-using System;
 using System.Collections.Generic;
 
 namespace server.friends

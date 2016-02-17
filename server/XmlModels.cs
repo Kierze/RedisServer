@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 
 namespace server
@@ -166,7 +165,6 @@ namespace server
 
         public XElement ToXml()
         {
-            
             return
                 new XElement("Vault",
                     chests.Select(x => new XElement("Chest", x.ToCommaSepString()))
@@ -356,7 +354,7 @@ namespace server
     {
         public string Id { get; private set; }
         public string Restricted { get; private set; }
-        
+
         public static ClassAvailabilityEntry FromDb(DbClassAvailabilityEntry entry)
         {
             return new ClassAvailabilityEntry()
@@ -697,7 +695,7 @@ namespace server
                 TotalFame = death.TotalFame
             };
         }
-        
+
         public XElement ToXml()
         {
             return

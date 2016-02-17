@@ -337,7 +337,6 @@ namespace common
     public class DbClassAvailability : RedisObject
     {
         public DbAccount Account { get; private set; }
-        static ILog Logger = LogManager.GetLogger(nameof(DbClassAvailability));
 
         public DbClassAvailability(DbAccount acc)
         {
@@ -348,11 +347,9 @@ namespace common
         public void Init(XmlData data)
         {
             ObjectDesc field = null;
-            Logger.Info($"Initializing class availability list for {Account.Name}");
             foreach (var i in data.ObjectDescs.Where(_ => _.Value.Player || _.Value.Class == "Player"))
             {
                 field = i.Value;
-                Logger.Info($"{field.ObjectId}:{field.ObjectType}");
                 SetValue(field.ObjectType.ToString(), JsonConvert.SerializeObject(new DbClassAvailabilityEntry()
                 {
                     Id = field.ObjectId,

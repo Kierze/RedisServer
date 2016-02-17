@@ -499,10 +499,5 @@ namespace common
             acc.Flush();
             acc.Reload();
         }
-
-        public void AddToFriendList(DbAccount acc, string friendId)
-        {
-
-        }
     }
 }

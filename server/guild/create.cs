@@ -2,7 +2,7 @@
 
 namespace server.guild
 {
-    class create : RequestHandler
+    internal class create : RequestHandler
     {
         protected override void HandleRequest()
         {

@@ -74,11 +74,11 @@ namespace wServer.realm.entities
                 SlotTypes = client.Manager.GameData.ObjectTypeToElement[ObjectType]
                     .Element("SlotTypes").Value.CommaToArray<int>();
                 Stats = (int[])client.Character.Stats.Clone();
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 log.Error(ex);
             }
-            
         }
 
         //Stats
@@ -211,7 +211,7 @@ namespace wServer.realm.entities
             catch (Exception ex)
             {
                 log.Error(ex);
-            }            
+            }
         }
 
         protected override void ExportStats(IDictionary<StatsType, object> stats)
@@ -397,9 +397,6 @@ namespace wServer.realm.entities
             Move(x + 0.5f, y + 0.5f);
             tiles = new byte[owner.Map.Width, owner.Map.Height];
             SetNewbiePeriod();
-
-            
-            
 
             if (owner.Id == World.NEXUS_ID || owner.Name == "Vault")
             {

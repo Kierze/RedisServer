@@ -12,10 +12,15 @@ namespace common
         }
 
         public override void Write(short value) => base.Write(IPAddress.HostToNetworkOrder(value));
+
         public override void Write(int value) => base.Write(IPAddress.HostToNetworkOrder(value));
+
         public override void Write(long value) => base.Write(IPAddress.HostToNetworkOrder(value));
+
         public override void Write(ushort value) => base.Write((ushort)IPAddress.HostToNetworkOrder((short)value));
+
         public override void Write(uint value) => base.Write((uint)IPAddress.HostToNetworkOrder((int)value));
+
         public override void Write(ulong value) => base.Write((ulong)IPAddress.HostToNetworkOrder((long)value));
 
         public override void Write(float value)

@@ -1,9 +1,6 @@
 ﻿using common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using wServer.networking;
 using wServer.networking.svrPackets;
 using wServer.realm.entities;
@@ -322,7 +319,6 @@ namespace wServer.realm.commands
     {
         public MaxCommand() : base("max", 1)
         {
-
         }
 
         protected override bool Process(Player player, RealmTime time, string args)
@@ -334,7 +330,8 @@ namespace wServer.realm.commands
                         Int32.Parse(player.Manager.GameData.ObjectTypeToElement[player.ObjectType]
                         .Element(StatsManager.StatsIndexToName(i)).Attribute("max").Value);
                 player.UpdateCount++;
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 log.Error(ex);
             }

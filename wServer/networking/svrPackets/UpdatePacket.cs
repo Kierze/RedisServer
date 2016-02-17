@@ -1,5 +1,4 @@
 ﻿using common;
-using wServer.realm.terrain;
 
 namespace wServer.networking.svrPackets
 {
@@ -61,7 +60,6 @@ namespace wServer.networking.svrPackets
             wtr.Write((short)RemovedObjectIds.Length);
             foreach (var i in RemovedObjectIds)
                 wtr.Write(i);
-
         }
     }
 }

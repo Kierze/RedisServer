@@ -102,7 +102,7 @@ namespace wServer.realm.worlds
             foreach (var i in vaultChests)
             {
                 if (i.Key.Item1.UpdateCount > i.Value)
-                { 
+                {
                     dbVault[i.Key.Item2] = i.Key.Item1.Inventory.Take(8).Select(_ => _?.ObjectType ?? -1).ToArray();
                     dbVault.Flush();
                     vaultChests[i.Key] = i.Key.Item1.UpdateCount;
