@@ -1,0 +1,41 @@
+﻿using common;
+
+namespace wServer.networking.svrPackets
+{
+    public class QuestFetchResponsePacket : ServerPacket
+    {
+        public int Tier { get; set; }
+
+        public string Goal { get; set; }
+
+        public string Description { get; set; }
+
+        public string Image { get; set; }
+
+        public override PacketID ID
+        {
+            get { return PacketID.QUESTFETCHRESPONSE; }
+        }
+
+        public override Packet CreateInstance()
+        {
+            return new QuestFetchResponsePacket();
+        }
+
+        protected override void Read(NReader rdr)
+        {
+            Tier = rdr.ReadInt32();
+            Goal = rdr.ReadUTF();
+            Description = rdr.ReadUTF();
+            Image = rdr.ReadUTF();
+        }
+
+        protected override void Write(NWriter wtr)
+        {
+            wtr.Write(Tier);
+            wtr.WriteUTF(Goal);
+            wtr.WriteUTF(Description);
+            wtr.WriteUTF(Image);
+        }
+    }
+}

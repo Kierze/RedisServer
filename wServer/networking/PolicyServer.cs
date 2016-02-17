@@ -8,7 +8,7 @@ namespace wServer.networking
 {
     internal class PolicyServer
     {
-        private static ILog log = LogManager.GetLogger(typeof(PolicyServer));
+        private static ILog log = LogManager.GetLogger(nameof(PolicyServer));
 
         private TcpListener listener;
 

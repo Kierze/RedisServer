@@ -52,7 +52,7 @@ namespace wServer
                 server.Stop();
                 policy.Stop();
                 manager.Stop();
-                db.Dispose();
+                //db.Dispose();
                 log.Info("Server terminated.");
             }
         }

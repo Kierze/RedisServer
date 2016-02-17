@@ -5,10 +5,15 @@ namespace wServer.networking.svrPackets
     public class NotificationPacket : ServerPacket
     {
         public int ObjectId { get; set; }
+
         public string Text { get; set; }
+
         public ARGB Color { get; set; }
 
-        public override PacketID ID { get { return PacketID.NOTIFICATION; } }
+        public override PacketID ID
+        {
+            get { return PacketID.NOTIFICATION; }
+        }
 
         public override Packet CreateInstance()
         {

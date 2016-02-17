@@ -8,7 +8,7 @@ namespace wServer.realm.setpieces
 {
     internal class SetPieces
     {
-        private static ILog log = LogManager.GetLogger(typeof(SetPieces));
+        private static ILog log = LogManager.GetLogger(nameof(SetPieces));
 
         private struct Rect
         {

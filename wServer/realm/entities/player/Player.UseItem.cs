@@ -116,7 +116,7 @@ namespace wServer.realm.entities
                 {
                     Color = new ARGB(0xff00ff00),
                     ObjectId = player.Id,
-                    Text = "+" + (newHp - player.HP)
+                    Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"+" + (newHp - player.HP) + "\"}}"
                 });
                 player.HP = newHp;
                 player.UpdateCount++;
@@ -133,13 +133,13 @@ namespace wServer.realm.entities
                 {
                     EffectType = EffectType.Potion,
                     TargetId = player.Id,
-                    Color = new ARGB(0xffffffff)
+                    Color = new ARGB(0x6084e0)
                 });
                 pkts.Add(new NotificationPacket()
                 {
-                    Color = new ARGB(0xff9000ff),
+                    Color = new ARGB(0x6084e0),
                     ObjectId = player.Id,
-                    Text = "+" + (newMp - player.MP)
+                    Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"+" + (newMp - player.MP) + "\"}}"
                 });
                 player.MP = newMp;
                 player.UpdateCount++;
@@ -217,12 +217,12 @@ namespace wServer.realm.entities
                                     time.tickTimes, target, (float)(i * (Math.PI * 2) / 20));
                                 Owner.EnterWorld(proj);
                                 FameCounter.Shoot(proj);
-                                batch[i] = new ShootPacket()
+                                batch[i] = new Shoot2Packet
                                 {
                                     BulletId = proj.ProjectileId,
                                     OwnerId = Id,
                                     ContainerType = item.ObjectType,
-                                    Position = target,
+                                    StartingPos = target,
                                     Angle = proj.Angle,
                                     Damage = (short)proj.Damage
                                 };
@@ -450,7 +450,7 @@ namespace wServer.realm.entities
                                 Damage = (ushort)eff.TotalDamage,
                                 EffectDuration = 0,
                                 Effects = 0,
-                                OriginType = item.ObjectType
+                                OriginType = (short)item.ObjectType
                             });
 
                             int totalDmg = 0;
@@ -528,7 +528,7 @@ namespace wServer.realm.entities
                                     {
                                         ObjectId = enemy.Id,
                                         Color = new ARGB(0xff00ff00),
-                                        Text = "Immune"
+                                        Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"Immune\"}}"
                                     });
                                 }
                                 else if (!enemy.HasConditionEffect(ConditionEffects.Stasis))
@@ -559,7 +559,7 @@ namespace wServer.realm.entities
                                     {
                                         ObjectId = enemy.Id,
                                         Color = new ARGB(0xffff0000),
-                                        Text = "Stasis"
+                                        Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"Stasis\"}}"
                                     });
                                 }
                             });
@@ -722,12 +722,33 @@ namespace wServer.realm.entities
                             if (!Manager.GameData.IdToObjectType.TryGetValue(eff.Id, out objType) ||
                                 !Manager.GameData.Portals.ContainsKey(objType))
                                 break;// object not found, ignore
-                            var entity = Entity.Resolve(Manager, objType);
-                            entity.Move(X, Y);
+                            var entity = Resolve(Manager, objType);
+                            var w = Manager.GetWorld(Owner.Id); //can't use Owner here, as it goes out of scope
                             int TimeoutTime = Manager.GameData.Portals[objType].TimeoutTime;
+                            string DungName = Manager.GameData.Portals[objType].DungeonName;
 
-                            Owner.EnterWorld(entity);
-                            World w = Manager.GetWorld(Owner.Id); //can't use Owner here, as it goes out of scope
+                            var color = new ARGB(0x00FF00);
+
+                            entity.Move(X, Y);
+                            w.EnterWorld(entity);
+
+                            w.BroadcastPacket(new NotificationPacket
+                            {
+                                Color = color,
+                                Text =
+                                    "{\"key\":\"blank\",\"tokens\":{\"data\":\"" + DungName + " opened by " +
+                                    Client.Account.Name + "\"}}",
+                                ObjectId = Client.Player.Id
+                            }, null);
+
+                            w.BroadcastPacket(new TextPacket
+                            {
+                                BubbleTime = 0,
+                                Stars = -1,
+                                Name = "",
+                                Text = DungName + " opened by " + Client.Account.Name
+                            }, null);
+
                             w.Timers.Add(new WorldTimer(TimeoutTime * 1000, (world, t) => //default portal close time * 1000
                             {
                                 try

@@ -13,25 +13,31 @@ namespace wServer.realm.entities
 
         public void RequestTrade(string name)
         {
-            if (!NameChosen)
+            var target = Owner.GetUniqueNamedPlayer(name);
+
+            if (target == null)
             {
-                SendError("Unique name is required to trade with other!");
+                SendInfo("{\"key\":\"server.player_not_found\",\"tokens\":{\"player\":\"" + name + "\"}}");
+                return;
+            }
+            if (!NameChosen || !target.NameChosen)
+            {
+                SendInfo("{\"key\":\"server.trade_needs_their_name\"}");
+                return;
+            }
+            if (Client.Player == target)
+            {
+                SendInfo("{\"key\":\"server.self_trade\"}");
                 return;
             }
             if (tradeTarget != null)
             {
-                SendError("You're already trading!");
-                return;
-            }
-            Player target = Owner.GetUniqueNamedPlayer(name);
-            if (target == null)
-            {
-                SendError("Player not found!");
+                SendInfo("You're already trading!");
                 return;
             }
             if (target.tradeTarget != null && target.tradeTarget != this)
             {
-                SendError(target.Name + " is already trading!");
+                SendInfo("{\"key\":\"server.they_already_trading\",\"tokens\":{\"player\":\"" + target.Name + "\"}}");
                 return;
             }
 
@@ -85,7 +91,7 @@ namespace wServer.realm.entities
                 {
                     Name = Name
                 });
-                SendInfo("You have sent a trade request to " + target.Name + "!");
+                SendInfo("{\"key\":\"server.trade_requested\",\"tokens\":{\"player\":\"" + target.Name + "\"}}");
                 return;
             }
         }
@@ -139,7 +145,7 @@ namespace wServer.realm.entities
             {
                 if (i.Item2 < 0)
                 {
-                    i.Item1.SendInfo("Trade to " + Name + " has timed out!");
+                    i.Item1.SendInfo("{\"key\":\"server.trade_timeout\"}");
                     potentialTrader.Remove(i.Item1);
                 }
                 else potentialTrader[i.Item1] = i.Item2;

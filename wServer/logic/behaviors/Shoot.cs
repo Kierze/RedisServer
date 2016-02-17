@@ -97,7 +97,7 @@ namespace wServer.logic.behaviors
                             prjId = prj.ProjectileId;
                     }
 
-                    host.Owner.BroadcastPacket(new MultiShootPacket()
+                    host.Owner.BroadcastPacket(new ShootPacket
                     {
                         BulletId = prjId,
                         OwnerId = host.Id,
@@ -105,7 +105,7 @@ namespace wServer.logic.behaviors
                         Angle = (float)startAngle,
                         Damage = (short)dmg,
                         BulletType = (byte)(desc.BulletType),
-                        AngleIncrement = (float)shootAngle,
+                        AngleInc = (float)shootAngle,
                         NumShots = (byte)count,
                     }, null);
                 }

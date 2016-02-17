@@ -5,9 +5,13 @@ namespace wServer.networking.svrPackets
     public class CreateSuccessPacket : ServerPacket
     {
         public int ObjectID { get; set; }
+
         public int CharacterID { get; set; }
 
-        public override PacketID ID { get { return PacketID.CREATE_SUCCESS; } }
+        public override PacketID ID
+        {
+            get { return PacketID.CREATE_SUCCESS; }
+        }
 
         public override Packet CreateInstance()
         {

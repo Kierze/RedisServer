@@ -7,7 +7,7 @@ namespace wServer.realm.commands
 {
     public abstract class Command
     {
-        protected static ILog log = LogManager.GetLogger(typeof(Command));
+        protected static ILog log = LogManager.GetLogger(nameof(Command));
 
         public Command(string name, int permLevel = 0)
         {
@@ -59,7 +59,7 @@ namespace wServer.realm.commands
 
     public class CommandManager
     {
-        private static ILog log = LogManager.GetLogger(typeof(CommandManager));
+        private static ILog log = LogManager.GetLogger(nameof(CommandManager));
 
         private Dictionary<string, Command> cmds;
         public IDictionary<string, Command> Commands { get { return cmds; } }

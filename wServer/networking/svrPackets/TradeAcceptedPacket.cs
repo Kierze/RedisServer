@@ -5,9 +5,13 @@ namespace wServer.networking.svrPackets
     public class TradeAcceptedPacket : ServerPacket
     {
         public bool[] MyOffers { get; set; }
+
         public bool[] YourOffers { get; set; }
 
-        public override PacketID ID { get { return PacketID.TRADEACCEPTED; } }
+        public override PacketID ID
+        {
+            get { return PacketID.TRADEACCEPTED; }
+        }
 
         public override Packet CreateInstance()
         {
@@ -27,11 +31,11 @@ namespace wServer.networking.svrPackets
 
         protected override void Write(NWriter wtr)
         {
-            wtr.Write((short)MyOffers.Length);
-            foreach (var i in MyOffers)
+            wtr.Write((ushort)MyOffers.Length);
+            foreach (bool i in MyOffers)
                 wtr.Write(i);
-            wtr.Write((short)YourOffers.Length);
-            foreach (var i in YourOffers)
+            wtr.Write((ushort)YourOffers.Length);
+            foreach (bool i in YourOffers)
                 wtr.Write(i);
         }
     }

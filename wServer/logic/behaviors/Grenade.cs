@@ -71,7 +71,7 @@ namespace wServer.logic.behaviors
                             Damage = (ushort)damage,
                             EffectDuration = 0,
                             Effects = 0,
-                            OriginType = host.ObjectType
+                            OriginType = (short)host.ObjectType
                         }, null);
                         EntityUtils.AOE(world, target, radius, true, p =>
                         {

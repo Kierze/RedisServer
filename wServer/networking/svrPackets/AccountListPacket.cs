@@ -4,10 +4,19 @@ namespace wServer.networking.svrPackets
 {
     public class AccountListPacket : ServerPacket
     {
-        public int AccountListId { get; set; }
-        public int[] AccountIds { get; set; }
+        public const int LOCKED_LIST_ID = 0;
+        public const int IGNORED_LIST_ID = 1;
 
-        public override PacketID ID { get { return PacketID.ACCOUNTLIST; } }
+        public int AccountListId { get; set; }
+
+        public string[] AccountIds { get; set; }
+
+        public int LockAction { get; set; }
+
+        public override PacketID ID
+        {
+            get { return PacketID.ACCOUNTLIST; }
+        }
 
         public override Packet CreateInstance()
         {
@@ -17,17 +26,19 @@ namespace wServer.networking.svrPackets
         protected override void Read(NReader rdr)
         {
             AccountListId = rdr.ReadInt32();
-            AccountIds = new int[rdr.ReadInt16()];
+            AccountIds = new string[rdr.ReadInt16()];
             for (int i = 0; i < AccountIds.Length; i++)
-                AccountIds[i] = rdr.ReadInt32();
+                AccountIds[i] = rdr.ReadUTF();
+            LockAction = rdr.ReadInt32();
         }
 
         protected override void Write(NWriter wtr)
         {
             wtr.Write(AccountListId);
-            wtr.Write((short)AccountIds.Length);
-            foreach (var i in AccountIds)
-                wtr.Write(i);
+            wtr.Write((ushort)AccountIds.Length);
+            foreach (string i in AccountIds)
+                wtr.WriteUTF(i);
+            wtr.Write(LockAction);
         }
     }
 }

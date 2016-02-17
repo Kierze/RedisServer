@@ -31,7 +31,7 @@ namespace wServer.networking
                 Name = "*Error*",
                 Text = text
             });
-            cli.SendPacket(new svrPackets.FailurePacket() { Message = text });
+            cli.SendPacket(new svrPackets.FailurePacket() { ErrorId = 0, ErrorDescription = text });
         }
     }
 

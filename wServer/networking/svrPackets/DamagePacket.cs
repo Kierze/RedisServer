@@ -1,18 +1,31 @@
-﻿using common;
+﻿#region
+
 using System.Collections.Generic;
+
+#endregion
+
+using common;
 
 namespace wServer.networking.svrPackets
 {
     public class DamagePacket : ServerPacket
     {
         public int TargetId { get; set; }
+
         public ConditionEffects Effects { get; set; }
+
         public ushort Damage { get; set; }
+
         public bool Killed { get; set; }
+
         public byte BulletId { get; set; }
+
         public int ObjectId { get; set; }
 
-        public override PacketID ID { get { return PacketID.DAMAGE; } }
+        public override PacketID ID
+        {
+            get { return PacketID.DAMAGE; }
+        }
 
         public override Packet CreateInstance()
         {
@@ -40,7 +53,7 @@ namespace wServer.networking.svrPackets
                 if ((Effects & (ConditionEffects)(1 << i)) != 0)
                     eff.Add(i);
             wtr.Write((byte)eff.Count);
-            foreach (var i in eff) wtr.Write(i);
+            foreach (byte i in eff) wtr.Write(i);
             wtr.Write(Damage);
             wtr.Write(Killed);
             wtr.Write(BulletId);

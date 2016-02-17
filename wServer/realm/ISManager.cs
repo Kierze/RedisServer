@@ -7,7 +7,7 @@ namespace wServer.realm
 {
     public class ISManager : InterServerChannel, IDisposable
     {
-        private ILog log = LogManager.GetLogger(typeof(ISManager));
+        private ILog log = LogManager.GetLogger(nameof(ISManager));
 
         public const string NETWORK = "network";
         public const string CHAT = "chat";

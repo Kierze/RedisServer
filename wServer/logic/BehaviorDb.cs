@@ -13,7 +13,7 @@ namespace wServer.logic
 {
     public partial class BehaviorDb
     {
-        private static ILog log = LogManager.GetLogger(typeof(BehaviorDb));
+        private static ILog log = LogManager.GetLogger(nameof(BehaviorDb));
 
         public RealmManager Manager { get; private set; }
 

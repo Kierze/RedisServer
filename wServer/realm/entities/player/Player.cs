@@ -304,7 +304,7 @@ namespace wServer.realm.entities
             stats[StatsType.LootTierBoostTimer] = (int)LootTierBoostTimeLeft;
         }
 
-        private void CalculateBoost()
+        public void CalculateBoost()
         {
             if (Boost == null) Boost = new int[12];
             else
@@ -338,8 +338,13 @@ namespace wServer.realm.entities
                 return;
 
             GenerateGravestone();
-            foreach (var i in Owner.Players.Values)
-                i.SendInfo(Name + " died at Level " + Level + ", with " + Fame + " Fame" +/* " and " + Experience + " Experience " + */", killed by " + killer); //removed XP as max packet length reached!
+            Owner.BroadcastPacket(new TextPacket
+            {
+                BubbleTime = 0,
+                Stars = -1,
+                Name = "",
+                Text = "{\"key\":\"server.death\",\"tokens\":{\"player\":\"" + Name + "\",\"level\":\"" + Level + "\",\"enemy\":\"" + killer + "\"}}"
+            }, null);
 
             SaveToCharacter();
             Manager.Database.SaveCharacter(Client.Account, Client.Character, true);
@@ -439,7 +444,7 @@ namespace wServer.realm.entities
         {
             if (!TPCooledDown())
             {
-                SendError("Too soon to teleport again!");
+                SendError("Player.teleportCoolDown");
                 return;
             }
             SetTPDisabledPeriod();

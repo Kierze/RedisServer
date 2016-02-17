@@ -14,7 +14,7 @@ namespace wServer.realm
 {
     public abstract class World
     {
-        private static ILog log = LogManager.GetLogger(typeof(World));
+        private static ILog log = LogManager.GetLogger(nameof(World));
 
         public const int TUT_ID = -1;
         public const int NEXUS_ID = -2;

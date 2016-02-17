@@ -4,9 +4,12 @@ namespace wServer.networking.svrPackets
 {
     public class QuestObjIdPacket : ServerPacket
     {
-        public int ObjectID { get; set; }
+        public int ObjectId { get; set; }
 
-        public override PacketID ID { get { return PacketID.QUESTOBJID; } }
+        public override PacketID ID
+        {
+            get { return PacketID.QUESTOBJID; }
+        }
 
         public override Packet CreateInstance()
         {
@@ -15,12 +18,12 @@ namespace wServer.networking.svrPackets
 
         protected override void Read(NReader rdr)
         {
-            ObjectID = rdr.ReadInt32();
+            ObjectId = rdr.ReadInt32();
         }
 
         protected override void Write(NWriter wtr)
         {
-            wtr.Write(ObjectID);
+            wtr.Write(ObjectId);
         }
     }
 }

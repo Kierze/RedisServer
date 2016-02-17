@@ -9,7 +9,7 @@ namespace wServer.realm
 {
     public class LogicTicker
     {
-        private static ILog log = LogManager.GetLogger(typeof(LogicTicker));
+        private static ILog log = LogManager.GetLogger(nameof(LogicTicker));
 
         public int TPS;
         public int MsPT;

@@ -18,7 +18,10 @@ namespace wServer.networking.svrPackets
 
         public byte[] Key { get; set; }
 
-        public override PacketID ID { get { return PacketID.RECONNECT; } }
+        public override PacketID ID
+        {
+            get { return PacketID.RECONNECT; }
+        }
 
         public override Packet CreateInstance()
         {

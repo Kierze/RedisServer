@@ -6,7 +6,7 @@ namespace wServer.realm.worlds
 {
     internal class GameWorld : World
     {
-        private static ILog log = LogManager.GetLogger(typeof(GameWorld));
+        private static ILog log = LogManager.GetLogger(nameof(GameWorld));
 
         private bool oryxPresent;
         private int mapId;

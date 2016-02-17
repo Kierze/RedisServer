@@ -530,6 +530,9 @@ namespace common
             if ((n = elem.Element("UnlockCost")) != null)
                 UnlockCost = Utils.FromString(n.Value);
 
+            if ((n = elem.Element("DungeonName")) != null)
+                DungeonName = n.Value;
+
             StasisImmune = elem.Element("StasisImmune") != null;
             Oryx = elem.Element("Oryx") != null;
             Hero = elem.Element("Hero") != null;
@@ -568,6 +571,7 @@ namespace common
         public int UnlockCost { get; private set; }
         public bool Skin { get; private set; }
         public bool NoSkinSelect { get; private set; }
+        public string DungeonName { get; private set; }
 
         public int MaxHP { get; private set; }
         public int Defense { get; private set; }

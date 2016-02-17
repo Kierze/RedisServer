@@ -10,7 +10,7 @@ namespace wServer.realm
 {
     public class RealmPortalMonitor
     {
-        private static ILog log = LogManager.GetLogger(typeof(RealmPortalMonitor));
+        private static ILog log = LogManager.GetLogger(nameof(RealmPortalMonitor));
 
         private Nexus nexus;
         private RealmManager manager;

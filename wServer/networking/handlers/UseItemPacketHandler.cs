@@ -1,6 +1,4 @@
 ﻿using wServer.networking.cliPackets;
-using wServer.realm;
-using wServer.realm.entities;
 
 namespace wServer.networking.handlers
 {
@@ -10,14 +8,9 @@ namespace wServer.networking.handlers
 
         protected override void HandlePacket(Client client, UseItemPacket packet)
         {
-            client.Manager.Logic.AddPendingAction(t => Handle(client.Player, t, packet));
-        }
+            if (client.Player.Owner == null) return;
 
-        private void Handle(Player player, RealmTime time, UseItemPacket packet)
-        {
-            if (player.Owner == null) return;
-
-            player.UseItem(time, packet.SlotObject.ObjectId, packet.SlotObject.SlotId, packet.ItemUsePos);
+            client.Manager.Logic.AddPendingAction(t => client.Player.UseItem(t, packet.SlotObject.ObjectId, packet.SlotObject.SlotId, packet.ItemUsePos));
         }
     }
 }

@@ -21,7 +21,7 @@ namespace wServer.networking
 
     public class Client
     {
-        private static ILog log = LogManager.GetLogger(typeof(Client));
+        private static ILog log = LogManager.GetLogger(nameof(Client));
 
         private Socket skt;
         public RC4 ReceiveKey { get; private set; }
@@ -98,7 +98,7 @@ namespace wServer.networking
             skt.Close();
         }
 
-        private void Save() //Only when disconnect
+        public void Save() //Only when disconnect
         {
             if (Character != null && Player != null)
             {

@@ -11,7 +11,7 @@ namespace wServer.networking
     //hackish code
     internal class NetworkHandler
     {
-        private static ILog log = LogManager.GetLogger(typeof(NetworkHandler));
+        private static ILog log = LogManager.GetLogger(nameof(NetworkHandler));
 
         private enum ReceiveState
         {

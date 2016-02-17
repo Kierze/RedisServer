@@ -39,7 +39,7 @@ namespace wServer.realm
 
     public class RealmManager
     {
-        private static ILog log = LogManager.GetLogger(typeof(RealmManager));
+        private static ILog log = LogManager.GetLogger(nameof(RealmManager));
 
         public string InstanceId { get; private set; }
         public int MaxClient { get; private set; }
@@ -203,9 +203,10 @@ namespace wServer.realm
         public void Stop()
         {
             log.Info("Stopping Realm Manager...");
-
-            InterServer.Dispose();
             Terminating = true;
+            InterServer.Dispose();
+            foreach (var i in Clients.Values)
+                i.Disconnect();
             GameData.Dispose();
             logic.Join();
             network.Join();

@@ -14,7 +14,10 @@ namespace wServer.networking.svrPackets
 
         public int obf1 { get; set; }
 
-        public override PacketID ID { get { return PacketID.DEATH; } }
+        public override PacketID ID
+        {
+            get { return PacketID.DEATH; }
+        }
 
         public override Packet CreateInstance()
         {

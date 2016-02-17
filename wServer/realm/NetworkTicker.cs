@@ -10,7 +10,7 @@ namespace wServer.realm
 
     public class NetworkTicker //Sync network processing
     {
-        private ILog log = LogManager.GetLogger(typeof(NetworkTicker));
+        private ILog log = LogManager.GetLogger(nameof(NetworkTicker));
 
         public RealmManager Manager { get; private set; }
 

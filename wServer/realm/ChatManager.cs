@@ -25,7 +25,7 @@ namespace wServer.realm
             public string Text;
         }
 
-        private static ILog log = LogManager.GetLogger(typeof(ChatManager));
+        private static ILog log = LogManager.GetLogger(nameof(ChatManager));
 
         private RealmManager manager;
 

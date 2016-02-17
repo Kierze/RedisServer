@@ -26,7 +26,10 @@ namespace wServer.networking.svrPackets
 
         public string[] ExtraXML { get; set; }
 
-        public override PacketID ID { get { return PacketID.MAPINFO; } }
+        public override PacketID ID
+        {
+            get { return PacketID.MAPINFO; }
+        }
 
         public override Packet CreateInstance()
         {

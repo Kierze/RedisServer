@@ -12,7 +12,7 @@ namespace wServer.realm.entities
         private List<int> locked = new List<int>(6);
         private List<int> ignored = new List<int>(6);
 
-        private void SendAccountList(List<int> list, int id)
+        private void SendAccountList(List<string> list, int id)
         {
             Client.SendPacket(new AccountListPacket()
             {

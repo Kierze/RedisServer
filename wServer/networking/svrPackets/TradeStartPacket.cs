@@ -5,10 +5,15 @@ namespace wServer.networking.svrPackets
     public class TradeStartPacket : ServerPacket
     {
         public TradeItem[] MyItems { get; set; }
+
         public string YourName { get; set; }
+
         public TradeItem[] YourItems { get; set; }
 
-        public override PacketID ID { get { return PacketID.TRADESTART; } }
+        public override PacketID ID
+        {
+            get { return PacketID.TRADESTART; }
+        }
 
         public override Packet CreateInstance()
         {
@@ -29,13 +34,13 @@ namespace wServer.networking.svrPackets
 
         protected override void Write(NWriter wtr)
         {
-            wtr.Write((short)MyItems.Length);
-            foreach (var i in MyItems)
+            wtr.Write((ushort)MyItems.Length);
+            foreach (TradeItem i in MyItems)
                 i.Write(wtr);
 
             wtr.WriteUTF(YourName);
-            wtr.Write((short)YourItems.Length);
-            foreach (var i in YourItems)
+            wtr.Write((ushort)YourItems.Length);
+            foreach (TradeItem i in YourItems)
                 i.Write(wtr);
         }
     }

@@ -10,7 +10,7 @@ namespace wServer.realm
 {
     public class Entity : IProjectileOwner, ICollidable<Entity>
     {
-        private static ILog log = LogManager.GetLogger(typeof(Entity));
+        private static ILog log = LogManager.GetLogger(nameof(Entity));
 
         public RealmManager Manager { get; private set; }
 

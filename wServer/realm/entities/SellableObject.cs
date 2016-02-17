@@ -73,14 +73,14 @@ namespace wServer.realm.entities
                     player.Client.SendPacket(new BuyResultPacket()
                     {
                         Result = 0,
-                        Message = "Vault Chest Get!"
+                        Message = "{\"key\":\"server.buy_success\"}"
                     });
                 }
                 else
                     player.Client.SendPacket(new BuyResultPacket()
                     {
                         Result = BUY_NO_GOLD,
-                        Message = "Not enough gold!"
+                        Message = "{\"key\":\"server.not_enough_gold\"}"
                     });
             }
         }

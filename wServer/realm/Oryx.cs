@@ -12,7 +12,7 @@ namespace wServer.realm
     //The mad god who look after the realm
     internal class Oryx
     {
-        private static ILog log = LogManager.GetLogger(typeof(Oryx));
+        private static ILog log = LogManager.GetLogger(nameof(Oryx));
 
         private GameWorld world;
 

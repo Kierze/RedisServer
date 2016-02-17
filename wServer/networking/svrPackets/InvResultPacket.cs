@@ -6,7 +6,10 @@ namespace wServer.networking.svrPackets
     {
         public int Result { get; set; }
 
-        public override PacketID ID { get { return PacketID.INVRESULT; } }
+        public override PacketID ID
+        {
+            get { return PacketID.INVRESULT; }
+        }
 
         public override Packet CreateInstance()
         {

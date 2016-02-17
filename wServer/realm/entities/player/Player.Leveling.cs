@@ -144,9 +144,9 @@ namespace wServer.realm.entities
                 {
                     Owner.Timers.Add(new WorldTimer(100, (w, t) =>
                     {
-                        Client.SendPacket(new QuestObjIdPacket()
+                        Client.SendPacket(new QuestObjIdPacket
                         {
-                            ObjectID = newQuest.Id
+                            ObjectId = newQuest.Id
                         });
                     }));
                     questEntity = newQuest;
@@ -170,11 +170,11 @@ namespace wServer.realm.entities
                     newGoal = GetFameGoal(Fame);
                 if (newGoal > FameGoal)
                 {
-                    BroadcastSync(new NotificationPacket()
+                    BroadcastSync(new NotificationPacket
                     {
                         ObjectId = Id,
                         Color = new ARGB(0xFF00FF00),
-                        Text = "Class Quest Complete!"
+                        Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"Class Quest Complete!\"}}",
                     }, p => this.Dist(p) < 25);
                     Stars = GetStars();
                 }
@@ -217,11 +217,11 @@ namespace wServer.realm.entities
         public bool EnemyKilled(Enemy enemy, int exp, bool killer)
         {
             if (enemy == questEntity)
-                BroadcastSync(new NotificationPacket()
+                BroadcastSync(new NotificationPacket
                 {
                     ObjectId = Id,
                     Color = new ARGB(0xFF00FF00),
-                    Text = "Quest Complete!"
+                    Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"Quest Complete!\"}}",
                 }, p => this.Dist(p) < 25);
             if (exp != 0)
             {
