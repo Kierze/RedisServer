@@ -165,7 +165,7 @@ namespace Mono.Game
         {
             if (obj is Vector2)
             {
-                return Equals((Vector2)this);
+                return Equals(this);
             }
 
             return false;

@@ -165,7 +165,7 @@ namespace wServer.realm.entities
         private void PoisonEnemy(Enemy enemy, ActivateEffect eff)
         {
             int remainingDmg = (int)StatsManager.GetDefenseDamage(enemy, eff.TotalDamage, enemy.ObjectDesc.Defense);
-            int perDmg = (int)(remainingDmg * 1000 / eff.DurationMS);
+            int perDmg = remainingDmg * 1000 / eff.DurationMS;
             WorldTimer tmr = null;
             int x = 0;
             tmr = new WorldTimer(100, (w, t) =>

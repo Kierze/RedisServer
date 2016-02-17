@@ -2,14 +2,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace wServer.realm
 {
-    public interface IContainer
-    {
-        int[] SlotTypes { get; }
-        Inventory Inventory { get; }
-    }
+
 
     public class InventoryChangedEventArgs : EventArgs
     {

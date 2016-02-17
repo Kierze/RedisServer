@@ -67,12 +67,12 @@ namespace wServer.realm.entities
                 Skin = client.Character.Skin;
                 HealthPotions = client.Character.HealthPotions < 0 ? 0 : client.Character.HealthPotions;
                 MagicPotions = client.Character.MagicPotions < 0 ? 0 : client.Character.MagicPotions;
-                Inventory = new Inventory(this, client.Character.Items
-                        .Select(_ => _ == -1 ? null : (Manager.GameData.Items.ContainsKey((ushort)_) ? Manager.GameData.Items[(ushort)_] : null))
-                        .ToArray());
-                Inventory.InventoryChanged += (sender, e) => CalculateBoost();
-                SlotTypes = client.Manager.GameData.ObjectTypeToElement[ObjectType]
-                    .Element("SlotTypes").Value.CommaToArray<int>();
+                Inventory = client.Character.Items
+                    .Select( _ =>_ == -1 ? null: (Manager.GameData.Items.ContainsKey((ushort)_)
+                    ? Manager.GameData.Items[(ushort)_] : null)).ToArray();
+                var xElement = Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
+                if (xElement != null)
+                    SlotTypes = Utils.FromCommaSepString32(xElement.Value);
                 Stats = (int[])client.Character.Stats.Clone();
             }
             catch (Exception ex)
@@ -174,7 +174,7 @@ namespace wServer.realm.entities
 
         public int Texture2 { get; set; }
 
-        public Inventory Inventory { get; private set; }
+        public Item[] Inventory { get; private set; }
 
         public string Guild { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using common;
+using System.Collections.Generic;
 
 namespace wServer.realm.entities
 {
@@ -7,22 +8,15 @@ namespace wServer.realm.entities
         public Portal(RealmManager manager, ushort objType, int? life)
             : base(manager, objType, life, false, true, false)
         {
-            Usable = true;
+            Usable = objType != 0x0721;
         }
 
-        public bool Usable { get; set; }
         public World WorldInstance { get; set; }
-
-        protected override void ImportStats(StatsType stats, object val)
-        {
-            if (stats == StatsType.PortalUsable)
-                val = (int)val != 0;
-            base.ImportStats(stats, val);
-        }
 
         protected override void ExportStats(IDictionary<StatsType, object> stats)
         {
-            stats[StatsType.PortalUsable] = Usable ? 1 : 0;
+            if (ObjectType != 0x072f)
+                stats[StatsType.PortalUsable] = Usable ? 1 : 0;
             base.ExportStats(stats);
         }
 
@@ -35,5 +29,7 @@ namespace wServer.realm.entities
         {
             return false;
         }
+
+        public bool Usable { get; set; }
     }
 }

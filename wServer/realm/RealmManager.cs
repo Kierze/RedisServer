@@ -7,6 +7,7 @@ using System.Threading;
 using wServer.logic;
 using wServer.networking;
 using wServer.realm.commands;
+using wServer.realm.entities;
 using wServer.realm.worlds;
 
 namespace wServer.realm
@@ -155,6 +156,7 @@ namespace wServer.realm
 
             GameData = new XmlData();
             Behaviors = new BehaviorDb(this);
+            MerchantLists.InitMerchantLists(GameData);
 
             AddWorld(World.NEXUS_ID, Worlds[0] = new Nexus());
             Monitor = new RealmPortalMonitor(this);
@@ -167,6 +169,7 @@ namespace wServer.realm
             AddWorld(World.GAUNTLET, new GauntletMap());
 
             //AddWorld(new GameWorld(1, "Medusa", true));
+            
 
             InterServer = new ISManager(this);
             Chat = new ChatManager(this);

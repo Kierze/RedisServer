@@ -22,7 +22,7 @@ namespace wServer
         GOTO = 97, //slotid: 18
         INVDROP = 24, //slotid: 19
         INVRESULT = 92, //slotid: 20
-        RECONNECT = 10, //slotid: 21
+        RECONNECT = 100, //slotid: 21
         PING = 13, //slotid: 22
         PONG = 64, //slotid: 23
         MAPINFO = 89, //slotid: 24
@@ -33,7 +33,7 @@ namespace wServer
         USEPORTAL = 55, //slotid: 29
         DEATH = 95, //slotid: 30
         BUY = 59, //slotid: 31
-        BUYRESULT = 10, //slotid: 32
+        BUYRESULT = 101, //slotid: 32
         AOE = 23, //slotid: 33
         GROUNDDAMAGE = 86, //slotid: 34
         PLAYERHIT = 48, //slotid: 35
@@ -93,7 +93,7 @@ namespace wServer
         QUESTFETCHRESPONSE = 66, //slotid: 89
         QUESTREDEEMRESPONSE = 78, //slotid: 90
         UNKNOWN = 9, //slotid: 91
-        UNKNOWN2 = 50, //slotid: 92
+        ITEMTYPE = 50, //slotid: 92
         UNKNOWN3 = 87 //slotid: 93
     }
 }

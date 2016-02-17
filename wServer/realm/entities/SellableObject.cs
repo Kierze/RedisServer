@@ -21,7 +21,9 @@ namespace wServer.realm.entities
         }
 
         public int Price { get; set; }
+
         public CurrencyType Currency { get; set; }
+
         public int RankReq { get; set; }
 
         protected override void ExportStats(IDictionary<StatsType, object> stats)
@@ -32,35 +34,20 @@ namespace wServer.realm.entities
             base.ExportStats(stats);
         }
 
-        protected override void ImportStats(StatsType stats, object val)
-        {
-            if (stats == StatsType.SellablePrice) Price = (int)val;
-            else if (stats == StatsType.SellablePriceCurrency) Currency = (CurrencyType)(int)val;
-            else if (stats == StatsType.SellableRankRequirement) RankReq = (int)val;
-            base.ImportStats(stats, val);
-        }
-
-        protected bool TryDeduct(Player player)
+        protected virtual bool TryDeduct(Player player)
         {
             var acc = player.Client.Account;
             if (!player.NameChosen) return false;
+            if (player.Stars < RankReq) return false;
 
             if (Currency == CurrencyType.Fame)
-            {
-                if (acc.Fame < Price) return false;
-                Manager.Database.UpdateFame(acc, -Price);
-                player.CurrentFame = acc.Fame;
-                player.UpdateCount++;
-                return true;
-            }
-            else
-            {
-                if (acc.Credits < Price) return false;
-                Manager.Database.UpdateCredit(acc, -Price);
-                player.Credits = acc.Credits;
-                player.UpdateCount++;
-                return true;
-            }
+                if (acc.Fame < Price)
+                    return false;
+
+            if (Currency == CurrencyType.Gold)
+                if (acc.Credits < Price)
+                    return false;
+            return true;
         }
 
         public virtual void Buy(Player player)

@@ -14,15 +14,24 @@ namespace wServer.realm
 
         public RealmManager Manager { get; private set; }
 
-        protected Entity(RealmManager manager, ushort objType)
+        public Entity(RealmManager manager, ushort objType)
+            : this(manager, objType, true, false)
         {
+        }
+
+        public Entity(RealmManager manager, ushort objType, bool interactive)
+            : this(manager, objType, interactive, false)
+        {
+        }
+
+        protected Entity(RealmManager manager, ushort objType, bool interactive, bool isPet)
+        {
+            Manager = manager;
             ObjectType = objType;
             Name = "";
-            Size = 100;
-            Manager = manager;
-            manager.Behaviors.ResolveBehavior(this);
-
-            manager.GameData.ObjectDescs.TryGetValue(ObjectType, out desc);
+            Size = desc != null ? manager.GameData.ObjectDescs[objType].MaxSize : 100;
+            Manager.Behaviors.ResolveBehavior(this);
+            Manager.GameData.ObjectDescs.TryGetValue(ObjectType, out desc);
             if (desc != null && (desc.Player || desc.Enemy))
             {
                 posHistory = new Position[256];
@@ -276,30 +285,61 @@ namespace wServer.realm
                     throw new Exception("Projectile should not instantiated using Entity.Resolve");
                 case "Sign":
                     return new Sign(manager, id);
+
                 case "Wall":
+                case "DoubleWall":
                     return new Wall(manager, id, node);
+
                 case "ConnectedWall":
                 case "CaveWall":
                     return new ConnectedObject(manager, id);
+
                 case "GameObject":
                 case "CharacterChanger":
                 case "MoneyChanger":
                 case "NameChanger":
-                    return new StaticObject(manager, id, StaticObject.GetHP(node), true, false, true);
+                    return new StaticObject(manager, id, StaticObject.GetHP(node), StaticObject.GetStatic(node), false, true);
+
+                case "GuildRegister":
+                case "GuildChronicle":
+                case "GuildBoard":
+                    return new StaticObject(manager, id, null, false, false, false);
+
                 case "Container":
-                    return new Container(manager, id);
+                    return new Container(manager, node);
+
                 case "Player":
                     throw new Exception("Player should not instantiated using Entity.Resolve");
-                case "Character":   //Other characters means enemy
+                case "Character": //Other characters means enemy
                     return new Enemy(manager, id);
-                case "Portal":
-                    return new Portal(manager, id, null);
-                case "ClosedVaultChest":
-                case "GuildMerchant":
-                    return new SellableObject(manager, id);
 
+                case "Portal":
                 case "GuildHallPortal":
-                //return new StaticObject(id);
+                    return new Portal(manager, id, null);
+
+                case "ClosedVaultChest":
+                case "ClosedVaultChestGold":
+                case "ClosedGiftChest":
+                case "VaultChest":
+                case "Merchant":
+                    return new Merchants(manager, id);
+
+                case "GuildMerchant":
+                    throw new Exception("Kaputt");
+
+                case "ArenaGuard":
+                case "ArenaPortal":
+                case "MysteryBoxGround":
+                case "ReskinVendor":
+                case "PetUpgrader":
+                case "FortuneTeller":
+                case "YardUpgrader":
+                case "FortuneGround":
+                case "QuestRewards":
+                    return new StaticObject(manager, id, null, true, false, false);
+
+                case "Pet":
+                    throw new Exception("Pets should not instantiated using Entity.Resolve");
                 default:
                     log.Warn($"Not supported type: {type}");
                     return new Entity(manager, id);
@@ -341,6 +381,11 @@ namespace wServer.realm
                 return true;
             else
                 return ObjectDesc.Enemy || ObjectDesc.Player;
+        }
+
+        public bool IsOneHit(int dmg, int hpBeforeHit)
+        {
+            return ObjectDesc.MaxHP == hpBeforeHit && ObjectDesc.MaxHP <= dmg;
         }
 
         public virtual void ProjectileHit(Projectile projectile, Entity target)

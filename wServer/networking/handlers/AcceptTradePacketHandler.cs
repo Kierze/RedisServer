@@ -26,7 +26,6 @@ namespace wServer.networking.handlers
                     YourOffers = player.trade
                 });
 
-                player.MonitorTrade();
                 if (player.tradeAccepted && player.tradeTarget.tradeAccepted)
                     client.Manager.Logic.AddPendingAction(t => DoTrade(player));
             }

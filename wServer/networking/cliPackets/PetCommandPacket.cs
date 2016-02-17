@@ -24,7 +24,7 @@ namespace wServer.networking.cliPackets
 
         protected override void Read(NReader rdr)
         {
-            CommandId = (int)rdr.ReadByte();
+            CommandId = rdr.ReadByte();
             PetId = (uint)rdr.ReadInt32();
         }
 

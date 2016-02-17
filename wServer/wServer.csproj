@@ -267,6 +267,8 @@
     <Compile Include="networking\svrPackets\UpdatePetPacket.cs" />
     <Compile Include="networking\svrPackets\UpgradePetYardResultPacket.cs" />
     <Compile Include="networking\svrPackets\VerifyEmailDialogPacket.cs" />
+    <Compile Include="networking\unknownPackets\ItemTypePacket.cs" />
+    <Compile Include="networking\unknownPackets\PickNewPetPacket.cs" />
     <Compile Include="PacketIds.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -282,6 +284,8 @@
     <Compile Include="realm\entities\Container.cs" />
     <Compile Include="realm\entities\Decoy.cs" />
     <Compile Include="realm\entities\Enemy.cs" />
+    <Compile Include="realm\entities\merchant\MerchantLists.cs" />
+    <Compile Include="realm\entities\merchant\Merchants.cs" />
     <Compile Include="realm\entities\Placeholder.cs" />
     <Compile Include="realm\entities\player\Player.Chat.cs" />
     <Compile Include="realm\entities\player\Player.cs" />

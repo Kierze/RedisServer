@@ -1,4 +1,5 @@
 ﻿using wServer.networking.cliPackets;
+using wServer.networking.svrPackets;
 using wServer.realm.entities;
 
 namespace wServer.networking.handlers
@@ -11,9 +12,17 @@ namespace wServer.networking.handlers
         {
             client.Manager.Logic.AddPendingAction(t =>
             {
-                if (client.Player.Owner == null) return;
-                var obj = client.Player.Owner.GetEntity(packet.ObjectId) as SellableObject;
-                if (obj != null)
+                var obj = client.Player?.Owner?.GetEntity(packet.ObjectId) as SellableObject;
+                if (obj == null)
+                {
+                    client.SendPacket(new BuyResultPacket
+                    {
+                        Result = -1,
+                        Message = "Invalid Object"
+                    });
+                    return;
+                }
+                for (var i = 0; i < packet.Quantity; i++)
                     obj.Buy(client.Player);
             });
         }

@@ -21,7 +21,7 @@ namespace wServer.logic.behaviors
         public Charge(double speed = 4, float range = 10, Cooldown coolDown = new Cooldown())
         {
             this.speed = (float)speed;
-            this.range = (float)range;
+            this.range = range;
             this.coolDown = coolDown.Normalize(2000);
         }
 

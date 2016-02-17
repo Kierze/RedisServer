@@ -9,14 +9,16 @@ namespace wServer.realm.entities
     public class Enemy : Character
     {
         private bool stat;
-
         private DamageCounter counter;
+        private Position? pos;
+        private float bleeding = 0;
 
         public Enemy(RealmManager manager, ushort objType)
             : base(manager, objType, new wRandom())
         {
             stat = ObjectDesc.MaxHP == 0;
             counter = new DamageCounter(this);
+            Name = ObjectDesc.ObjectId;
         }
 
         public DamageCounter DamageCounter { get { return counter; } }
@@ -25,21 +27,13 @@ namespace wServer.realm.entities
 
         public int AltTextureIndex { get; set; }
 
+        public Position SpawnPoint { get { return pos ?? new Position() { X = X, Y = Y }; } }
+
         protected override void ExportStats(IDictionary<StatsType, object> stats)
         {
             stats[StatsType.AltTextureIndex] = AltTextureIndex;
             base.ExportStats(stats);
         }
-
-        protected override void ImportStats(StatsType stats, object val)
-        {
-            if (stats == StatsType.AltTextureIndex)
-                AltTextureIndex = (int)val;
-            base.ImportStats(stats, val);
-        }
-
-        private Position? pos;
-        public Position SpawnPoint { get { return pos ?? new Position() { X = X, Y = Y }; } }
 
         public override void Init(World owner)
         {
@@ -138,8 +132,6 @@ namespace wServer.realm.entities
             }
             return false;
         }
-
-        private float bleeding = 0;
 
         public override void Tick(RealmTime time)
         {

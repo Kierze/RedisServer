@@ -18,17 +18,38 @@ namespace wServer.realm.terrain
         Store_4,
         Store_5,
         Store_6,
-        Store_7,
-        Store_8,
-        Store_9,
         Vault,
         Loot,
         Defender,
         Hallway,
+        Enemy,
         Hallway_1,
         Hallway_2,
         Hallway_3,
-        Enemy,
+        Store_7,
+        Store_8,
+        Store_9,
+        Gifting_Chest,
+        Store_10,
+        Store_11,
+        Store_12,
+        Store_13,
+        Store_14,
+        Store_15,
+        Store_16,
+        Store_17,
+        Store_18,
+        Store_19,
+        Store_20,
+        Store_21,
+        Store_22,
+        Store_23,
+        Store_24,
+        PetRegion,
+        Outside_Arena,
+        Item_Spawn_Point,
+        Arena_Central_Spawn,
+        Arena_Edge_Spawn
     }
 
     public enum WmapTerrain : byte
@@ -46,6 +67,7 @@ namespace wServer.realm.terrain
         LowForest,
         ShoreSand,
         ShorePlains,
+        BeachTowels
     }
 
     public struct WmapTile
@@ -69,13 +91,55 @@ namespace wServer.realm.terrain
                     switch (kv[0])
                     {
                         case "name":
-                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.Name, kv[1])); break;
+                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.Name, kv[1]));
+                            break;
+
                         case "size":
-                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.Size, Utils.FromString(kv[1]))); break;
+                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.Size, Utils.FromString(kv[1])));
+                            break;
+
                         case "eff":
-                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.Effects, Utils.FromString(kv[1]))); break;
+                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.Effects, Utils.FromString(kv[1])));
+                            break;
+
                         case "conn":
-                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.ObjectConnection, Utils.FromString(kv[1]))); break;
+                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.ObjectConnection,
+                                Utils.FromString(kv[1])));
+                            break;
+
+                        case "hp":
+                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.HP, Utils.FromString(kv[1])));
+                            break;
+
+                        case "mcost":
+                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.SellablePrice,
+                                Utils.FromString(kv[1])));
+                            break;
+
+                        case "mcur":
+                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.SellablePriceCurrency,
+                                Utils.FromString(kv[1])));
+                            break;
+
+                        case "mtype":
+                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.MerchantMerchandiseType,
+                                Utils.FromString(kv[1])));
+                            break;
+
+                        case "mcount":
+                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.MerchantRemainingCount,
+                                Utils.FromString(kv[1])));
+                            break;
+
+                        case "mtime":
+                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.MerchantRemainingMinute,
+                                Utils.FromString(kv[1])));
+                            break;
+
+                        case "stars":
+                            stats.Add(new KeyValuePair<StatsType, object>(StatsType.SellableRankRequirement,
+                                Utils.FromString(kv[1])));
+                            break;
                             //case "mtype":
                             //    entity.Stats[StatsType.MerchantMerchandiseType] = Utils.FromString(kv[1]); break;
                             //case "mcount":
@@ -307,15 +371,21 @@ namespace wServer.realm.terrain
                         switch (kv[0])
                         {
                             case "name":
-                                entity.Name = kv[1]; break;
+                                entity.Name = kv[1];
+                                break;
+
                             case "size":
-                                entity.Size = Utils.FromString(kv[1]); break;
+                                entity.Size = Utils.FromString(kv[1]);
+                                break;
+
                             case "eff":
-                                entity.ConditionEffects = (ConditionEffects)Utils.FromString(kv[1]); break;
+                                entity.ConditionEffects = (ConditionEffects)Utils.FromString(kv[1]);
+                                break;
+
                             case "conn":
-                                (entity as ConnectedObject).Connection = ConnectionInfo.Infos[(uint)Utils.FromString(kv[1])]; break;
-                                //case "mtype":
-                                //    entity.Stats[StatsType.MerchantMerchandiseType] = Utils.FromString(kv[1]); break;
+                                (entity as ConnectedObject).Connection =
+                                    ConnectionInfo.Infos[(uint)Utils.FromString(kv[1])];
+                                break;
                                 //case "mcount":
                                 //    entity.Stats[StatsType.MerchantRemainingCount] = Utils.FromString(kv[1]); break;
                                 //case "mtime":

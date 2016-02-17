@@ -116,23 +116,9 @@ namespace wServer.realm.entities
             tradeTarget.tradeTarget = null;
             tradeTarget.trade = null;
             tradeTarget.tradeAccepted = false;
-            tradeTarget.Inventory.InventoryChanged -= MonitorInventory;
             tradeTarget = null;
             trade = null;
             tradeAccepted = false;
-            Inventory.InventoryChanged -= MonitorInventory;
-        }
-
-        public void MonitorTrade()
-        {
-            Inventory.InventoryChanged += MonitorInventory;
-        }
-
-        private void MonitorInventory(object sender, InventoryChangedEventArgs e)
-        {
-            Player parent = (sender as Inventory).Parent as Player;
-            if (parent == null) return;
-            parent.CancelTrade();
         }
 
         private void CheckTradeTimeout(RealmTime time)

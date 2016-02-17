@@ -324,6 +324,16 @@ namespace common
             acc.Reload();
         }
 
+        public void UpdateTokens(DbAccount acc, int amount)
+        {
+            if (amount > 0)
+                WaitAll(Hashes.Increment(0, acc.Key, "fortuneTokens", amount));
+            else
+                Hashes.Increment(0, acc.Key, "fortuneTokens", amount).Wait();
+            acc.Flush();
+            acc.Reload();
+        }
+
         public DbClassStats ReadClassStats(DbAccount acc) => new DbClassStats(acc);
 
         public DbVault ReadVault(DbAccount acc) => new DbVault(acc);
