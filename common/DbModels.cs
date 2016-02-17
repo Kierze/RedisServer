@@ -1,5 +1,4 @@
 ﻿using BookSleeve;
-using log4net;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

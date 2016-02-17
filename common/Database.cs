@@ -52,7 +52,7 @@ namespace common
                 Credits = 1000,
                 FortuneTokens = 0,
                 Gifts = new int[] { 0xae9 },
-                PetYardType = 0,
+                PetYardType = 1,
                 IsAgeVerified = 0,
                 Rank = 0,
             };
@@ -244,7 +244,7 @@ namespace common
                 Credits = 1000,
                 FortuneTokens = 0,
                 Gifts = new int[] { 0xae9 },
-                PetYardType = 0,
+                PetYardType = 1,
                 IsAgeVerified = 1,
             };
             acc.Flush();

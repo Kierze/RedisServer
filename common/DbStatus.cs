@@ -28,9 +28,9 @@ namespace common
             switch (status)
             {
                 case LoginStatus.InvalidCredentials:
-                    return "Bad Login";
+                    return "Error.incorrectEmailOrPassword";
                 case LoginStatus.AccountNotExists:
-                    return "Bad Login";
+                    return "Error.accountNotFound";
                 case LoginStatus.OK:
                     return "OK";
             }
@@ -42,7 +42,7 @@ namespace common
             switch (status)
             {
                 case RegisterStatus.UsedName:
-                    return "Duplicated Name";
+                    return "Error.nameAlreadyInUse";
                 case RegisterStatus.OK:
                     return "OK";
             }

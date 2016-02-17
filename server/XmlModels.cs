@@ -245,7 +245,7 @@ namespace server
                 Guild.Id != 0 ? Guild.ToXml() : null,
                 Vault.ToXml(),
                 new XElement("IsAgeVerified", IsAgeVerified),
-                new XElement("PetYardType", PetYardType)
+                PetYardType != 0 ? new XElement("PetYardType", PetYardType) : null
             );
     }
 
@@ -323,8 +323,6 @@ namespace server
 
     internal class ClassAvailabilityList
     {
-        public string Id { get; private set; }
-        public string Restricted { get; private set; }
         private Dictionary<ushort, ClassAvailabilityEntry> entries;
         public ClassAvailabilityEntry this[ushort type] => entries[type];
 
