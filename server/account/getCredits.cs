@@ -4,6 +4,8 @@ namespace server.account
 {
     internal class getCredits : RequestHandler
     {
+        // guid, password
+        // invalid acc -> <Error>Error.noAccountCannotPurchaseSkin</Error>
         protected override void HandleRequest()
         {
             DbAccount acc;

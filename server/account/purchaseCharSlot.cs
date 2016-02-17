@@ -4,6 +4,8 @@ namespace server.account
 {
     internal class purchaseCharSlot : RequestHandler
     {
+        // guid, password
+        // <Error>Not enough Gold</Error>
         protected override void HandleRequest()
         {
             DbAccount acc;
@@ -19,7 +21,7 @@ namespace server.account
                     }
                     else if (acc.Credits < 100)
                     {
-                        WriteErrorLine("Not enough credits");
+                        WriteErrorLine("Not enough Gold");
                         return;
                     }
                     Database.UpdateCredit(acc, -100);

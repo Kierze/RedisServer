@@ -4,6 +4,7 @@ namespace server.account
 {
     internal class changePassword : RequestHandler
     {
+        // guid, password, newPassword
         protected override void HandleRequest()
         {
             DbAccount acc;

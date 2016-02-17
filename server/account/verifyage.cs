@@ -4,12 +4,8 @@ namespace server.account
 {
     internal class verifyage : RequestHandler
     {
-        /**
-         guid
-         isAgeVerified
-         password
-        */
-
+        // guid, password (possibly more)
+        // <Error>Error.accountNotFound</Error>
         protected override void HandleRequest()
         {
             DbAccount acc;

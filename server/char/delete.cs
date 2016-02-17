@@ -4,6 +4,7 @@ namespace server.@char
 {
     internal class delete : RequestHandler
     {
+        // guid, password, charId
         protected override void HandleRequest()
         {
             DbAccount acc;

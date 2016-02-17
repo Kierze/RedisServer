@@ -3,6 +3,13 @@ using System.Linq;
 
 namespace server.account
 {
+    // guid, password, name
+    // <Error>Error.accountNotFound</Error>
+    // <Error>Error.nameTooShort</Error>
+    // <Error>Error.nameIsNotAlpha</Error>
+    // <Error>Error.nameTooLong</Error>
+    // <Error>Error.nameAlreadyInUse</Error>
+    // <Error>Error.notEnoughGold</Error>
     internal class setName : RequestHandler
     {
         protected override void HandleRequest()

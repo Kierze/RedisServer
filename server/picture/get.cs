@@ -5,8 +5,6 @@ namespace server.picture
 {
     internal class get : RequestHandler
     {
-        private byte[] buff = new byte[0x10000];
-
         protected override void HandleRequest()
         {
             //warning: maybe has hidden url injection
@@ -36,5 +34,7 @@ namespace server.picture
                     Context.Response.OutputStream.Write(buff, 0, c);
             }
         }
+
+        private byte[] buff = new byte[0x10000];
     }
 }

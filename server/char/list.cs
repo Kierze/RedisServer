@@ -5,7 +5,30 @@ using System.Collections.Generic;
 namespace server.@char
 {
     internal class list : RequestHandler
-    {
+    {        
+        protected override void HandleRequest()
+        {
+            DbAccount acc;
+            var status = Database.Verify(Query["guid"], Query["password"], out acc);
+            if (status == LoginStatus.OK || status == LoginStatus.AccountNotExists)
+            {
+                if (status == LoginStatus.AccountNotExists)
+                    acc = Database.CreateGuestAccount(Query["guid"]);
+
+                var ca = new DbClassAvailability(acc);
+                if (ca.IsNull)
+                    ca.Init(GameData);
+                ca.Flush();
+
+                var list = CharList.FromDb(Database, acc);
+                list.Servers = GetServerList();
+                WriteLine(list.ToXml(Program.GameData, acc));
+                //WriteLine(list.ToXml().ToString(SaveOptions.None));
+            }
+            else
+                WriteErrorLine(status.GetInfo());
+        }
+
         private Lazy<List<ServerItem>> svrList { get; set; }
 
         public list()
@@ -28,29 +51,6 @@ namespace server.@char
                     AdminOnly = Program.Settings.GetValue<bool>($"svr{i}Admin", "false")
                 });
             return ret;
-        }
-
-        protected override void HandleRequest()
-        {
-            DbAccount acc;
-            var status = Database.Verify(Query["guid"], Query["password"], out acc);
-            if (status == LoginStatus.OK || status == LoginStatus.AccountNotExists)
-            {
-                if (status == LoginStatus.AccountNotExists)
-                    acc = Database.CreateGuestAccount(Query["guid"]);
-
-                var ca = new DbClassAvailability(acc);
-                if (ca.IsNull)
-                    ca.Init(GameData);
-                ca.Flush();
-
-                var list = CharList.FromDb(Database, acc);
-                list.Servers = GetServerList();
-                WriteLine(list.ToXml(Program.GameData, acc));
-                //WriteLine(list.ToXml().ToString(SaveOptions.None));
-            }
-            else
-                WriteErrorLine(status.GetInfo());
         }
     }
 }

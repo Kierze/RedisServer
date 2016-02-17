@@ -4,14 +4,8 @@ namespace server.steamworks
 {
     internal class finalizePurchase : RequestHandler
     {
-        /*
-        this._-04f.sendRequest("/steamworks/finalizePurchase", {
-                    appid:_arg1,
-                    orderid:_arg2,
-                    authorized:0
-                });
-        */
-
+        // appid, orderid, authorized (0)
+        // <Error>Unable to find orderid</Error>
         protected override void HandleRequest()
         {
             throw new NotImplementedException();

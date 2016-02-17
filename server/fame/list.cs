@@ -4,6 +4,8 @@ namespace server.fame
 {
     internal class list : RequestHandler
     {
+        // timespan, accountId, charId
+        // <Error>Invalid fame list</Error>
         protected override void HandleRequest()
         {
             DbChar character = null;

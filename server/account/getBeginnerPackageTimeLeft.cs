@@ -4,6 +4,8 @@ namespace server.account
 {
     internal class getBeginnerPackageTimeLeft : RequestHandler
     {
+        // guid, password
+        // default -> <BeginnerPackageTimeLeft>604800</BeginnerPackageTimeLeft>
         protected override void HandleRequest()
         {
             DbAccount acc;

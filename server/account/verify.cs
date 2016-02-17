@@ -2,6 +2,9 @@
 
 namespace server.account
 {
+    // guid, password
+    // <Error>WebChangePasswordDialog.passwordError</Error>
+    // <Error>Error.invalidEmail</Error>
     internal class verify : RequestHandler
     {
         protected override void HandleRequest()
