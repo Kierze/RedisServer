@@ -212,7 +212,7 @@ namespace server
 
                 Credits = acc.Credits,
                 NextCharSlotPrice = 100,
-                BeginnerPackageTimeLeft = UInt32.MaxValue,
+                BeginnerPackageTimeLeft = 604800,
 
                 Gifts = acc.Gifts,
                 PetYardType = acc.PetYardType,
