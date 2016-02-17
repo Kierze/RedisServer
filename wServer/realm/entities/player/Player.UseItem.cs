@@ -762,6 +762,13 @@ namespace wServer.realm.entities
                             }));
                         }
                         break;
+                    case ActivateEffects.Dye:
+                        if (item.Texture1 != 0)
+                            Texture1 = item.Texture1;
+                        if (item.Texture2 != 0)
+                            Texture2 = item.Texture2;
+                        SaveToCharacter();
+                        break;
 
                     case ActivateEffects.Pet:
                     case ActivateEffects.UnlockPortal:

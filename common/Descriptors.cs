@@ -336,31 +336,6 @@ namespace common
 
     public class Item
     {
-        public ushort ObjectType { get; private set; }
-        public string ObjectId { get; private set; }
-        public int SlotType { get; private set; }
-        public int Tier { get; private set; }
-        public string Description { get; private set; }
-        public float RateOfFire { get; private set; }
-        public bool Usable { get; private set; }
-        public int BagType { get; private set; }
-        public int MpCost { get; private set; }
-        public int FameBonus { get; private set; }
-        public int NumProjectiles { get; private set; }
-        public float ArcGap { get; private set; }
-        public bool Consumable { get; private set; }
-        public bool Potion { get; private set; }
-        public string DisplayId { get; private set; }
-        public int Doses { get; private set; }
-        public string SuccessorId { get; private set; }
-        public bool Soulbound { get; private set; }
-        public float Cooldown { get; private set; }
-        public bool Resurrects { get; private set; }
-
-        public KeyValuePair<int, int>[] StatsBoost { get; private set; }
-        public ActivateEffect[] ActivateEffects { get; private set; }
-        public ProjectileDesc[] Projectiles { get; private set; }
-
         public Item(ushort type, XElement elem)
         {
             XElement n;
@@ -418,6 +393,12 @@ namespace common
                 Cooldown = 0;
             Resurrects = elem.Element("Resurrects") != null;
 
+            if ((n = elem.Element("Tex1")) != null)
+                Texture1 = Utils.FromString(n.Value);
+
+            if ((n = elem.Element("Tex2")) != null)
+                Texture2 = Utils.FromString(n.Value);
+
             List<KeyValuePair<int, int>> stats = new List<KeyValuePair<int, int>>();
             foreach (XElement i in elem.Elements("ActivateOnEquip"))
                 stats.Add(new KeyValuePair<int, int>(int.Parse(i.Attribute("stat").Value), int.Parse(i.Attribute("amount").Value)));
@@ -433,6 +414,33 @@ namespace common
                 prj.Add(new ProjectileDesc(i));
             Projectiles = prj.ToArray();
         }
+
+        public ushort ObjectType { get; private set; }
+        public string ObjectId { get; private set; }
+        public int SlotType { get; private set; }
+        public int Tier { get; private set; }
+        public string Description { get; private set; }
+        public float RateOfFire { get; private set; }
+        public bool Usable { get; private set; }
+        public int BagType { get; private set; }
+        public int MpCost { get; private set; }
+        public int FameBonus { get; private set; }
+        public int NumProjectiles { get; private set; }
+        public float ArcGap { get; private set; }
+        public bool Consumable { get; private set; }
+        public bool Potion { get; private set; }
+        public string DisplayId { get; private set; }
+        public int Doses { get; private set; }
+        public string SuccessorId { get; private set; }
+        public bool Soulbound { get; private set; }
+        public float Cooldown { get; private set; }
+        public bool Resurrects { get; private set; }
+        public int Texture1 { get; private set; }
+        public int Texture2 { get; private set; }
+
+        public KeyValuePair<int, int>[] StatsBoost { get; private set; }
+        public ActivateEffect[] ActivateEffects { get; private set; }
+        public ProjectileDesc[] Projectiles { get; private set; }
     }
 
     public class SpawnCount

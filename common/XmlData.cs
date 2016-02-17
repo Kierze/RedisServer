@@ -125,7 +125,7 @@ namespace common
             foreach (var elem in root.XPathSelectElements("//Object"))
             {
                 if (elem.Element("Class") == null) continue;
-                string @class = elem.Element("Class").Value;
+                string cls = elem.Element("Class").Value;
                 string id = elem.Attribute("id").Value;
 
                 ushort type;
@@ -134,6 +134,8 @@ namespace common
                     type = assign.Assign(id, elem);
                 else
                     type = (ushort)Utils.FromString(typeAttr.Value);
+
+                if (cls == "PetBehavior" || cls == "PetAbility") continue;
 
                 if (typeToId.ContainsKey(type))
                     log.Warn($"\"{id}\" and \"{typeToId[type]}\" has the same ID of 0x{type:x4}!");
@@ -144,12 +146,14 @@ namespace common
                 idToType[id] = type;
                 typeToElem[type] = elem;
 
-                switch (@class)
+                switch (cls)
                 {
                     case "Equipment":
+                    case "Dye":
                         items[type] = new Item(type, elem);
                         break;
                     case "Portal":
+                    case "GuildHallPortal":
                         try
                         {
                             portals[type] = new PortalDesc(type, elem);
@@ -160,6 +164,11 @@ namespace common
                             /*3392,1792,1795,1796,1805,1806,1810,1825 -- no location, assume nexus?*
         *  Tomb Portal of Cowardice,  Dungeon Portal,  Portal of Cowardice,  Realm Portal,  Glowing Portal of Cowardice,  Glowing Realm Portal,  Nexus Portal,  Locked Wine Cellar Portal*/
                         }
+                        break;
+                    case "Pet":
+                    case "PetSkin":
+                    case "PetBehavior":
+                    case "PetAbility":
                         break;
                     default:
                         objDescs[type] = new ObjectDesc(type, elem);
