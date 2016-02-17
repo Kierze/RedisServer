@@ -293,7 +293,7 @@ namespace common
 
         public int PetYardType
         {
-            get { return GetValue("petYardType", 0); }
+            get { return GetValue("petYardType", 1); }
             set { SetValue("petYardType", value); }
         }
 

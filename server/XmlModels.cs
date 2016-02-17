@@ -244,8 +244,8 @@ namespace server
                 Stats.ToXml(),
                 Guild.Id != 0 ? Guild.ToXml() : null,
                 Vault.ToXml(),
-                new XElement("IsAgeVerified", IsAgeVerified)/**,
-                new XElement("PetYardType", PetYardType)*/
+                new XElement("IsAgeVerified", IsAgeVerified),
+                new XElement("PetYardType", PetYardType)
             );
     }
 
